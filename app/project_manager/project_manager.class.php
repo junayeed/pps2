@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Project Manager Class
+ */
+
 class projectManagerApp extends DefaultApplication
 {
    /**
