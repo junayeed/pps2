@@ -17,7 +17,6 @@ class projectManagerApp extends DefaultApplication
            case 'save'               : $screen = $this->saveRecord();        break;
            case 'saveObjectiveCost'  : $screen = $this->saveObjectiveCost();  break;
            case 'saveLocations'      : $screen = $this->saveLocations();  break;
-           
            case 'delete'             : $screen = $this->deleteRecord();    break;
            case 'list'               : $screen = $this->showList();        break;
            case 'partA'              : $screen = $this->showProjectPartA(); break;
