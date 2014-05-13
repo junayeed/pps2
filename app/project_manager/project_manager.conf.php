@@ -25,6 +25,7 @@
    define('PROJECT_PART_A_TEMPLATE',                TEMPLATE_DIR . '/project_manager_partA.html');
    define('PROJECT_PART_B_TEMPLATE',                TEMPLATE_DIR . '/project_manager_partB.html');
    define('PROJECT_LIST_TEMPLATE',                  TEMPLATE_DIR . '/project_manager_list.html');
+   define('PROJECT_ANNEX_I_LOCATION_TEMPLATE',      TEMPLATE_DIR . '/location_manager.html');
 
 
    /**#@+

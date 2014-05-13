@@ -25,6 +25,7 @@ class projectManagerApp extends DefaultApplication
            case 'list'               : $screen = $this->showList();        break;
            case 'partA'              : $screen = $this->showProjectPartA(); break;
            case 'partB'              : $screen = $this->showProjectPartB(); break;
+           case 'anaexI'             : $screen = $this->showProjectLocation(); break;
            case 'ProjectHome'        : $screen = $this->showProjectHomePage(); break;
            //case 'list'   : $screen = $this->showList();        break;
            default             : $screen = $this->showEditor($msg);
@@ -109,6 +110,18 @@ class projectManagerApp extends DefaultApplication
    {
       return createPage(PROJECT_PART_B_TEMPLATE, $data);
    }
+   
+    function showProjectLocation()
+    {
+        $PI        = getUserField('PI');    
+        $pid       = base64_decode($PI);
+        $project   = new Project($pid);
+        $data->location = $project->basicInfo->locations;
+        $data->PI  =  $PI;
+        //dumpVar($data);
+       
+        return createPage(PROJECT_ANNEX_I_LOCATION_TEMPLATE, $data);
+    }
    
    function showProjectHomePage()
    {

@@ -53,6 +53,9 @@
   define('ADP_SECTOR_LOOKUP_TBL',        DB_NAME . '.adp_sector_lookup');
   define('ADP_SUBSECTOR_LOOKUP_TBL',     DB_NAME . '.adp_subsector_lookup');
   define('SECTOR_DIVISION_LOOKUP_TBL',   DB_NAME . '.sector_division_lookup');
+  define('DIVISION_LOOKUP_TBL',          DB_NAME . '.division_lookup');
+  define('DISTRICT_LOOKUP_TBL',          DB_NAME . '.district_lookup');
+  define('UPZILA_LOOKUP_TBL',            DB_NAME . '.upzila_lookup');
   
   
   define('US_STATE_TBL',                 DB_NAME . '.us_states');

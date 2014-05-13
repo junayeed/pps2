@@ -1,12 +1,10 @@
 <?php
     /**
-    * File: Project.class.php
-    
-    */
+     * File: Project.class.php
+     */
 
 class Project
 {
-    
     public $id;
     public $basicInfo; 
     
@@ -108,7 +106,6 @@ class Project
 
     public function saveBasicInfo()
     {
-        
         $info['table'] = PROJECT_TBL;
         $info['data']  = getUserDataSet(PROJECT_TBL);
         $info['debug'] = false;
@@ -135,12 +132,9 @@ class Project
     
     public function saveModeOfFinancing()
     {
-        
         $info['table'] = PROJECT_MODE_FINANCING_TBL;
         $info['data']  = getUserDataSet(PROJECT_MODE_FINANCING_TBL);
         $info['debug'] = true;
-        
-        
         
         if($this->id && !empty($this->basicInfo->modefinancing))
         {
@@ -159,7 +153,6 @@ class Project
             }    
             return  0;
         }
-         
     }
     
     public function saveLocations($locations,$location_type)
@@ -199,7 +192,6 @@ class Project
                 insert($info);
             }    
         }    
-        
     }
     
     public function saveAgencies($agencies)
@@ -219,7 +211,6 @@ class Project
                 insert($info);
             }    
         }    
-        
     }
     
     public function saveDevPartners($partners)
@@ -239,10 +230,9 @@ class Project
                 insert($info);
             }    
         }    
-        
     }
 
-        private function loadProjectSummary()
+    private function loadProjectSummary()
     {
         $info['table'] = PROJECT_SUMMARY_TBL;
         $info['where'] = "pid = $this->id";
@@ -264,13 +254,18 @@ class Project
         $this->projectDetails = $row;        
     }
     
-    private function loadProjectLocations()
+    public function loadProjectLocations()
     {
-        $info['table'] = PROJECT_LOCATIONS_TBL;
-        $info['where'] = "pid = $this->id";
-        $info['debug'] = false;
+        $info['table']  = PROJECT_LOCATIONS_TBL . ' AS PLT LEFT JOIN ' . DIVISION_LOOKUP_TBL . ' AS DLT ON (location_id = divid) LEFT JOIN ' . 
+                          DISTRICT_LOOKUP_TBL . ' AS DISLT ON (location_id = district_id AND DLT.divid = DISLT.div_id) LEFT JOIN ' . 
+                          UPZILA_LOOKUP_TBL . ' AS ULT ON (location_id = upzila_id)';
+        $info['where']  = 'pid = ' . $this->id;
+        $info['fields'] = array('PLT.id', 'pid', 'location_id', 'location_type', 'location_cost', 'location_comments', 'division_name', 'district_name', 'upzila_name');
+        $info['debug']  = true;
 
         $rows = select($info);
+        
+        dumpVar($rows);
 
         $this->projectLocations = $rows;        
     }

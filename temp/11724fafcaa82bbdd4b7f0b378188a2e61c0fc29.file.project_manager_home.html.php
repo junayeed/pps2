@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-05-11 07:05:11
+<?php /* Smarty version Smarty-3.1.17, created on 2014-05-11 08:23:02
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\project_manager_home.html" */ ?>
 <?php /*%%SmartyHeaderCode:30205536f05075ac268-20359198%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '11724fafcaa82bbdd4b7f0b378188a2e61c0fc29' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\project_manager_home.html',
-      1 => 1399664920,
+      1 => 1399789343,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.17',
+  'unifunc' => 'content_536f050760a249_54463014',
   'variables' => 
   array (
     'SCRIPT_NAME' => 0,
@@ -22,8 +24,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'PI' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_536f050760a249_54463014',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_536f050760a249_54463014')) {function content_536f050760a249_54463014($_smarty_tpl) {?>
 
@@ -135,10 +135,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 					<ul class="unstyled spaced">
                                               <li><i class="icon-share-alt blue"></i><a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=partA&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
-">Part-A(Project Summary)</a></li>
+">Part-A (Project Summary)</a></li>
                                               <li><i class="icon-share-alt blue"></i> <a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=partB&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
-"> Part-B(Project Details)</a> </li>
+">Part-B (Project Details)</a> </li>
+                                              <li><i class="icon-share-alt blue"></i> <a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+?cmd=anaexI&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
+">Annexure - I: Location wise cost breakdown</a> </li>
 					</ul>
 				   </div>
 				  </div>
