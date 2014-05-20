@@ -100,6 +100,9 @@ class projectManagerApp extends DefaultApplication
        $data->adpSectorList      = getADPSectorList();
        $data->adpSubSectorList   = getADPSubSectorList();
        $data->sectorDivisionList = getSectorDivisionList();
+       $data->divisionList       = getDivisionList();
+       $data->districtList       = getDistrictList();
+       $data->upazilaList        = getUpzilaList();
        //dumpVar($data);
        $data->PI              = getUserField('PI'); 
        
