@@ -261,11 +261,11 @@ class Project
                           UPZILA_LOOKUP_TBL . ' AS ULT ON (location_id = upzila_id)';
         $info['where']  = 'pid = ' . $this->id;
         $info['fields'] = array('PLT.id', 'pid', 'location_id', 'location_type', 'location_cost', 'location_comments', 'division_name', 'district_name', 'upzila_name');
-        $info['debug']  = true;
+        $info['debug']  = false;
 
         $rows = select($info);
         
-        dumpVar($rows);
+        //dumpVar($rows);
 
         $this->projectLocations = $rows;        
     }
