@@ -258,8 +258,8 @@ class Project
     {
         $info['table']  = PROJECT_LOCATIONS_TBL;
         $info['where']  = 'pid = ' . $this->id;
-        //$info['fields'] = array('PLT.id', 'pid', 'location_id', 'location_type', 'location_cost', 'location_comments', 'division_name', 'district_name', 'upzila_name');
-        $info['debug']  = true;
+        $info['fields'] = array('PLT.id', 'pid', 'location_id', 'location_type', 'location_cost', 'location_comments', 'division_name', 'district_name', 'upzila_name');
+        $info['debug']  = false;
 
         $rows = select($info);
         
