@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-05-11 08:23:02
+<?php /* Smarty version Smarty-3.1.17, created on 2014-05-22 08:23:08
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\project_manager_home.html" */ ?>
 <?php /*%%SmartyHeaderCode:30205536f05075ac268-20359198%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '11724fafcaa82bbdd4b7f0b378188a2e61c0fc29' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\project_manager_home.html',
-      1 => 1399789343,
+      1 => 1400738968,
       2 => 'file',
     ),
   ),
@@ -25,52 +25,39 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_536f050760a249_54463014')) {function content_536f050760a249_54463014($_smarty_tpl) {?>
-
-		
-<div id="main-content" class="clearfix">
-    	<head>
-		
-		
-		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
-		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
-		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
-		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
-		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
-		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/colorpicker.css" />
-                
-                
-
-	</head>
-
+<?php if ($_valid && !is_callable('content_536f050760a249_54463014')) {function content_536f050760a249_54463014($_smarty_tpl) {?><div id="main-content" class="clearfix">
+<head>
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/colorpicker.css" />
+</head>
 					
-					<div id="breadcrumbs">
-						<ul class="breadcrumb">
-							<li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-							<li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-							<li class="active">Project</li>
-						</ul><!--.breadcrumb-->
+<div id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+        <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+        <li class="active">Project</li>
+    </ul><!--.breadcrumb-->
 
-						<div id="nav-search">
-							<form class="form-search">
-									<span class="input-icon">
-										<input autocomplete="off" id="nav-search-input" type="text" class="input-small search-query" placeholder="Search ..." />
-										<i id="nav-search-icon" class="icon-search"></i>
-									</span>
-							</form>
-						</div><!--#nav-search-->
-					</div><!--#breadcrumbs-->
+    <div id="nav-search">
+        <form class="form-search">
+                        <span class="input-icon">
+                                <input autocomplete="off" id="nav-search-input" type="text" class="input-small search-query" placeholder="Search ..." />
+                                <i id="nav-search-icon" class="icon-search"></i>
+                        </span>
+        </form>
+    </div><!--#nav-search-->
+</div><!--#breadcrumbs-->
 
 
 
 <div id="page-content" class="clearfix">
-					
     <div class="page-header position-relative">
 	<h1>Project <small><i class="icon-double-angle-right"></i> (DPP/TPP)</small></h1>
     </div><!--/page-header-->
-
-						
-
 <div class="row-fluid">
 <!-- PAGE CONTENT BEGINS HERE -->
 
@@ -82,72 +69,91 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 <form class="form-horizontal" id="validation-form" method="post" action="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ">
-	
-		<div class="control-group">
-			<label class="control-label" for="project_title_en">Project Title (English)</label>
-			<div class="controls">  
-                            <label class="control-label">: <b><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->project_title_en;?>
+    <div class="control-group">
+        <label class="control-label" for="project_title_en">Project Title (English)</label>
+        <div class="controls">  
+            <label class="control-label">: <b><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->project_title_en;?>
 </b></label>
-			</div>
-		</div>
-            
-                <div class="control-group">
-			<label class="control-label" for="project_title_bn">Project Title (Bangla)</label>
-			<div class="controls">
-				<label class="control-label">: <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->project_title_bn;?>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="project_title_bn">Project Title (Bangla)</label>
+        <div class="controls">
+                <label class="control-label">: <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->project_title_bn;?>
 </label>
-			</div>
-		</div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="project_type">Project Type</label>
+        <div class="controls">
+               <label class="control-label">: <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->project_type;?>
+</label>   
+        </div>
+    </div>
             
-                 <div class="control-group">
-			<label class="control-label" for="project_type">Project Type</label>
-			<div class="controls">
-                               <label class="control-label">: <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->project_type;?>
+    <div class="control-group">
+        <label class="control-label" for="implementing_period">Date of commencement</label>
+        <div class="controls">
+             <label class="control-label">: <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->date_of_commencement;?>
 </label>   
-                        </div>
-		</div>
-            
-                                                
-                <div class="control-group">
-			<label class="control-label" for="implementing_period">Date of commencement</label>
-                        <div class="controls">
-                             <label class="control-label">: <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->date_of_commencement;?>
+        </div>    
+    </div>  
+
+    <div class="control-group">
+        <label class="control-label" for="implementing_period">Date of completion</label>
+         <div class="controls">
+             <label class="control-label">: <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->date_of_completion;?>
 </label>   
-                        </div>    
-                </div>  
-    
-                <div class="control-group">
-			<label class="control-label" for="implementing_period">Date of completion</label>
-		         <div class="controls">
-                             <label class="control-label">: <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->date_of_completion;?>
-</label>   
-                        </div>    
-                </div>  
-	 </form>
-	    <div class="row-fluid">
-			<div class="span12">
-				<div class="widget-box">
-				  <div class="table-header">
-                                            Project Related Informations
-                                  </div>
-				  <div class="widget-body">
-				   <div class="widget-main no-padding">
-					<ul class="unstyled spaced">
-                                              <li><i class="icon-share-alt blue"></i><a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+        </div>    
+    </div>  
+</form>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget-box">
+            <div class="table-header">
+            Project Related Informations
+            </div>
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <ul class="unstyled spaced">
+                        <li><i class="icon-share-alt blue"></i><a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=partA&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
 ">Part-A (Project Summary)</a></li>
-                                              <li><i class="icon-share-alt blue"></i> <a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+                        <li><i class="icon-share-alt blue"></i> <a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=partB&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
 ">Part-B (Project Details)</a> </li>
-                                              <li><i class="icon-share-alt blue"></i> <a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+                        <li><i class="icon-share-alt blue"></i> <a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=anaexI&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
 ">Annexure - I: Location wise cost breakdown</a> </li>
-					</ul>
-				   </div>
-				  </div>
-				</div>
-			</div>
-		</div>	
+                        <li><i class="icon-share-alt blue"></i> <a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+?cmd=anaexII&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
+">Annexure - II: Project Management Setup</a> </li>
+                        <li><i class="icon-share-alt blue"></i> <a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+?cmd=anaexIIIa&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
+">Annexure - III (a): GOODS</a> </li>
+                        <li><i class="icon-share-alt blue"></i> <a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+?cmd=anaexIIIb&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
+">Annexure - III (b): WORKS</a> </li>
+                        <li><i class="icon-share-alt blue"></i> <a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+?cmd=anaexIIIc&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
+">Annexure - III (c): SERVICES</a> </li>
+                        <li><i class="icon-share-alt blue"></i> <a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+?cmd=anaexIV&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
+">Annexure - IV: Year wise Financial and Physical Target plan</a> </li>
+                        <li><i class="icon-share-alt blue"></i> <a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+?cmd=anaexV&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
+">Annexure - V: Detailed annual phasing of cost</a> </li>
+                        <li><i class="icon-share-alt blue"></i> <a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+?cmd=anaexV&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
+">Annexure - VI: Amortization Schedule</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>	
 		
 		
 
