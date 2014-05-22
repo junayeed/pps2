@@ -256,16 +256,14 @@ class Project
     
     public function loadProjectLocations()
     {
-        $info['table']  = PROJECT_LOCATIONS_TBL . ' AS PLT LEFT JOIN ' . DIVISION_LOOKUP_TBL . ' AS DLT ON (location_id = divid) LEFT JOIN ' . 
-                          DISTRICT_LOOKUP_TBL . ' AS DISLT ON (location_id = district_id AND DLT.divid = DISLT.div_id) LEFT JOIN ' . 
-                          UPZILA_LOOKUP_TBL . ' AS ULT ON (location_id = upzila_id)';
+        $info['table']  = PROJECT_LOCATIONS_TBL;
         $info['where']  = 'pid = ' . $this->id;
-        $info['fields'] = array('PLT.id', 'pid', 'location_id', 'location_type', 'location_cost', 'location_comments', 'division_name', 'district_name', 'upzila_name');
+        //$info['fields'] = array('PLT.id', 'pid', 'location_id', 'location_type', 'location_cost', 'location_comments', 'division_name', 'district_name', 'upzila_name');
         $info['debug']  = true;
 
         $rows = select($info);
         
-        dumpVar($rows);
+        //dumpVar($rows);
 
         $this->projectLocations = $rows;        
     }

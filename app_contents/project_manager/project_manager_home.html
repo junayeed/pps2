@@ -1,49 +1,36 @@
-
-
-		
 <div id="main-content" class="clearfix">
-    	<head>
-		
-		
-		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
-		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
-		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
-		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
-		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
-		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/colorpicker.css" />
-                
-                
-
-	</head>
-
+<head>
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/colorpicker.css" />
+</head>
 					
-					<div id="breadcrumbs">
-						<ul class="breadcrumb">
-							<li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-							<li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-							<li class="active">Project</li>
-						</ul><!--.breadcrumb-->
+<div id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+        <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+        <li class="active">Project</li>
+    </ul><!--.breadcrumb-->
 
-						<div id="nav-search">
-							<form class="form-search">
-									<span class="input-icon">
-										<input autocomplete="off" id="nav-search-input" type="text" class="input-small search-query" placeholder="Search ..." />
-										<i id="nav-search-icon" class="icon-search"></i>
-									</span>
-							</form>
-						</div><!--#nav-search-->
-					</div><!--#breadcrumbs-->
+    <div id="nav-search">
+        <form class="form-search">
+                        <span class="input-icon">
+                                <input autocomplete="off" id="nav-search-input" type="text" class="input-small search-query" placeholder="Search ..." />
+                                <i id="nav-search-icon" class="icon-search"></i>
+                        </span>
+        </form>
+    </div><!--#nav-search-->
+</div><!--#breadcrumbs-->
 
 
 
 <div id="page-content" class="clearfix">
-					
     <div class="page-header position-relative">
 	<h1>Project <small><i class="icon-double-angle-right"></i> (DPP/TPP)</small></h1>
     </div><!--/page-header-->
-
-						
-
 <div class="row-fluid">
 <!-- PAGE CONTENT BEGINS HERE -->
 
@@ -54,61 +41,64 @@
 </div>
 
 <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}">
-	
-		<div class="control-group">
-			<label class="control-label" for="project_title_en">Project Title (English)</label>
-			<div class="controls">  
-                            <label class="control-label">: <b>{$basicInfo->project_title_en}</b></label>
-			</div>
-		</div>
+    <div class="control-group">
+        <label class="control-label" for="project_title_en">Project Title (English)</label>
+        <div class="controls">  
+            <label class="control-label">: <b>{$basicInfo->project_title_en}</b></label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="project_title_bn">Project Title (Bangla)</label>
+        <div class="controls">
+                <label class="control-label">: {$basicInfo->project_title_bn}</label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="project_type">Project Type</label>
+        <div class="controls">
+               <label class="control-label">: {$basicInfo->project_type}</label>   
+        </div>
+    </div>
             
-                <div class="control-group">
-			<label class="control-label" for="project_title_bn">Project Title (Bangla)</label>
-			<div class="controls">
-				<label class="control-label">: {$basicInfo->project_title_bn}</label>
-			</div>
-		</div>
-            
-                 <div class="control-group">
-			<label class="control-label" for="project_type">Project Type</label>
-			<div class="controls">
-                               <label class="control-label">: {$basicInfo->project_type}</label>   
-                        </div>
-		</div>
-            
-                                                
-                <div class="control-group">
-			<label class="control-label" for="implementing_period">Date of commencement</label>
-                        <div class="controls">
-                             <label class="control-label">: {$basicInfo->date_of_commencement}</label>   
-                        </div>    
-                </div>  
-    
-                <div class="control-group">
-			<label class="control-label" for="implementing_period">Date of completion</label>
-		         <div class="controls">
-                             <label class="control-label">: {$basicInfo->date_of_completion}</label>   
-                        </div>    
-                </div>  
-	 </form>
-	    <div class="row-fluid">
-			<div class="span12">
-				<div class="widget-box">
-				  <div class="table-header">
-                                            Project Related Informations
-                                  </div>
-				  <div class="widget-body">
-				   <div class="widget-main no-padding">
-					<ul class="unstyled spaced">
-                                              <li><i class="icon-share-alt blue"></i><a href="{$SCRIPT_NAME}?cmd=partA&PI={$PI}">Part-A (Project Summary)</a></li>
-                                              <li><i class="icon-share-alt blue"></i> <a href="{$SCRIPT_NAME}?cmd=partB&PI={$PI}">Part-B (Project Details)</a> </li>
-                                              <li><i class="icon-share-alt blue"></i> <a href="{$SCRIPT_NAME}?cmd=anaexI&PI={$PI}">Annexure - I: Location wise cost breakdown</a> </li>
-					</ul>
-				   </div>
-				  </div>
-				</div>
-			</div>
-		</div>	
+    <div class="control-group">
+        <label class="control-label" for="implementing_period">Date of commencement</label>
+        <div class="controls">
+             <label class="control-label">: {$basicInfo->date_of_commencement}</label>   
+        </div>    
+    </div>  
+
+    <div class="control-group">
+        <label class="control-label" for="implementing_period">Date of completion</label>
+         <div class="controls">
+             <label class="control-label">: {$basicInfo->date_of_completion}</label>   
+        </div>    
+    </div>  
+</form>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget-box">
+            <div class="table-header">
+            Project Related Informations
+            </div>
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <ul class="unstyled spaced">
+                        <li><i class="icon-share-alt blue"></i><a href="{$SCRIPT_NAME}?cmd=partA&PI={$PI}">Part-A (Project Summary)</a></li>
+                        <li><i class="icon-share-alt blue"></i> <a href="{$SCRIPT_NAME}?cmd=partB&PI={$PI}">Part-B (Project Details)</a> </li>
+                        <li><i class="icon-share-alt blue"></i> <a href="{$SCRIPT_NAME}?cmd=anaexI&PI={$PI}">Annexure - I: Location wise cost breakdown</a> </li>
+                        <li><i class="icon-share-alt blue"></i> <a href="{$SCRIPT_NAME}?cmd=anaexII&PI={$PI}">Annexure - II: Project Management Setup</a> </li>
+                        <li><i class="icon-share-alt blue"></i> <a href="{$SCRIPT_NAME}?cmd=anaexIIIa&PI={$PI}">Annexure - III (a): GOODS</a> </li>
+                        <li><i class="icon-share-alt blue"></i> <a href="{$SCRIPT_NAME}?cmd=anaexIIIb&PI={$PI}">Annexure - III (b): WORKS</a> </li>
+                        <li><i class="icon-share-alt blue"></i> <a href="{$SCRIPT_NAME}?cmd=anaexIIIc&PI={$PI}">Annexure - III (c): SERVICES</a> </li>
+                        <li><i class="icon-share-alt blue"></i> <a href="{$SCRIPT_NAME}?cmd=anaexIV&PI={$PI}">Annexure - IV: SEVICES</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>	
 		
 		
 

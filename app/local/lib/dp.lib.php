@@ -2,104 +2,113 @@
   /**
    * File: dp.lib.php
    * Library File
-   *
-   * Developed by EVOKNOW, Inc.
-   * Copyright (c) 2005 EVOKNOW, Inc.
-   * Version ID: $Id$
    */
 
-   /**
-   * Gets username
-   * @param userid
-   * @return username
-   */
-   
-   
-
-   function getMinistryList()
-   {
+    function getMinistryList()
+    {
         $info['table']  = MINISTRY_LOOKUP_TBL;
         $info['fields'] = array('id','name');
         $info['where']  = " status='Active' ORDER By name ASC";
-      //$info['debug']  = true;
+        $info['debug']  = false;
 
-      if ($result = select($info))
-      {
-         foreach($result as $key => $value)
-         {
-            $data[$value->id] =  $value->name; 
-         }
-      }
-      return $data;
-   } 
+        if ($result = select($info))
+        {
+            foreach($result as $key => $value)
+            {
+                $data[$value->id] =  $value->name; 
+             }
+        }
+        return $data;
+    } 
    
-   function getAgencyList()
-   {
+    function getAgencyList()
+    {
         $info['table']  = AGENCY_LOOKUP_TBL;
         $info['fields'] = array('id','name');
         $info['where']  = " status='Active' ORDER By name ASC";
-      //$info['debug']  = true;
+        $info['debug']  = false;
 
-      if ($result = select($info))
-      {
-         foreach($result as $key => $value)
-         {
-            $data[$value->id] =  $value->name; 
-         }
-      }
-      return $data;
-   } 
+        if ($result = select($info))
+        {
+            foreach($result as $key => $value)
+            {
+                $data[$value->id] =  $value->name; 
+            }
+        }
+        
+        return $data;
+    } 
    
-   function getADPSectorList()
-   {
+    function getADPSectorList()
+    {
         $info['table']  = ADP_SECTOR_LOOKUP_TBL;
         $info['fields'] = array('id','name');
         $info['where']  = " status='Active' ORDER By name ASC";
-      //$info['debug']  = true;
+        $info['debug']  = false;
 
-      if ($result = select($info))
-      {
-         foreach($result as $key => $value)
-         {
-            $data[$value->id] =  $value->name; 
-         }
-      }
-      return $data;
-   } 
+        if ($result = select($info))
+        {
+            foreach($result as $key => $value)
+            {
+                $data[$value->id] =  $value->name; 
+            }
+        }
+        return $data;
+    } 
    
-   function getADPSubSectorList()
-   {
+    function getADPSubSectorList()
+    {
         $info['table']  = ADP_SUBSECTOR_LOOKUP_TBL;
         $info['fields'] = array('id','name');
         $info['where']  = " status='Active' ORDER By name ASC";
-      //$info['debug']  = true;
+        $info['debug']  = false;
 
-      if ($result = select($info))
-      {
-         foreach($result as $key => $value)
-         {
-            $data[$value->id] =  $value->name; 
-         }
-      }
-      return $data;
-   } 
+        if ($result = select($info))
+        {
+            foreach($result as $key => $value)
+            {
+                $data[$value->id] =  $value->name; 
+            }
+        }
+        
+        return $data;
+    } 
    
-   function getSectorDivisionList()
-   {
+    function getSectorDivisionList()
+    {
         $info['table']  = SECTOR_DIVISION_LOOKUP_TBL;
         $info['fields'] = array('id','name');
         $info['where']  = " status='Active' ORDER By name ASC";
-      //$info['debug']  = true;
+        $info['debug']  = false;
 
-      if ($result = select($info))
-      {
-         foreach($result as $key => $value)
-         {
-            $data[$value->id] =  $value->name; 
-         }
-      }
-      return $data;
-   } 
+        if ($result = select($info))
+        {
+            foreach($result as $key => $value)
+            {
+                $data[$value->id] =  $value->name; 
+            }
+        }
+        
+        return $data;
+    } 
+   
+    function getDivisionList()
+    {
+        $info['table']  = DIVISION_LOOKUP_TBL;
+        $info['fields'] = array('divid', 'division_name');
+        $info['where']  = "status='Active' ORDER BY division_name ASC";
+        $info['debug']  = true;
+
+        if ($result = select($info))
+        {
+            foreach($result as $key => $value)
+            {
+                $data[$value->divid] =  $value->division_name; 
+            }
+        }
+        
+        return $data;
+    } 
    
    
    
