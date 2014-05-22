@@ -110,6 +110,57 @@
         return $data;
     } 
    
+   function getDivisionList()
+   {
+        $info['table']  = DIVISION_LOOKUP_TBL;
+        $info['fields'] = array('divid','division_name');
+        $info['where']  = " status='Active' ORDER By division_name ASC";
+      //$info['debug']  = true;
+
+      if ($result = select($info))
+      {
+         foreach($result as $key => $value)
+         {
+            $data[$value->divid] =  $value->division_name; 
+         }
+      }
+      return $data;
+   } 
+   
+   function getDistrictList()
+   {
+        $info['table']  = DISTRICT_LOOKUP_TBL;
+        $info['fields'] = array('district_id','district_name');
+        $info['where']  = " status='Active' ORDER By district_name ASC";
+      //$info['debug']  = true;
+
+      if ($result = select($info))
+      {
+         foreach($result as $key => $value)
+         {
+            $data[$value->district_id] =  $value->district_name; 
+         }
+      }
+      return $data;
+   } 
+   
+   function getUpzilaList()
+   {
+        $info['table']  = UPZILA_LOOKUP_TBL;
+        $info['fields'] = array('upzila_id','upzila_name');
+        $info['where']  = " status='Active' ORDER By upzila_name ASC";
+      //$info['debug']  = true;
+
+      if ($result = select($info))
+      {
+         foreach($result as $key => $value)
+         {
+            $data[$value->upzila_id] =  $value->upzila_name; 
+         }
+      }
+      return $data;
+   } 
+   
    
    
  
