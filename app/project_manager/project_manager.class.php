@@ -26,6 +26,7 @@ class projectManagerApp extends DefaultApplication
            case 'partA'              : $screen = $this->showProjectPartA(); break;
            case 'partB'              : $screen = $this->showProjectPartB(); break;
            case 'anaexI'             : $screen = $this->showProjectLocation(); break;
+           case 'anaexIIIa'          : $screen = $this->showProcurementPlanGOODS(); break;
            case 'ProjectHome'        : $screen = $this->showProjectHomePage(); break;
            //case 'list'   : $screen = $this->showList();        break;
            default             : $screen = $this->showEditor($msg);
@@ -125,6 +126,18 @@ class projectManagerApp extends DefaultApplication
        
         return createPage(PROJECT_ANNEX_I_LOCATION_TEMPLATE, $data);
     }
+    
+    function showProcurementPlanGOODS()
+    {
+        $PI        = getUserField('PI');    
+        $pid       = base64_decode($PI);
+        $project   = new Project($pid);
+        $data->location = $project->basicInfo->locations;
+        $data->PI  =  $PI;
+        //dumpVar($data);
+       
+        return createPage(PROJECT_PROCUREMENT_PLAN_GOODS_TEMPLATE, $data);
+    }
    
    function showProjectHomePage()
    {
@@ -134,7 +147,7 @@ class projectManagerApp extends DefaultApplication
        $data      = $project;
        $data->PI  = getUserField('PI');
        
-        return createPage(PROJECT_BASIC_TEMPLATE, $data);
+       return createPage(PROJECT_BASIC_TEMPLATE, $data);
    }
 
    /**
