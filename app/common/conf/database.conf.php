@@ -72,6 +72,7 @@
   define('PROJECT_DEV_PARTNER_TBL',     DB_NAME . '.project_dev_partners');
   define('PROJECT_MODE_FINANCING_TBL',  DB_NAME . '.project_mode_financing');
   define('PROJECT_LOCATIONS_TBL',       DB_NAME . '.project_locations');
+  define('PROJECT_PROCUREMENT_PLAN_TBL',DB_NAME . '.project_procurement_plans');
   
   if (AUTO_CONNECT_TO_DATABASE)
   {

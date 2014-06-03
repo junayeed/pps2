@@ -17,19 +17,21 @@ class projectManagerApp extends DefaultApplication
       //die;     
       switch ($cmd)
       {
-           case 'edit'               : $screen = $this->showEditor($msg);    break;
-           case 'save'               : $screen = $this->saveRecord();        break;
-           case 'saveObjectiveCost'  : $screen = $this->saveObjectiveCost();  break;
-           case 'saveLocations'      : $screen = $this->saveLocations();  break;
-           case 'delete'             : $screen = $this->deleteRecord();    break;
-           case 'list'               : $screen = $this->showList();        break;
-           case 'partA'              : $screen = $this->showProjectPartA(); break;
-           case 'partB'              : $screen = $this->showProjectPartB(); break;
-           case 'anaexI'             : $screen = $this->showProjectLocation(); break;
-           case 'anaexIIIa'          : $screen = $this->showProcurementPlanGOODS(); break;
-           case 'ProjectHome'        : $screen = $this->showProjectHomePage(); break;
+           case 'edit'               : $screen = $this->showEditor($msg);              break;
+           case 'save'               : $screen = $this->saveRecord();                  break;
+           case 'saveObjectiveCost'  : $screen = $this->saveObjectiveCost();           break;
+           case 'saveLocations'      : $screen = $this->saveLocations();               break;
+           case 'delete'             : $screen = $this->deleteRecord();                break;
+           case 'list'               : $screen = $this->showList();                    break;
+           case 'partA'              : $screen = $this->showProjectPartA();            break;
+           case 'partB'              : $screen = $this->showProjectPartB();            break;
+           case 'anaexI'             : $screen = $this->showProjectLocation();         break;
+           case 'annexIIIa'          : $screen = $this->showProcurementPlanGOODS();    break;
+           case 'saveAnnexIIIa'      : $screen = $this->saveProcurementPlan();         break;
+           case 'deleteprocplan'     : $screen = $this->deleteProcurementPlan();       break;
+           case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
            //case 'list'   : $screen = $this->showList();        break;
-           default             : $screen = $this->showEditor($msg);
+           default                   : $screen = $this->showEditor($msg);
       }
 
       // Set the current navigation item
@@ -138,17 +140,25 @@ class projectManagerApp extends DefaultApplication
        
         return createPage(PROJECT_PROCUREMENT_PLAN_GOODS_TEMPLATE, $data);
     }
+    
+    function saveProcurementPlan()
+    {
+        $pid       = base64_decode(getUserField('PI'));
+        updateProcurementPlan();
+        //return $this->showProcurementPlanGOODS();
+        header ('Location: project_manager.php?cmd=annexIIIa&PI='.  base64_encode($pid));
+    }
    
-   function showProjectHomePage()
-   {
-       $pid     = base64_decode(getUserField('PI'));
-       $project = new Project($pid);
-      
-       $data      = $project;
-       $data->PI  = getUserField('PI');
-       
-       return createPage(PROJECT_BASIC_TEMPLATE, $data);
-   }
+    function showProjectHomePage()
+    {
+        $pid     = base64_decode(getUserField('PI'));
+        $project = new Project($pid);
+
+        $data      = $project;
+        $data->PI  = getUserField('PI');
+
+        return createPage(PROJECT_BASIC_TEMPLATE, $data);
+    }
 
    /**
    * Saves User information

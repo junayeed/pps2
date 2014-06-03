@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-05-28 08:31:27
+<?php /* Smarty version Smarty-3.1.17, created on 2014-06-03 06:34:42
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\procurement_plan_goods.html" */ ?>
 <?php /*%%SmartyHeaderCode:27731537d9e88001575-60495387%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'f752d586250f1e333d446234663f32da9a37a48d' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\procurement_plan_goods.html',
-      1 => 1401258686,
+      1 => 1401770031,
       2 => 'file',
     ),
   ),
@@ -27,6 +27,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_537d9e880a1255_10562693')) {function content_537d9e880a1255_10562693($_smarty_tpl) {?><script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
+<script type="text/javascript" src="/app_contents/common/js/message.js"></script>
 
 <div id="main-content" class="clearfix">
     <head>
@@ -68,9 +69,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
             <form class="form-horizontal" id="validation-form"  method="post" action="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 "> 
                 <div id="basicinfo" class="tab-pane in active">
-
-                    <input type="hidden" name="PI" value="<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
-"/>
                     <div class="control-group">
                         <div class="span12">
                             <table id="goods_tbl" class="table table-striped table-bordered table-hover table_bug_report">
@@ -79,22 +77,28 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                                         <th>Package No.</th>
                                         <th class="span6">Description of Procurement<br>Package as per DPP/TPP</th>
                                         <th class="span3">Unit</th>
-                                        <th class="span3">Quantity</th>
+                                        <th class="span2">Quantity</th>
                                         <th class="span3">Procurement Method</th>
-                                        <th class="span3">Procurement Type</th>
+                                        <th class="span1">Procurement Type</th>
                                         <th class="span3">Contract Approving Authority</th>
                                         <th class="span3">Source of Fund</th>
-                                        <th class="span3">Estd. Cost (In lakh tk)</th>
+                                        <th class="span5">Estd. Cost (In lakh tk)</th>
                                         <th class="span3">Invitation for Tender</th>
                                         <th class="span3">Signing of Contract</th>
                                         <th class="span3">Completion of Contract</th>
-                                        <th class="span1">Action</th>
+                                        <th class="span1">&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody id="goods_content">
                                 </tbody>
                                 <tfoot>
-                                <td colspan="13"><a href="#" onClick="addNewProcuremtPlanRow('goods_tbl', 'goods');">Add New</a></td>
+                                    <tr>
+                                        <td colspan="8" align="right">Grand Total</td>
+                                        <td colspan="5"><input type="text" name="goods_total" id="goods_total" value="0.00" class="span4" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="13"><a href="#" onClick="addNewProcuremtPlanRow('goods_tbl', 'goods');">Add New</a></td>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -102,7 +106,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
                     <div class="form-actions2">
                         <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
-                        <input type="hidden" value="saveAnnexI" name="cmd"/>
+                        <input type="hidden" value="saveAnnexIIIa" name="cmd"/>
+                        <input type="hidden" name="PI" value="<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
+"/>
                     </div>
                 </div>
             </form>   
