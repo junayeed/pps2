@@ -1,6 +1,6 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-06-03 06:01:01
+<?php /* Smarty version Smarty-3.1.17, created on 2014-06-04 09:50:59
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\project_manager_home.html" */ ?>
-<?php /*%%SmartyHeaderCode:30205536f05075ac268-20359198%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:4734538ecfe3eb88b8-53227364%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
@@ -11,12 +11,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '30205536f05075ac268-20359198',
+  'nocache_hash' => '4734538ecfe3eb88b8-53227364',
   'function' => 
   array (
   ),
-  'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_536f050760a249_54463014',
   'variables' => 
   array (
     'SCRIPT_NAME' => 0,
@@ -24,8 +22,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'PI' => 0,
   ),
   'has_nocache_code' => false,
+  'version' => 'Smarty-3.1.17',
+  'unifunc' => 'content_538ecfe40f17e4_57245711',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_536f050760a249_54463014')) {function content_536f050760a249_54463014($_smarty_tpl) {?><div id="main-content" class="clearfix">
+<?php if ($_valid && !is_callable('content_538ecfe40f17e4_57245711')) {function content_538ecfe40f17e4_57245711($_smarty_tpl) {?><div id="main-content" class="clearfix">
 <head>
     <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
     <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />

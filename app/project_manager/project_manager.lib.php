@@ -3,7 +3,7 @@
     function updateProcurementPlan()
     {
         $info['table'] = PROJECT_PROCUREMENT_PLAN_TBL;
-        $info['debug'] = true;
+        $info['debug'] = false;
         
         $data['pid']   = base64_decode(getUserField('PI'));
         
@@ -26,7 +26,7 @@
 	        $data['contract_sign']          = $_REQUEST['contract_sign_' . $id];
 	        $data['contract_completion']    = $_REQUEST['contract_completion_' . $id];
 	        $data['create_date']            = date('Y-m-d');
-	        $data['procurement_plan_id']    = $_REQUEST['procurement_plan_id_' . $id];
+	        $data['procurement_plan_id']    = $_REQUEST['proc_plan_id_' . $id];
                 $data['procurement_category ']  = $_REQUEST['procurement_category_' .$id];
                 
                 $info['data'] = $data;                
@@ -42,6 +42,20 @@
                     update($info);
                 }
  	    }
+        }
+    }
+    
+    function getProcurementPlanList($pid, $procurement_category)
+    {
+        $info['table'] = PROJECT_PROCUREMENT_PLAN_TBL;
+        $info['debug'] = false;
+        $info['where'] = 'pid = ' . $pid . ' AND procurement_category = ' . q($procurement_category);
+        
+        $result = select($info);
+        
+        if ( !empty($result) )
+        {
+            return $result;
         }
     }
 ?>

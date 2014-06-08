@@ -1,33 +1,45 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-06-03 06:34:42
+<?php /* Smarty version Smarty-3.1.17, created on 2014-06-04 07:50:15
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\procurement_plan_goods.html" */ ?>
-<?php /*%%SmartyHeaderCode:27731537d9e88001575-60495387%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:15477538ea524cdbc00-21643588%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'f752d586250f1e333d446234663f32da9a37a48d' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\procurement_plan_goods.html',
-      1 => 1401770031,
+      1 => 1401861012,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '27731537d9e88001575-60495387',
+  'nocache_hash' => '15477538ea524cdbc00-21643588',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_537d9e880a1255_10562693',
+  'unifunc' => 'content_538ea524dfd4f3_42805546',
   'variables' => 
   array (
     'SCRIPT_NAME' => 0,
     'PI' => 0,
     'basicInfo' => 0,
     'item' => 0,
+    'procurement_list' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_537d9e880a1255_10562693')) {function content_537d9e880a1255_10562693($_smarty_tpl) {?><script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
-<script type="text/javascript" src="/app_contents/common/js/message.js"></script>
+<?php if ($_valid && !is_callable('content_538ea524dfd4f3_42805546')) {function content_538ea524dfd4f3_42805546($_smarty_tpl) {?><script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
+<script type="text/javascript" src="/app_contents/common/js/messages.js"></script>
+<script type="text/javascript" src="/app_contents/common/js/CalendarPopup.js"></script>
+
+<script language="JavaScript">
+   function thisSelect(inputobj, linkname, format) 
+   {
+      var thisDate = new CalendarPopup();
+      alert(inputobj + '\n' + linkname + '\n' + format);
+      thisDate.showNavigationDropdowns();
+      thisDate.select(inputobj,linkname, format);
+   }
+</script>
 
 <div id="main-content" class="clearfix">
     <head>
@@ -66,8 +78,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                 Your have to save all the data <br>
             </div>
 
-            <form class="form-horizontal" id="validation-form"  method="post" action="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
-"> 
+            <!--<form class="form-horizontal" id="validation-form"  method="post" action="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+">--> 
+            <form class="form-horizontal" id="procure_plan_goods_form"  method="post" action="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+" name="procure_plan_goods_form"> 
                 <div id="basicinfo" class="tab-pane in active">
                     <div class="control-group">
                         <div class="span12">
@@ -94,7 +108,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                                 <tfoot>
                                     <tr>
                                         <td colspan="8" align="right">Grand Total</td>
-                                        <td colspan="5"><input type="text" name="goods_total" id="goods_total" value="0.00" class="span4" /></td>
+                                        <td colspan="5"><input type="text" name="Goods_total" id="Goods_total" value="0.00" class="span4" /></td>
                                     </tr>
                                     <tr>
                                         <td colspan="13"><a href="#" onClick="addNewProcuremtPlanRow('goods_tbl', 'goods');">Add New</a></td>
@@ -227,9 +241,35 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
         $(".divisions").val(divisions);
         $(".districts").val(districts);
         $(".upzilas").val(upzilas);
-        $(".alert-success").fadeOut(4000);
+        $(".alert-success").fadeOut(1000);
         //$(".ministries").chosen().trigger("chosen:updated");
         
-        addNewProcuremtPlanRow('goods_tbl', 'goods');
+        //addNewProcuremtPlanRow('goods_tbl', 'goods');
+        
+        <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['procurement_list']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value) {
+$_smarty_tpl->tpl_vars['item']->_loop = true;
+?>
+            addNewProcuremtPlanRow('goods_tbl', 'Goods');
+            populateProcurementPlanDetails("<?php echo $_smarty_tpl->tpl_vars['item']->value->package_no;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->procurement_desc;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->procurement_unit;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->procurement_qty;?>
+", 
+                                           "<?php echo $_smarty_tpl->tpl_vars['item']->value->procurement_method;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->procurement_type;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->approv_auth;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->fund_src;?>
+", 
+                                           "<?php echo $_smarty_tpl->tpl_vars['item']->value->estd_cost;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->tender_invitation;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->contract_sign;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->contract_completion;?>
+",
+                                           "<?php echo $_smarty_tpl->tpl_vars['item']->value->id;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->procurement_category;?>
+");
+        <?php } ?>
     </script>    
 <?php }} ?>

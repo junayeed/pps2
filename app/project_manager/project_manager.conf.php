@@ -28,6 +28,8 @@
    define('PROJECT_ANNEX_I_LOCATION_TEMPLATE',            TEMPLATE_DIR . '/location_manager.html');
    define('PROJECT_PROCUREMENT_PLAN_GOODS_TEMPLATE',      TEMPLATE_DIR . '/procurement_plan_goods.html');
 
+    define('ERROR',            'Error');
+    define('SUCCESS',          'Success');
 
    /**#@+
    * Application Constant

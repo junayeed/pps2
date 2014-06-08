@@ -1,5 +1,6 @@
 // global variables procurement plan dynamic rows
-var ROW_ID               = 1;
+var ROW_ID     = 1;
+var OUTER_DELIM = '###';
 
 function isNumberKey(evt) 
 {
@@ -14,6 +15,30 @@ function isNumberKey(evt)
    return true;
 } 
 
+function populateProcurementPlanDetails(package_no, procurement_desc, procurement_unit, procurement_qty, procurement_method, procurement_type,
+                                        approv_auth, fund_src, estd_cost, tender_invitation, contract_sign, contract_completion, proc_plan_id, 
+                                        procument_category)
+{
+    var elemID = ROW_ID-1; 
+
+    $('#package_no_'+elemID).val(package_no);
+    $('#procurement_desc_'+elemID).val(procurement_desc);
+    $('#procurement_unit_'+elemID).val(procurement_unit);
+    $('#procurement_qty_'+elemID).val(procurement_qty);
+    $('#procurement_method_'+elemID).val(procurement_method);
+    $('#procurement_type_'+elemID).val(procurement_type);
+    $('#approv_auth_'+elemID).val(approv_auth);
+    $('#fund_src_'+elemID).val(fund_src);
+    $('#estd_cost_'+elemID).val(estd_cost);
+    $('#tender_invitation_'+elemID).val(tender_invitation);
+    $('#contract_sign_'+elemID).val(contract_sign);
+    $('#contract_completion_'+elemID).val(contract_completion);
+    $('#proc_plan_id_'+elemID).val(proc_plan_id);
+    $('#procument_category_'+elemID).val(procument_category);
+    
+    calculateProcurementTotal(procument_category);
+}
+
 function addNewProcuremtPlanRow(targetID, procurementCategory)
 {
     var td_package_no           = '<td><input type="text" name="package_no_'+ROW_ID+'" id="package_no_'+ROW_ID+'" value="" class="span10" /></td>';
@@ -24,23 +49,22 @@ function addNewProcuremtPlanRow(targetID, procurementCategory)
     var td_procurement_type     = '<td>'+getProcurementType('procurement_type_'+ROW_ID);+'</td>';
     var td_approv_auth          = '<td><input type="text" name="approv_auth_'+ROW_ID+'" id="approv_auth_'+ROW_ID+'" value="" class="span11" /></td>';
     var td_fund_src             = '<td><input type="text" name="fund_src_'+ROW_ID+'" id="fund_src_'+ROW_ID+'" value="" class="span12" /></td>';
-    var td_estd_cost            = '<td><input type="text" name="estd_cost_'+ROW_ID+'" id="estd_cost_'+ROW_ID+'" value="" class="span12" onChange="calculateProcurementTotal(\''+procurementCategory+'\');" /></td>';
+    var td_estd_cost            = '<td><input type="text" name="estd_cost_'+ROW_ID+'" id="estd_cost_'+ROW_ID+'" value="" class="span12" onChange="calculateProcurementTotal(\''+procurementCategory+'\');" onkeypress="return isNumberKey(event);" /></td>';
     var td_tender_invitation    = '<td><input class="span12 date-picker" id="tender_invitation_'+ROW_ID+'" name="tender_invitation_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_contract_sign        = '<td><input class="span12 date-picker" id="contract_sign_'+ROW_ID+'" name="contract_sign_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_contract_completion  = '<td><input class="span12 date-picker" id="contract_completion_'+ROW_ID+'" name="contract_completion_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_action               = '<td id="td_action_'+ROW_ID+'">\n\
-                                       <a href="javascript: void(0);" onClick="deleteProcurementPlanRow('+ROW_ID+', \''+targetID+'\', \''+procurementCategory+'\');">\n\
+                                       <a href="javascript: void(0);" \n\
+                                          onClick="deleteProcurementPlanRow('+ROW_ID+', \''+targetID+'\', \''+procurementCategory+'\');">\n\
                                            <img src="/app_contents/common/images/cross2.png">\n\
                                        </a>\n\
                                    </td>';
     var hidden_field    = '<input type="hidden" id="proc_plan_id_'+ROW_ID+'" name="proc_plan_id_'+ROW_ID+'" value="" >\n\
-                           <input type="hidden" id="order_details_id_'+ROW_ID+'" name="order_details_id_'+ROW_ID+'" value="">\n\
-                           <input type="hidden" id="product_option_'+ROW_ID+'" name="product_option_'+ROW_ID+'" value="">\n\
                            <input type="hidden" id="procument_category_'+ROW_ID+'" name="procument_category_'+ROW_ID+'" value="'+procurementCategory+'">';
      
     $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
                                  td_approv_auth+td_fund_src+td_estd_cost+td_tender_invitation+td_contract_sign+td_contract_completion+
-                                 td_action+'</tr>').appendTo("#"+targetID+" > tbody");
+                                 td_action+hidden_field+'</tr>').appendTo("#"+targetID+" > tbody");
     
     ROW_ID++;
 }
@@ -52,9 +76,9 @@ function calculateProcurementTotal(procurementCategory)
 
     for (i=1; i<=ROW_ID; i++)
     {
+        alert($('#estd_cost_'+i).val());
         if( $('#estd_cost_'+i).length )
         {
-            alert('Val = '+ $('#estd_cost_'+i).val());
             procurement_total += $('#estd_cost_'+i).val()*1;
         }
     }
@@ -64,51 +88,36 @@ function calculateProcurementTotal(procurementCategory)
 
 function deleteProcurementPlanRow(elemID, targetID, procurementCategory)
 {
-    $('#'+targetID+' > tbody').find('#tr_' + elemID).fadeOut(700,function() 
+    var proc_plan_id        = $('#proc_plan_id_'+elemID).val();
+    
+    if ( doConfirm('The will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
     {
-        $('#'+targetID+' > tbody > #tr_' + elemID).remove();
-    });
+        $.ajax
+        (
+            {
+                url: 'project_manager.php?cmd=deleteprocplan',
+                data: "proc_plan_id="+proc_plan_id+"&proc_category="+procurementCategory,
+                dataType: 'json',
+                success: function(responseText)
+                {
+                    var content = responseText.split(OUTER_DELIM);
+                    
+                    if ( content[1] == 'Success')
+                    {
+                        $('#'+targetID+' > tbody').find('#tr_' + elemID).fadeOut(50,function() 
+                        {
+                            $('#'+targetID+' > tbody > #tr_' + elemID).remove();
+                        });
+                    }
+                    else
+                    {
+                    }
+                }    
+            }
+        );
+    }
+    
     calculateProcurementTotal(procurementCategory);
-//    if ( doConfirm('The will be deleted.\n' + PROMPT_DELETE_CONFIRM ) )
-//    {
-//        $.ajax
-//        (
-//            {
-//                url: 'project_manager.php?cmd=deleteprocplan',
-//                data: "order_details_id="+order_details_id+"&customer_id="+customer_id+"&product_id="+product_id,
-//                dataType: 'json',
-//                success: function(responseText)
-//                {
-//                    var content = responseText.split(OUTER_DELIM);
-//                    
-//                    if ( content[1] == 'Success')
-//                    {
-//                        $('#'+targetID+' > tbody').find('#tr_' + elemID).fadeOut(700,function() 
-//                        {
-//                            $('#'+targetID+' > tbody > #tr_' + elemID).remove();
-//                        });
-//                        // show the success message and then fade out the message box
-//                        $('#message_content').removeClass('error');
-//                        $('#message_content').addClass('success');
-//                        $('#message_content').show();
-//                        $('#message_content').text(content[0]);
-//                        $('#message_content').delay(2000).fadeOut(500);
-//                    }
-//                    else
-//                    {
-//                        // show the error message
-//                        $('#message_content').removeClass('success');
-//                        $('#message_content').addClass('error');
-//                        $('#message_content').text(content[0]);
-//                        $('#message_content').show();
-//                        $('#message_content').delay(2000).fadeOut(500);
-//                    }
-//                }    
-//            }
-//        );
-//    }
-    
-    
 }
 
 function getProcurementMethod(elemName)

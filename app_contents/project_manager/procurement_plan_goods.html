@@ -1,5 +1,16 @@
 <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
-<script type="text/javascript" src="/app_contents/common/js/message.js"></script>
+<script type="text/javascript" src="/app_contents/common/js/messages.js"></script>
+<script type="text/javascript" src="/app_contents/common/js/CalendarPopup.js"></script>
+
+<script language="JavaScript">
+   function thisSelect(inputobj, linkname, format) 
+   {ldelim}
+      var thisDate = new CalendarPopup();
+      alert(inputobj + '\n' + linkname + '\n' + format);
+      thisDate.showNavigationDropdowns();
+      thisDate.select(inputobj,linkname, format);
+   {rdelim}
+</script>
 
 <div id="main-content" class="clearfix">
     <head>
@@ -36,7 +47,8 @@
                 Your have to save all the data <br>
             </div>
 
-            <form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}"> 
+            <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
+            <form class="form-horizontal" id="procure_plan_goods_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_goods_form"> 
                 <div id="basicinfo" class="tab-pane in active">
                     <div class="control-group">
                         <div class="span12">
@@ -63,7 +75,7 @@
                                 <tfoot>
                                     <tr>
                                         <td colspan="8" align="right">Grand Total</td>
-                                        <td colspan="5"><input type="text" name="goods_total" id="goods_total" value="0.00" class="span4" /></td>
+                                        <td colspan="5"><input type="text" name="Goods_total" id="Goods_total" value="0.00" class="span4" /></td>
                                     </tr>
                                     <tr>
                                         <td colspan="13"><a href="#" onClick="addNewProcuremtPlanRow('goods_tbl', 'goods');">Add New</a></td>
@@ -164,8 +176,16 @@
         $(".divisions").val(divisions);
         $(".districts").val(districts);
         $(".upzilas").val(upzilas);
-        $(".alert-success").fadeOut(4000);
+        $(".alert-success").fadeOut(1000);
         //$(".ministries").chosen().trigger("chosen:updated");
         
-        addNewProcuremtPlanRow('goods_tbl', 'goods');
+        //addNewProcuremtPlanRow('goods_tbl', 'goods');
+        
+        {foreach from=$procurement_list item=item}
+            addNewProcuremtPlanRow('goods_tbl', 'Goods');
+            populateProcurementPlanDetails("{$item->package_no}", "{$item->procurement_desc}", "{$item->procurement_unit}", "{$item->procurement_qty}", 
+                                           "{$item->procurement_method}", "{$item->procurement_type}", "{$item->approv_auth}", "{$item->fund_src}", 
+                                           "{$item->estd_cost}", "{$item->tender_invitation}", "{$item->contract_sign}", "{$item->contract_completion}",
+                                           "{$item->id}", "{$item->procurement_category}");
+        {/foreach}
     </script>    

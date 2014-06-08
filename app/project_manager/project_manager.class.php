@@ -14,7 +14,7 @@ class projectManagerApp extends DefaultApplication
    function run()
    {
       $cmd = getUserField('cmd');
-      //die;     
+
       switch ($cmd)
       {
            case 'edit'               : $screen = $this->showEditor($msg);              break;
@@ -37,10 +37,10 @@ class projectManagerApp extends DefaultApplication
       // Set the current navigation item
       $this->setNavigation('project_manager');
 
-      //if ($cmd == 'list')
-      //{
-      //   echo $screen;
-      //}
+      if ($cmd == 'deleteprocplan')
+      {
+         return;
+      }
       //else
       {
          echo $this->displayScreen($screen);
@@ -49,6 +49,32 @@ class projectManagerApp extends DefaultApplication
       return true;
 
    }
+   
+    function deleteProcurementPlan()
+    {
+        $proc_plan_id  = getUserField('proc_plan_id');
+        $proc_category = getUserField('proc_category');
+        
+        $info['table']  = PROJECT_PROCUREMENT_PLAN_TBL;
+        $info['where']  = 'id = ' . $proc_plan_id . ' AND procurement_category = ' . q($proc_category);
+        $info['debug']  = false;
+        
+        if (delete($info))
+        {
+            //$msg  = $this->getMessage(ORDER_DELETE_SUCCESS_MSG);
+            $msg = 'Success';
+            $type = SUCCESS;
+            echo json_encode($msg.'###'.$type);
+            die;
+        }
+        else
+        {
+            //$msg  = $this->getMessage(ORDER_DELETE_ERROR_MSG);
+            $msg = 'Error';
+            $type = ERROR;
+            echo json_encode($msg.'###'.$type);
+        }
+    }
 
    /**
    * Shows User Editor
@@ -87,7 +113,6 @@ class projectManagerApp extends DefaultApplication
        $project->saveLocations(getUserField('location_divisions'),'Division');
        $project->saveLocations(getUserField('location_districts'),'District');
        $project->saveLocations(getUserField('location_upzilas'),'Upzila');
-       
        
        header ('Location: project_manager.php?cmd=partA&PI='.  base64_encode($pid));
    }
@@ -133,9 +158,10 @@ class projectManagerApp extends DefaultApplication
     {
         $PI        = getUserField('PI');    
         $pid       = base64_decode($PI);
-        $project   = new Project($pid);
-        $data->location = $project->basicInfo->locations;
+        
         $data->PI  =  $PI;
+        $data->procurement_list = getProcurementPlanList($pid, 'Goods');
+        
         //dumpVar($data);
        
         return createPage(PROJECT_PROCUREMENT_PLAN_GOODS_TEMPLATE, $data);
@@ -145,8 +171,9 @@ class projectManagerApp extends DefaultApplication
     {
         $pid       = base64_decode(getUserField('PI'));
         updateProcurementPlan();
-        //return $this->showProcurementPlanGOODS();
-        header ('Location: project_manager.php?cmd=annexIIIa&PI='.  base64_encode($pid));
+        
+        return $this->showProcurementPlanGOODS();
+        //header ('Location: project_manager.php?cmd=annexIIIa&PI='.  base64_encode($pid));
     }
    
     function showProjectHomePage()
@@ -178,9 +205,6 @@ class projectManagerApp extends DefaultApplication
            $data['error']='yes';
            return createPage(PROJECT_CREATE_TEMPLATE, $data);
        }
-       
-       
-      
    }
 
    /**
