@@ -1,5 +1,6 @@
 // global variables procurement plan dynamic rows
 var ROW_ID     = 1;
+var rowIDArray = [];
 var OUTER_DELIM = '###';
 
 function isNumberKey(evt) 
@@ -66,6 +67,7 @@ function addNewProcuremtPlanRow(targetID, procurementCategory)
                                  td_approv_auth+td_fund_src+td_estd_cost+td_tender_invitation+td_contract_sign+td_contract_completion+
                                  td_action+hidden_field+'</tr>').appendTo("#"+targetID+" > tbody");
     
+    rowIDArray.push(ROW_ID);
     ROW_ID++;
 }
 
@@ -73,14 +75,11 @@ function calculateProcurementTotal(procurementCategory)
 {
     var i;
     var procurement_total = 0;
-
-    for (i=1; i<=ROW_ID; i++)
+    //alert(rowIDArray);
+    for (i=0; i<rowIDArray.length; i++)
     {
-        alert($('#estd_cost_'+i).val());
-        if( $('#estd_cost_'+i).length )
-        {
-            procurement_total += $('#estd_cost_'+i).val()*1;
-        }
+        //alert('i = '+i+'Row Id = ' + rowIDArray[i] + ' Val = ' + $('#estd_cost_'+rowIDArray[i]).val());
+        procurement_total += $('#estd_cost_'+rowIDArray[i]).val()*1;
     }
     
     $('#'+procurementCategory+'_total').val(procurement_total.toMoney(2));
@@ -108,9 +107,29 @@ function deleteProcurementPlanRow(elemID, targetID, procurementCategory)
                         {
                             $('#'+targetID+' > tbody > #tr_' + elemID).remove();
                         });
+
+                        var index = rowIDArray.indexOf(elemID);
+                        if(index!=-1)
+                        {
+                            rowIDArray.splice(index, 1);
+                        }
+                        
+                        calculateProcurementTotal(procurementCategory);
                     }
                     else
                     {
+                        $('#'+targetID+' > tbody').find('#tr_' + elemID).fadeOut(50,function() 
+                        {
+                            $('#'+targetID+' > tbody > #tr_' + elemID).remove();
+                        });
+
+                        var index = rowIDArray.indexOf(elemID);
+                        if(index!=-1)
+                        {
+                            rowIDArray.splice(index, 1);
+                        }
+                        
+                        calculateProcurementTotal(procurementCategory);
                     }
                 }    
             }
@@ -122,21 +141,24 @@ function deleteProcurementPlanRow(elemID, targetID, procurementCategory)
 
 function getProcurementMethod(elemName)
 {
-    return '<select name='+elemName+' id='+elemName+' class="span12">\n\
-                <option value="DPM">DPM</option>\n\
-                <option value="RFQM">RFQM</option>\n\
-                <option value="TSTM">TSTM</option>\n\
-                <option value="RTM">RTM</option>\n\
-                <option value="OTM">OTM</option>\n\
-            </select>'
+    var str_options = '';
+    for(var i=0; i<procurement_method.length; i++)
+    {
+        str_options += '<option value="'+procurement_method[i]+'">'+procurement_method[i]+'</option>';
+    }
+    return '<select name='+elemName+' id='+elemName+' class="span12">' + str_options + '</select>';
 }
 
 function getProcurementType(elemName)
 {
-    return '<select name='+elemName+' id='+elemName+' class="span12">\n\
-                <option value="NCT">NCT</option>\n\
-                <option value="INT">INT</option>\n\
-            </select>';
+    var str_options = '';
+    
+    for(var i=0; i<procurement_type.length; i++)
+    {
+        str_options += '<option value="'+procurement_type[i]+'">'+procurement_type[i]+'</option>';
+    }
+    
+    return '<select name='+elemName+' id='+elemName+' class="span12">' + str_options + '</select>';
 }
 
 Number.prototype.toMoney = function(decimals, decimal_sep, thousands_sep)                                                                                             

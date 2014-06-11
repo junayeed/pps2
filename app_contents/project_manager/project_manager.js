@@ -1,4 +1,14 @@
-
+function createReport(procurement_category)
+{
+    var PI          = $('#PI').val();
+    var report_type = $('#report_type').val();
+    
+    if (report_type)
+    {
+        location.href = 'http://'+document.domain+'/app/project_manager/project_manager.php?cmd=annexIIIa&PI='+PI+
+                    '&report_type='+report_type+'&procurement_category='+procurement_category;
+    }
+}
 		
 		$(function() {
 			$('#id-disable-check').on('click', function() {

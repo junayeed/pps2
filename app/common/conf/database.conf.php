@@ -56,6 +56,8 @@
   define('DIVISION_LOOKUP_TBL',          DB_NAME . '.division_lookup');
   define('DISTRICT_LOOKUP_TBL',          DB_NAME . '.district_lookup');
   define('UPZILA_LOOKUP_TBL',            DB_NAME . '.upzila_lookup');
+  define('PROC_METHOD_LOOKUP_TBL',       DB_NAME . '.procurement_method_lookup');
+  define('PROC_TYPE_LOOKUP_TBL',         DB_NAME . '.procurement_type_lookup');
   
   
   define('US_STATE_TBL',                 DB_NAME . '.us_states');
@@ -67,12 +69,12 @@
   define('ADDRESS_TBL',                  DB_NAME . '.user_address');
   define('USER_GROUP_TBL',               DB_NAME . '.user_group');
   define('PROJECT_TBL',                  DB_NAME . '.projects');
-  define('PROJECT_MINISTRY_TBL',        DB_NAME . '.project_ministries');
-  define('PROJECT_AGENCY_TBL',          DB_NAME . '.project_agencies');
-  define('PROJECT_DEV_PARTNER_TBL',     DB_NAME . '.project_dev_partners');
-  define('PROJECT_MODE_FINANCING_TBL',  DB_NAME . '.project_mode_financing');
-  define('PROJECT_LOCATIONS_TBL',       DB_NAME . '.project_locations');
-  define('PROJECT_PROCUREMENT_PLAN_TBL',DB_NAME . '.project_procurement_plans');
+  define('PROJECT_MINISTRY_TBL',         DB_NAME . '.project_ministries');
+  define('PROJECT_AGENCY_TBL',           DB_NAME . '.project_agencies');
+  define('PROJECT_DEV_PARTNER_TBL',      DB_NAME . '.project_dev_partners');
+  define('PROJECT_MODE_FINANCING_TBL',   DB_NAME . '.project_mode_financing');
+  define('PROJECT_LOCATIONS_TBL',        DB_NAME . '.project_locations');
+  define('PROJECT_PROCUREMENT_PLAN_TBL', DB_NAME . '.project_procurement_plans');
   
   if (AUTO_CONNECT_TO_DATABASE)
   {

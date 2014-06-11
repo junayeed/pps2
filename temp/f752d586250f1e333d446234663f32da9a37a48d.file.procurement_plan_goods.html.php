@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-06-04 07:50:15
+<?php /* Smarty version Smarty-3.1.17, created on 2014-06-10 19:11:57
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\procurement_plan_goods.html" */ ?>
 <?php /*%%SmartyHeaderCode:15477538ea524cdbc00-21643588%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'f752d586250f1e333d446234663f32da9a37a48d' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\procurement_plan_goods.html',
-      1 => 1401861012,
+      1 => 1402420315,
       2 => 'file',
     ),
   ),
@@ -23,6 +23,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'PI' => 0,
     'basicInfo' => 0,
     'item' => 0,
+    'procurement_method_list' => 0,
+    'procurement_type_list' => 0,
     'procurement_list' => 0,
   ),
   'has_nocache_code' => false,
@@ -39,7 +41,22 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       thisDate.showNavigationDropdowns();
       thisDate.select(inputobj,linkname, format);
    }
+   
+   
+  
 </script>
+
+<style>
+    
+        .fixed{
+        top:0;
+        position:fixed;
+        width:auto;
+        display:none;
+        border:none;
+  }
+  
+</style>
 
 <div id="main-content" class="clearfix">
     <head>
@@ -83,6 +100,15 @@ $_valid = $_smarty_tpl->decodeProperties(array (
             <form class="form-horizontal" id="procure_plan_goods_form"  method="post" action="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 " name="procure_plan_goods_form"> 
                 <div id="basicinfo" class="tab-pane in active">
+                    <div id="export_to_container">
+                        Export To: 
+                        <select name="report_type" id="report_type" class="span6" onchange="createReport('Goods');">
+                            <option value=""></option>
+                            <option value="pdf">pdf</option>
+                            <option value="excel">excel</option>
+                            <option value="word">word</option>
+                        </select>
+                    </div>
                     <div class="control-group">
                         <div class="span12">
                             <table id="goods_tbl" class="table table-striped table-bordered table-hover table_bug_report">
@@ -111,7 +137,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                                         <td colspan="5"><input type="text" name="Goods_total" id="Goods_total" value="0.00" class="span4" /></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="13"><a href="#" onClick="addNewProcuremtPlanRow('goods_tbl', 'goods');">Add New</a></td>
+                                        <td colspan="13"><a href="#" onClick="addNewProcuremtPlanRow('goods_tbl', 'Goods');">Add New</a></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -121,7 +147,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                     <div class="form-actions2">
                         <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                         <input type="hidden" value="saveAnnexIIIa" name="cmd"/>
-                        <input type="hidden" name="PI" value="<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
+                        <input type="hidden" id="PI" name="PI" value="<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
 "/>
                     </div>
                 </div>
@@ -170,6 +196,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     <!-- ace scripts -->
     <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
     <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+    
                 
     <script>
         //var ministry ="<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->ministries;?>
@@ -180,6 +207,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         var divisions  = [];
         var districts  = []; 
         var upzilas    = []; 
+        var procurement_method = [];
+        var procurement_type = [];
                     
         <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
  $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
@@ -232,7 +261,28 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 )
             <?php }?>
         <?php } ?>   
-                    
+        
+        <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+ $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->tpl_vars['procurement_method_list']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value) {
+$_smarty_tpl->tpl_vars['item']->_loop = true;
+ $_smarty_tpl->tpl_vars['key']->value = $_smarty_tpl->tpl_vars['item']->key;
+?>
+            procurement_method.push("<?php echo $_smarty_tpl->tpl_vars['item']->value;?>
+")
+        <?php } ?> 
+        
+        <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+ $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->tpl_vars['procurement_type_list']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value) {
+$_smarty_tpl->tpl_vars['item']->_loop = true;
+ $_smarty_tpl->tpl_vars['key']->value = $_smarty_tpl->tpl_vars['item']->key;
+?>
+            procurement_type.push("<?php echo $_smarty_tpl->tpl_vars['item']->value;?>
+")
+        <?php } ?> 
                     
         $(".ministries").val(ministries);
         $(".agencies").val(agencies);
@@ -271,5 +321,49 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 ", "<?php echo $_smarty_tpl->tpl_vars['item']->value->procurement_category;?>
 ");
         <?php } ?>
+        
+        
+        /*
+        
+         ;(function($) {
+   $.fn.fixMe = function() {
+      return this.each(function() {
+         var $this = $(this),
+            $t_fixed;
+         function init() {
+            $this.wrap('<div class="container" />');
+            $t_fixed = $this.clone();
+            $t_fixed.find("tbody").remove().end().addClass("fixed").insertBefore($this);
+            resizeFixed();
+         }
+         function resizeFixed() {
+            $t_fixed.find("th").each(function(index) {
+               $(this).css("width",$this.find("th").eq(index).outerWidth()+"px");
+            });
+         }
+         function scrollFixed() {
+            var offset = $(this).scrollTop(),
+            tableOffsetTop = $this.offset().top,
+            tableOffsetBottom = tableOffsetTop + $this.height() - $this.find("thead").height();
+            if(offset < tableOffsetTop || offset > tableOffsetBottom)
+               $t_fixed.hide();
+            else if(offset >= tableOffsetTop && offset <= tableOffsetBottom && $t_fixed.is(":hidden"))
+               $t_fixed.show();
+         }
+         $(window).resize(resizeFixed);
+         $(window).scroll(scrollFixed);
+         init();
+      });
+   };
+})(jQuery);
+
+$(document).ready(function(){
+   $("table").fixMe();
+   $(".up").click(function() {
+      $('html, body').animate({
+      scrollTop: 0
+   }, 2000);
+ });
+});*/
     </script>    
 <?php }} ?>

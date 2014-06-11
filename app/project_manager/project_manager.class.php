@@ -30,14 +30,14 @@ class projectManagerApp extends DefaultApplication
            case 'saveAnnexIIIa'      : $screen = $this->saveProcurementPlan();         break;
            case 'deleteprocplan'     : $screen = $this->deleteProcurementPlan();       break;
            case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
-           //case 'list'   : $screen = $this->showList();        break;
+           case 'excel'              : $screen = $this->export();                    break;
            default                   : $screen = $this->showEditor($msg);
       }
 
       // Set the current navigation item
       $this->setNavigation('project_manager');
 
-      if ($cmd == 'deleteprocplan')
+      if ($cmd == 'deleteprocplan' || $cmd == 'excel')
       {
          return;
       }
@@ -156,11 +156,17 @@ class projectManagerApp extends DefaultApplication
     
     function showProcurementPlanGOODS()
     {
-        $PI        = getUserField('PI');    
-        $pid       = base64_decode($PI);
+        $PI           = getUserField('PI');    
+        $pid          = base64_decode($PI);
+        $report_type  = getUserField('report_type');
+        $procurement_category = getUserField('procurement_category');
         
-        $data->PI  =  $PI;
-        $data->procurement_list = getProcurementPlanList($pid, 'Goods');
+        $data->PI                       =  $PI;
+        $data->procurement_list         = getProcurementPlanList($pid, 'Goods');
+        $data->procurement_method_list  = getProcurementMethodList();
+        $data->procurement_type_list    = getProcurementTypeList();
+           
+        $this->exportTo($procurement_category, $report_type);
         
         //dumpVar($data);
        
@@ -211,32 +217,52 @@ class projectManagerApp extends DefaultApplication
    * Shows user list
    * @return user list template
    */
-   function showList()
+    function showList()
+    {
+        $project_title  = getUserField('project_title');
+        $project_type   = getUserField('project_type');
+
+        $filterClause = '1';
+
+        if ($project_title)
+            $filterClause .= " and project_title_en LIKE '%$project_title%' ";
+        if ($project_type)
+            $filterClause .= " and project_type = '$project_type' ";
+
+        $info['table'] = PROJECT_TBL;
+        $info['debug'] = false;
+        $info['where'] = $filterClause . ' Order By project_title_en ASC';
+
+        $data['list'] = select($info);
+
+        $data['project_title']    = $project_title;
+        $data['project_type']        = $project_type;
+      
+        //dumpVar($data);
+      
+        return createPage(PROJECT_LIST_TEMPLATE, $data);
+   }
+   
+   function exportTo($procurement_category, $report_type)
    {
-      
-      $project_title  = getUserField('project_title');
-      $project_type   = getUserField('project_type');
-
-      $filterClause = '1';
-
-      if ($project_title)
-         $filterClause .= " and project_title_en LIKE '%$project_title%' ";
-      if ($project_type)
-         $filterClause .= " and project_type = '$project_type' ";
-
-      $info['table'] = PROJECT_TBL;
-      $info['debug'] = false;
-      $info['where'] = $filterClause . ' Order By project_title_en ASC';
-
-      $data['list'] = select($info);
-
-      $data['project_title']    = $project_title;
-      $data['project_type']        = $project_type;
-      
-      //dumpVar($data);
-
-      
-      return createPage(PROJECT_LIST_TEMPLATE, $data);
+       $pid     = base64_decode(getUserField('PI'));
+       
+       $info['table']  = PROJECT_PROCUREMENT_PLAN_TBL;
+       $info['debug']  = false;
+       //$info['where']  = 'pid = ' . $pid . ' AND procurement_category = ' . q($procurement_category);
+       $info['where']  = 'pid = ' . $pid . ' AND procurement_category = ' . q($procurement_category);
+       
+       $result = select($info);
+       
+       if ($report_type == 'excel')
+       {    
+           MakeExcel($result);
+       }
+       else if ($report_type == 'word')
+       {
+           MakeWordDoc($result);
+       }
+       
    }
 }
 ?>
