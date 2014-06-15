@@ -126,21 +126,24 @@
    define('CHART_FILE',                EXT_DIR.'/charts/charts.php');
 
    // PDF configuration
-   define('FPDF_DIR',                  EXT_DIR.'/fpdf/');
-   require_once(FPDF_DIR .             'class.fpdf.php');
+   define('DOMPDF_DIR',               EXT_DIR.'/dompdf/');
+   require_once(DOMPDF_DIR .          'dompdf_config.inc.php');
+    
+   //define('FPDF_DIR',                  EXT_DIR.'/fpdf/');
+   //require_once(FPDF_DIR .             'class.fpdf.php');
 
-   define('HTML2PDF_DIR',              EXT_DIR.'/html2fpdf/');
-   require_once(HTML2PDF_DIR .         'class.html2fpdf.php');
+   //define('HTML2PDF_DIR',              EXT_DIR.'/html2fpdf/');
+   //require_once(HTML2PDF_DIR .         'class.html2fpdf.php');
 
-   define('HTMLTOOLKIT_DIR',           EXT_DIR.'/htmltoolkit/');
-   require_once(HTMLTOOLKIT_DIR .      'class.htmltoolkit.php');
+   //define('HTMLTOOLKIT_DIR',           EXT_DIR.'/htmltoolkit/');
+   //require_once(HTMLTOOLKIT_DIR .      'class.htmltoolkit.php');
 
-   define('AJAX_DIR',                  EXT_DIR.'/ajax/');
+   //define('AJAX_DIR',                  EXT_DIR.'/ajax/');
    //echo AJAX_DIR;
    //define('AJAX_INC',                  AJAX_DIR . 'cpaint.inc.php');
    
-   define('IMDB_DIR',                  EXT_DIR . '/imdb/');
-   require_once(IMDB_DIR .             'class.imdb.php');
+   //define('IMDB_DIR',                  EXT_DIR . '/imdb/');
+   //require_once(IMDB_DIR .             'class.imdb.php');
 
    // Common directories
    define('COMMON_DIR',                    APP_DIR     . '/common');

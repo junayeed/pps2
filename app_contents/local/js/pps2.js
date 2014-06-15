@@ -54,6 +54,7 @@ function addNewProcuremtPlanRow(targetID, procurementCategory)
     var td_tender_invitation    = '<td><input class="span12 date-picker" id="tender_invitation_'+ROW_ID+'" name="tender_invitation_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_contract_sign        = '<td><input class="span12 date-picker" id="contract_sign_'+ROW_ID+'" name="contract_sign_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_contract_completion  = '<td><input class="span12 date-picker" id="contract_completion_'+ROW_ID+'" name="contract_completion_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
+    var td_prequal_invitation   = '<td><input class="span12 date-picker" id="prequal_invitation_'+ROW_ID+'" name="prequal_invitation_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_action               = '<td id="td_action_'+ROW_ID+'">\n\
                                        <a href="javascript: void(0);" \n\
                                           onClick="deleteProcurementPlanRow('+ROW_ID+', \''+targetID+'\', \''+procurementCategory+'\');">\n\
@@ -62,11 +63,21 @@ function addNewProcuremtPlanRow(targetID, procurementCategory)
                                    </td>';
     var hidden_field    = '<input type="hidden" id="proc_plan_id_'+ROW_ID+'" name="proc_plan_id_'+ROW_ID+'" value="" >\n\
                            <input type="hidden" id="procument_category_'+ROW_ID+'" name="procument_category_'+ROW_ID+'" value="'+procurementCategory+'">';
-     
-    $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
-                                 td_approv_auth+td_fund_src+td_estd_cost+td_tender_invitation+td_contract_sign+td_contract_completion+
-                                 td_action+hidden_field+'</tr>').appendTo("#"+targetID+" > tbody");
     
+    // if the procurement category is GOODS
+    if ( procurementCategory == 'Goods' )
+    {
+        $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
+                                     td_approv_auth+td_fund_src+td_estd_cost+td_tender_invitation+td_contract_sign+td_contract_completion+
+                                     td_action+hidden_field+'</tr>').appendTo("#"+targetID+" > tbody");
+    }
+    else if ( procurementCategory == 'Works' )
+    {
+        $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
+                                     td_approv_auth+td_fund_src+td_estd_cost+td_prequal_invitation+td_tender_invitation+td_contract_sign+td_contract_completion+
+                                     td_action+hidden_field+'</tr>').appendTo("#"+targetID+" > tbody");
+    }    
+        
     rowIDArray.push(ROW_ID);
     ROW_ID++;
 }
@@ -146,7 +157,7 @@ function getProcurementMethod(elemName)
     {
         str_options += '<option value="'+procurement_method[i]+'">'+procurement_method[i]+'</option>';
     }
-    return '<select name='+elemName+' id='+elemName+' class="span12">' + str_options + '</select>';
+    return '<select name='+elemName+' id='+elemName+' class="span10">' + str_options + '</select>';
 }
 
 function getProcurementType(elemName)

@@ -27,7 +27,9 @@ class projectManagerApp extends DefaultApplication
            case 'partB'              : $screen = $this->showProjectPartB();            break;
            case 'anaexI'             : $screen = $this->showProjectLocation();         break;
            case 'annexIIIa'          : $screen = $this->showProcurementPlanGOODS();    break;
-           case 'saveAnnexIIIa'      : $screen = $this->saveProcurementPlan();         break;
+           case 'saveAnnexIIIa'      : $screen = $this->saveProcurementPlan($cmd);     break;
+           case 'annexIIIb'          : $screen = $this->showProcurementPlanWORKS();    break;
+           case 'saveAnnexIIIb'      : $screen = $this->saveProcurementPlan($cmd);     break;
            case 'deleteprocplan'     : $screen = $this->deleteProcurementPlan();       break;
            case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
            case 'excel'              : $screen = $this->export();                    break;
@@ -156,10 +158,10 @@ class projectManagerApp extends DefaultApplication
     
     function showProcurementPlanGOODS()
     {
-        $PI           = getUserField('PI');    
-        $pid          = base64_decode($PI);
-        $report_type  = getUserField('report_type');
-        $procurement_category = getUserField('procurement_category');
+        $PI                    = getUserField('PI');    
+        $pid                   = base64_decode($PI);
+        $report_type           = getUserField('report_type');
+        $procurement_category  = getUserField('procurement_category');
         
         $data->PI                       =  $PI;
         $data->procurement_list         = getProcurementPlanList($pid, 'Goods');
@@ -168,18 +170,40 @@ class projectManagerApp extends DefaultApplication
            
         $this->exportTo($procurement_category, $report_type);
         
-        //dumpVar($data);
-       
         return createPage(PROJECT_PROCUREMENT_PLAN_GOODS_TEMPLATE, $data);
     }
     
-    function saveProcurementPlan()
+    function showProcurementPlanWORKS()
+    {
+        $PI                    = getUserField('PI');    
+        $pid                   = base64_decode($PI);
+        $report_type           = getUserField('report_type');
+        $procurement_category  = getUserField('procurement_category');
+        
+        $data->PI                       =  $PI;
+        $data->procurement_list         = getProcurementPlanList($pid, 'Works');
+        $data->procurement_method_list  = getProcurementMethodList();
+        $data->procurement_type_list    = getProcurementTypeList();
+           
+        $this->exportTo($procurement_category, $report_type);
+        
+        return createPage(PROJECT_PROCUREMENT_PLAN_WORKS_TEMPLATE, $data);
+    }
+    
+    function saveProcurementPlan($cmd)
     {
         $pid       = base64_decode(getUserField('PI'));
+        
         updateProcurementPlan();
         
-        return $this->showProcurementPlanGOODS();
-        //header ('Location: project_manager.php?cmd=annexIIIa&PI='.  base64_encode($pid));
+        if ($cmd == 'saveAnnexIIIa')
+        {
+            return $this->showProcurementPlanGOODS();
+        }
+        else if ($cmd == 'saveAnnexIIIb')
+        {
+            return $this->showProcurementPlanWORKS();
+        }
     }
    
     function showProjectHomePage()
@@ -256,13 +280,21 @@ class projectManagerApp extends DefaultApplication
        
        if ($report_type == 'excel')
        {    
-           MakeExcel($result);
+           MakeExcel($result, strtoupper($procurement_category));
        }
        else if ($report_type == 'word')
        {
-           MakeWordDoc($result);
+           MakeWordDoc($result, strtoupper($procurement_category));
        }
-       
+       else if ($report_type == 'pdf')
+       {
+           $data['proc_plan_list']        = $result;
+           $data['procurement_category']  = strtoupper($procurement_category);
+           
+           $screen = createPage(PROC_PLAN_PDF_TEMPLATE, $data);
+           
+           MakePDFDoc($screen);
+       }
    }
 }
 ?>

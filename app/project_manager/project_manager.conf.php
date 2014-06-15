@@ -27,6 +27,8 @@
    define('PROJECT_LIST_TEMPLATE',                        TEMPLATE_DIR . '/project_manager_list.html');
    define('PROJECT_ANNEX_I_LOCATION_TEMPLATE',            TEMPLATE_DIR . '/location_manager.html');
    define('PROJECT_PROCUREMENT_PLAN_GOODS_TEMPLATE',      TEMPLATE_DIR . '/procurement_plan_goods.html');
+   define('PROJECT_PROCUREMENT_PLAN_WORKS_TEMPLATE',      TEMPLATE_DIR . '/procurement_plan_works.html');
+   define('PROC_PLAN_PDF_TEMPLATE',                       TEMPLATE_DIR . '/proc_plan_pdf.html');
 
     define('ERROR',            'Error');
     define('SUCCESS',          'Success');

@@ -25,6 +25,8 @@
 	        $data['tender_invitation']      = $_REQUEST['tender_invitation_' . $id];
 	        $data['contract_sign']          = $_REQUEST['contract_sign_' . $id];
 	        $data['contract_completion']    = $_REQUEST['contract_completion_' . $id];
+	        $data['prequal_invitation']     = $_REQUEST['prequal_invitation_' . $id];
+	        $data['eoi_invitation']         = $_REQUEST['eoi_invitation_' . $id];
 	        $data['create_date']            = date('Y-m-d');
 	        $data['procurement_plan_id']    = $_REQUEST['proc_plan_id_' . $id];
                 $data['procurement_category ']  = $_REQUEST['procurement_category_' .$id];
@@ -95,12 +97,25 @@
         }
     }
     
-    function MakeExcel($data)
+    function MakeExcel($data, $procurement_category)
     {
-        $headerArray = array('A'=>'Package No.', 'B'=>'Description of Procurement Package as per DPP/TPP', 'C'=>'Unit', 'D'=>'Quantity', 
-                             'E'=>'Procurement Method & Type', 'F'=>'Contract Approving Authority', 'G'=>'Source of Fund', 
+        $headerArray = array('A'=>'Package No.', 'B'=>"Description of Procurement Package as per DPP/TPP\n" . $procurement_category, 'C'=>'Unit', 
+                             'D'=>'Quantity', 'E'=>'Procurement Method & Type', 'F'=>'Contract Approving Authority', 'G'=>'Source of Fund', 
                              'H'=>'Estd. Cost (In lakh tk)', 'I'=>'Not Used in GOODS', 'J'=>'Invitation for Tender', 'K'=>'Signing of Contract', 
                              'L'=>'Completion of Contract');
+        
+        $header = 'Annex - III (a)';
+        
+        if ($procurement_category == 'WORKS') 
+        {
+            $headerArray['I'] = "Invitation for Prequal\n(if applicable)";
+            $header = 'Annex - III (b)';
+        }
+        else if ($procurement_category == 'SERVICES') 
+        {
+            $headerArray['I'] = "Invitation for EOI\n(if applicable)";
+            $header = 'Annex - III (c)';
+        }
         
         // create new PHPExcel object
         $objPHPExcel = new PHPExcel;
@@ -126,7 +141,7 @@
         $objSheet = $objPHPExcel->getActiveSheet();
 
         // rename the sheet
-        $objSheet->setTitle('Procurement Plan III(a) - GOODS');
+        $objSheet->setTitle('Procurement Plan III(a) - ' . $procurement_category);
         
         $objSheet->getColumnDimension('A')->setWidth('10');
         $objSheet->getColumnDimension('B')->setWidth('20');
@@ -136,7 +151,7 @@
         $objSheet->getColumnDimension('F')->setWidth('12');
         $objSheet->getColumnDimension('G')->setWidth('10');
         $objSheet->getColumnDimension('H')->setWidth('10');
-        $objSheet->getColumnDimension('I')->setWidth('10');
+        $objSheet->getColumnDimension('I')->setWidth('15');
         $objSheet->getColumnDimension('J')->setWidth('15');
         $objSheet->getColumnDimension('K')->setWidth('15');
         $objSheet->getColumnDimension('L')->setWidth('15');
@@ -147,12 +162,43 @@
         $objSheet->mergeCells('A'.$row.':L'.$row);
         $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
         $objSheet->getStyle('A'.$row)->getFont()->setBold(true)->setSize(10);
-        $objSheet->getCell('A'.$row)->setValue('Annex - III (a)');
+        $objSheet->getCell('A'.$row)->setValue($header);
         $row++;
         $objSheet->mergeCells('A'.$row.':L'.$row);
         $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
         $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setBold(true)->setSize(8);
         $objSheet->getCell('A'.$row)->setValue('Ref: PPR, 2008');
+        $row+=2;
+        $objSheet->mergeCells('A'.$row.':L'.$row);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(8);
+        $objSheet->getCell('A'.$row)->setValue('Project Name: ' . 'The project name will go here');
+        $row++;
+        $objSheet->mergeCells('A'.$row.':L'.$row);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(8);
+        $objSheet->getCell('A'.$row)->setValue('Ministry/Division: ' . 'Ministry/Division name will go here');
+        $row++;
+        $objSheet->mergeCells('A'.$row.':F'.$row);
+        $objSheet->mergeCells('G'.$row.':L'.$row);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(8);
+        $objSheet->getCell('A'.$row)->setValue('Agency: ' . 'Agency name will go here');
+        $objSheet->getCell('G'.$row)->setValue('Total GoB (FE): ');
+        $row++;
+        $objSheet->mergeCells('A'.$row.':F'.$row);
+        $objSheet->mergeCells('G'.$row.':L'.$row);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(8);
+        $objSheet->getCell('A'.$row)->setValue('Procuring Entity Name and Code: ');
+        $objSheet->getCell('G'.$row)->setValue('Total PA (RPA): ');
+        $row++;
+        $objSheet->mergeCells('A'.$row.':F'.$row);
+        $objSheet->mergeCells('G'.$row.':L'.$row);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(8);
+        $objSheet->getCell('A'.$row)->setValue('Project/Programme Code: ');
+        $objSheet->getCell('G'.$row)->setValue('Others (FE): ');
         $row++;
         $objSheet->mergeCells('A'.$row.':L'.$row);
         $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -173,6 +219,7 @@
         {
             $objSheet->getCell($key.$row)->setValue($value);
             $objSheet->getStyle($key.$row)->getAlignment()->setWrapText(true);
+            $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         }
         // print the headers -- END
         
@@ -181,6 +228,7 @@
         foreach($data as $oKey => $oValue)    
         {
             $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(10);
+            $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setWrapText(true);
             $objSheet->getCell('A'.$row)->setValue($oValue->package_no);
             $objSheet->getCell('B'.$row)->setValue($oValue->procurement_desc);
             $objSheet->getCell('C'.$row)->setValue($oValue->procurement_unit);
@@ -204,25 +252,25 @@
         $objSheet->mergeCells('A'.$row.':G'.$row);
         $objSheet->getStyle('A'.$row)->getFont()->setBold(true)->setSize(11);
         $objSheet->getCell('A'.$row)->setValue('Grand Total'); 
-        $objSheet->getStyle('J'.$row)->getFont()->setBold(true)->setSize(11);
+        $objSheet->getStyle('H'.$row)->getFont()->setBold(true)->setSize(11);
         $objSheet->getCell('H'.$row)->setValue('=SUM(H7:H'.($row-1).')' ); 
         $objSheet->getStyle('A'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT); 
         $objSheet->getStyle('A'.$row.':L'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
   
-        $filename  = 'procurement_plan_IIIa_GOODS.xlsx';
+        $filename  = 'procurement_plan_IIIa_' . $procurement_category . '.xlsx';
         
         header('Content-Disposition: attachment;filename="' . $filename. '"');
-        header('Content-Type: application/pdf');
+        //header('Content-Type: application/pdf');
         header('Content-Type: text/plain; charset=utf-8');
         $objWriter->save($_SERVER['DOCUMENT_ROOT'].'/files/'.$filename);
         header ('Location: /files/'.$filename);
     }
     
-    function MakeWordDoc($data)
+    function MakeWordDoc($data, $procurement_category)
     {
-        $headerArray = array('1100'=>'Package No.', '2200'=>'Description of Procurement Package as per DPP/TPP', '1000'=>'Unit', '1205'=>'Quantity', 
-                             '1900'=>'Procurement Method & Type', '1500'=>'Contract Approving Authority', '1505'=>'Source of Fund', 
-                             '1510'=>'Estd. Cost (In lakh tk)', '900'=>'Not Used in GOODS', '2000'=>'Invitation for Tender', 
+        $headerArray = array('1100'=>'Package No.', '2200'=>"Description of Procurement Package as per DPP/TPP\n".$procurement_category, 
+                             '1000'=>'Unit', '1205'=>'Quantity', '1900'=>'Procurement Method & Type', '1500'=>'Contract Approving Authority', 
+                             '1505'=>'Source of Fund', '1510'=>'Estd. Cost (In lakh tk)', '900'=>'Not Used in GOODS', '2000'=>'Invitation for Tender', 
                              '2005'=>'Signing of Contract', '2010'=>'Completion of Contract');
         
         // New Word Document
@@ -301,9 +349,28 @@
         $filename  = 'procurement_plan_IIIa_GOODS.doc';
         
         header('Content-Disposition: attachment;filename="' . $filename. '"');
-        header('Content-Type: application/pdf');
+        //header('Content-Type: application/pdf');
         header('Content-Type: text/plain; charset=utf-8');
         $objWriter->save($_SERVER['DOCUMENT_ROOT'].'/files/'.$filename);
+        header ('Location: /files/'.$filename);
+    }
+    
+    function MakePDFDoc($screen)
+    {
+        ob_start();
+        $dompdf = new DOMPDF();
+        $dompdf->set_paper(DEFAULT_PDF_PAPER_SIZE, 'landscape');
+        $dompdf->load_html($screen);
+        $dompdf->render();
+        //$dompdf->stream("dompdf_out.pdf", array("Attachment" => false));    
+        $filename  = 'procurement_plan_IIIa_GOODS.pdf';
+        $output = $dompdf->output();
+        $file_to_save = $_SERVER['DOCUMENT_ROOT'].'/files/'.$filename;
+        file_put_contents($file_to_save, $output);
+        
+        header('Content-Disposition: attachment;filename="' . $filename. '"');
+        header('Content-Type: application/pdf');
+        header('Content-Type: text/plain; charset=utf-8');
         header ('Location: /files/'.$filename);
     }
 ?>
