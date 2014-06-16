@@ -141,7 +141,7 @@
         $objSheet = $objPHPExcel->getActiveSheet();
 
         // rename the sheet
-        $objSheet->setTitle('Procurement Plan III(a) - ' . $procurement_category);
+        $objSheet->setTitle('Proc. Plan - ' . $procurement_category);
         
         $objSheet->getColumnDimension('A')->setWidth('10');
         $objSheet->getColumnDimension('B')->setWidth('20');
@@ -237,7 +237,15 @@
             $objSheet->getCell('F'.$row)->setValue($oValue->approv_auth);
             $objSheet->getCell('G'.$row)->setValue($oValue->fund_src);
             $objSheet->getCell('H'.$row)->setValue($oValue->estd_cost);
-            $objSheet->getCell('I'.$row)->setValue('N/A');
+            $objSheet->getCell('I'.$row)->setValue('Not Req.');
+            if ($procurement_category == 'WORKS')
+            {
+                $objSheet->getCell('I'.$row)->setValue($oValue->prequal_invitation);
+            }
+            else if ($procurement_category == 'SERVICES')
+            {
+                $objSheet->getCell('I'.$row)->setValue($oValue->eoi_invitation);
+            }
             $objSheet->getCell('J'.$row)->setValue($oValue->tender_invitation);
             $objSheet->getCell('K'.$row)->setValue($oValue->contract_sign);
             $objSheet->getCell('L'.$row)->setValue($oValue->contract_completion);
@@ -257,7 +265,7 @@
         $objSheet->getStyle('A'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT); 
         $objSheet->getStyle('A'.$row.':L'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
   
-        $filename  = 'procurement_plan_IIIa_' . $procurement_category . '.xlsx';
+        $filename  = 'procurement_plan_' . $procurement_category . '.xls';
         
         header('Content-Disposition: attachment;filename="' . $filename. '"');
         //header('Content-Type: application/pdf');
@@ -272,6 +280,19 @@
                              '1000'=>'Unit', '1205'=>'Quantity', '1900'=>'Procurement Method & Type', '1500'=>'Contract Approving Authority', 
                              '1505'=>'Source of Fund', '1510'=>'Estd. Cost (In lakh tk)', '900'=>'Not Used in GOODS', '2000'=>'Invitation for Tender', 
                              '2005'=>'Signing of Contract', '2010'=>'Completion of Contract');
+        
+        $header = 'Annex - III (a)';
+        
+        if ($procurement_category == 'WORKS') 
+        {
+            $headerArray['I'] = "Invitation for Prequal\n(if applicable)";
+            $header = 'Annex - III (b)';
+        }
+        else if ($procurement_category == 'SERVICES') 
+        {
+            $headerArray['I'] = "Invitation for EOI\n(if applicable)";
+            $header = 'Annex - III (c)';
+        }
         
         // New Word Document
         $PHPWord = new PHPWord();
@@ -346,7 +367,7 @@
         // Save File
         $objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
         
-        $filename  = 'procurement_plan_IIIa_GOODS.doc';
+        $filename  = 'procurement_plan_' . $procurement_category . '.doc';
         
         header('Content-Disposition: attachment;filename="' . $filename. '"');
         //header('Content-Type: application/pdf');
@@ -355,7 +376,7 @@
         header ('Location: /files/'.$filename);
     }
     
-    function MakePDFDoc($screen)
+    function MakePDFDoc($screen, $procurement_category)
     {
         ob_start();
         $dompdf = new DOMPDF();
@@ -363,7 +384,7 @@
         $dompdf->load_html($screen);
         $dompdf->render();
         //$dompdf->stream("dompdf_out.pdf", array("Attachment" => false));    
-        $filename  = 'procurement_plan_IIIa_GOODS.pdf';
+        $filename  = 'procurement_plan_' . $procurement_category . '.pdf';
         $output = $dompdf->output();
         $file_to_save = $_SERVER['DOCUMENT_ROOT'].'/files/'.$filename;
         file_put_contents($file_to_save, $output);

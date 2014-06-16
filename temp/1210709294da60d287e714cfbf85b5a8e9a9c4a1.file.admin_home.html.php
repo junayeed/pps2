@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-06-04 06:48:36
+<?php /* Smarty version Smarty-3.1.17, created on 2014-06-16 07:59:51
          compiled from "E:\xampp\htdocs\pps2\app_contents\standard\user_home\admin_home.html" */ ?>
 <?php /*%%SmartyHeaderCode:5130538ea524e48424-09504130%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '1210709294da60d287e714cfbf85b5a8e9a9c4a1' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\standard\\user_home\\admin_home.html',
-      1 => 1399616186,
+      1 => 1402898388,
       2 => 'file',
     ),
   ),
@@ -15,18 +15,15 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.17',
+  'unifunc' => 'content_538ea524e72b28_78433291',
   'variables' => 
   array (
     'USER_HEADER' => 0,
     'USER_NAVIGATION' => 0,
     'contents' => 0,
-    'SYSTEM_COMMON_JAVASCRIPT_DIR' => 0,
-    'REL_TEMPLATE_DIR' => 0,
-    'SYSTEM_APP_PREFIX' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_538ea524e72b28_78433291',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_538ea524e72b28_78433291')) {function content_538ea524e72b28_78433291($_smarty_tpl) {?><html>
 <head>
@@ -46,10 +43,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		<![endif]-->
 
 
-		<!-- page specific plugin styles -->
-		
-
-		<!-- ace styles -->
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/ace.min.css" />
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/ace-responsive.min.css" />
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/ace-skins.min.css" />
@@ -57,7 +50,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		  <link rel="stylesheet" href="/app_contents/standard/template/assets/css/ace-ie.min.css" />
 		<![endif]-->
                 
-               
+                
 
 </head>
 <body>
@@ -105,13 +98,4 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         
         <!-- end footert -->
         <!-- basic scripts -->
-		
-
-		
-                <script language="JavaScript" src="<?php echo $_smarty_tpl->tpl_vars['SYSTEM_COMMON_JAVASCRIPT_DIR']->value;?>
-/common.js"></script>
-	        <script language="JavaScript" src="<?php echo $_smarty_tpl->tpl_vars['REL_TEMPLATE_DIR']->value;?>
-/<?php echo $_smarty_tpl->tpl_vars['SYSTEM_APP_PREFIX']->value;?>
-.js"></script>
-                
 </body><?php }} ?>

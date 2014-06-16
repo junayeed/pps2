@@ -30,9 +30,11 @@ class projectManagerApp extends DefaultApplication
            case 'saveAnnexIIIa'      : $screen = $this->saveProcurementPlan($cmd);     break;
            case 'annexIIIb'          : $screen = $this->showProcurementPlanWORKS();    break;
            case 'saveAnnexIIIb'      : $screen = $this->saveProcurementPlan($cmd);     break;
+           case 'annexIIIc'          : $screen = $this->showProcurementPlanSERVICES(); break;
+           case 'saveAnnexIIIc'      : $screen = $this->saveProcurementPlan($cmd);     break;
            case 'deleteprocplan'     : $screen = $this->deleteProcurementPlan();       break;
+           case 'annexV'             : $screen = $this->showAnnexV();                  break;
            case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
-           case 'excel'              : $screen = $this->export();                    break;
            default                   : $screen = $this->showEditor($msg);
       }
 
@@ -190,6 +192,23 @@ class projectManagerApp extends DefaultApplication
         return createPage(PROJECT_PROCUREMENT_PLAN_WORKS_TEMPLATE, $data);
     }
     
+    function showProcurementPlanSERVICES()
+    {
+        $PI                    = getUserField('PI');    
+        $pid                   = base64_decode($PI);
+        $report_type           = getUserField('report_type');
+        $procurement_category  = getUserField('procurement_category');
+        
+        $data->PI                       =  $PI;
+        $data->procurement_list         = getProcurementPlanList($pid, 'Services');
+        $data->procurement_method_list  = getProcurementMethodList();
+        $data->procurement_type_list    = getProcurementTypeList();
+           
+        $this->exportTo($procurement_category, $report_type);
+        
+        return createPage(PROJECT_PROCUREMENT_PLAN_SERVICES_TEMPLATE, $data);
+    }
+    
     function saveProcurementPlan($cmd)
     {
         $pid       = base64_decode(getUserField('PI'));
@@ -204,6 +223,15 @@ class projectManagerApp extends DefaultApplication
         {
             return $this->showProcurementPlanWORKS();
         }
+        else if ($cmd == 'saveAnnexIIIc')
+        {
+            return $this->showProcurementPlanSERVICES();
+        }
+    }
+    
+    function showAnnexV()
+    {
+        return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);
     }
    
     function showProjectHomePage()
@@ -260,7 +288,7 @@ class projectManagerApp extends DefaultApplication
         $data['list'] = select($info);
 
         $data['project_title']    = $project_title;
-        $data['project_type']        = $project_type;
+        $data['project_type']     = $project_type;
       
         //dumpVar($data);
       
@@ -273,7 +301,6 @@ class projectManagerApp extends DefaultApplication
        
        $info['table']  = PROJECT_PROCUREMENT_PLAN_TBL;
        $info['debug']  = false;
-       //$info['where']  = 'pid = ' . $pid . ' AND procurement_category = ' . q($procurement_category);
        $info['where']  = 'pid = ' . $pid . ' AND procurement_category = ' . q($procurement_category);
        
        $result = select($info);
@@ -293,7 +320,7 @@ class projectManagerApp extends DefaultApplication
            
            $screen = createPage(PROC_PLAN_PDF_TEMPLATE, $data);
            
-           MakePDFDoc($screen);
+           MakePDFDoc($screen, $procurement_category);
        }
    }
 }

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-06-15 05:38:55
+<?php /* Smarty version Smarty-3.1.17, created on 2014-06-15 10:36:12
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\procurement_plan_works.html" */ ?>
 <?php /*%%SmartyHeaderCode:14971539bd6aedd6dc3-98833085%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'c27ef44bd1ad39ceb12a1c290020ce003f8722bc' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\procurement_plan_works.html',
-      1 => 1402803531,
+      1 => 1402821353,
       2 => 'file',
     ),
   ),
@@ -29,7 +29,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_539bd6af1ae297_22458874')) {function content_539bd6af1ae297_22458874($_smarty_tpl) {?><script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
+<?php if ($_valid && !is_callable('content_539bd6af1ae297_22458874')) {function content_539bd6af1ae297_22458874($_smarty_tpl) {?><div id="main-content" class="clearfix">
+    <head>
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+        <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
 <script type="text/javascript" src="/app_contents/common/js/messages.js"></script>
 <script type="text/javascript" src="/app_contents/common/js/CalendarPopup.js"></script>
 
@@ -56,14 +63,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   }
   
 </style>
-
-<div id="main-content" class="clearfix">
-    <head>
-        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
-        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
-        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
-        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
-        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
     </head>
 					
     <div id="breadcrumbs">

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-06-04 09:50:59
+<?php /* Smarty version Smarty-3.1.17, created on 2014-06-16 06:44:17
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\project_manager_home.html" */ ?>
 <?php /*%%SmartyHeaderCode:4734538ecfe3eb88b8-53227364%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '11724fafcaa82bbdd4b7f0b378188a2e61c0fc29' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\project_manager_home.html',
-      1 => 1401768054,
+      1 => 1402767647,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.17',
+  'unifunc' => 'content_538ecfe40f17e4_57245711',
   'variables' => 
   array (
     'SCRIPT_NAME' => 0,
@@ -22,8 +24,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'PI' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_538ecfe40f17e4_57245711',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_538ecfe40f17e4_57245711')) {function content_538ecfe40f17e4_57245711($_smarty_tpl) {?><div id="main-content" class="clearfix">
 <head>
@@ -109,11 +109,16 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         </div>    
     </div>  
 </form>
+
+
+<div class="hr hr32 hr-dotted"></div>
+
+
 <div class="row-fluid">
-    <div class="span12">
+    <div class="span6">
         <div class="widget-box">
-            <div class="table-header">
-            Project Related Informations
+            <div class="widget-header">
+		<h4 class="lighter smaller"><i class="icon-comment blue"></i>Project Information</h4>
             </div>
             <div class="widget-body">
                 <div class="widget-main no-padding">
@@ -153,6 +158,79 @@ $_valid = $_smarty_tpl->decodeProperties(array (
             </div>
         </div>
     </div>
+    
+    
+ <div class="span6">
+	<div class="widget-box">
+		
+		<div class="widget-header">
+			<h4 class="lighter smaller"><i class="icon-rss orange"></i>Feedbacks</h4>
+			<div class="widget-toolbar no-border">
+				<ul class="nav nav-tabs" id="recent-tab">
+					<li ><a data-toggle="tab" href="#task-tab">Planning Commission</a></li>
+					<li><a data-toggle="tab" href="#member-tab">Ministry</a></li>
+					<li class="active"><a data-toggle="tab" href="#comment-tab">Agency</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="widget-body">
+		 <div class="widget-main padding-5">
+			<div class="tab-content padding-8">
+				<div id="comment-tab" class="tab-pane">
+					<div class="comments">
+						<div class="itemdiv commentdiv">
+							
+							
+							<div class="body">
+								<div class="name"><a href="#">Jennifer</a></div>
+								<div class="time"><i class="icon-time"></i> <span class="blue">15 min</span></div>
+								<div class="text">
+									<i class="icon-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip; 
+								</div>
+							</div>
+							
+							<div class="tools">
+								<a href="#" class="btn btn-minier btn-info"><i class="icon-only icon-pencil"></i></a>
+								<a href="#" class="btn btn-minier btn-danger"><i class="icon-only icon-trash"></i></a>
+							</div>
+						</div>
+						
+						
+						<div class="itemdiv commentdiv">
+							
+							
+							<div class="body">
+								<div class="name"><a href="#">Rita</a></div>
+								<div class="time"><i class="icon-time"></i> <span class="red">50 min</span></div>
+								<div class="text">
+									<i class="icon-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis &hellip;
+								</div>
+							</div>
+							
+							<div class="tools">
+								<a href="#" class="btn btn-minier btn-info"><i class="icon-only icon-pencil"></i></a>
+								<a href="#" class="btn btn-minier btn-danger"><i class="icon-only icon-trash"></i></a>
+							</div>
+						</div>
+						
+					</div>
+					
+					<div class="hr hr8"></div>
+					<div class="center">
+							<i class="icon-comments-alt icon-2x green"></i> &nbsp; <a href="#">See all comments &nbsp; <i class="icon-arrow-right"></i></a>
+					</div>
+					<div class="hr hr-double hr8"></div>
+					
+				</div>
+			</div>
+		 </div><!--/widget-main-->
+		</div><!--/widget-body-->
+		
+		
+	</div><!--/widget-box-->
+ </div><!--/span-->
+ 
 </div>	
 		
 		

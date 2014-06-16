@@ -1,6 +1,11 @@
 <table cellspacing="0" style='font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12px;'>
     <tr>
-        <td align="right" colspan="12">Annex - III (a)</td>
+        <td align="right" colspan="12">
+        {if $procurement_category eq 'GOODS'}Annex - III (a)
+        {else if $procurement_category eq 'WORKS'}Annex - III (b)
+        {else if $procurement_category eq 'SERVICES'}Annex - III (c)
+        {/if}
+        </td>
     </tr>
     <tr>
         <td align="right" colspan="12"><font size="1">Ref: PPR, 2008</font></td>
@@ -37,7 +42,13 @@
         <td align="center" style="border: 1px solid black;">Contract Approving Authority</td>
         <td align="center" style="border: 1px solid black;">Source of Fund</td>
         <td align="center" style="border: 1px solid black;">Estd. Cost (In lakh tk)</td>
+        {if $procurement_category eq 'GOODS'}
         <td align="center" style="border: 1px solid black;">Not Used in GOODS</td>
+        {else if $procurement_category eq 'WORKS'}
+        <td align="center" style="border: 1px solid black;">Invitation for Prequal (if applicable)</td>
+        {else if $procurement_category eq 'SERVICES'}
+        <td align="center" style="border: 1px solid black;">EOI Invitation</td>
+        {/if}
         <td align="center" style="border: 1px solid black;">Invitation for Tender</td>
         <td align="center" style="border: 1px solid black;">Signing of Contract</td>
         <td align="center" style="border: 1px solid black;">Completion of Contract</td>
@@ -53,7 +64,13 @@
         <td style="border: 1px solid black;">{$item->approv_auth}</td>
         <td style="border: 1px solid black;">{$item->fund_src}</td>
         <td style="border: 1px solid black;">{$item->estd_cost|number_format:2:".":","}</td>
-        <td style="border: 1px solid black;">&nbsp;</td>
+        {if $procurement_category eq 'GOODS'}
+        <td style="border: 1px solid black;">Not Req.</td>
+        {else if $procurement_category eq 'WORKS'}
+        <td align="center" style="border: 1px solid black;">{$item->prequal_invitation}</td>
+        {else if $procurement_category eq 'SERVICES'}
+        <td align="center" style="border: 1px solid black;">{$item->eoi_invitation}</td>
+        {/if}
         <td style="border: 1px solid black;">{$item->tender_invitation}</td>
         <td style="border: 1px solid black;">{$item->contract_sign}</td>
         <td style="border: 1px solid black;">{$item->contract_completion}</td>

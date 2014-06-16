@@ -73,23 +73,11 @@ class userManagerApp extends DefaultApplication
          $data = array_merge(array(), $userData);
       }
 
-      if($data['photo_id'])
-      {
-         $photoID  = $data['photo_id'];
-         $thisDoc  = new DocumentEntity($photoID);
-         $fileName = $thisDoc->getRemoteFileName();
-
-         $arr = explode('.', $fileName);
-
-         $fileLocation = REL_DOCUMENT_DIR.'/'.$fileName[0].'/'.$fileName[1].'/'.$photoID.'.'.$arr[1];
-      }
 
       $data['message']                   = $msg;
-      $data['user_type_list']            = getEnumFieldValues(USER_TBL, 'user_type');
-      $data['preferred_im_service_list'] = getEnumFieldValues(USER_TBL, 'preferred_im_service');
-      $data['country_list']              = getList(COUNTRY_LOOKUP_TBL);
-      $data['state_list']                = getList(US_STATE_TBL);
-      $data['file']                      = $fileLocation;
+      $data['ministryList']              = getMinistryList();
+      $data['agencyList']                = getAgencyList();
+      
       
       
       //dumpvar($data);
@@ -105,21 +93,6 @@ class userManagerApp extends DefaultApplication
    {
       $userID = getUserField('id');
       
-      if($_FILES['photo']['size'] > 0)
-      {
-         $_FILES['document'] = $_FILES['photo'];
-         $thisDoc = new DocumentEntity();
-         $photoID = $thisDoc->addDocument();
-
-         $thisDoc  = new DocumentEntity($photoID);
-         $fileName = $thisDoc->getRemoteFileName();
-
-         $arr = explode('.', $fileName);
-
-         $fileLocation = DOCUMENT_REPOSITORY.'/'.$fileName[0].'/'.$fileName[1].'/'.$photoID.'.'.$arr[1];
-         resampimage(IMG_WIDTH, IMG_HEIGHT, $fileLocation, $fileLocation);
-      }
-
       if($userID)
       {
          $thisUser = new User();

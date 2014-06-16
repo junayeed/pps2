@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+                <script type="text/javascript" src="/ext/ckeditor/ckeditor.js"></script>
 	</head>
 
 					
@@ -143,9 +144,8 @@
                 
                  <div class="control-group">
                     <label class="control-label" for="objectives">Objectives</label>
-                    <div class="controls">
-                        <textarea rows="5" style="width:545px" name="objectives" id="objectives">{$basicInfo->objectives}</textarea>
-                        <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
+                    <div class="controls" style="margin-left: 289px !important">
+                        <textarea rows="5" class="ckeditor" name="objectives" id="objectives">{$basicInfo->objectives}</textarea>
                     </div>
                 </div>
                 
@@ -513,7 +513,7 @@
                 <div class="control-group">
                     <label class="" for="completion">After completion, whether the project needs to be transferred to revenue budget.</label>
                     <div class="">
-                        <textarea name="completion" id="completion"> </textarea>
+                        <textarea class="ckeditor" name="completion" id="completion"> </textarea>
                     </div> 
                 </div>
             </div>
