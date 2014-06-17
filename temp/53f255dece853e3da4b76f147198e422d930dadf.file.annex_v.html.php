@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-06-16 08:07:40
+<?php /* Smarty version Smarty-3.1.17, created on 2014-06-17 10:40:29
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\annex_v.html" */ ?>
 <?php /*%%SmartyHeaderCode:20084539d5fd5383d83-37837918%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '53f255dece853e3da4b76f147198e422d930dadf' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\annex_v.html',
-      1 => 1402898855,
+      1 => 1402994423,
       2 => 'file',
     ),
   ),
@@ -24,8 +24,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'SYSTEM_COMMON_JAVASCRIPT_DIR' => 0,
     'REL_TEMPLATE_DIR' => 0,
     'SYSTEM_APP_PREFIX' => 0,
-    'procurement_list' => 0,
+    'econimonic_code_list' => 0,
     'item' => 0,
+    'econimonic_subcode_list' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -88,12 +89,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                    <div class="span12"> 
                         <div id="annex-container">
                             <div id="economic_code_container">
+                                <i class="icon-blank"></i>
                                 <table id="economic_code_tbl" class="table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
                                         <tr>
-                                            <th>Economic Code</th>
-                                            <th class="span3">Economic Sub-code</th>
-                                            <th class="span3">Code description</th>
+                                            <th class="span1">Economic Code</th>
+                                            <th class="span1">Economic Sub-code</th>
+                                            <th class="span12">Code description</th>
                                         </tr>
                                     </thead>
                                     <tbody id="economic_code_content">
@@ -101,13 +103,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                                 </table>
                             </div>
                             <div id="total_cost_container">
+                                <i class="icon-blank"></i>
                                 <table id="total_cost_tbl" class="table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
                                         <tr>
-                                            <th class="span5">Unit</th>
-                                            <th class="span5">Unit Cost</th>
-                                            <th class="span5">Qty</th>
-                                            <th class="span5">Total Cost</th>
+                                            <th class="span3">Unit</th>
+                                            <th class="span2">Unit Cost</th>
+                                            <th class="span2">Qty</th>
+                                            <th class="span4">Total Cost</th>
                                         </tr>
                                     </thead>
                                     <tbody id="total_cost_content">
@@ -115,6 +118,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                                 </table>
                             </div>
                             <div id="total_cost_breakdown_container">
+                                <i class="icon-exchange" id="toggle_total_cost_breakdown"></i>
                                 <table id="total_cost_breakdown_tbl" class="table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
                                         <tr>
@@ -137,6 +141,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                                 </table>
                             </div>
                             <div id="total_cost_breakdown_container1">
+                                <i class="icon-exchange" id="toggle_total_cost_breakdown"></i>
                                 <table id="total_cost_breakdown_tbl" class="table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
                                         <tr>
@@ -160,6 +165,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                                 </table>
                             </div>
                             <div id="total_cost_breakdown_container1">
+                                <i class="icon-exchange" id="toggle_total_cost_breakdown"></i>
                                 <table id="total_cost_breakdown_tbl" class="table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
                                         <tr>
@@ -268,33 +274,66 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 /<?php echo $_smarty_tpl->tpl_vars['SYSTEM_APP_PREFIX']->value;?>
 .js"></script>                 
     <script>
+        
+        
+
+        $('#toggle_total_cost_breakdown').click(function() 
+        {
+            if( $('#total_cost_breakdown_tbl').is(":visible") )
+            {
+                $('#total_cost_breakdown_tbl').hide("slow", function() {$('#total_cost_breakdown_container').css('width', '15px');});
+                
+            }
+            else
+            {
+                $('#total_cost_breakdown_tbl').show("slow", function() {$('#total_cost_breakdown_container').css('width', '500px');});
+                
+            }
+            
+        });
+       
+        
+        var economicCodeArr = [];
+        var i = 1;
         <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
- $_from = $_smarty_tpl->tpl_vars['procurement_list']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+ $_from = $_smarty_tpl->tpl_vars['econimonic_code_list']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value) {
 $_smarty_tpl->tpl_vars['item']->_loop = true;
 ?>
-            addNewProcuremtPlanRow('services_tbl', 'Services');
-            populateProcurementPlanDetails("<?php echo $_smarty_tpl->tpl_vars['item']->value->package_no;?>
-", "<?php echo $_smarty_tpl->tpl_vars['item']->value->procurement_desc;?>
-", "<?php echo $_smarty_tpl->tpl_vars['item']->value->procurement_unit;?>
-", "<?php echo $_smarty_tpl->tpl_vars['item']->value->procurement_qty;?>
-", 
-                                           "<?php echo $_smarty_tpl->tpl_vars['item']->value->procurement_method;?>
-", "<?php echo $_smarty_tpl->tpl_vars['item']->value->procurement_type;?>
-", "<?php echo $_smarty_tpl->tpl_vars['item']->value->approv_auth;?>
-", "<?php echo $_smarty_tpl->tpl_vars['item']->value->fund_src;?>
-", 
-                                           "<?php echo $_smarty_tpl->tpl_vars['item']->value->estd_cost;?>
-", "<?php echo $_smarty_tpl->tpl_vars['item']->value->tender_invitation;?>
-", "<?php echo $_smarty_tpl->tpl_vars['item']->value->contract_sign;?>
-", "<?php echo $_smarty_tpl->tpl_vars['item']->value->contract_completion;?>
+           
+           economicCodeArr.push({'code':"<?php echo $_smarty_tpl->tpl_vars['item']->value->economic_code;?>
+" , 
+                                        'component_type':"<?php echo $_smarty_tpl->tpl_vars['item']->value->component_type;?>
 ",
-                                           "<?php echo $_smarty_tpl->tpl_vars['item']->value->id;?>
-", "<?php echo $_smarty_tpl->tpl_vars['item']->value->procurement_category;?>
-");
+                                        'code_name':"<?php echo $_smarty_tpl->tpl_vars['item']->value->economic_code_name;?>
+", 
+                                        'id':"<?php echo $_smarty_tpl->tpl_vars['item']->value->id;?>
+" 
+                                }
+                                );
+           
         <?php } ?>
         
-        
+        var economicSubCodeArray = [];
+        var i = 1;
+        <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['econimonic_subcode_list']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value) {
+$_smarty_tpl->tpl_vars['item']->_loop = true;
+?>
+           
+           economicSubCodeArray.push({'id':"<?php echo $_smarty_tpl->tpl_vars['item']->value->id;?>
+" , 
+                                        'sub_code':"<?php echo $_smarty_tpl->tpl_vars['item']->value->economic_subcode;?>
+",
+                                        'economic_subcode_name':"<?php echo $_smarty_tpl->tpl_vars['item']->value->economic_subcode_name;?>
+", 
+                                        'economic_code_id':"<?php echo $_smarty_tpl->tpl_vars['item']->value->economic_code_id;?>
+" 
+                                }
+                                );
+           
+        <?php } ?>
         /*
         
          ;(function($) {

@@ -58,6 +58,8 @@
   define('UPZILA_LOOKUP_TBL',            DB_NAME . '.upzila_lookup');
   define('PROC_METHOD_LOOKUP_TBL',       DB_NAME . '.procurement_method_lookup');
   define('PROC_TYPE_LOOKUP_TBL',         DB_NAME . '.procurement_type_lookup');
+  define('ECONOMIC_CODE_LOOKUP_TBL',     DB_NAME . '.economic_code_lookup');
+  define('ECONOMIC_SUBCODE_LOOKUP_TBL',  DB_NAME . '.economic_subcode_lookup');
   
   
   define('US_STATE_TBL',                 DB_NAME . '.us_states');

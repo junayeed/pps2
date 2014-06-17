@@ -231,6 +231,11 @@ class projectManagerApp extends DefaultApplication
     
     function showAnnexV()
     {
+        $data['econimonic_code_list']     = getEconomicCodeList();
+        $data['econimonic_subcode_list']  = getEconomicSubCodeList();
+        
+        //dumpvar($data);
+        
         return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);
     }
    

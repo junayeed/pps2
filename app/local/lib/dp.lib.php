@@ -132,7 +132,7 @@
         $info['table']  = UPZILA_LOOKUP_TBL;
         $info['fields'] = array('upzila_id','upzila_name');
         $info['where']  = " status='Active' ORDER By upzila_name ASC";
-      //$info['debug']  = true;
+        //$info['debug']  = true;
 
       if ($result = select($info))
       {
@@ -144,54 +144,36 @@
       return $data;
    } 
    
- 
-
-   /**
-   * Gets teamname
-   * @param groupID
-   * @return teamname
-   */
-   function getTeamName($groupID = null)
+   function getEconomicCodeList()
    {
-      $info['table']  = GROUP_TBL;
-      $info['fields'] = array('name');
-      $info['where']  = "group_id = '$groupID'";
-      $info['debug']  = false;
-
-      if ($result = select($info))
-      {
-         foreach($result as $key => $value)
-         {
-            $teamName = $value->name;
-         }
-      }
-
-      return $teamName;
-   }
-
-   /**
-   * Gets Application List
-   * @return array application list
-   */
-   function getApplicationList()
-   {
-      $info['table']  = APP_INFO_TBL;
-      $info['fields'] = array('id', 'name');
-      $info['where']  = '1 Order By name';
-      $info['debug']  = false;
-
-      if ($result = select($info))
-      {
-         foreach($result as $key => $value)
-         {
-            $list[$value->id] = $value->name;
-         }
-      }
-
-      return $list;
+       $info['table']  = ECONOMIC_CODE_LOOKUP_TBL;
+       $info['debug']  = false;
+       $info['where']  = 'status = ' . q('Active');
+       $info['fields'] = array('id', 'economic_code', 'component_type', 'economic_code_name');
+       
+       $result = select($info);
+       
+       if ( $result )
+       {
+           return $result;
+       }
    }
    
-
+   function getEconomicSubCodeList()
+   {
+       $info['table']  = ECONOMIC_SUBCODE_LOOKUP_TBL;
+       $info['debug']  = false;
+       $info['where']  = 'status = ' . q('Active');
+       $info['fields'] = array('id', 'economic_code_id', 'economic_subcode', 'economic_subcode_name');
+       
+       $result = select($info);
+       
+       if ( $result )
+       {
+           return $result;
+       }
+   }
+   
   /**
    * This function calculate difference between two dates
    *
