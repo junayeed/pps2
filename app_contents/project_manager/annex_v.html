@@ -104,83 +104,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div id="total_cost_breakdown_container1">
-                                <i class="icon-exchange" id="toggle_total_cost_breakdown"></i>
-                                <table id="total_cost_breakdown_tbl" class="table table-striped table-bordered table-hover table_bug_report">
-                                    <thead>
-                                        <tr>
-                                            <th class="span3" rowspan="3">GoB (FE)</th>
-                                            <th class="span3" colspan="3">Project Aid</th>
-                                            <th class="span3" rowspan="3">Own Fund (FE)</th>
-                                            <th class="span3" rowspan="3">Other (FE)</th>
-                                            <th class="span3" rowspan="3">Total</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3" colspan="2">RPA</th>
-                                            <th class="span3" rowspan="2">DPA</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3">Through GoB</th>
-                                            <th class="span3">Special Account*</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="total_cost_breakdown_content">
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div id="total_cost_breakdown_container1">
-                                <i class="icon-exchange" id="toggle_total_cost_breakdown"></i>
-                                <table id="total_cost_breakdown_tbl" class="table table-striped table-bordered table-hover table_bug_report">
-                                    <thead>
-                                        <tr>
-                                            <th class="span3" rowspan="3">GoB (FE)</th>
-                                            <th class="span3" colspan="3">Project Aid</th>
-                                            <th class="span3" rowspan="3">Own Fund (FE)</th>
-                                            <th class="span3" rowspan="3">Other (FE)</th>
-                                            <th class="span3" rowspan="3">Total</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3" colspan="2">RPA</th>
-                                            <th class="span3" rowspan="2">DPA</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3">Through GoB</th>
-                                            <th class="span3">Special Account*</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="total_cost_breakdown_content">
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div id="total_cost_breakdown_container1">
-                                <table id="total_cost_breakdown_tbl" class="table table-striped table-bordered table-hover table_bug_report">
-                                    <thead>
-                                        <tr>
-                                            <th class="span3" rowspan="3">GoB (FE)</th>
-                                            <th class="span3" colspan="3">Project Aid</th>
-                                            <th class="span3" rowspan="3">Own Fund (FE)</th>
-                                            <th class="span3" rowspan="3">Other (FE)</th>
-                                            <th class="span3" rowspan="3">Total</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3" colspan="2">RPA</th>
-                                            <th class="span3" rowspan="2">DPA</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3">Through GoB</th>
-                                            <th class="span3">Special Account*</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="total_cost_breakdown_content">
-                                    </tbody>
-                                </table>
-                            </div>
+                            
                         </div>
                         <a href="#" onClick="addNewComponent();">Add Component</a>
+                        <a href="#" onClick="addNewYear();">Add Year</a>
                         <div class="form-actions2">
                             <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
-                            <input type="hidden" value="saveAnnexIIIc" name="cmd"/>
+                            <input type="hidden" value="saveAnnexV" name="cmd"/>
                             <input type="hidden" id="PI" name="PI" value="{$PI}"/>
+                            <input type="hidden" id="total_year_in_annexv" name="total_year_in_annexv" value=""/>
                         </div>
                     </div>      
                 </div>
@@ -278,48 +210,14 @@
                                 );
            
         {/foreach}
-        /*
         
-         ;(function($) {
-   $.fn.fixMe = function() {
-      return this.each(function() {
-         var $this = $(this),
-            $t_fixed;
-         function init() {
-            $this.wrap('<div class="container" />');
-            $t_fixed = $this.clone();
-            $t_fixed.find("tbody").remove().end().addClass("fixed").insertBefore($this);
-            resizeFixed();
-         }
-         function resizeFixed() {
-            $t_fixed.find("th").each(function(index) {
-               $(this).css("width",$this.find("th").eq(index).outerWidth()+"px");
-            });
-         }
-         function scrollFixed() {
-            var offset = $(this).scrollTop(),
-            tableOffsetTop = $this.offset().top,
-            tableOffsetBottom = tableOffsetTop + $this.height() - $this.find("thead").height();
-            if(offset < tableOffsetTop || offset > tableOffsetBottom)
-               $t_fixed.hide();
-            else if(offset >= tableOffsetTop && offset <= tableOffsetBottom && $t_fixed.is(":hidden"))
-               $t_fixed.show();
-         }
-         $(window).resize(resizeFixed);
-         $(window).scroll(scrollFixed);
-         init();
-      });
-   };
-})(jQuery);
-
-$(document).ready(function(){
-   $("table").fixMe();
-   $(".up").click(function() {
-      $('html, body').animate({
-      scrollTop: 0
-   }, 2000);
- });
-});*/
     
-    addNewComponent();
+    {foreach from=$component_list item=item}
+            addNewComponent();
+            populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}", "{$item->unit}", 
+                                     "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
+                                     "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
+                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}");
+        {/foreach}
+    
     </script>    

@@ -7,7 +7,7 @@ function isNumberKey(evt)
 {
    var charCode = (evt.which) ? evt.which : evt.keyCode;
    
-   if(charCode == 46 || charCode == 8)
+   if(charCode == 46 || charCode == 8 || charCode == 9)
       return true;
       
    if (charCode < 48 || charCode > 57)

@@ -34,6 +34,7 @@ class projectManagerApp extends DefaultApplication
            case 'saveAnnexIIIc'      : $screen = $this->saveProcurementPlan($cmd);     break;
            case 'deleteprocplan'     : $screen = $this->deleteProcurementPlan();       break;
            case 'annexV'             : $screen = $this->showAnnexV();                  break;
+           case 'saveAnnexV'         : $screen = $this->saveAnnexV();                  break;
            case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
            default                   : $screen = $this->showEditor($msg);
       }
@@ -229,12 +230,25 @@ class projectManagerApp extends DefaultApplication
         }
     }
     
+    function saveAnnexV()
+    {
+        $pid       = base64_decode(getUserField('PI'));
+        
+        updateAnnexV();
+        header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid));
+        //return $this->showAnnexV();
+    }
+    
     function showAnnexV()
     {
+        $PI                    = getUserField('PI');    
+        $pid                   = base64_decode($PI);
+        $data['PI']            = $PI;
         $data['econimonic_code_list']     = getEconomicCodeList();
         $data['econimonic_subcode_list']  = getEconomicSubCodeList();
+        $data['component_list']           = getComponentList($pid);
         
-        //dumpvar($data);
+        //dumpvar($data['component_list']);
         
         return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);
     }

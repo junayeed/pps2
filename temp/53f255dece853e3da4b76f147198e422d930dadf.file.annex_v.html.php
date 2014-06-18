@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-06-17 10:40:29
+<?php /* Smarty version Smarty-3.1.17, created on 2014-06-18 12:35:41
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\annex_v.html" */ ?>
 <?php /*%%SmartyHeaderCode:20084539d5fd5383d83-37837918%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '53f255dece853e3da4b76f147198e422d930dadf' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\annex_v.html',
-      1 => 1402994423,
+      1 => 1403087632,
       2 => 'file',
     ),
   ),
@@ -27,6 +27,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'econimonic_code_list' => 0,
     'item' => 0,
     'econimonic_subcode_list' => 0,
+    'component_list' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -140,84 +141,16 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                                     </tbody>
                                 </table>
                             </div>
-                            <div id="total_cost_breakdown_container1">
-                                <i class="icon-exchange" id="toggle_total_cost_breakdown"></i>
-                                <table id="total_cost_breakdown_tbl" class="table table-striped table-bordered table-hover table_bug_report">
-                                    <thead>
-                                        <tr>
-                                            <th class="span3" rowspan="3">GoB (FE)</th>
-                                            <th class="span3" colspan="3">Project Aid</th>
-                                            <th class="span3" rowspan="3">Own Fund (FE)</th>
-                                            <th class="span3" rowspan="3">Other (FE)</th>
-                                            <th class="span3" rowspan="3">Total</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3" colspan="2">RPA</th>
-                                            <th class="span3" rowspan="2">DPA</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3">Through GoB</th>
-                                            <th class="span3">Special Account*</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="total_cost_breakdown_content">
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div id="total_cost_breakdown_container1">
-                                <i class="icon-exchange" id="toggle_total_cost_breakdown"></i>
-                                <table id="total_cost_breakdown_tbl" class="table table-striped table-bordered table-hover table_bug_report">
-                                    <thead>
-                                        <tr>
-                                            <th class="span3" rowspan="3">GoB (FE)</th>
-                                            <th class="span3" colspan="3">Project Aid</th>
-                                            <th class="span3" rowspan="3">Own Fund (FE)</th>
-                                            <th class="span3" rowspan="3">Other (FE)</th>
-                                            <th class="span3" rowspan="3">Total</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3" colspan="2">RPA</th>
-                                            <th class="span3" rowspan="2">DPA</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3">Through GoB</th>
-                                            <th class="span3">Special Account*</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="total_cost_breakdown_content">
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div id="total_cost_breakdown_container1">
-                                <table id="total_cost_breakdown_tbl" class="table table-striped table-bordered table-hover table_bug_report">
-                                    <thead>
-                                        <tr>
-                                            <th class="span3" rowspan="3">GoB (FE)</th>
-                                            <th class="span3" colspan="3">Project Aid</th>
-                                            <th class="span3" rowspan="3">Own Fund (FE)</th>
-                                            <th class="span3" rowspan="3">Other (FE)</th>
-                                            <th class="span3" rowspan="3">Total</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3" colspan="2">RPA</th>
-                                            <th class="span3" rowspan="2">DPA</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3">Through GoB</th>
-                                            <th class="span3">Special Account*</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="total_cost_breakdown_content">
-                                    </tbody>
-                                </table>
-                            </div>
+                            
                         </div>
                         <a href="#" onClick="addNewComponent();">Add Component</a>
+                        <a href="#" onClick="addNewYear();">Add Year</a>
                         <div class="form-actions2">
                             <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
-                            <input type="hidden" value="saveAnnexIIIc" name="cmd"/>
+                            <input type="hidden" value="saveAnnexV" name="cmd"/>
                             <input type="hidden" id="PI" name="PI" value="<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
 "/>
+                            <input type="hidden" id="total_year_in_annexv" name="total_year_in_annexv" value=""/>
                         </div>
                     </div>      
                 </div>
@@ -334,49 +267,36 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                                 );
            
         <?php } ?>
-        /*
         
-         ;(function($) {
-   $.fn.fixMe = function() {
-      return this.each(function() {
-         var $this = $(this),
-            $t_fixed;
-         function init() {
-            $this.wrap('<div class="container" />');
-            $t_fixed = $this.clone();
-            $t_fixed.find("tbody").remove().end().addClass("fixed").insertBefore($this);
-            resizeFixed();
-         }
-         function resizeFixed() {
-            $t_fixed.find("th").each(function(index) {
-               $(this).css("width",$this.find("th").eq(index).outerWidth()+"px");
-            });
-         }
-         function scrollFixed() {
-            var offset = $(this).scrollTop(),
-            tableOffsetTop = $this.offset().top,
-            tableOffsetBottom = tableOffsetTop + $this.height() - $this.find("thead").height();
-            if(offset < tableOffsetTop || offset > tableOffsetBottom)
-               $t_fixed.hide();
-            else if(offset >= tableOffsetTop && offset <= tableOffsetBottom && $t_fixed.is(":hidden"))
-               $t_fixed.show();
-         }
-         $(window).resize(resizeFixed);
-         $(window).scroll(scrollFixed);
-         init();
-      });
-   };
-})(jQuery);
-
-$(document).ready(function(){
-   $("table").fixMe();
-   $(".up").click(function() {
-      $('html, body').animate({
-      scrollTop: 0
-   }, 2000);
- });
-});*/
     
-    addNewComponent();
+    <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['component_list']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value) {
+$_smarty_tpl->tpl_vars['item']->_loop = true;
+?>
+            addNewComponent();
+            populateComponentDetails("<?php echo $_smarty_tpl->tpl_vars['item']->value->economic_code_id;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->economic_subcode_id;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->economic_subcode_name;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->unit;?>
+", 
+                                     "<?php echo $_smarty_tpl->tpl_vars['item']->value->unit_cost;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->qty;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->total_cost;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->gob;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->gob_fe;?>
+", 
+                                     "<?php echo $_smarty_tpl->tpl_vars['item']->value->rpa_through_gob;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->rpa_special_account;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->dpa;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->own_fund;?>
+",
+                                     "<?php echo $_smarty_tpl->tpl_vars['item']->value->own_fund_fe;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->other;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->other_fe;?>
+", "<?php echo $_smarty_tpl->tpl_vars['item']->value->id;?>
+");
+        <?php } ?>
+    
     </script>    
 <?php }} ?>

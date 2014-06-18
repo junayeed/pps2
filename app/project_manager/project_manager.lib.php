@@ -30,6 +30,7 @@
 	        $data['create_date']            = date('Y-m-d');
 	        $data['procurement_plan_id']    = $_REQUEST['proc_plan_id_' . $id];
                 $data['procurement_category ']  = $_REQUEST['procurement_category_' .$id];
+                $data['pid']                    = base64_decode(getUserField('PI'));
                 
                 $info['data'] = $data;                
                 // if procurement_plan_id is there then update the record
@@ -43,6 +44,102 @@
                     $info['where'] = 'id = ' . $data['procurement_plan_id'];
                     update($info);
                 }
+ 	    }
+        }
+    }
+    
+    function updateAnnexV()
+    {
+        //dumpvar($_REQUEST);
+        $info['table'] = PROJECT_ANNEX_V_TBL;
+        $info['debug'] = false;
+        $data['pid']   = base64_decode(getUserField('PI'));
+        
+        foreach( $_REQUEST as $key => $value)
+	{
+            if( preg_match('/economic_code_(\d+)/', $key, $matches))
+            {
+                $id = $matches[1];
+                
+                $data['economic_code_id']          = $_REQUEST['economic_code_' . $id];
+                $data['economic_subcode_id']       = $_REQUEST['sub_code_' . $id];
+	        $data['economic_subcode_name']     = $_REQUEST['code_desc_' . $id];
+	        $data['unit']                      = $_REQUEST['unit_' . $id]         ? $_REQUEST['unit_' . $id]         : '';
+	        $data['unit_cost']                 = $_REQUEST['unit_cost_' . $id]    ? $_REQUEST['unit_cost_' . $id]    : 0.0;
+	        $data['qty']                       = $_REQUEST['qty_' . $id]          ? $_REQUEST['qty_' . $id]          : 0;
+	        $data['total_cost']                = $_REQUEST['total_cost_' . $id]   ? $_REQUEST['total_cost_' . $id]   : 0.0;
+	        $data['gob']                       = $_REQUEST['total_gob_' . $id]    ? $_REQUEST['total_gob_' . $id]    : 0.0;
+	        $data['gob_fe']                    = $_REQUEST['total_gob_fe_' . $id] ? $_REQUEST['total_gob_fe_' . $id] : 0.0;
+	        $data['rpa_through_gob']           = $_REQUEST['pa_gob_' . $id]       ? $_REQUEST['pa_gob_' . $id]       : 0.0;
+	        $data['rpa_special_account']       = $_REQUEST['pa_spc_acnt_' . $id]  ? $_REQUEST['pa_spc_acnt_' . $id]  : 0.0;
+	        $data['dpa']                       = $_REQUEST['pa_dpa_' . $id]       ? $_REQUEST['pa_dpa_' . $id]       : 0.0;
+	        $data['own_fund']                  = $_REQUEST['own_fund_' . $id]     ? $_REQUEST['own_fund_' . $id]     : 0.0;
+	        $data['own_fund_fe']               = $_REQUEST['own_fund_fe_' . $id]  ? $_REQUEST['own_fund_fe_' . $id]  : 0.0;
+	        $data['other']                     = $_REQUEST['other_' . $id]        ? $_REQUEST['other_' . $id]        : 0.0;
+	        $data['other_fe']                  = $_REQUEST['other_fe_' . $id]     ? $_REQUEST['other_fe_' . $id]     : 0.0;
+	        $data['annex_id']                  = $_REQUEST['annex_id_' . $id];
+                
+                $info['data'] = $data;                
+                // if procurement_plan_id is there then update the record
+                // else add a new record in procurement plan table
+                if ( !$data['annex_id'] ) 
+                {
+                    insert($info);
+                }
+                else
+                {
+                    $info['where'] = 'id = ' . $data['annex_id'];
+                    update($info);
+                }
+                
+                
+ 	    }
+        }
+        updateAnnexVDetails($data['annex_id']);
+        
+    }
+    
+    function updateAnnexVDetails($annex_id)
+    {
+       
+        $info['table'] = PROJECT_ANNEX_V_DETAILS_TBL;
+        $info['debug'] = false;
+        $data['pid']   = base64_decode(getUserField('PI'));
+        
+        foreach( $_REQUEST as $key => $value)
+	{
+            if( preg_match('/rpa_through_gob_(\d+)_(\d+)/', $key, $matches))
+            {
+                $year   = $matches[1];
+                $row_id = $matches[2];
+                
+                $data['gob']                   = $_REQUEST['gob_' . $year . '_'.$row_id]                  ? $_REQUEST['gob_' . $year . '_'.$row_id]                 : 0.0;
+                $data['gob_fe']                = $_REQUEST['gob_fe_' . $year . '_'.$row_id]               ? $_REQUEST['gob_fe_' . $year . '_'.$row_id]              : 0.0;
+                $data['rpa_through_gob']       = $_REQUEST['rpa_through_gob_' . $year . '_'.$row_id]      ? $_REQUEST['rpa_through_gob_' . $year . '_'.$row_id]     : 0.0;
+                $data['rpa_special_account']   = $_REQUEST['rpa_special_account_' . $year . '_'.$row_id]  ? $_REQUEST['rpa_special_account_' . $year . '_'.$row_id] : 0.0;
+                $data['dpa']                   = $_REQUEST['dpa_' . $year . '_'.$row_id]                  ? $_REQUEST['dpa_' . $year . '_'.$row_id]                 : 0.0;
+                $data['own_fund']              = $_REQUEST['own_fund_' . $year . '_'.$row_id]             ? $_REQUEST['own_fund_' . $year . '_'.$row_id]            : 0.0;
+                $data['own_fund_fe']           = $_REQUEST['own_fund_fe_' . $year . '_'.$row_id]          ? $_REQUEST['own_fund_fe_' . $year . '_'.$row_id]         : 0.0;
+                $data['other']                 = $_REQUEST['other_' . $year . '_'.$row_id]                ? $_REQUEST['other_' . $year . '_'.$row_id]               : 0.0;
+                $data['other_fe']              = $_REQUEST['other_fe_' . $year . '_'.$row_id]             ? $_REQUEST['other_fe_' . $year . '_'.$row_id]            : 0.0;
+                $data['total']                 = $_REQUEST['total_' . $year . '_'.$row_id]                ? $_REQUEST['total_' . $year . '_'.$row_id]               : 0.0;
+                $data['annex_id']              = $annex_id;
+                $data['year_serial']           = $year;
+                
+                $info['data'] = $data; 
+                 
+                // if procurement_plan_id is there then update the record
+                // else add a new record in procurement plan table
+                if ( !$data['annex_details_id'] ) 
+                {
+                    insert($info);
+                }
+                else
+                {
+                    //$info['where'] = 'id = ' . $data['annex_details_id'] . ' AND annex_id = ' . $annex_id;
+                    //update($info);
+                }
+                
  	    }
         }
     }
