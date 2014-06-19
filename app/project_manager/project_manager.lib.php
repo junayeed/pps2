@@ -78,41 +78,41 @@
 	        $data['other']                     = $_REQUEST['other_' . $id]        ? $_REQUEST['other_' . $id]        : 0.0;
 	        $data['other_fe']                  = $_REQUEST['other_fe_' . $id]     ? $_REQUEST['other_fe_' . $id]     : 0.0;
 	        $data['annex_id']                  = $_REQUEST['annex_id_' . $id];
+	        
+                $data['total_year']                = $_REQUEST['total_year_in_annexv'];
                 
                 $info['data'] = $data;                
                 // if procurement_plan_id is there then update the record
                 // else add a new record in procurement plan table
                 if ( !$data['annex_id'] ) 
                 {
-                    insert($info);
+                    $result = insert($info);
+                    updateAnnexVDetails($result['newid'],$data['total_year'],$id);
                 }
                 else
                 {
                     $info['where'] = 'id = ' . $data['annex_id'];
                     update($info);
+                    updateAnnexVDetails($data['annex_id'],$data['total_year'],$id);
                 }
                 
                 
  	    }
         }
-        updateAnnexVDetails($data['annex_id']);
+        
         
     }
     
-    function updateAnnexVDetails($annex_id)
+    function updateAnnexVDetails($annex_id,$total_year,$row_id)
     {
        
         $info['table'] = PROJECT_ANNEX_V_DETAILS_TBL;
         $info['debug'] = false;
         $data['pid']   = base64_decode(getUserField('PI'));
         
-        foreach( $_REQUEST as $key => $value)
-	{
-            if( preg_match('/rpa_through_gob_(\d+)_(\d+)/', $key, $matches))
-            {
-                $year   = $matches[1];
-                $row_id = $matches[2];
-                
+        
+        for($year=1; $year<=$total_year;$year++) 
+        {
                 $data['gob']                   = $_REQUEST['gob_' . $year . '_'.$row_id]                  ? $_REQUEST['gob_' . $year . '_'.$row_id]                 : 0.0;
                 $data['gob_fe']                = $_REQUEST['gob_fe_' . $year . '_'.$row_id]               ? $_REQUEST['gob_fe_' . $year . '_'.$row_id]              : 0.0;
                 $data['rpa_through_gob']       = $_REQUEST['rpa_through_gob_' . $year . '_'.$row_id]      ? $_REQUEST['rpa_through_gob_' . $year . '_'.$row_id]     : 0.0;
@@ -139,9 +139,8 @@
                     //$info['where'] = 'id = ' . $data['annex_details_id'] . ' AND annex_id = ' . $annex_id;
                     //update($info);
                 }
-                
- 	    }
-        }
+        }        
+ 	    
     }
     
     function getProcurementPlanList($pid, $procurement_category)

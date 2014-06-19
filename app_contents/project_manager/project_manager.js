@@ -90,6 +90,25 @@ function populateComponentDetails(economic_code_id, economic_subcode_id, economi
     
 }
 
+function populateAnnexComponentDetails(gob, gob_fe,rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe,year,annex_id,i)
+{
+    var totalElement = COMPONENT_ROW_ID - 1;
+    alert(i)
+    //for(var i=1;i<=totalElement;i++)
+    {    
+        $('#gob_'+year+'_'+i).val(gob);
+        $('#gob__fe_'+year+'_'+i).val(gob_fe);
+        $('#rpa_through_gob_'+year+'_'+i).val(rpa_through_gob);
+        $('#rpa_special_account_'+year+'_'+i).val(rpa_special_account);
+        $('#dpa_'+year+'_'+i).val(dpa);
+        $('#own_fund_'+year+'_'+i).val(own_fund);
+        $('#own_fund_fe_'+year+'_'+i).val(own_fund_fe);
+        $('#other_'+year+'_'+i).val(other);
+        $('#other_fe_'+year+'_'+i).val(other_fe);
+        $('#annex_id_'+year+'_'+i).val(annex_id);
+    }
+}
+
 function addNewComponent()
 {
     var td_economic_code   = '<td>' + getEconomicCode("economic_code_"+COMPONENT_ROW_ID, COMPONENT_ROW_ID) + '</td>';
@@ -159,6 +178,7 @@ function addNewYear()
     $('#annex-container').css('width', main_div_width+width_increment+'%');
     
     $('#annex-container').append(component_details_breakdown_div);
+    $('#total_year_in_annexv').val(YEAR_COUNT);
     
     YEAR_COUNT++;
     

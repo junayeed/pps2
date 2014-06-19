@@ -247,6 +247,7 @@ class projectManagerApp extends DefaultApplication
         $data['econimonic_code_list']     = getEconomicCodeList();
         $data['econimonic_subcode_list']  = getEconomicSubCodeList();
         $data['component_list']           = getComponentList($pid);
+        $data['annx_v_component_details'] = getAnnexVComponentDetails($pid);
         
         //dumpvar($data['component_list']);
         

@@ -112,7 +112,7 @@
                             <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                             <input type="hidden" value="saveAnnexV" name="cmd"/>
                             <input type="hidden" id="PI" name="PI" value="{$PI}"/>
-                            <input type="hidden" id="total_year_in_annexv" name="total_year_in_annexv" value=""/>
+                            <input type="hidden" id="total_year_in_annexv" name="{$total_year}" value=""/>
                         </div>
                     </div>      
                 </div>
@@ -166,9 +166,11 @@
     <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
     <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/{$SYSTEM_APP_PREFIX}.js"></script>                 
     <script>
+        $( document ).ready(function() {
+                $("#sidebar").toggleClass("menu-min");
+        });
         {literal}
-        
-
+       
         $('#toggle_total_cost_breakdown').click(function() 
         {
             if( $('#total_cost_breakdown_tbl').is(":visible") )
@@ -212,12 +214,30 @@
         {/foreach}
         
     
-    {foreach from=$component_list item=item}
+        {foreach from=$component_list item=item}
             addNewComponent();
             populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}", "{$item->unit}", 
                                      "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
                                      "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}");
+           var total_years = "{$item->total_year}";                          
+        {/foreach}
+            
+        
+        
+        //populate years
+        for(var i = 0; i<total_years;i++)
+        {
+            addNewYear();
+        }
+        var count=1;
+        {foreach from=$annx_v_component_details item=item}
+            
+            
+            populateAnnexComponentDetails("{$item->gob}", "{$item->gob_fe}", 
+                                     "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
+                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->year_serial}", "{$item->id}",(count%total_years)==0 ? total_years : (count%total_years) );
+            count++;
         {/foreach}
     
     </script>    
