@@ -249,7 +249,7 @@ class projectManagerApp extends DefaultApplication
         $data['component_list']           = getComponentList($pid);
         $data['annx_v_component_details'] = getAnnexVComponentDetails($pid);
         
-        //dumpvar($data['component_list']);
+        //dumpvar($data['annx_v_component_details']);
         
         return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);
     }

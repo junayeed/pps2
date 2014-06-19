@@ -1,3 +1,8 @@
+var COMPONENT_ROW_ID     = 1;
+var componentRowIDArray  = [];
+var YEAR_COUNT           = 1;
+var distributionArray    = ['gob_', 'rpa_through_gob_', 'rpa_special_account_', 'dpa_', 'own_fund_', 'other_']; 
+
 function createReport(procurement_category)
 {
     var PI          = $('#PI').val();
@@ -18,8 +23,6 @@ function submittForm()
     return true;
 }
 
-var COMPONENT_ROW_ID     = 1;
-var componentRowIDArray  = [];
 
 function getEconomicCode(elemName, comp_id)
 {
@@ -90,14 +93,14 @@ function populateComponentDetails(economic_code_id, economic_subcode_id, economi
     
 }
 
-function populateAnnexComponentDetails(gob, gob_fe,rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe,year,annex_id,i)
+function populateAnnexComponentDetails(gob, gob_fe, rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe, year, annex_details_id, financial_year, i, total)
 {
-    var totalElement = COMPONENT_ROW_ID - 1;
-    alert(i)
+    //var totalElement = COMPONENT_ROW_ID - 1;
+    //alert(total)
     //for(var i=1;i<=totalElement;i++)
     {    
         $('#gob_'+year+'_'+i).val(gob);
-        $('#gob__fe_'+year+'_'+i).val(gob_fe);
+        $('#gob_fe_'+year+'_'+i).val(gob_fe);
         $('#rpa_through_gob_'+year+'_'+i).val(rpa_through_gob);
         $('#rpa_special_account_'+year+'_'+i).val(rpa_special_account);
         $('#dpa_'+year+'_'+i).val(dpa);
@@ -105,17 +108,20 @@ function populateAnnexComponentDetails(gob, gob_fe,rpa_through_gob, rpa_special_
         $('#own_fund_fe_'+year+'_'+i).val(own_fund_fe);
         $('#other_'+year+'_'+i).val(other);
         $('#other_fe_'+year+'_'+i).val(other_fe);
-        $('#annex_id_'+year+'_'+i).val(annex_id);
+        $('#annex_details_id_'+year+'_'+i).val(annex_details_id);
+        $('#financial_year_'+year).val(financial_year);
+        $('#total_'+year+'_'+i).val(total);
     }
 }
 
 function addNewComponent()
 {
+    var td_delete_code     = '<td><img src="/app_contents/common/images/cross.png" onClick="deleteComponent('+COMPONENT_ROW_ID+');" class="delete_year_icon" "></td>';
     var td_economic_code   = '<td>' + getEconomicCode("economic_code_"+COMPONENT_ROW_ID, COMPONENT_ROW_ID) + '</td>';
     var td_sub_code        = '<td>' + createEconomicSubCodeDropdown(COMPONENT_ROW_ID, 0) + '</td>';
     var td_code_desc       = '<td><textarea name="code_desc_'+COMPONENT_ROW_ID+'" id="code_desc_'+COMPONENT_ROW_ID+'" class="span12" style="height: 60px;" /></textarea></td>';
     
-    $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_economic_code+td_sub_code+td_code_desc+'</tr>').appendTo("#economic_code_tbl > tbody");
+    $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_delete_code+ td_economic_code+td_sub_code+td_code_desc+'</tr>').appendTo("#economic_code_tbl > tbody");
     
     var td_unit        = '<td><input type="text" name="unit_'+COMPONENT_ROW_ID+'"       id="unit_'+COMPONENT_ROW_ID+'" value="" class="span12" /></td>';
     var td_unit_cost   = '<td><input type="text" name="unit_cost_'+COMPONENT_ROW_ID+'"  id="unit_cost_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
@@ -124,15 +130,15 @@ function addNewComponent()
     
     $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_unit + td_unit_cost + td_qty + td_total_cost + '</tr>').appendTo("#total_cost_tbl > tbody");
     
-    var td_total_gob    = '<td><input type="text" name="total_gob_'+COMPONENT_ROW_ID+'"    id="total_gob_'+COMPONENT_ROW_ID+'" value="" class="span12" /><br>\n\
-                               <input type="text" name="total_gob_fe_'+COMPONENT_ROW_ID+'" id="total_gob_fe_'+COMPONENT_ROW_ID+'" value="" class="span12" /></td>';
-    var td_pa_gob       = '<td><input type="text" name="pa_gob_'+COMPONENT_ROW_ID+'"       id="pa_gob_'+COMPONENT_ROW_ID+'" value="" class="span9" /></td>';
-    var td_pa_spc_acnt  = '<td><input type="text" name="pa_spc_acnt_'+COMPONENT_ROW_ID+'"  id="pa_spc_acnt_'+COMPONENT_ROW_ID+'" value="" class="span9" /></td>';
-    var td_pa_dpa       = '<td><input type="text" name="pa_dpa_'+COMPONENT_ROW_ID+'"       id="pa_dpa_'+COMPONENT_ROW_ID+'" value="" class="span12" /></td>';
-    var td_own_fund     = '<td><input type="text" name="own_fund_'+COMPONENT_ROW_ID+'"     id="own_fund_'+COMPONENT_ROW_ID+'" value="" class="span12" /><br>\n\
-                               <input type="text" name="own_fund_fe_'+COMPONENT_ROW_ID+'"  id="own_fund_fe_'+COMPONENT_ROW_ID+'" value="" class="span12" /></td>';
-    var td_other        = '<td><input type="text" name="other_'+COMPONENT_ROW_ID+'"        id="other_'+COMPONENT_ROW_ID+'" value="" class="span12" /><br>\n\
-                               <input type="text" name="other_fe_'+COMPONENT_ROW_ID+'"     id="other_fe_'+COMPONENT_ROW_ID+'" value="" class="span12" /></td>';
+    var td_total_gob    = '<td><input type="text" name="total_gob_'+COMPONENT_ROW_ID+'"    id="total_gob_'+COMPONENT_ROW_ID+'"    value="" class="span12" readonly /><br>\n\
+                               <input type="text" name="total_gob_fe_'+COMPONENT_ROW_ID+'" id="total_gob_fe_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
+    var td_pa_gob       = '<td><input type="text" name="pa_gob_'+COMPONENT_ROW_ID+'"       id="pa_gob_'+COMPONENT_ROW_ID+'"       value="" class="span9"  readonly /></td>';
+    var td_pa_spc_acnt  = '<td><input type="text" name="pa_spc_acnt_'+COMPONENT_ROW_ID+'"  id="pa_spc_acnt_'+COMPONENT_ROW_ID+'"  value="" class="span9"  readonly /></td>';
+    var td_pa_dpa       = '<td><input type="text" name="pa_dpa_'+COMPONENT_ROW_ID+'"       id="pa_dpa_'+COMPONENT_ROW_ID+'"       value="" class="span12" readonly /></td>';
+    var td_own_fund     = '<td><input type="text" name="own_fund_'+COMPONENT_ROW_ID+'"     id="own_fund_'+COMPONENT_ROW_ID+'"     value="" class="span12" readonly /><br>\n\
+                               <input type="text" name="own_fund_fe_'+COMPONENT_ROW_ID+'"  id="own_fund_fe_'+COMPONENT_ROW_ID+'"  value="" class="span12" readonly /></td>';
+    var td_other        = '<td><input type="text" name="other_'+COMPONENT_ROW_ID+'"        id="other_'+COMPONENT_ROW_ID+'"        value="" class="span12" readonly /><br>\n\
+                               <input type="text" name="other_fe_'+COMPONENT_ROW_ID+'"     id="other_fe_'+COMPONENT_ROW_ID+'"     value="" class="span12" readonly /></td>';
     
     var td_hidden      = '<input type="hidden" name="annex_id_'+COMPONENT_ROW_ID+'" id="annex_id_'+COMPONENT_ROW_ID+'" value="" >'
     $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_total_gob + td_pa_gob + td_pa_spc_acnt + td_pa_dpa + td_own_fund + td_other +td_hidden + '</tr>').appendTo("#total_cost_breakdown_tbl > tbody");
@@ -144,15 +150,54 @@ function addNewComponent()
     adjustComponentRowPerYear(1,COMPONENT_ROW_ID-1);
 }
 
-var YEAR_COUNT = 1;
+
+
+function deleteComponent(elemID)
+{
+    $('#economic_code_tbl > tbody').find('#tr_' + elemID).fadeOut(50,function() 
+    {
+        $('#economic_code_tbl > tbody > #tr_' + elemID).remove();
+    });
+    
+    $('#total_cost_tbl > tbody').find('#tr_' + elemID).fadeOut(50,function() 
+    {
+        $('#total_cost_tbl > tbody > #tr_' + elemID).remove();
+    });
+    
+    $('#total_cost_breakdown_tbl > tbody').find('#tr_' + elemID).fadeOut(50,function() 
+    {
+        $('#total_cost_breakdown_tbl > tbody > #tr_' + elemID).remove();
+    });
+    
+    for(var y=1;y<YEAR_COUNT;y++)
+    {   
+       
+        $('#total_cost_breakdown_tbl_'+y+' > tbody').find('#tr_'+y+'_' + elemID).fadeOut(50,function() 
+        {
+            
+            $('#total_cost_breakdown_tbl_'+y+' > tbody > #tr_'+y+'_'+ elemID).remove();
+        });
+    }
+    
+    var index = componentRowIDArray.indexOf(elemID);
+    if(index!=-1)
+    {
+        componentRowIDArray.splice(index, 1);
+    }
+    
+    calculateAnnexVGrandTotal();
+}
 
 function addNewYear()
 {
     var component_details_breakdown_div = '<div class="total_cost_breakdown_container" id="total_cost_breakdown_container_'+YEAR_COUNT+'">\n\
-                                               <i class="icon-exchange" id="toggle_total_cost_breakdown"></i> \n\
-                                               Fiscal Year: <input type="text" name="fiscal_year" id="fiscal_year">\n\
+                                               <i class="icon-exchange" id="toggle_total_cost_breakdown" onClick="toggleFiscalYear('+YEAR_COUNT+');"></i> \n\
                                                <table id="total_cost_breakdown_tbl_'+YEAR_COUNT+'" class="table table-striped table-bordered table-hover table_bug_report">\n\
                                                    <thead>\n\
+                                                       <tr>\n\
+                                                           <th colspan="7">Fiscal Year: <input type="text" name="financial_year_'+YEAR_COUNT+'" id="financial_year_'+YEAR_COUNT+'">\n\
+                                                           <img src="/app_contents/common/images/cross.png" onClick="deleteYear();" class="delete_year_icon" id="year_delete_'+YEAR_COUNT+'" style="display: none;"></th>\n\
+                                                       </tr>\n\
                                                        <tr>\n\
                                                            <th class="span3" rowspan="3">GoB (FE)</th>\n\
                                                            <th class="span3" colspan="3">Project Aid</th>\n\
@@ -185,30 +230,80 @@ function addNewYear()
     adjustComponentRowPerYear(YEAR_COUNT-1,1);
 }
 
+function toggleFiscalYear(elemID)
+{
+    if( $('#total_cost_breakdown_tbl_'+elemID).is(":visible") )
+    {
+        $('#total_cost_breakdown_tbl_'+elemID).hide("slow", function() {$('#total_cost_breakdown_container_'+elemID).css('width', '15px');});
+    }
+    else
+    {
+        $('#total_cost_breakdown_tbl_'+elemID).show("slow", function() {$('#total_cost_breakdown_container_'+elemID).css('width', '500px');});
+    }
+}
+
 function adjustComponentRowPerYear(thisyear,compnents)
 {
     for(var year=thisyear; year<=YEAR_COUNT-1; year++)
     {
-        for(var i=compnents; i<=COMPONENT_ROW_ID-1; i++)
+        for(var i=0; i<componentRowIDArray.length; i++)
         {
-            var td_total_gob    = '<td><input type="text" name="gob_'+year+'_'+i+'"                  id="gob_'+year+'_'+i+'"                 value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+i+');" /><br>\n\
-                                       <input type="text" name="gob_fe_'+year+'_'+i+'"               id="gob_fe_'+year+'_'+i+'"              value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+i+');" /></td>';
-            var td_pa_gob       = '<td><input type="text" name="rpa_through_gob_'+year+'_'+i+'"      id="rpa_through_gob_'+year+'_'+i+'"     value="" class="span9"  onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+i+');" /></td>';
-            var td_pa_spc_acnt  = '<td><input type="text" name="rpa_special_account_'+year+'_'+i+'"  id="rpa_special_account_'+year+'_'+i+'" value="" class="span9"  onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+i+');" /></td>';
-            var td_pa_dpa       = '<td><input type="text" name="dpa_'+year+'_'+i+'"                  id="dpa_'+year+'_'+i+'"                 value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+i+');" /></td>';
-            var td_own_fund     = '<td><input type="text" name="own_fund_'+year+'_'+i+'"             id="own_fund_'+year+'_'+i+'"            value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+i+');" /><br>\n\
-                                       <input type="text" name="own_fund_fe_'+year+'_'+i+'"          id="own_fund_fe_'+year+'_'+i+'"         value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+i+');" /></td>';
-            var td_other        = '<td><input type="text" name="other_'+year+'_'+i+'"                id="other_'+year+'_'+i+'"               value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+i+');" /><br>\n\
-                                       <input type="text" name="other_fe_'+year+'_'+i+'"             id="other_fe_'+year+'_'+i+'"            value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+i+');" /></td>';
-            var td_comp_total   = '<td><input type="text" name="total_'+year+'_'+i+'"                id="total_'+year+'_'+i+'"               value="" class="span12" readonly /></td>';
-            var td_hidden       = '<input type="hidden"   name="annex_details_id_'+year+'_'+i+'"     id="annex_details_id_'+year+'_'+i+'" />';
-        
-            $('<tr id="tr_'+year+'_'+i+'">'+ td_total_gob + td_pa_gob + td_pa_spc_acnt + td_pa_dpa + td_own_fund + td_other + td_comp_total + td_hidden +'</tr>').appendTo("#total_cost_breakdown_tbl_"+year+" > tbody");
+            // if exists then continue
+            if ( $('#total_cost_breakdown_tbl_'+year+' > tbody').find('#tr_'+year+'_' + componentRowIDArray[i]).length )
+            {
+                continue;
+            }    
+                
+            var td_total_gob    = '<td><input type="text" name="gob_'+year+'_'+componentRowIDArray[i]+'"                  id="gob_'+year+'_'+componentRowIDArray[i]+'"                 value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /><br>\n\
+                                       <input type="text" name="gob_fe_'+year+'_'+componentRowIDArray[i]+'"               id="gob_fe_'+year+'_'+componentRowIDArray[i]+'"              value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /></td>';
+            var td_pa_gob       = '<td><input type="text" name="rpa_through_gob_'+year+'_'+componentRowIDArray[i]+'"      id="rpa_through_gob_'+year+'_'+componentRowIDArray[i]+'"     value="" class="span9"  onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /></td>';
+            var td_pa_spc_acnt  = '<td><input type="text" name="rpa_special_account_'+year+'_'+componentRowIDArray[i]+'"  id="rpa_special_account_'+year+'_'+componentRowIDArray[i]+'" value="" class="span9"  onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /></td>';
+            var td_pa_dpa       = '<td><input type="text" name="dpa_'+year+'_'+componentRowIDArray[i]+'"                  id="dpa_'+year+'_'+componentRowIDArray[i]+'"                 value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /></td>';
+            var td_own_fund     = '<td><input type="text" name="own_fund_'+year+'_'+componentRowIDArray[i]+'"             id="own_fund_'+year+'_'+componentRowIDArray[i]+'"            value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /><br>\n\
+                                       <input type="text" name="own_fund_fe_'+year+'_'+componentRowIDArray[i]+'"          id="own_fund_fe_'+year+'_'+componentRowIDArray[i]+'"         value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /></td>';
+            var td_other        = '<td><input type="text" name="other_'+year+'_'+componentRowIDArray[i]+'"                id="other_'+year+'_'+componentRowIDArray[i]+'"               value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /><br>\n\
+                                       <input type="text" name="other_fe_'+year+'_'+componentRowIDArray[i]+'"             id="other_fe_'+year+'_'+componentRowIDArray[i]+'"            value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /></td>';
+            var td_comp_total   = '<td><input type="text" name="total_'+year+'_'+componentRowIDArray[i]+'"                id="total_'+year+'_'+componentRowIDArray[i]+'"               value="" class="span12" readonly /></td>';
+            var td_hidden       = '<input type="hidden"   name="annex_details_id_'+year+'_'+componentRowIDArray[i]+'"     id="annex_details_id_'+year+'_'+componentRowIDArray[i]+'" />';
+            $('<tr id="tr_'+year+'_'+componentRowIDArray[i]+'">'+ td_total_gob + td_pa_gob + td_pa_spc_acnt + td_pa_dpa + td_own_fund + td_other + td_comp_total + td_hidden +'</tr>').appendTo("#total_cost_breakdown_tbl_"+year+" > tbody");
         }
     }
+    
+    deleteYearIconAdjustment();
 }
 
-var distributionArray = ['gob_', 'rpa_through_gob_', 'rpa_special_account_', 'dpa_', 'own_fund_', 'other_']; 
+function deleteYearIconAdjustment()
+{
+    for (var y=1; y<YEAR_COUNT; y++)
+    {   
+        // define the last year to put the delete sign for year
+        if (y == YEAR_COUNT-1)
+        {
+            // show the delete sign
+            $('#year_delete_'+y).show();
+        }
+        else 
+        {
+            $('#year_delete_'+y).hide();
+        }
+    } 
+}
+
+function deleteYear()
+{
+    var year = YEAR_COUNT-1;
+    
+    // remove the div
+    $('#total_cost_breakdown_container_'+year).remove();
+    
+    // decrease the year count value 
+    YEAR_COUNT--;
+    
+    // adjust the delete sign
+    deleteYearIconAdjustment();
+}
+
+
 
 function calculateComponentYearTotal(yearID, elemID)
 {
@@ -231,15 +326,32 @@ function calculateComponentYearTotal(yearID, elemID)
     calculateComponentTotalProjectAid(elemID);
     calculateComponentTotalOwnFundFE(elemID);
     calculateComponentTotalOtherFE(elemID);
+    calculateAnnexVGrandTotal();
+}
+
+function calculateAnnexVGrandTotal()
+{
+    var grand_total = 0;
+    
+    for(var i=0; i<componentRowIDArray.length; i++)
+    {
+        if ($('#total_cost_'+componentRowIDArray[i]).val() )
+        {
+            grand_total += $('#total_cost_'+componentRowIDArray[i]).val()*1;
+        }
+    }
+    
+    $('#grand_total').val(grand_total.toMoney(2));
 }
 
 function calculateComponentTotalCost(elemID)
 {
      var total_cost = 0;
      
-     for(var i=1;i<YEAR_COUNT;i++)
+     //for(var i=1;i<YEAR_COUNT;i++)
+     for(var i=0; i<componentRowIDArray.length; i++)
      {
-         total_cost += $('#total_'+i+'_'+elemID).val()*1;
+         total_cost += $('#total_'+componentRowIDArray[i]+'_'+elemID).val()*1;
          
      }
      
@@ -265,10 +377,11 @@ function calculateComponentTotalGoB_FE(elemID)
      var total_gob = 0;
      var total_fe  = 0;
      
-     for(var i=1;i<YEAR_COUNT;i++)
+     //for(var i=1;i<YEAR_COUNT;i++)
+     for(var i=0; i<componentRowIDArray.length; i++)
      {
-         total_gob += $('#gob_'+i+'_'+elemID).val()*1;
-         total_fe  += $('#gob_fe_'+i+'_'+elemID).val()*1;
+         total_gob += $('#gob_'+componentRowIDArray[i]+'_'+elemID).val()*1;
+         total_fe  += $('#gob_fe_'+componentRowIDArray[i]+'_'+elemID).val()*1;
          
      }
      $('#total_gob_'+elemID).val(total_gob.toMoney(2))
@@ -282,11 +395,12 @@ function calculateComponentTotalProjectAid(elemID)
      var total_special_account  = 0;
      var total_dpa              = 0;
      
-     for(var i=1;i<YEAR_COUNT;i++)
+     //for(var i=1;i<YEAR_COUNT;i++)
+     for(var i=0; i<componentRowIDArray.length; i++)
      {
-         total_thourgh_gob      += $('#rpa_through_gob_'+i+'_'+elemID).val()*1;
-         total_special_account  += $('#rpa_special_account_'+i+'_'+elemID).val()*1;
-         total_dpa              += $('#dpa_'+i+'_'+elemID).val()*1;
+         total_thourgh_gob      += $('#rpa_through_gob_'+componentRowIDArray[i]+'_'+elemID).val()*1;
+         total_special_account  += $('#rpa_special_account_'+componentRowIDArray[i]+'_'+elemID).val()*1;
+         total_dpa              += $('#dpa_'+componentRowIDArray[i]+'_'+elemID).val()*1;
          
      }
      $('#pa_gob_'+elemID).val(total_thourgh_gob.toMoney(2))
@@ -300,10 +414,11 @@ function calculateComponentTotalOwnFundFE(elemID)
      var total_own_fund    = 0;
      var total_own_fund_fe = 0;
      
-     for(var i=1;i<YEAR_COUNT;i++)
+     //for(var i=1;i<YEAR_COUNT;i++)
+     for(var i=0; i<componentRowIDArray.length; i++)
      {
-         total_own_fund     += $('#own_fund_'+i+'_'+elemID).val()*1;
-         total_own_fund_fe  += $('#own_fund_fe_'+i+'_'+elemID).val()*1;
+         total_own_fund     += $('#own_fund_'+componentRowIDArray[i]+'_'+elemID).val()*1;
+         total_own_fund_fe  += $('#own_fund_fe_'+componentRowIDArray[i]+'_'+elemID).val()*1;
      }
 
      $('#own_fund_'+elemID).val(total_own_fund.toMoney(2))
@@ -316,10 +431,11 @@ function calculateComponentTotalOtherFE(elemID)
      var total_other    = 0;
      var total_other_fe = 0;
      
-     for(var i=1;i<YEAR_COUNT;i++)
+     //for(var i=1;i<YEAR_COUNT;i++)
+     for(var i=0; i<componentRowIDArray.length; i++)
      {
-         total_other     += $('#other_'+i+'_'+elemID).val()*1;
-         total_other_fe  += $('#other_fe_'+i+'_'+elemID).val()*1;
+         total_other     += $('#other_'+componentRowIDArray[i]+'_'+elemID).val()*1;
+         total_other_fe  += $('#other_fe_'+componentRowIDArray[i]+'_'+elemID).val()*1;
      }
      
      $('#other_'+elemID).val(total_other.toMoney(2))

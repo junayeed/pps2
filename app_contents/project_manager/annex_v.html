@@ -57,6 +57,7 @@
                                 <table id="economic_code_tbl" class="table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
                                         <tr>
+                                            <th class="span1"></th>
                                             <th class="span1">Economic Code</th>
                                             <th class="span1">Economic Sub-code</th>
                                             <th class="span12">Code description</th>
@@ -79,6 +80,12 @@
                                     </thead>
                                     <tbody id="total_cost_content">
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="3">Grand Total: </td>
+                                            <td><input type="text" class="span12" name="grand_total" id="grand_total" readonly></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                             <div id="total_cost_breakdown_container">
@@ -112,7 +119,7 @@
                             <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                             <input type="hidden" value="saveAnnexV" name="cmd"/>
                             <input type="hidden" id="PI" name="PI" value="{$PI}"/>
-                            <input type="hidden" id="total_year_in_annexv" name="{$total_year}" value=""/>
+                            <input type="hidden" id="total_year_in_annexv" name="total_year_in_annexv" value=""/>
                         </div>
                     </div>      
                 </div>
@@ -158,7 +165,7 @@
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
-
+    
     <!-- ace scripts -->
     <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
     <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
@@ -197,6 +204,7 @@
                                         'id':"{$item->id}" 
                                 {rdelim}
                                 );
+           $('#total_year_in_annexv').val({$item->total_year})                     
            
         {/foreach}
         
@@ -213,18 +221,17 @@
            
         {/foreach}
         
-    
+        var component_count = 0;
         {foreach from=$component_list item=item}
             addNewComponent();
             populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}", "{$item->unit}", 
                                      "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
                                      "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}");
-           var total_years = "{$item->total_year}";                          
+           var total_years = "{$item->total_year}";    
+           component_count++;
         {/foreach}
             
-        
-        
         //populate years
         for(var i = 0; i<total_years;i++)
         {
@@ -232,12 +239,17 @@
         }
         var count=1;
         {foreach from=$annx_v_component_details item=item}
-            
-            
             populateAnnexComponentDetails("{$item->gob}", "{$item->gob_fe}", 
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
-                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->year_serial}", "{$item->id}",(count%total_years)==0 ? total_years : (count%total_years) );
+                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->year_serial}", "{$item->id}","{$item->financial_year}", 
+                                     count, "{$item->total}");
+            
+            
+            if(count%component_count == 0) count=0;
+            
             count++;
         {/foreach}
+        
+        calculateAnnexVGrandTotal();
     
     </script>    
