@@ -59,6 +59,17 @@ class Project
         return $result;
     }        
     
+    public function loadPartB()
+    {
+        $info['table'] = PROJECT_PART_B_TBL;
+        $info['debug'] = false;
+        $info['where'] = "pid = $this->id";
+        
+        $result =   select($info);    
+        
+        return $result[0];
+    }
+    
     public function loadAgencies()
     {
         $info['table'] = PROJECT_AGENCY_TBL;
@@ -129,6 +140,35 @@ class Project
         }
             
     }
+    
+    public function savePartB()
+    {
+        $info['table'] = PROJECT_PART_B_TBL;
+        $info['data']  = getUserDataSet(PROJECT_PART_B_TBL);
+        $info['data']['pid'] = $this->id;
+        $info['debug'] = false;
+        
+        $partBId   = getUserField('part_b_id');        
+        if($partBId)
+        {
+            $info['where'] = "id = $partBId";
+            return update($info);
+        }
+        else 
+        {
+            $result = insert($info);
+            
+            if($result['newid'])
+            {
+                //$this->id = $result['newid'];
+                //$this->loadBasicInfo();
+                return $result['newid'];;
+            }    
+            return  0;
+        }
+            
+    }
+    
     
     public function saveModeOfFinancing()
     {

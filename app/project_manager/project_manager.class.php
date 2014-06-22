@@ -25,6 +25,7 @@ class projectManagerApp extends DefaultApplication
            case 'list'               : $screen = $this->showList();                    break;
            case 'partA'              : $screen = $this->showProjectPartA();            break;
            case 'partB'              : $screen = $this->showProjectPartB();            break;
+           case 'savePartB'          : $screen = $this->saveProjectPartB();            break;
            case 'anaexI'             : $screen = $this->showProjectLocation();         break;
            case 'annexIIIa'          : $screen = $this->showProcurementPlanGOODS();    break;
            case 'saveAnnexIIIa'      : $screen = $this->saveProcurementPlan($cmd);     break;
@@ -108,6 +109,17 @@ class projectManagerApp extends DefaultApplication
        
        header ('Location: project_manager.php?cmd=partA&PI='.  base64_encode($pid));
    }
+   function saveProjectPartB()
+   {
+       $pid     = base64_decode(getUserField('PI'));
+       $project = new Project($pid);
+       
+       $project->savePartB();
+       
+       
+       header ('Location: project_manager.php?cmd=partB&PI='.  base64_encode($pid));
+   }
+   
    
    function saveLocations()
    {
@@ -144,6 +156,11 @@ class projectManagerApp extends DefaultApplication
    
    function showProjectPartB()
    {
+     $pid         = base64_decode(getUserField('PI'));
+     $project     = new Project($pid);  
+     $data        = $project;
+     $data->PI    = getUserField('PI'); 
+     $data->partB = $project->loadPartB();
       return createPage(PROJECT_PART_B_TEMPLATE, $data);
    }
    
@@ -343,5 +360,25 @@ class projectManagerApp extends DefaultApplication
            MakePDFDoc($screen, $procurement_category);
        }
    }
+   
+   function getAgencyListByMinistry()
+    {
+        $ministries     = getUserField('ministries[]');
+        
+        $info['table']  = AGENCY_LOOKUP_TBL;
+        $info['fields'] = array('id','name');
+        $info['where']  = " ministry_id IN ($ministries) AND status='Active' ORDER By name ASC";
+        $info['debug']  = false;
+
+        if ($result = select($info))
+        {
+            foreach($result as $key => $value)
+            {
+                $data[$value->id] =  $value->name; 
+            }
+        }
+        
+        return $data;
+    } 
 }
 ?>
