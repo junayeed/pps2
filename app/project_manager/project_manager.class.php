@@ -36,6 +36,8 @@ class projectManagerApp extends DefaultApplication
            case 'deleteprocplan'     : $screen = $this->deleteProcurementPlan();       break;
            case 'annexV'             : $screen = $this->showAnnexV();                  break;
            case 'saveAnnexV'         : $screen = $this->saveAnnexV();                  break;
+           case 'deletecomponent'    : $screen = $this->deleteComponent();                  break;
+           case 'deleteyear'         : $screen = $this->deleteYear();                  break;
            case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
            default                   : $screen = $this->showEditor($msg);
       }
@@ -43,7 +45,7 @@ class projectManagerApp extends DefaultApplication
       // Set the current navigation item
       $this->setNavigation('project_manager');
 
-      if ($cmd == 'deleteprocplan' || $cmd == 'excel')
+      if ($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear')
       {
          return;
       }
@@ -55,6 +57,49 @@ class projectManagerApp extends DefaultApplication
       return true;
 
    }
+   
+    function deleteComponent()
+    {
+        $annex_id = getUserField('annex_id');
+        
+        $info['table']  = PROJECT_ANNEX_V_DETAILS_TBL;
+        $info['debug']  = true;
+        $info['where']  = 'annex_id = ' . $annex_id;
+                
+        delete($info);
+        
+        $info['table']  = PROJECT_ANNEX_V_TBL;
+        $info['debug']  = true;
+        $info['where']  = 'id = ' . $annex_id;
+                
+        delete($info);
+    }
+    
+    function deleteYear()
+    {
+        $pid         = base64_decode(getUserField('pid'));
+        $year_serial = getUserField('year_serial');
+        
+        $info['table']  = PROJECT_ANNEX_V_DETAILS_TBL;
+        $info['debug']  = true;
+        $info['where']  = 'pid = ' . $pid . ' AND year_serial = ' . $year_serial;
+                
+        delete($info);
+        
+        $this->updateAnexVTotalyear($pid, $year_serial-1);
+    }
+    
+    function updateAnexVTotalyear($pid, $year)
+    {
+        $data['total_year'] = $year;
+        
+        $info['table']  = PROJECT_ANNEX_V_TBL;
+        $info['debug']  = true;
+        $info['where']  = 'pid = ' . $pid;
+        $info['data']   = $data;
+                
+        update($info);
+    }
    
     function deleteProcurementPlan()
     {
@@ -250,7 +295,7 @@ class projectManagerApp extends DefaultApplication
     function saveAnnexV()
     {
         $pid       = base64_decode(getUserField('PI'));
-        
+        updateAnnexVContingency();
         updateAnnexV();
         header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid));
         //return $this->showAnnexV();

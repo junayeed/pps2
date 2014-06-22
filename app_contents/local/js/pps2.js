@@ -107,7 +107,7 @@ function deleteProcurementPlanRow(elemID, targetID, procurementCategory)
 {
     var proc_plan_id        = $('#proc_plan_id_'+elemID).val();
     
-    if ( doConfirm('The will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
+    if ( doConfirm('The record will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
     {
         $.ajax
         (
@@ -190,7 +190,7 @@ Number.prototype.toMoney = function(decimals, decimal_sep, thousands_sep)
    the fastest way to check for not defined parameter is to use typeof value === 'undefined'                                                                          
    rather than doing value === undefined.                                                                                                                             
    */                                                                                                                                                                 
-   t = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep, //if you don't want ot use a thousands separator you can pass empty string as thousands_sep value
+   t = (typeof thousands_sep === 'undefined') ? '' : thousands_sep, //if you don't want ot use a thousands separator you can pass empty string as thousands_sep value
                                                                                                                                                                       
    sign = (n < 0) ? '-' : '',                                                                                                                                         
                                                                                                                                                                       

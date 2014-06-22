@@ -81,6 +81,9 @@
   define('PROJECT_ANNEX_V_TBL',          DB_NAME . '.annexure_v');
   define('PROJECT_ANNEX_V_DETAILS_TBL',  DB_NAME . '.annexure_v_details');
   
+  define('PROJECT_ANNEX_V_CON_TBL',          DB_NAME . '.annexure_v_contingency');
+  define('PROJECT_ANNEX_V_CON_DETAILS_TBL',  DB_NAME . '.annexure_v_contingency_details');
+  
   if (AUTO_CONNECT_TO_DATABASE)
   {
       $dbcon = mysql_connect(DB_HOST, DB_USER, DB_PASS) or die("Could not connect: " . mysql_error());
