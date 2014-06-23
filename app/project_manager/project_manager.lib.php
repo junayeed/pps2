@@ -87,13 +87,13 @@
                 if ( !$data['annex_id'] ) 
                 {
                     $result = insert($info);
-                    updateAnnexVDetails($result['newid'],$data['total_year'],$id);
+                    updateAnnexVDetails($result['newid'], $data['total_year'], $id);
                 }
                 else
                 {
                     $info['where'] = 'id = ' . $data['annex_id'];
                     update($info);
-                    updateAnnexVDetails($data['annex_id'],$data['total_year'],$id);
+                    updateAnnexVDetails($data['annex_id'], $data['total_year'], $id);
                 }
  	    }
         }
@@ -101,6 +101,7 @@
     
     function updateAnnexVDetails($annex_id,$total_year,$row_id)
     {
+        //dumPVar($_REQUEST); die;
         $info['table'] = PROJECT_ANNEX_V_DETAILS_TBL;
         $info['debug'] = false;
         $data['pid']   = base64_decode(getUserField('PI'));
@@ -135,6 +136,7 @@
                 $info['where'] = 'id = ' . $data['annex_details_id'] . ' AND annex_id = ' . $annex_id;
                 update($info);
             }
+            //die;
         } 
     }
     
@@ -144,7 +146,7 @@
     {
         $contingency   = array('physical','price');
         $info['table'] = PROJECT_ANNEX_V_CON_TBL;
-        $info['debug'] = true;
+        $info['debug'] = false;
         $data['pid']   = base64_decode(getUserField('PI'));
        
         for($i = 0; $i <2; $i++)
@@ -182,14 +184,13 @@
         updateAnnexVContingencyDetails();
     }
     
-    
     function updateAnnexVContingencyDetails()
     {
         $total_year    = $_REQUEST['total_year_in_annexv'];
         
         $contingency   = array('physical_contigency_','price_contigency_');
         $info['table'] = PROJECT_ANNEX_V_CON_DETAILS_TBL;
-        $info['debug'] = true;
+        $info['debug'] = false;
         $data['pid']   = base64_decode(getUserField('PI'));
         
         for($i=0; $i<2; $i++)

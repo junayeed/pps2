@@ -195,7 +195,7 @@ function deleteComponent(elemID)
     
     if (annexID)
     {
-        if ( doConfirm('The component and year details will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
+        if ( doConfirm('The component will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
         {
             $.ajax
             (
@@ -309,6 +309,26 @@ function addNewYear()
                                                             </td>\n\
                                                             <td><input type="text" class="span12" name="price_contigency_total_'+YEAR_COUNT+'" id="price_contigency_total_'+YEAR_COUNT+'" readonly ></td>\n\
                                                         </tr><input type="hidden" id="price_contigency_con_id_'+YEAR_COUNT+'" name="price_contigency_con_id_'+YEAR_COUNT+'" value="" >\n\
+                                                        <tr>\n\
+                                                            <td>\n\
+                                                                <input type="text" class="span12" name="grand_total_gob_'+YEAR_COUNT+'" id="grand_total_gob_'+YEAR_COUNT+'" readonly>\n\
+                                                                <input type="text" class="span12" name="grand_total_gob_fe_'+YEAR_COUNT+'" id="grand_total_gob_fe_'+YEAR_COUNT+'" readonly>\n\
+                                                            </td>\n\
+                                                            <td>\n\
+                                                                <input type="text" class="span12" name="grand_total_through_gob_'+YEAR_COUNT+'" id="grand_total_through_gob_'+YEAR_COUNT+'" readonly>\n\
+                                                            </td>\n\
+                                                            <td><input type="text" class="span12" name="grand_total_spc_acnt_'+YEAR_COUNT+'" id="grand_total_spc_acnt_'+YEAR_COUNT+'" readonly></td>\n\
+                                                            <td><input type="text" class="span12" name="grand_total_dpa_'+YEAR_COUNT+'" id="grand_total_dpa_'+YEAR_COUNT+'" readonly></td>\n\
+                                                            <td>\n\
+                                                                <input type="text" class="span12" name="grand_total_own_fund_'+YEAR_COUNT+'" id="grand_total_own_fund_'+YEAR_COUNT+'" readonly>\n\
+                                                                <input type="text" class="span12" name="grand_total_own_fund_fe_'+YEAR_COUNT+'" id="grand_total_own_fund_fe_'+YEAR_COUNT+'" readonly>\n\
+                                                            </td>\n\
+                                                            <td>\n\
+                                                                <input type="text" class="span12" name="grand_total_other_'+YEAR_COUNT+'" id="grand_total_other_'+YEAR_COUNT+'" readonly>\n\
+                                                                <input type="text" class="span12" name="grand_total_other_fe_'+YEAR_COUNT+'" id="grand_total_other_fe_'+YEAR_COUNT+'" readonly>\n\
+                                                            </td>\n\
+                                                            <td><input type="text" class="span12" name="grand_total_'+YEAR_COUNT+'" id="grand_total_'+YEAR_COUNT+'" readonly></td>\n\
+                                                        </tr>\n\
                                                     </tfoot>\n\
                                                 </table>\n\
                                            </div>';
@@ -554,19 +574,70 @@ function calculateComponentYearTotal(yearID, elemID)
 
 function calculateAnnexVGrandTotal()
 {
-    var grand_total = 0;
+    var grand_total              = 0;
+    var grand_total_gob          = 0;
+    var grand_total_gob_fe       = 0;
+    var grand_total_through_gob  = 0;
+    var grand_total_spc_acnt     = 0;
+    var grand_total_dpa          = 0;
+    var grand_total_own_fund     = 0;
+    var grand_total_own_fund_fe  = 0;
+    var grand_total_other        = 0;
+    var grand_total_other_fe     = 0;
+    
     var phy_total   = $('#physical_contigency_total').val()*1;
-    var pr_total    = $('#price_contigency_total').val()*1
+    var pr_total    = $('#price_contigency_total').val()*1;
+    
+    
+    var phy_con_total_gob    = $('#physical_contigency_gob').val()*1;
+    var phy_con_total_gob_fe   = $('#physical_contigency_gob_fe').val()*1;
+    var phy_con_total_pa_through_gob   = $('#physical_contigency_pa_through_gob').val()*1;
+    var phy_con_total_pa_sp_acnt   = $('#physical_contigency_pa_sp_acnt').val()*1;
+    var phy_con_total_pa_dpa   = $('#physical_contigency_pa_dpa').val()*1;
+    var phy_con_total_own_fund   = $('#physical_contigency_own_fund').val()*1;
+    var phy_con_total_own_fund_fe   = $('#physical_contigency_own_fund_fe').val()*1;
+    var phy_con_total_other   = $('#physical_contigency_other').val()*1;
+    var phy_con_total_other_fe   = $('#physical_contigency_other_fe').val()*1;
+    
+    
+    var pr_con_total_gob       = $('#price_contigency_gob').val()*1;
+    var pr_con_total_gob_fe    = $('#price_contigency_gob_fe').val()*1;
+    var pr_con_total_pa_through_gob    = $('#price_contigency_pa_through_gob').val()*1;
+    var pr_con_total_pa_sp_acnt    = $('#price_contigency_pa_sp_acnt').val()*1;
+    var pr_con_total_pa_dpa    = $('#price_contigency_pa_dpa').val()*1;
+    var pr_con_total_own_fund    = $('#price_contigency_own_fund').val()*1;
+    var pr_con_total_own_fund_fe    = $('#price_contigency_own_fund_fe').val()*1;
+    var pr_con_total_other    = $('#price_contigency_other').val()*1;
+    var pr_con_total_other_fe    = $('#price_contigency_other_fe').val()*1;
+    
     
     for(var i=0; i<componentRowIDArray.length; i++)
     {
         if ($('#total_cost_'+componentRowIDArray[i]).val() )
         {
-            grand_total += $('#total_cost_'+componentRowIDArray[i]).val()*1;
+            grand_total              += $('#total_cost_'+componentRowIDArray[i]).val()*1;
+            grand_total_gob          += $('#total_gob_'+componentRowIDArray[i]).val()*1;
+            grand_total_gob_fe       += $('#total_gob_fe_'+componentRowIDArray[i]).val()*1;
+            grand_total_through_gob  += $('#pa_gob_'+componentRowIDArray[i]).val()*1;
+            grand_total_spc_acnt     += $('#pa_spc_acnt_'+componentRowIDArray[i]).val()*1;
+            grand_total_dpa          += $('#pa_dpa_'+componentRowIDArray[i]).val()*1;
+            grand_total_own_fund     += $('#own_fund_'+componentRowIDArray[i]).val()*1;
+            grand_total_own_fund_fe  += $('#own_fund_fe_'+componentRowIDArray[i]).val()*1;
+            grand_total_other        += $('#other_'+componentRowIDArray[i]).val()*1;
+            grand_total_other_fe     += $('#other_fe_'+componentRowIDArray[i]).val()*1;
         }
     }
     
     $('#grand_total').val( (grand_total+phy_total+pr_total).toMoney(2) );
+    $('#grand_total_gob').val( (grand_total_gob+phy_con_total_gob+pr_con_total_gob).toMoney(2) );
+    $('#grand_total_gob_fe').val( (grand_total_gob_fe+phy_con_total_gob_fe+pr_con_total_gob_fe).toMoney(2) );
+    $('#grand_total_through_gob').val( (grand_total_through_gob+phy_con_total_pa_through_gob+pr_con_total_pa_through_gob).toMoney(2) );
+    $('#grand_total_spc_acnt').val( (grand_total_spc_acnt+phy_con_total_pa_sp_acnt+pr_con_total_pa_sp_acnt).toMoney(2) );
+    $('#grand_total_dpa').val( (grand_total_dpa+phy_con_total_pa_dpa+pr_con_total_pa_dpa).toMoney(2) );
+    $('#grand_total_own_fund').val( (grand_total_own_fund+phy_con_total_own_fund+pr_con_total_own_fund).toMoney(2) );
+    $('#grand_total_own_fund_fe').val( (grand_total_own_fund_fe+phy_con_total_own_fund_fe+pr_con_total_own_fund_fe).toMoney(2) );
+    $('#grand_total_other').val( (grand_total_other+phy_con_total_other+pr_con_total_other).toMoney(2) );
+    $('#grand_total_other_fe').val( (grand_total_other_fe+phy_con_total_other_fe+pr_con_total_other_fe).toMoney(2) );
 }
 
 function calculateComponentTotalCost(yearID)

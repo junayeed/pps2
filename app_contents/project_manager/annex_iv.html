@@ -25,7 +25,7 @@
         <ul class="breadcrumb">
             <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
             <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-            <li class="active">Annexure - V: Detailed annual phasing cost</li>
+            <li class="active">Annexure - IV: Year wise Financial and Physical Target Plan</li>
         </ul><!--.breadcrumb-->
         <div id="nav-search">    
         </div><!--#nav-search-->
@@ -33,7 +33,7 @@
 
     <div id="page-content" class="clearfix">
         <div class="page-header position-relative">
-            <h1>Annexure - V<small><i class="icon-double-angle-right"></i>Detailed annual phasing cost</small></h1>
+            <h1>Annexure - IV<small><i class="icon-double-angle-right"></i>Year wise Financial and Physical Target Plan</small></h1>
             <div id="nav-search">
                 <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
             </div>  
@@ -41,14 +41,9 @@
 
         <div class="row-fluid">
         <!-- PAGE CONTENT BEGINS HERE -->
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
-                <strong><i class="icon-ok"></i> Successfully Saved!</strong>
-                Your have to save all the data <br>
-            </div>
-
+          
             <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
-            <form class="form-horizontal" id="procure_plan_services_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_services_form"> 
+            <form class="form-horizontal" id="annex_iv"  method="post" action="{$SCRIPT_NAME}" name="annex_iv"> 
                 <div class="control-group">
                    <div class="span12"> 
                         <div id="annex-container">
@@ -84,6 +79,7 @@
                                             <th class="span2">Unit Cost</th>
                                             <th class="span2">Qty</th>
                                             <th class="span4">Total Cost</th>
+                                            <th class="span4">Weight</th>
                                         </tr>
                                     </thead>
                                     <tbody id="total_cost_content">
@@ -174,23 +170,6 @@
                                             <td>
                                                 <input type="text" class="span12" name="price_contigency_other" id="price_contigency_other" readonly>
                                                 <input type="text" class="span12" name="price_contigency_other_fe" id="price_contigency_other_fe" readonly>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="text" class="span12" name="grand_total_gob" id="grand_total_gob" readonly>
-                                                <input type="text" class="span12" name="grand_total_gob_fe" id="grand_total_gob_fe" readonly>
-                                            </td>
-                                            <td><input type="text" class="span12" name="grand_total_through_gob" id="grand_total_through_gob" readonly></td>
-                                            <td><input type="text" class="span12" name="grand_total_spc_acnt" id="grand_total_spc_acnt" readonly></td>
-                                            <td><input type="text" class="span12" name="grand_total_dpa" id="grand_total_dpa" readonly></td>
-                                            <td>
-                                                <input type="text" class="span12" name="grand_total_own_fund" id="grand_total_own_fund" readonly>
-                                                <input type="text" class="span12" name="grand_total_own_fund_fe" id="grand_total_own_fund_fe" readonly>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="span12" name="grand_total_other" id="grand_total_other" readonly>
-                                                <input type="text" class="span12" name="grand_total_other_fe" id="grand_total_other_fe" readonly>
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -314,6 +293,7 @@
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
                                      "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}");
            var total_years = "{$item->total_year}";    
+           //calculateComponentWeight()
            component_count++;
         {/foreach}
             

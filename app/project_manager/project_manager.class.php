@@ -35,6 +35,7 @@ class projectManagerApp extends DefaultApplication
            case 'saveAnnexIIIc'      : $screen = $this->saveProcurementPlan($cmd);     break;
            case 'deleteprocplan'     : $screen = $this->deleteProcurementPlan();       break;
            case 'annexV'             : $screen = $this->showAnnexV();                  break;
+           case 'annexIV'            : $screen = $this->showAnnexIV();                  break;
            case 'saveAnnexV'         : $screen = $this->saveAnnexV();                  break;
            case 'deletecomponent'    : $screen = $this->deleteComponent();                  break;
            case 'deleteyear'         : $screen = $this->deleteYear();                  break;
@@ -297,6 +298,8 @@ class projectManagerApp extends DefaultApplication
         $pid       = base64_decode(getUserField('PI'));
         updateAnnexV();
         updateAnnexVContingency();
+        //updateProjectTotalCost();
+        
         header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid));
         //return $this->showAnnexV();
     }
@@ -317,7 +320,27 @@ class projectManagerApp extends DefaultApplication
         
         return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);
     }
+    
+    function showAnnexIV()
+    {
+        $PI                    = getUserField('PI');    
+        $pid                   = base64_decode($PI);
+        $data['PI']            = $PI;
+        $data['econimonic_code_list']        = getEconomicCodeList();
+        $data['econimonic_subcode_list']     = getEconomicSubCodeList();
+        $data['component_list']              = getComponentList($pid);
+        $data['annx_v_component_details']    = getAnnexVComponentDetails($pid);
+        $data['annex_v_contingency_list']    = getContingencyList($pid);
+        $data['annex_v_contingency_details'] = getAnnexVContingencyDetails($pid);
+        
+        //dumpvar($data['annx_v_component_details']);
+        
+        return createPage(PROJECT_ANNEX_IV_TEMPLATE, $data);
+    }
    
+    
+    
+    
     function showProjectHomePage()
     {
         $pid     = base64_decode(getUserField('PI'));

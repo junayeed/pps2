@@ -31,6 +31,7 @@
    define('PROJECT_PROCUREMENT_PLAN_SERVICES_TEMPLATE',   TEMPLATE_DIR . '/procurement_plan_services.html');
    define('PROC_PLAN_PDF_TEMPLATE',                       TEMPLATE_DIR . '/proc_plan_pdf.html');
    define('PROJECT_ANNEX_V_TEMPLATE',                     TEMPLATE_DIR . '/annex_v.html');
+   define('PROJECT_ANNEX_IV_TEMPLATE',                    TEMPLATE_DIR . '/annex_iv.html');
 
     define('ERROR',            'Error');
     define('SUCCESS',          'Success');
