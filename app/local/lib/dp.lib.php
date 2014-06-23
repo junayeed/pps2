@@ -188,6 +188,34 @@
        }
    }
    
+   function getContingencyList($pid)
+   {
+       $info['table']  = PROJECT_ANNEX_V_CON_TBL;
+       $info['debug']  = false;
+       $info['where']  = 'pid = ' . $pid;
+       
+       $result = select($info);
+       
+       if ( !empty ($result) )
+       {
+           return $result;
+       }
+   }
+   
+   function getAnnexVContingencyDetails($pid)
+   {
+       $info['table']  = PROJECT_ANNEX_V_CON_DETAILS_TBL;
+       $info['debug']  = false;
+       $info['where']  = 'pid = ' . $pid.' order by year_serial';
+       
+       $result = select($info);
+       
+       if ( !empty ($result) )
+       {
+           return $result;
+       }
+   }
+   
    function getAnnexVComponentDetails($pid)
    {
        $info['table']  = PROJECT_ANNEX_V_DETAILS_TBL;

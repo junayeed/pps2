@@ -142,39 +142,90 @@
     
     function updateAnnexVContingency()
     {
-        //dumpvar($_REQUEST);
-        //die;
-        $contingency  = array('physical','price');
-        
+        $contingency   = array('physical','price');
         $info['table'] = PROJECT_ANNEX_V_CON_TBL;
-        $info['debug'] = false;
+        $info['debug'] = true;
         $data['pid']   = base64_decode(getUserField('PI'));
-        
        
         for($i = 0; $i <2; $i++)
         {
-                $data['economic_code_id']          = $contingency[$i]=='physical'? PHY_CON_ECONOMIC_CODE     : PR_CON_ECONOMIC_CODE;
-                $data['economic_subcode_id']       = $contingency[$i]=='physical'? PHY_CON_ECONOMIC_SUB_CODE : PR_CON_ECONOMIC_SUB_CODE;
-	        $data['economic_subcode_name']     = $contingency[$i]=='physical'? PHY_CON_ECONOMIC_CODE_DESC: PR_CON_ECONOMIC_CODE_DESC;
-	        $data['unit']                      = '';
-	        $data['unit_cost']                 = 0.0;
-	        $data['qty']                       = 0;
-	        $data['total_cost']                = $_REQUEST[$contingency[$i].'_contigency_total']  ? $_REQUEST[$contingency[$i].'_contigency_total']    : 0.0;
-	        $data['gob']                       = $_REQUEST[$contingency[$i].'_contigency_gob']  ? $_REQUEST[$contingency[$i].'_contigency_gob']    : 0.0;
-	        $data['gob_fe']                    = $_REQUEST[$contingency[$i].'_contigency_gob_fe'] ? $_REQUEST[$contingency[$i].'_contigency_gob_fe'] : 0.0;
-	        $data['rpa_through_gob']           = $_REQUEST[$contingency[$i].'_contigency_pa_through_gob']       ? $_REQUEST[$contingency[$i].'_contigency_pa_through_gob']       : 0.0;
-	        $data['rpa_special_account']       = $_REQUEST[$contingency[$i].'_contigency_pa_sp_acnt']  ? $_REQUEST[$contingency[$i].'_contigency_pa_sp_acnt']  : 0.0;
-	        $data['dpa']                       = $_REQUEST[$contingency[$i].'_contigency_pa_dpa']       ? $_REQUEST[$contingency[$i].'_contigency_pa_dpa']       : 0.0;
-	        $data['own_fund']                  = $_REQUEST[$contingency[$i].'_contigency_own_fund']     ? $_REQUEST[$contingency[$i].'_contigency_own_fund']     : 0.0;
-	        $data['own_fund_fe']               = $_REQUEST[$contingency[$i].'_contigency_own_fund_fe']  ? $_REQUEST[$contingency[$i].'_contigency_own_fund_fe']  : 0.0;
-	        $data['other']                     = $_REQUEST[$contingency[$i].'_contigency_other']        ? $_REQUEST[$contingency[$i].'_contigency_other']        : 0.0;
-	        $data['other_fe']                  = $_REQUEST[$contingency[$i].'_contigency_other_fe']     ? $_REQUEST[$contingency[$i].'_contigency_other_fe']     : 0.0;
-	        
-                
-                dumpVar($data);
-                die;
-               
-        }   
+            $data['economic_code_id']          = $contingency[$i]=='physical'? PHY_CON_ECONOMIC_CODE      : PR_CON_ECONOMIC_CODE;
+            $data['economic_subcode_id']       = $contingency[$i]=='physical'? PHY_CON_ECONOMIC_SUB_CODE  : PR_CON_ECONOMIC_SUB_CODE;
+            $data['economic_subcode_name']     = $contingency[$i]=='physical'? PHY_CON_ECONOMIC_CODE_DESC : PR_CON_ECONOMIC_CODE_DESC;
+            $data['unit']                      = '';
+            $data['unit_cost']                 = 0.0;
+            $data['qty']                       = 0;
+            $data['total_cost']                = $_REQUEST[$contingency[$i].'_contigency_total']           ? $_REQUEST[$contingency[$i].'_contigency_total']           : 0.0;
+            $data['gob']                       = $_REQUEST[$contingency[$i].'_contigency_gob']             ? $_REQUEST[$contingency[$i].'_contigency_gob']             : 0.0;
+            $data['gob_fe']                    = $_REQUEST[$contingency[$i].'_contigency_gob_fe']          ? $_REQUEST[$contingency[$i].'_contigency_gob_fe']          : 0.0;
+            $data['rpa_through_gob']           = $_REQUEST[$contingency[$i].'_contigency_pa_through_gob']  ? $_REQUEST[$contingency[$i].'_contigency_pa_through_gob']  : 0.0;
+            $data['rpa_special_account']       = $_REQUEST[$contingency[$i].'_contigency_pa_sp_acnt']      ? $_REQUEST[$contingency[$i].'_contigency_pa_sp_acnt']      : 0.0;
+            $data['dpa']                       = $_REQUEST[$contingency[$i].'_contigency_pa_dpa']          ? $_REQUEST[$contingency[$i].'_contigency_pa_dpa']          : 0.0;
+            $data['own_fund']                  = $_REQUEST[$contingency[$i].'_contigency_own_fund']        ? $_REQUEST[$contingency[$i].'_contigency_own_fund']        : 0.0;
+            $data['own_fund_fe']               = $_REQUEST[$contingency[$i].'_contigency_own_fund_fe']     ? $_REQUEST[$contingency[$i].'_contigency_own_fund_fe']     : 0.0;
+            $data['other']                     = $_REQUEST[$contingency[$i].'_contigency_other']           ? $_REQUEST[$contingency[$i].'_contigency_other']           : 0.0;
+            $data['other_fe']                  = $_REQUEST[$contingency[$i].'_contigency_other_fe']        ? $_REQUEST[$contingency[$i].'_contigency_other_fe']        : 0.0;
+            $data['contingency_id']            = $_REQUEST[$contingency[$i].'_con_id'];
+            $data['type']                      = ucfirst($contingency[$i]);
+            
+            $info['data']  = $data;
+            if( !$data['contingency_id'] )
+            {    
+               insert($info);
+            }
+            else
+            {
+               $info['where'] = "id = ".$data['contingency_id'] .' AND pid='.$data['pid']; 
+               update($info); 
+            }    
+        } 
+        updateAnnexVContingencyDetails();
+    }
+    
+    
+    function updateAnnexVContingencyDetails()
+    {
+        $total_year    = $_REQUEST['total_year_in_annexv'];
+        
+        $contingency   = array('physical_contigency_','price_contigency_');
+        $info['table'] = PROJECT_ANNEX_V_CON_DETAILS_TBL;
+        $info['debug'] = true;
+        $data['pid']   = base64_decode(getUserField('PI'));
+        
+        for($i=0; $i<2; $i++)
+        {
+        for($year=1; $year<=$total_year; $year++)
+        {
+            
+            $data['gob']                   = $_REQUEST[$contingency[$i].'gob_' . $year]                  ? $_REQUEST[$contingency[$i].'gob_' . $year]                 : 0.0;
+            $data['gob_fe']                = $_REQUEST[$contingency[$i].'gob_fe_' . $year]               ? $_REQUEST[$contingency[$i].'gob_fe_' . $year]              : 0.0;
+            $data['rpa_through_gob']       = $_REQUEST[$contingency[$i].'pa_through_gob_' . $year]      ? $_REQUEST[$contingency[$i].'pa_through_gob_' . $year]     : 0.0;
+            $data['rpa_special_account']   = $_REQUEST[$contingency[$i].'pa_sp_acnt_'. $year]   ? $_REQUEST[$contingency[$i].'pa_sp_acnt_'. $year] : 0.0;
+            $data['dpa']                   = $_REQUEST[$contingency[$i].'pa_dpa_' . $year]                  ? $_REQUEST[$contingency[$i].'pa_dpa_' . $year]                 : 0.0;
+            $data['own_fund']              = $_REQUEST[$contingency[$i].'own_fund_' . $year]             ? $_REQUEST[$contingency[$i].'own_fund_' . $year]            : 0.0;
+            $data['own_fund_fe']           = $_REQUEST[$contingency[$i].'own_fund_fe_' . $year]          ? $_REQUEST[$contingency[$i].'own_fund_fe_' . $year]         : 0.0;
+            $data['other']                 = $_REQUEST[$contingency[$i].'other_' . $year]                ? $_REQUEST[$contingency[$i].'other_' . $year]               : 0.0;
+            $data['other_fe']              = $_REQUEST[$contingency[$i].'other_fe_' . $year]             ? $_REQUEST[$contingency[$i].'other_fe_' . $year]            : 0.0;
+            $data['total']                 = $_REQUEST[$contingency[$i].'total_' . $year]                ? $_REQUEST[$contingency[$i].'total_' . $year]               : 0.0;
+            $data['con_details_id']        = $_REQUEST[$contingency[$i].'details_id_' . $year];
+            $data['financial_year']        = $_REQUEST[$contingency[$i].'financial_year_' . $year];
+            $data['con_details_id']        = $_REQUEST[$contingency[$i].'con_id_' . $year];
+            $data['year_serial']           = $year;
+            $data['type']                  = $i==0 ? 'Physical' : 'Price';
+            
+            $info['data']  = $data; 
+            
+            if ( !$data['con_details_id'] )
+            {
+                insert($info);
+            }
+            else
+            {
+                $info['where']  = 'id = ' . $data['con_details_id'] . ' AND pid = ' . $data['pid'];
+                update($info);
+            }
+        }
+        }
     }
     
     function getProcurementPlanList($pid, $procurement_category)

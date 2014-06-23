@@ -65,6 +65,25 @@ function createEconomicSubCodeDropdown(elemID,thisField)
     return '<select name="sub_code_'+elemID+'" id="sub_code_'+elemID+'" class="span12" onChange="populateSubCodeDescription('+elemID+', this);">' +  + '</select>';
 }
 
+function populateContingency(economic_code_id, economic_subcode_id, economic_subcode_name, qty, total_cost, gob, gob_fe, 
+                             rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe, contingency_id, type)
+{
+    var contingency_type = type.toLowerCase();
+    
+    $('#'+contingency_type+'_contigency_qty').val(qty+'%');
+    $('#'+contingency_type+'_contigency_total').val( (total_cost*1).toMoney(2) );
+    $('#'+contingency_type+'_contigency_gob').val( (gob*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_gob_fe').val( (gob_fe*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_pa_through_gob').val( (rpa_through_gob*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_pa_sp_acnt').val( (rpa_special_account*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_pa_dpa').val( (dpa*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_own_fund').val( (own_fund*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_own_fund_fe').val( (own_fund_fe*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_other').val( (other*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_other_fe').val( (other_fe*1).toMoney(2));
+    $('#'+contingency_type+'_con_id').val(contingency_id);
+}
+
 function populateComponentDetails(economic_code_id, economic_subcode_id, economic_subcode_name, unit, unit_cost, qty, total_cost, gob, gob_fe, 
                                   rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe,annex_id)
 {
@@ -92,6 +111,26 @@ function populateComponentDetails(economic_code_id, economic_subcode_id, economi
     $('#annex_id_'+elemID).val(annex_id);
     
 }
+
+
+function populateAnnexContingencyDetails(gob, gob_fe, rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, 
+                                         other_fe, year, con_details_id, financial_year, i, total,type)
+{
+    var contingency_type = type.toLowerCase();
+    
+    $('#'+contingency_type+'_contigency_gob_'+year).val(gob);
+    $('#'+contingency_type+'_contigency_gob_fe_'+year).val(gob_fe);
+    $('#'+contingency_type+'_contigency_pa_through_gob_'+year).val(rpa_through_gob);
+    $('#'+contingency_type+'_contigency_pa_sp_acnt_'+year).val(rpa_special_account);
+    $('#'+contingency_type+'_contigency_pa_dpa_'+year).val(dpa);
+    $('#'+contingency_type+'_contigency_own_fund_'+year).val(own_fund);
+    $('#'+contingency_type+'_contigency_own_fund_fe_'+year).val(own_fund_fe);
+    $('#'+contingency_type+'_contigency_other_'+year).val(other);
+    $('#'+contingency_type+'_contigency_other_fe_'+year).val(other_fe);
+    $('#'+contingency_type+'_contigency_total_'+year).val(total);
+    $('#'+contingency_type+'_contigency_con_id_'+year).val(con_details_id);
+}
+
 
 function populateAnnexComponentDetails(gob, gob_fe, rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe, year, annex_details_id, financial_year, i, total)
 {
@@ -251,7 +290,7 @@ function addNewYear()
                                                                 <input type="text" class="span12" name="physical_contigency_other_fe_'+YEAR_COUNT+'" id="physical_contigency_other_fe_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" >\n\
                                                             </td>\n\
                                                             <td><input type="text" class="span12" name="physical_contigency_total_'+YEAR_COUNT+'" id="physical_contigency_total_'+YEAR_COUNT+'" readonly ></td>\n\
-                                                        </tr>\n\
+                                                        </tr><input type="hidden" id="physical_contigency_con_id_'+YEAR_COUNT+'" name="physical_contigency_con_id_'+YEAR_COUNT+'" value="" >\n\
                                                         <tr>\n\
                                                             <td>\n\
                                                                 <input type="text" class="span12" name="price_contigency_gob_'+YEAR_COUNT+'" id="price_contigency_gob_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" >\n\
@@ -269,7 +308,7 @@ function addNewYear()
                                                                 <input type="text" class="span12" name="price_contigency_other_fe_'+YEAR_COUNT+'" id="price_contigency_other_fe_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" >\n\
                                                             </td>\n\
                                                             <td><input type="text" class="span12" name="price_contigency_total_'+YEAR_COUNT+'" id="price_contigency_total_'+YEAR_COUNT+'" readonly ></td>\n\
-                                                        </tr>\n\
+                                                        </tr><input type="hidden" id="price_contigency_con_id_'+YEAR_COUNT+'" name="price_contigency_con_id_'+YEAR_COUNT+'" value="" >\n\
                                                     </tfoot>\n\
                                                 </table>\n\
                                            </div>';
@@ -381,7 +420,7 @@ function calculatePriceContingency()
     $('#price_contigency_other').val(other_total.toMoney(2));
     $('#price_contigency_other_fe').val(other_fe_total.toMoney(2));
     
-    $('#price_contingency_total').val(contingency_total.toMoney(2));
+    $('#price_contigency_total').val(contingency_total.toMoney(2));
     
     calculateAnnexVGrandTotal();
 }
@@ -517,7 +556,7 @@ function calculateAnnexVGrandTotal()
 {
     var grand_total = 0;
     var phy_total   = $('#physical_contigency_total').val()*1;
-    var pr_total    = $('#price_contingency_total').val()*1
+    var pr_total    = $('#price_contigency_total').val()*1
     
     for(var i=0; i<componentRowIDArray.length; i++)
     {
