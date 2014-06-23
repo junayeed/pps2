@@ -278,8 +278,8 @@ class projectManagerApp extends DefaultApplication
     function saveAnnexV()
     {
         $pid       = base64_decode(getUserField('PI'));
-        updateAnnexVContingency();
         updateAnnexV();
+        updateAnnexVContingency();
         header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid));
         //return $this->showAnnexV();
     }
@@ -289,10 +289,12 @@ class projectManagerApp extends DefaultApplication
         $PI                    = getUserField('PI');    
         $pid                   = base64_decode($PI);
         $data['PI']            = $PI;
-        $data['econimonic_code_list']     = getEconomicCodeList();
-        $data['econimonic_subcode_list']  = getEconomicSubCodeList();
-        $data['component_list']           = getComponentList($pid);
-        $data['annx_v_component_details'] = getAnnexVComponentDetails($pid);
+        $data['econimonic_code_list']        = getEconomicCodeList();
+        $data['econimonic_subcode_list']     = getEconomicSubCodeList();
+        $data['component_list']              = getComponentList($pid);
+        $data['annx_v_component_details']    = getAnnexVComponentDetails($pid);
+        $data['annex_v_contingency_list']    = getContingencyList($pid);
+        $data['annex_v_contingency_details'] = getAnnexVContingencyDetails($pid);
         
         //dumpvar($data['annx_v_component_details']);
         

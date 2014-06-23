@@ -97,7 +97,7 @@
                                         <tr>
                                             <td colspan="2">&nbsp;</td>
                                             <td><input type="text" class="span12" name="price_contigency_qty" id="price_contigency_qty" readonly></td>
-                                            <td><input type="text" class="span12" name="price_contingency_total" id="price_contingency_total" readonly></td>
+                                            <td><input type="text" class="span12" name="price_contigency_total" id="price_contigency_total" readonly></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3">Grand Total: </td>
@@ -151,6 +151,8 @@
                                                 <input type="text" class="span12" name="physical_contigency_other_fe" id="physical_contigency_other_fe" readonly>
                                             </td>
                                         </tr>
+                                        <input type="hidden" name="physical_con_id" id="physical_con_id" value="">
+                                        <input type="hidden" name="price_con_id"    id="price_con_id"    value="">
                                         <tr>
                                             <td>
                                                 <input type="text" class="span12" name="price_contigency_gob" id="price_contigency_gob" readonly>
@@ -309,6 +311,31 @@
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
                                      "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->year_serial}", "{$item->id}","{$item->financial_year}", 
                                      count, "{$item->total}");
+            
+            
+            if(count%component_count == 0) count=0;
+            
+            count++;
+        {/foreach}
+        
+        
+        
+        var count=1;
+        {foreach from=$annex_v_contingency_list item=item}
+            
+            populateContingency("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}",  
+                                "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
+                                "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
+                                "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}", "{$item->type}");
+           
+        {/foreach}
+        
+        
+        {foreach from=$annex_v_contingency_details item=item}
+            populateAnnexContingencyDetails("{$item->gob}", "{$item->gob_fe}", 
+                                     "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
+                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->year_serial}", "{$item->id}","{$item->financial_year}", 
+                                     count, "{$item->total}","{$item->type}");
             
             
             if(count%component_count == 0) count=0;
