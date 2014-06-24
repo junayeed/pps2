@@ -140,8 +140,6 @@
         } 
     }
     
-    
-    
     function updateAnnexVContingency()
     {
         $contingency   = array('physical','price');
@@ -575,5 +573,27 @@
         header('Content-Type: application/pdf');
         header('Content-Type: text/plain; charset=utf-8');
         header ('Location: /files/'.$filename);
+    }
+    
+    function updateProjectTotalCost($pid)
+    {
+        $data['total_cost'] = getUserField('grand_total');
+        $data['gob_cost'] = getUserField('grand_total_gob');
+        $data['gob_fe_cost'] = getUserField('grand_total_gob_fe');
+        $data['pa_through_gob_cost'] = getUserField('grand_total_through_gob');
+        $data['pa_spc_acnt_cost'] = getUserField('grand_total_spc_acnt');
+        $data['pa_dpa_cost'] = getUserField('grand_total_dpa');
+        $data['own_fund_cost'] = getUserField('grand_total_own_fund');
+        $data['own_fund_fe_cost'] = getUserField('grand_total_own_fund_fe');
+        $data['other_cost'] = getUserField('grand_total_other');
+        $data['other_fe_cost'] = getUserField('grand_total_other_fe');
+        
+        
+        $info['table']  = PROJECT_TBL;
+        $info['debug']  = true;
+        $info['where']  = 'id = ' . $pid;
+        $info['data']   = $data;
+        
+        update($info);
     }
 ?>

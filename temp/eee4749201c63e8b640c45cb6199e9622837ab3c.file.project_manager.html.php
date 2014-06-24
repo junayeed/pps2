@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-06-10 07:39:16
+<?php /* Smarty version Smarty-3.1.17, created on 2014-06-23 09:13:44
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\project_manager.html" */ ?>
 <?php /*%%SmartyHeaderCode:3268453969a043f51b8-99981777%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'eee4749201c63e8b640c45cb6199e9622837ab3c' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\project_manager.html',
-      1 => 1400737495,
+      1 => 1403507607,
       2 => 'file',
     ),
   ),
@@ -15,13 +15,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.17',
+  'unifunc' => 'content_53969a04431147_93792330',
   'variables' => 
   array (
     'SCRIPT_NAME' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_53969a04431147_93792330',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_53969a04431147_93792330')) {function content_53969a04431147_93792330($_smarty_tpl) {?><div id="main-content" class="clearfix">
 <head>
@@ -150,8 +150,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		
 		<script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
 
-
-
 		<!-- page specific plugin scripts -->
 		
 		<!--[if lt IE 9]>
@@ -161,41 +159,122 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
 
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
-
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
-
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.spinner.js"></script>
-
+		
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-timepicker.min.js"></script>
-
+		
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
                 
-                <script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
-
+              
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
-
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
-
+		
                 
-                
-
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/daterangepicker.min.js"></script>
-
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-colorpicker.min.js"></script>
-
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.knob.min.js"></script>
-
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.autosize-min.js"></script>
-
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
-
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
-
                <!-- ace scripts -->
 		<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
 		<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
-<?php }} ?>
+
+                <script>
+                   
+                   
+                    
+                       
+                        $(function() {
+			$('.date-picker').datepicker();
+		       });
+
+
+		$(function() {
+
+	$('[data-rel=tooltip]').tooltip();
+
+	
+
+	var $validation = false;
+	$('#fuelux-wizard').ace_wizard().on('change' , function(e, info){
+		if(info.step == 1 && $validation) {
+			if(!$('#validation-form').valid()) return false;
+		}
+	}).on('finished', function(e) {
+		bootbox.dialog("Thank you! Your information was successfully saved!", [{
+			"label" : "OK",
+			"class" : "btn-small btn-primary",
+			}]
+		);
+	});
+	
+	$('#validation-form').validate({
+		errorElement: 'span',
+		errorClass: 'help-inline',
+		focusInvalid: true  ,
+		rules: {
+			project_title_en: {
+				required: true
+			},
+			project_title_bn: {
+				required: true
+			},
+                        date_of_commencement: {
+				required: true
+			},
+                        date_of_completion: {
+				required: true
+			},
+                        
+			project_type: {
+				required: true
+			}
+                        
+		},
+
+		messages: {
+			email: {
+				required: "Please provide a valid email.",
+				email: "Please provide a valid email."
+			},
+			password: {
+				required: "Please specify a password.",
+				minlength: "Please specify a secure password."
+			},
+			subscription: "Please choose at least one option",
+			gender: "Please choose gender",
+			agree: "Please accept our policy"
+		},
+
+		invalidHandler: function (event, validator) { //display error alert on form submit   
+			$('.alert-error', $('.login-form')).show();
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error').addClass('info');
+			$(e).remove();
+		},
+
+		errorPlacement: function (error, element) {
+			if(element.is(':checkbox') || element.is(':radio')) {
+				var controls = element.closest('.controls');
+				if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+				else error.insertAfter(element.nextAll('.lbl').eq(0));
+			} 
+			else if(element.is('.chzn-select')) {
+				error.insertAfter(element.nextAll('[class*="chzn-container"]').eq(0));
+			}
+			else error.insertAfter(element);
+		},
+
+		submitHandler: function (form) {
+                    form.submit();
+		},
+		invalidHandler: function (form) {
+		}
+	});
+        
+	
+})
+
+                    
+                </script>    <?php }} ?>

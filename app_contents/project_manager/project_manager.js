@@ -164,7 +164,7 @@ function addNewComponent()
     
     var td_unit        = '<td><input type="text" name="unit_'+COMPONENT_ROW_ID+'"       id="unit_'+COMPONENT_ROW_ID+'" value="" class="span12" /></td>';
     var td_unit_cost   = '<td><input type="text" name="unit_cost_'+COMPONENT_ROW_ID+'"  id="unit_cost_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
-    var td_qty         = '<td><input type="text" name="qty_'+COMPONENT_ROW_ID+'"        id="qty_'+COMPONENT_ROW_ID+'" value="" class="span12" onChange="calculateUnitCost('+COMPONENT_ROW_ID+');" /></td>';
+    var td_qty         = '<td><input type="text" name="qty_'+COMPONENT_ROW_ID+'"        id="qty_'+COMPONENT_ROW_ID+'" value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateUnitCost('+COMPONENT_ROW_ID+');" /></td>';
     var td_total_cost  = '<td><input type="text" name="total_cost_'+COMPONENT_ROW_ID+'" id="total_cost_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
     
     $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_unit + td_unit_cost + td_qty + td_total_cost + '</tr>').appendTo("#total_cost_tbl > tbody");
@@ -550,7 +550,58 @@ function calculateAll()
     calculatePhysicalContingency();
     calculatePriceContingency();
     
+    calculateYearWiseGrandTotal();
+    
     calculateAnnexVGrandTotal();
+}
+
+function calculateYearWiseGrandTotal()
+{
+    for(var year=1; year < YEAR_COUNT; year++)
+    {
+        var grand_total_gob          = 0;
+        var grand_total_gob_fe       = 0;
+        var grand_total_through_gob  = 0;
+        var grand_total_spc_acnt     = 0;
+        var grand_total_dpa          = 0;
+        var grand_total_own_fund     = 0;
+        var grand_total_own_fund_fe  = 0;
+        var grand_total_other        = 0;
+        var grand_total_other_fe     = 0;
+        
+        for(var i=0; i<componentRowIDArray.length; i++)
+        {
+            grand_total_gob          += $('#gob_'+year+'_'+componentRowIDArray[i]).val()*1;
+            grand_total_gob_fe       += $('#gob_fe_'+year+'_'+componentRowIDArray[i]).val()*1;
+            grand_total_through_gob  += $('#rpa_through_gob_'+year+'_'+componentRowIDArray[i]).val()*1;
+            grand_total_spc_acnt     += $('#rpa_special_account_'+year+'_'+componentRowIDArray[i]).val()*1;
+            grand_total_dpa          += $('#dpa_'+year+'_'+componentRowIDArray[i]).val()*1;
+            grand_total_own_fund     += $('#own_fund_'+year+'_'+componentRowIDArray[i]).val()*1;
+            grand_total_own_fund_fe  += $('#own_fund_fe_'+year+'_'+componentRowIDArray[i]).val()*1;
+            grand_total_other        += $('#other_'+year+'_'+componentRowIDArray[i]).val()*1;
+            grand_total_other_fe     += $('#other_fe_'+year+'_'+componentRowIDArray[i]).val()*1;
+        }
+        
+        grand_total_gob          += $('#physical_contigency_gob_'+year).val()*1             + $('#price_contigency_gob_'+year).val()*1;
+        grand_total_gob_fe       += $('#physical_contigency_gob_fe_'+year).val()*1          + $('#price_contigency_gob_fe_'+year).val()*1;
+        grand_total_through_gob  += $('#physical_contigency_pa_through_gob_'+year).val()*1  + $('#price_contigency_pa_through_gob_'+year).val()*1;
+        grand_total_spc_acnt     += $('#physical_contigency_pa_sp_acnt_'+year).val()*1           + $('#price_contigency_pa_sp_acnt_'+year).val()*1;
+        grand_total_dpa          += $('#physical_contigency_pa_dpa_'+year).val()*1      + $('#price_contigency_pa_dpa_'+year).val()*1;
+        grand_total_own_fund     += $('#physical_contigency_own_fund_'+year).val()*1    + $('#price_contigency_own_fund_'+year).val()*1;
+        grand_total_own_fund_fe  += $('#physical_contigency_own_fund_fe_'+year).val()*1 + $('#price_contigency_own_fund_fe_'+year).val()*1;
+        grand_total_other        += $('#physical_contigency_other_'+year).val()*1       + $('#price_contigency_other_'+year).val()*1;
+        grand_total_other_fe     += $('#physical_contigency_other_fe_'+year).val()*1    + $('#price_contigency_other_fe_'+year).val()*1;
+        
+        $('#grand_total_gob_'+year).val(grand_total_gob.toMoney(2));
+        $('#grand_total_gob_fe_'+year).val(grand_total_gob_fe.toMoney(2));
+        $('#grand_total_through_gob_'+year).val(grand_total_through_gob.toMoney(2));
+        $('#grand_total_spc_acnt_'+year).val(grand_total_spc_acnt.toMoney(2));
+        $('#grand_total_dpa_'+year).val(grand_total_dpa.toMoney(2));
+        $('#grand_total_own_fund_'+year).val(grand_total_own_fund.toMoney(2));
+        $('#grand_total_own_fund_fe_'+year).val(grand_total_own_fund_fe.toMoney(2));
+        $('#grand_total_other_'+year).val(grand_total_other.toMoney(2));
+        $('#grand_total_other_fe_'+year).val(grand_total_other_fe.toMoney(2));
+    }
 }
 
 function calculateComponentYearTotal(yearID, elemID)
@@ -589,26 +640,26 @@ function calculateAnnexVGrandTotal()
     var pr_total    = $('#price_contigency_total').val()*1;
     
     
-    var phy_con_total_gob    = $('#physical_contigency_gob').val()*1;
-    var phy_con_total_gob_fe   = $('#physical_contigency_gob_fe').val()*1;
+    var phy_con_total_gob              = $('#physical_contigency_gob').val()*1;
+    var phy_con_total_gob_fe           = $('#physical_contigency_gob_fe').val()*1;
     var phy_con_total_pa_through_gob   = $('#physical_contigency_pa_through_gob').val()*1;
-    var phy_con_total_pa_sp_acnt   = $('#physical_contigency_pa_sp_acnt').val()*1;
-    var phy_con_total_pa_dpa   = $('#physical_contigency_pa_dpa').val()*1;
-    var phy_con_total_own_fund   = $('#physical_contigency_own_fund').val()*1;
-    var phy_con_total_own_fund_fe   = $('#physical_contigency_own_fund_fe').val()*1;
-    var phy_con_total_other   = $('#physical_contigency_other').val()*1;
-    var phy_con_total_other_fe   = $('#physical_contigency_other_fe').val()*1;
+    var phy_con_total_pa_sp_acnt       = $('#physical_contigency_pa_sp_acnt').val()*1;
+    var phy_con_total_pa_dpa           = $('#physical_contigency_pa_dpa').val()*1;
+    var phy_con_total_own_fund         = $('#physical_contigency_own_fund').val()*1;
+    var phy_con_total_own_fund_fe      = $('#physical_contigency_own_fund_fe').val()*1;
+    var phy_con_total_other            = $('#physical_contigency_other').val()*1;
+    var phy_con_total_other_fe         = $('#physical_contigency_other_fe').val()*1;
     
     
-    var pr_con_total_gob       = $('#price_contigency_gob').val()*1;
-    var pr_con_total_gob_fe    = $('#price_contigency_gob_fe').val()*1;
-    var pr_con_total_pa_through_gob    = $('#price_contigency_pa_through_gob').val()*1;
-    var pr_con_total_pa_sp_acnt    = $('#price_contigency_pa_sp_acnt').val()*1;
-    var pr_con_total_pa_dpa    = $('#price_contigency_pa_dpa').val()*1;
-    var pr_con_total_own_fund    = $('#price_contigency_own_fund').val()*1;
-    var pr_con_total_own_fund_fe    = $('#price_contigency_own_fund_fe').val()*1;
-    var pr_con_total_other    = $('#price_contigency_other').val()*1;
-    var pr_con_total_other_fe    = $('#price_contigency_other_fe').val()*1;
+    var pr_con_total_gob              = $('#price_contigency_gob').val()*1;
+    var pr_con_total_gob_fe           = $('#price_contigency_gob_fe').val()*1;
+    var pr_con_total_pa_through_gob   = $('#price_contigency_pa_through_gob').val()*1;
+    var pr_con_total_pa_sp_acnt       = $('#price_contigency_pa_sp_acnt').val()*1;
+    var pr_con_total_pa_dpa           = $('#price_contigency_pa_dpa').val()*1;
+    var pr_con_total_own_fund         = $('#price_contigency_own_fund').val()*1;
+    var pr_con_total_own_fund_fe      = $('#price_contigency_own_fund_fe').val()*1;
+    var pr_con_total_other            = $('#price_contigency_other').val()*1;
+    var pr_con_total_other_fe         = $('#price_contigency_other_fe').val()*1;
     
     
     for(var i=0; i<componentRowIDArray.length; i++)

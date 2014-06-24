@@ -97,7 +97,7 @@
         $info['table']  = DIVISION_LOOKUP_TBL;
         $info['fields'] = array('divid', 'division_name');
         $info['where']  = "status='Active' ORDER BY division_name ASC";
-        $info['debug']  = true;
+        $info['debug']  = false;
 
         if ($result = select($info))
         {

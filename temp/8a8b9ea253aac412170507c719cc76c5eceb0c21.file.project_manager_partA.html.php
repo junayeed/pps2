@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-06-16 06:44:22
+<?php /* Smarty version Smarty-3.1.17, created on 2014-06-23 09:14:01
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\project_manager_partA.html" */ ?>
 <?php /*%%SmartyHeaderCode:51539e7626de38b5-52101686%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '8a8b9ea253aac412170507c719cc76c5eceb0c21' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\project_manager_partA.html',
-      1 => 1402551130,
+      1 => 1403507607,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.17',
+  'unifunc' => 'content_539e76270ac406_44559884',
   'variables' => 
   array (
     'SCRIPT_NAME' => 0,
@@ -31,8 +33,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'item' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_539e76270ac406_44559884',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_539e76270ac406_44559884')) {function content_539e76270ac406_44559884($_smarty_tpl) {?><?php if (!is_callable('smarty_function_html_options')) include 'E:/xampp/htdocs/pps2/ext/smarty3/libs/plugins\\function.html_options.php';
 ?><div id="main-content" class="clearfix">
@@ -433,7 +433,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                 <div class="control-group">
                     <label class="control-label" for="location_divisions[]">Divisions</label>
                     <div class="controls">
-                        <select multiple class="chzn-select divisions" id="location_divisions[]"  name="location_divisions[]" data-placeholder="Choose a Division...">
+                        <select multiple class="chzn-select divisions" id="location_divisions[]"  name="location_divisions[]" onchange="loadDistrict()" data-placeholder="Choose a Division...">
                             <option value=""></option>
                              <?php echo smarty_function_html_options(array('options'=>$_smarty_tpl->tpl_vars['divisionList']->value),$_smarty_tpl);?>
 
@@ -445,7 +445,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                 <div class="control-group">
                     <label class="control-label" for="location_districts[]">Districts</label>
                     <div class="controls">
-                        <select multiple class="chzn-select districts" id="location_districts[]"  name="location_districts[]" data-placeholder="Choose a District...">
+                        <select multiple class="chzn-select districts" id="location_districts[]"  name="location_districts[]"  data-placeholder="Choose a District...">
                             <option value=""></option>
                            <?php echo smarty_function_html_options(array('options'=>$_smarty_tpl->tpl_vars['districtList']->value),$_smarty_tpl);?>
 
@@ -465,10 +465,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                     </div>
 		</div>
                 
-                <p>
+                <div class="form-actions2">
 		 <button class="btn btn-primary"><i class="icon-save"></i> Save</button>
                  <input type="hidden" value="saveLocations" name="cmd"/>
-	       </p>
+	        </div>
             </form>   
             </div>
             <!-- #location ends here-->
@@ -766,7 +766,290 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                     
                     
                        
-                        //alert(ministry)
-                    
-                </script>    
+                        $(function() {
+			$('#id-disable-check').on('click', function() {
+				var inp = $('#form-input-readonly').get(0);
+				if(inp.hasAttribute('disabled')) {
+					inp.setAttribute('readonly' , 'true');
+					inp.removeAttribute('disabled');
+					inp.value="This text field is readonly!";
+				}
+				else {
+					inp.setAttribute('disabled' , 'disabled');
+					inp.removeAttribute('readonly');
+					inp.value="This text field is disabled!";
+				}
+			});
+		
+		
+			$(".chzn-select").chosen(); 
+                        
+			$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+			
+			
+			
+			$('textarea[class*=autosize]').autosize({append: "\n"});
+			$('textarea[class*=limited]').each(function() {
+				var limit = parseInt($(this).attr('data-maxlength')) || 100;
+				$(this).inputlimiter({
+					"limit": limit,
+					remText: '%n character%s remaining...',
+					limitText: 'max allowed : %n.'
+				});
+			});
+			
+			
+			
+			var $tooltip = $("<div class='tooltip right in' style='display:none;'><div class='tooltip-arrow'></div><div class='tooltip-inner'></div></div>").appendTo('body');
+			$( "#slider-range" ).css('height','200px').slider({
+				orientation: "vertical",
+				range: true,
+				min: 0,
+				max: 100,
+				values: [ 17, 67 ],
+				slide: function( event, ui ) {
+					var val = ui.values[$(ui.handle).index()-1]+"";
+					
+					var pos = $(ui.handle).offset();
+					$tooltip.show().children().eq(1).text(val);		
+					$tooltip.css({top:pos.top - 10 , left:pos.left + 18});
+					
+					//$(this).find('a').eq(which).attr('data-original-title' , val).tooltip('show');
+				}
+			});
+			$('#slider-range a').tooltip({placement:'right', trigger:'manual', animation:false}).blur(function(){
+				$tooltip.hide();
+				//$(this).tooltip('hide');
+			});
+			//$('#slider-range a').tooltip({placement:'right', animation:false});
+			
+			
+			
+			$( "#eq > span" ).css({width:'90%', float:'left', margin:'15px'}).each(function() {
+				// read initial values from markup and remove that
+				var value = parseInt( $( this ).text(), 10 );
+				$( this ).empty().slider({
+					value: value,
+					range: "min",
+					animate: true
+					
+				});
+			});
+
+			
+			$('#id-input-file-1 , #id-input-file-2').ace_file_input({
+				no_file:'No File ...',
+				btn_choose:'Choose',
+				btn_change:'Change',
+				droppable:false,
+				onchange:null,
+				thumbnail:false //| true | large
+				//whitelist:'gif|png|jpg|jpeg'
+				//blacklist:'exe|php'
+				//onchange:''
+				//
+			});
+			
+			
+			$('.date-picker').datepicker();
+			
+
+		});
+
+
+		$(function() {
+
+	$('[data-rel=tooltip]').tooltip();
+
+	$(".chzn-select").css('width','150px').chosen({allow_single_deselect:true , no_results_text: "No such state!"})
+	.on('change', function(){
+		$(this).closest('form').validate().element($(this));
+	}); 
+
+
+	var $validation = false;
+	$('#fuelux-wizard').ace_wizard().on('change' , function(e, info){
+		if(info.step == 1 && $validation) {
+			if(!$('#validation-form').valid()) return false;
+		}
+	}).on('finished', function(e) {
+		bootbox.dialog("Thank you! Your information was successfully saved!", [{
+			"label" : "OK",
+			"class" : "btn-small btn-primary",
+			}]
+		);
+	});
+	
+	
+	
+	
+	//documentation : http://docs.jquery.com/Plugins/Validation/validate
+	
+
+	$.mask.definitions['~']='[+-]';
+	$('#phone').mask('(999) 999-9999');
+
+	jQuery.validator.addMethod("phone", function (value, element) {
+		return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+	}, "Enter a valid phone number.");
+	
+	$('#validation-form').validate({
+		errorElement: 'span',
+		errorClass: 'help-inline',
+		focusInvalid: true  ,
+		rules: {
+			
+                        adp_sector: {
+				required: true
+			},
+                        adp_sub_sector: {
+				required: true
+			},
+                        sector_division: {
+				required: true
+			},
+                        'ministries[]': {
+				required: true
+			},
+                        'agencies[]': {
+				required: true
+			},
+                        'location_divisions[]': {
+				required: true
+			},
+                       
+                        
+			project_type: {
+				required: true
+			}
+                        
+			
+		},
+
+		messages: {
+			email: {
+				required: "Please provide a valid email.",
+				email: "Please provide a valid email."
+			},
+			password: {
+				required: "Please specify a password.",
+				minlength: "Please specify a secure password."
+			},
+			subscription: "Please choose at least one option",
+			gender: "Please choose gender",
+			agree: "Please accept our policy"
+		},
+
+		invalidHandler: function (event, validator) { //display error alert on form submit   
+			$('.alert-error', $('.login-form')).show();
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error').addClass('info');
+			$(e).remove();
+		},
+
+		errorPlacement: function (error, element) {
+			if(element.is(':checkbox') || element.is(':radio')) {
+				var controls = element.closest('.controls');
+				if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+				else error.insertAfter(element.nextAll('.lbl').eq(0));
+			} 
+			else if(element.is('.chzn-select')) {
+				error.insertAfter(element.nextAll('[class*="chzn-container"]').eq(0));
+			}
+			else error.insertAfter(element);
+		},
+
+		submitHandler: function (form) {
+                    form.submit();
+		},
+		invalidHandler: function (form) {
+		}
+	});
+        
+        
+        $('#validation-form-location').validate({
+		errorElement: 'span',
+		errorClass: 'help-inline',
+		focusInvalid: true  ,
+		rules: {
+			
+                        'location_divisions[]': {
+				required: true
+			}
+			
+		},
+
+		invalidHandler: function (event, validator) { //display error alert on form submit   
+			$('.alert-error', $('.login-form')).show();
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error').addClass('info');
+			$(e).remove();
+		},
+
+		errorPlacement: function (error, element) {
+			if(element.is(':checkbox') || element.is(':radio')) {
+				var controls = element.closest('.controls');
+				if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+				else error.insertAfter(element.nextAll('.lbl').eq(0));
+			} 
+			else if(element.is('.chzn-select')) {
+				error.insertAfter(element.nextAll('[class*="chzn-container"]').eq(0));
+			}
+			else error.insertAfter(element);
+		},
+
+		submitHandler: function (form) {
+                    form.submit();
+		},
+		invalidHandler: function (form) {
+		}
+	});
+
+
+	
+})
+
+function loadDistrict()
+{
+    
+    var username = $('.divisions').val();
+    alert(username);
+    $.ajax
+    (
+        {                                      
+            url: 'user_manager.php?cmd=checkuser',                    //the script to call to get data          
+            data: "username="+username,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            dataType: 'json',                                         //data format      
+            success: function(responseText)                           //on recieve of reply
+            {
+                if ( responseText != '')
+                {
+                    highlightTableColumn('username');
+                    alert(DUPLICATE_USERNAME);
+                    duplicate_user = true;
+                    return false;
+                }
+                else
+                {
+                    resetTableColumn('username');
+                    duplicate_user = false;
+                }
+            }
+        } 
+    );  
+}
+
+</script>    
 <?php }} ?>

@@ -64,13 +64,13 @@ class projectManagerApp extends DefaultApplication
         $annex_id = getUserField('annex_id');
         
         $info['table']  = PROJECT_ANNEX_V_DETAILS_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['where']  = 'annex_id = ' . $annex_id;
                 
         delete($info);
         
         $info['table']  = PROJECT_ANNEX_V_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['where']  = 'id = ' . $annex_id;
                 
         delete($info);
@@ -82,7 +82,7 @@ class projectManagerApp extends DefaultApplication
         $year_serial = getUserField('year_serial');
         
         $info['table']  = PROJECT_ANNEX_V_DETAILS_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['where']  = 'pid = ' . $pid . ' AND year_serial = ' . $year_serial;
                 
         delete($info);
@@ -95,7 +95,7 @@ class projectManagerApp extends DefaultApplication
         $data['total_year'] = $year;
         
         $info['table']  = PROJECT_ANNEX_V_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['where']  = 'pid = ' . $pid;
         $info['data']   = $data;
                 
@@ -298,7 +298,7 @@ class projectManagerApp extends DefaultApplication
         $pid       = base64_decode(getUserField('PI'));
         updateAnnexV();
         updateAnnexVContingency();
-        //updateProjectTotalCost();
+        updateProjectTotalCost($pid);
         
         header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid));
         //return $this->showAnnexV();

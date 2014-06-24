@@ -174,7 +174,7 @@ class Project
     {
         $info['table'] = PROJECT_MODE_FINANCING_TBL;
         $info['data']  = getUserDataSet(PROJECT_MODE_FINANCING_TBL);
-        $info['debug'] = true;
+        $info['debug'] = false;
         
         if($this->id && !empty($this->basicInfo->modefinancing))
         {
@@ -207,7 +207,7 @@ class Project
         {
             foreach($locations as $thisValue)
             {
-                $info['debug'] = true;
+                $info['debug'] = false;
                 $info['data']  = array('pid' =>$this->id,'location_id' =>$thisValue,'location_type' => $location_type);
                 insert($info);
             }    
@@ -227,7 +227,7 @@ class Project
         {
             foreach($ministries as $thisValue)
             {
-                $info['debug'] = true;
+                $info['debug'] = false;
                 $info['data']  = array('pid' =>$this->id,'ministry_id' =>$thisValue);
                 insert($info);
             }    
@@ -246,7 +246,7 @@ class Project
         {
             foreach($agencies as $thisValue)
             {
-                $info['debug'] = true;
+                $info['debug'] = false;
                 $info['data']  = array('pid' =>$this->id,'agency_id' =>$thisValue);
                 insert($info);
             }    
@@ -265,7 +265,7 @@ class Project
         {
             foreach($partners as $thisValue)
             {
-                $info['debug'] = true;
+                $info['debug'] = false;
                 $info['data']  = array('pid' =>$this->id,'dev_partner_id' =>$thisValue);
                 insert($info);
             }    
