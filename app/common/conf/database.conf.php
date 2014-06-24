@@ -23,9 +23,9 @@
   // may vary.
   if (PRODUCTION_MODE)
   {
-     define('DB_USER', 'username');
-     define('DB_PASS', 'password');
-     define('DB_NAME', 'database');
+     define('DB_USER', 'root');
+     define('DB_PASS', 'root123');
+     define('DB_NAME', 'pps2');
      define('DB_HOST', 'localhost');
   }
   else

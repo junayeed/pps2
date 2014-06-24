@@ -51,9 +51,12 @@
    *  facility instead
    */
    define('E_NONE', 0);
+   error_reporting(-1);
+   ini_set('display_errors', 1);
+
 
    if (PRODUCTION_MODE)
-      error_reporting(E_NONE);
+      error_reporting(E_ALL ^ E_NOTICE);
    else
       error_reporting(E_ALL ^ E_NOTICE);
 
