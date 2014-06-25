@@ -19,16 +19,16 @@ class Project
         if($this->id)
         {    
             $this->loadBasicInfo();
-            $this->loadProjectSummary();
-            $this->loadProjectDetails();
-            $this->loadProjectLocations();
-            $this->loadProjectManagement();
-            $this->loadProjectProcurementPlanGoods();
-            $this->loadProjectProcurementPlanWorks();
-            $this->loadProjectProcurementPlanServices();
-            $this->loadProjectFinancialPhysicalTargetPlan();
-            $this->loadProjectDetailsPhasingCost();
-            $this->loadProjectAmortizationSchedule();
+            //$this->loadProjectSummary();
+            //$this->loadProjectDetails();
+            //$this->loadProjectLocations();
+            //$this->loadProjectManagement();
+            //$this->loadProjectProcurementPlanGoods();
+            //$this->loadProjectProcurementPlanWorks();
+            //$this->loadProjectProcurementPlanServices();
+            //$this->loadProjectFinancialPhysicalTargetPlan();
+            //$this->loadProjectDetailsPhasingCost();
+            //$this->loadProjectAmortizationSchedule();
         }
     }
     

@@ -46,16 +46,20 @@
             <form class="form-horizontal" id="annex_iv"  method="post" action="{$SCRIPT_NAME}" name="annex_iv"> 
                 <div class="control-group">
                    <div class="span12"> 
-                        <div id="annex-container">
+                        <div id="annex-iv-container">
                             <div id="economic_code_container">
                                 <i class="icon-blank"></i>
-                                <table id="economic_code_tbl" class="table table-striped table-bordered table-hover table_bug_report">
+                                <table id="economic_code_tbl" class="annex-iv-table table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
                                         <tr>
-                                            <th class="span1"></th>
-                                            <th class="span1">Economic Code</th>
-                                            <th class="span1">Economic Sub-code</th>
-                                            <th class="span12">Code description</th>
+                                            <th class="span1" rowspan="1">Economic Code</th>
+                                            <th class="span1" rowspan="1">Economic Sub-code</th>
+                                            <th class="span12" rowspan="1">Code description</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="span1">&nbsp;</th>
+                                            <th class="span1">&nbsp;</th>
+                                            <th class="span12">&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody id="economic_code_content">
@@ -72,8 +76,11 @@
                             </div>
                             <div id="total_cost_container">
                                 <i class="icon-blank"></i>
-                                <table id="total_cost_tbl" class="table table-striped table-bordered table-hover table_bug_report">
+                                <table id="total_cost_tbl" class="annex-iv-table table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
+                                        <tr>
+                                            <th colspan="5">Total Physical & Financial Target</th>
+                                        </tr>    
                                         <tr>
                                             <th class="span3">Unit</th>
                                             <th class="span2">Unit Cost</th>
@@ -89,11 +96,14 @@
                                             <td colspan="2">&nbsp;</td>
                                             <td><input type="text" class="span12" name="physical_contigency_qty" id="physical_contigency_qty" readonly></td>
                                             <td><input type="text" class="span12" name="physical_contigency_total" id="physical_contigency_total" readonly></td>
+                                            <td><input type="text" class="span12" name="physical_contigency_weight" id="physical_contigency_weight" readonly></td>
+                                            
                                         </tr>
                                         <tr>
                                             <td colspan="2">&nbsp;</td>
                                             <td><input type="text" class="span12" name="price_contigency_qty" id="price_contigency_qty" readonly></td>
                                             <td><input type="text" class="span12" name="price_contigency_total" id="price_contigency_total" readonly></td>
+                                            <td><input type="text" class="span12" name="price_contigency_weight" id="price_contigency_weight" readonly></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3">Grand Total: </td>
@@ -102,79 +112,7 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <div id="total_cost_breakdown_container">
-                                <i class="icon-exchange" id="toggle_total_cost_breakdown"></i>
-                                <table id="total_cost_breakdown_tbl" class="table table-striped table-bordered table-hover table_bug_report">
-                                    <thead>
-                                        <tr>
-                                            <th class="span3" rowspan="3">GoB (FE)</th>
-                                            <th class="span3" colspan="3">Project Aid</th>
-                                            <th class="span3" rowspan="3">Own Fund (FE)</th>
-                                            <th class="span3" rowspan="3">Other (FE)</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3" colspan="2">RPA</th>
-                                            <th class="span3" rowspan="2">DPA</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="span3">Through GoB</th>
-                                            <th class="span3">Special Account*</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="total_cost_breakdown_content">
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td>
-                                                <input type="text" class="span12" name="physical_contigency_gob" id="physical_contigency_gob" readonly>
-                                                <input type="text" class="span12" name="physical_contigency_gob_fe" id="physical_contigency_gob_fe" readonly>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="span12" name="physical_contigency_pa_through_gob" id="physical_contigency_pa_through_gob" readonly>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="span12" name="physical_contigency_pa_sp_acnt" id="physical_contigency_pa_sp_acnt" readonly>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="span12" name="physical_contigency_pa_dpa" id="physical_contigency_pa_dpa" readonly>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="span12" name="physical_contigency_own_fund" id="physical_contigency_own_fund" readonly>
-                                                <input type="text" class="span12" name="physical_contigency_own_fund_fe" id="physical_contigency_own_fund_fe" readonly>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="span12" name="physical_contigency_other" id="physical_contigency_other" readonly>
-                                                <input type="text" class="span12" name="physical_contigency_other_fe" id="physical_contigency_other_fe" readonly>
-                                            </td>
-                                        </tr>
-                                        <input type="hidden" name="physical_con_id" id="physical_con_id" value="">
-                                        <input type="hidden" name="price_con_id"    id="price_con_id"    value="">
-                                        <tr>
-                                            <td>
-                                                <input type="text" class="span12" name="price_contigency_gob" id="price_contigency_gob" readonly>
-                                                <input type="text" class="span12" name="price_contigency_gob_fe" id="price_contigency_gob_fe" readonly>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="span12" name="price_contigency_pa_through_gob" id="price_contigency_pa_through_gob" readonly>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="span12" name="price_contigency_pa_sp_acnt" id="price_contigency_pa_sp_acnt" readonly>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="span12" name="price_contigency_pa_dpa" id="price_contigency_pa_dpa" readonly>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="span12" name="price_contigency_own_fund" id="price_contigency_own_fund" readonly>
-                                                <input type="text" class="span12" name="price_contigency_own_fund_fe" id="price_contigency_own_fund_fe" readonly>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="span12" name="price_contigency_other" id="price_contigency_other" readonly>
-                                                <input type="text" class="span12" name="price_contigency_other_fe" id="price_contigency_other_fe" readonly>
-                                            </td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
+                          
                             
                         </div>
                         <a href="#" onClick="addNewComponent();">Add Component</a>
@@ -235,7 +173,7 @@
     <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
     
     <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
-    <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/{$SYSTEM_APP_PREFIX}.js"></script>                 
+    <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/annex_iv.js"></script>                 
     <script>
         $( document ).ready(function() {
                 $("#sidebar").toggleClass("menu-min");
@@ -285,6 +223,7 @@
            
         {/foreach}
         
+        var total_qty = 0;
         var component_count = 0;
         {foreach from=$component_list item=item}
             addNewComponent();
@@ -293,7 +232,9 @@
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
                                      "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}");
            var total_years = "{$item->total_year}";    
-           //calculateComponentWeight()
+           calculateComponentWeight("{$project_info->total_cost}","{$item->total_cost}")
+           
+           total_qty += {$item->qty};
            component_count++;
         {/foreach}
             
@@ -304,9 +245,7 @@
         }
         var count=1;
         {foreach from=$annx_v_component_details item=item}
-            populateAnnexComponentDetails("{$item->gob}", "{$item->gob_fe}", 
-                                     "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
-                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->year_serial}", "{$item->id}","{$item->financial_year}", 
+            populateAnnexComponentDetails("{$item->year_serial}", "{$item->id}","{$item->financial_year}", 
                                      count, "{$item->total}");
             
             
@@ -324,7 +263,7 @@
                                 "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
                                 "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
                                 "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}", "{$item->type}");
-           
+            calculateContingencyWeight("{$project_info->total_cost}","{$item->total_cost}","{$item->type}")
         {/foreach}
         
         

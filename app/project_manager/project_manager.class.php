@@ -323,9 +323,13 @@ class projectManagerApp extends DefaultApplication
     
     function showAnnexIV()
     {
-        $PI                    = getUserField('PI');    
-        $pid                   = base64_decode($PI);
-        $data['PI']            = $PI;
+        $PI                                  = getUserField('PI');    
+        $pid                                 = base64_decode($PI);
+        $data['PI']                          = $PI;
+        $project                             = new Project($pid);
+        
+        $data['project_info']                = $project->basicInfo;
+        //dumpVar($data);
         $data['econimonic_code_list']        = getEconomicCodeList();
         $data['econimonic_subcode_list']     = getEconomicSubCodeList();
         $data['component_list']              = getComponentList($pid);

@@ -590,7 +590,7 @@
         
         
         $info['table']  = PROJECT_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['where']  = 'id = ' . $pid;
         $info['data']   = $data;
         
