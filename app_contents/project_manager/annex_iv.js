@@ -123,6 +123,8 @@ function populateAnnexContingencyDetails(year, con_details_id, financial_year, i
 
 function populateAnnexComponentDetails(year, annex_details_id, financial_year, i, total, project_total_cost)
 { 
+    $('#financial_year_'+year).val(financial_year);
+    
     $('#financial_amnt_'+year+'_'+i).val(total);
     $('#percentage_item_'+year+'_'+i).val( ( total/project_total_cost ).toMoney(5));
     $('#percentage_project_'+year+'_'+i).val( ($('#percentage_item_'+year+'_'+i).val()*$('#weight_'+i).val()).toMoney(5) ) ;

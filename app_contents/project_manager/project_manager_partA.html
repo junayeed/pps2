@@ -152,11 +152,11 @@
                  <div class="control-group">
                     <label class="control-label" for="project_cost">Estimated Cost of the project(in Lakh Taka)</label>
                     <div class="controls"><br><br>
-                        <label for="project_cost">Total :</label>
-                        <label  for="project_cost">GOB :</label>
-                        <label for="project_cost">PA :</label>
-                        <label  for="project_cost">Own Fund :</label>
-                        <label  for="project_cost">Others :</label>
+                        <label for="project_cost">Total:{$basicInfo->total_cost}</label>
+                        <label  for="project_cost">GOB (FE):{$basicInfo->gob_cost} ({$basicInfo->gob_fe_cost})</label>
+                        <label for="project_cost">PA (RPA):{$basicInfo->pa_through_gob_cost} ({$basicInfo->pa_dpa_cost})</label>
+                        <label  for="project_cost">Own Fund (FE):{$basicInfo->own_fund_cost} ({$basicInfo->own_fund_fe_cost})</label>
+                        <label  for="project_cost">Others (FE):{$basicInfo->other_cost} ({$basicInfo->other_fe_cost})</label>
                     </div>
                 </div>
                 
