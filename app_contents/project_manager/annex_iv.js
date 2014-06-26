@@ -112,29 +112,20 @@ function populateComponentDetails(economic_code_id, economic_subcode_id, economi
 }
 
 
-function populateAnnexContingencyDetails(gob, gob_fe, rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, 
-                                         other_fe, year, con_details_id, financial_year, i, total,type)
-{
+function populateAnnexContingencyDetails(year, con_details_id, financial_year, i, total,type, project_total_cost)
+{  
     var contingency_type = type.toLowerCase();
     
-    $('#'+contingency_type+'_contigency_gob_'+year).val(gob);
-    $('#'+contingency_type+'_contigency_gob_fe_'+year).val(gob_fe);
-    $('#'+contingency_type+'_contigency_pa_through_gob_'+year).val(rpa_through_gob);
-    $('#'+contingency_type+'_contigency_pa_sp_acnt_'+year).val(rpa_special_account);
-    $('#'+contingency_type+'_contigency_pa_dpa_'+year).val(dpa);
-    $('#'+contingency_type+'_contigency_own_fund_'+year).val(own_fund);
-    $('#'+contingency_type+'_contigency_own_fund_fe_'+year).val(own_fund_fe);
-    $('#'+contingency_type+'_contigency_other_'+year).val(other);
-    $('#'+contingency_type+'_contigency_other_fe_'+year).val(other_fe);
-    $('#'+contingency_type+'_contigency_total_'+year).val(total);
-    $('#'+contingency_type+'_contigency_con_id_'+year).val(con_details_id);
+    $('#'+contingency_type+'_financial_amnt_'+year).val(total);
+    $('#'+contingency_type+'_percentage_item_'+year).val( ( total/project_total_cost ).toMoney(5) );
+    $('#'+contingency_type+'_percentage_project_'+year).val( ( $('#'+contingency_type+'_percentage_item_'+year).val()*$('#physical_contigency_weight').val() ).toMoney(5) );
 }
 
-function populateAnnexComponentDetails(year, annex_details_id, financial_year, i, total)
-{ //ajaj 
+function populateAnnexComponentDetails(year, annex_details_id, financial_year, i, total, project_total_cost)
+{ 
     $('#financial_amnt_'+year+'_'+i).val(total);
-    $('#percentage_item_'+year+'_'+i).val( ($('#qty_'+i).val()*1/total_qty).toMoney(3) ) ;
-    $('#percentage_project_'+year+'_'+i).val( $('#percentage_item_'+year+'_'+i).val()*$('#weight_'+i).val() ) ;
+    $('#percentage_item_'+year+'_'+i).val( ( total/project_total_cost ).toMoney(5));
+    $('#percentage_project_'+year+'_'+i).val( ($('#percentage_item_'+year+'_'+i).val()*$('#weight_'+i).val()).toMoney(5) ) ;
 }
 
 function addNewComponent()
@@ -145,11 +136,11 @@ function addNewComponent()
     
     $('<tr id="tr_'+COMPONENT_ROW_ID+'">' + td_economic_code+td_sub_code+td_code_desc+'</tr>').appendTo("#economic_code_tbl > tbody");
     
-    var td_unit        = '<td><input type="text" name="unit_'+COMPONENT_ROW_ID+'"       id="unit_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
-    var td_unit_cost   = '<td><input type="text" name="unit_cost_'+COMPONENT_ROW_ID+'"  id="unit_cost_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
-    var td_qty         = '<td><input type="text" name="qty_'+COMPONENT_ROW_ID+'"        id="qty_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
+    var td_unit        = '<td><input type="text" name="unit_'+COMPONENT_ROW_ID+'"       id="unit_'+COMPONENT_ROW_ID+'"       value="" class="span12" readonly /></td>';
+    var td_unit_cost   = '<td><input type="text" name="unit_cost_'+COMPONENT_ROW_ID+'"  id="unit_cost_'+COMPONENT_ROW_ID+'"  value="" class="span12" readonly /></td>';
+    var td_qty         = '<td><input type="text" name="qty_'+COMPONENT_ROW_ID+'"        id="qty_'+COMPONENT_ROW_ID+'"        value="" class="span12" readonly /></td>';
     var td_total_cost  = '<td><input type="text" name="total_cost_'+COMPONENT_ROW_ID+'" id="total_cost_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
-    var td_weight      = '<td><input type="text" name="weight_'+COMPONENT_ROW_ID+'"     id="weight_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
+    var td_weight      = '<td><input type="text" name="weight_'+COMPONENT_ROW_ID+'"     id="weight_'+COMPONENT_ROW_ID+'"     value="" class="span12" readonly /></td>';
     
     $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_unit + td_unit_cost + td_qty + td_total_cost+ td_weight + '</tr>').appendTo("#total_cost_tbl > tbody");
     
@@ -251,20 +242,20 @@ function addNewYear()
                                                    <tfoot>\n\
                                                         <tr>\n\
                                                             <td>\n\
-                                                                <input type="text" class="span12" name="physical_contigency_gob_'+YEAR_COUNT+'" id="physical_contigency_gob_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" />\n\
+                                                                <input type="text" class="span12" name="physical_financial_amnt_'+YEAR_COUNT+'" id="physical_financial_amnt_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" />\n\
                                                             </td>\n\
-                                                            <td><input type="text" class="span12" name="physical_contigency_pa_through_gob_'+YEAR_COUNT+'" id="physical_contigency_pa_through_gob_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" ></td>\n\
+                                                            <td><input type="text" class="span12" name="physical_percentage_item_'+YEAR_COUNT+'" id="physical_percentage_item_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" ></td>\n\
                                                             <td>\n\
-                                                                <input type="text" class="span12" name="physical_contigency_own_fund_'+YEAR_COUNT+'" id="physical_contigency_own_fund_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" >\n\
+                                                                <input type="text" class="span12" name="physical_percentage_project_'+YEAR_COUNT+'" id="physical_percentage_project_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" >\n\
                                                             </td>\n\
                                                         </tr><input type="hidden" id="physical_contigency_con_id_'+YEAR_COUNT+'" name="physical_contigency_con_id_'+YEAR_COUNT+'" value="" >\n\
                                                         <tr>\n\
                                                             <td>\n\
-                                                                <input type="text" class="span12" name="price_contigency_gob_'+YEAR_COUNT+'" id="price_contigency_gob_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" >\n\
+                                                                <input type="text" class="span12" name="price_financial_amnt_'+YEAR_COUNT+'" id="price_financial_amnt_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" >\n\
                                                             </td>\n\
-                                                            <td><input type="text" class="span12" name="price_contigency_pa_through_gob_'+YEAR_COUNT+'" id="price_contigency_pa_through_gob_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" ></td>\n\
+                                                            <td><input type="text" class="span12" name="price_percentage_item_'+YEAR_COUNT+'" id="price_percentage_item_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" ></td>\n\
                                                             <td>\n\
-                                                                <input type="text" class="span12" name="price_contigency_own_fund_'+YEAR_COUNT+'" id="price_contigency_own_fund_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" >\n\
+                                                                <input type="text" class="span12" name="price_percentage_project_'+YEAR_COUNT+'" id="price_percentage_project_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" >\n\
                                                             </td>\n\
                                                         </tr><input type="hidden" id="price_contigency_con_id_'+YEAR_COUNT+'" name="price_contigency_con_id_'+YEAR_COUNT+'" value="" >\n\
                                                         <tr>\n\
@@ -394,7 +385,8 @@ function calculatePriceContingency()
 
 function calculateComponentWeight(project_total_cost,item_total_cost)
 {
-    var elemID = COMPONENT_ROW_ID-1;
+    var elemID  = COMPONENT_ROW_ID-1;
+    
     $('#weight_'+elemID).val((item_total_cost*1/project_total_cost*1).toMoney(2))
 }
 
@@ -577,70 +569,24 @@ function calculateComponentYearTotal(yearID, elemID)
 
 function calculateAnnexVGrandTotal()
 {
-    var grand_total              = 0;
-    var grand_total_gob          = 0;
-    var grand_total_gob_fe       = 0;
-    var grand_total_through_gob  = 0;
-    var grand_total_spc_acnt     = 0;
-    var grand_total_dpa          = 0;
-    var grand_total_own_fund     = 0;
-    var grand_total_own_fund_fe  = 0;
-    var grand_total_other        = 0;
-    var grand_total_other_fe     = 0;
-    
-    var phy_total   = $('#physical_contigency_total').val()*1;
-    var pr_total    = $('#price_contigency_total').val()*1;
-    
-    
-    var phy_con_total_gob              = $('#physical_contigency_gob').val()*1;
-    var phy_con_total_gob_fe           = $('#physical_contigency_gob_fe').val()*1;
-    var phy_con_total_pa_through_gob   = $('#physical_contigency_pa_through_gob').val()*1;
-    var phy_con_total_pa_sp_acnt       = $('#physical_contigency_pa_sp_acnt').val()*1;
-    var phy_con_total_pa_dpa           = $('#physical_contigency_pa_dpa').val()*1;
-    var phy_con_total_own_fund         = $('#physical_contigency_own_fund').val()*1;
-    var phy_con_total_own_fund_fe      = $('#physical_contigency_own_fund_fe').val()*1;
-    var phy_con_total_other            = $('#physical_contigency_other').val()*1;
-    var phy_con_total_other_fe         = $('#physical_contigency_other_fe').val()*1;
-    
-    
-    var pr_con_total_gob              = $('#price_contigency_gob').val()*1;
-    var pr_con_total_gob_fe           = $('#price_contigency_gob_fe').val()*1;
-    var pr_con_total_pa_through_gob   = $('#price_contigency_pa_through_gob').val()*1;
-    var pr_con_total_pa_sp_acnt       = $('#price_contigency_pa_sp_acnt').val()*1;
-    var pr_con_total_pa_dpa           = $('#price_contigency_pa_dpa').val()*1;
-    var pr_con_total_own_fund         = $('#price_contigency_own_fund').val()*1;
-    var pr_con_total_own_fund_fe      = $('#price_contigency_own_fund_fe').val()*1;
-    var pr_con_total_other            = $('#price_contigency_other').val()*1;
-    var pr_con_total_other_fe         = $('#price_contigency_other_fe').val()*1;
-    
+    var grand_total        = 0;
+    var phy_total          = $('#physical_contigency_total').val()*1;
+    var pr_total           = $('#price_contigency_total').val()*1;
+    var pr_con_weight      = $('#price_contigency_weight').val()*1;
+    var phy_con_weight     = $('#physical_contigency_weight').val()*1;
+    var grand_total_weight = 0;
     
     for(var i=0; i<componentRowIDArray.length; i++)
     {
         if ($('#total_cost_'+componentRowIDArray[i]).val() )
         {
-            grand_total              += $('#total_cost_'+componentRowIDArray[i]).val()*1;
-            grand_total_gob          += $('#total_gob_'+componentRowIDArray[i]).val()*1;
-            grand_total_gob_fe       += $('#total_gob_fe_'+componentRowIDArray[i]).val()*1;
-            grand_total_through_gob  += $('#pa_gob_'+componentRowIDArray[i]).val()*1;
-            grand_total_spc_acnt     += $('#pa_spc_acnt_'+componentRowIDArray[i]).val()*1;
-            grand_total_dpa          += $('#pa_dpa_'+componentRowIDArray[i]).val()*1;
-            grand_total_own_fund     += $('#own_fund_'+componentRowIDArray[i]).val()*1;
-            grand_total_own_fund_fe  += $('#own_fund_fe_'+componentRowIDArray[i]).val()*1;
-            grand_total_other        += $('#other_'+componentRowIDArray[i]).val()*1;
-            grand_total_other_fe     += $('#other_fe_'+componentRowIDArray[i]).val()*1;
+            grand_total         += $('#total_cost_'+componentRowIDArray[i]).val()*1;
+            grand_total_weight  += $('#weight_'+componentRowIDArray[i]).val()*1;
         }
     }
     
     $('#grand_total').val( (grand_total+phy_total+pr_total).toMoney(2) );
-    $('#grand_total_gob').val( (grand_total_gob+phy_con_total_gob+pr_con_total_gob).toMoney(2) );
-    $('#grand_total_gob_fe').val( (grand_total_gob_fe+phy_con_total_gob_fe+pr_con_total_gob_fe).toMoney(2) );
-    $('#grand_total_through_gob').val( (grand_total_through_gob+phy_con_total_pa_through_gob+pr_con_total_pa_through_gob).toMoney(2) );
-    $('#grand_total_spc_acnt').val( (grand_total_spc_acnt+phy_con_total_pa_sp_acnt+pr_con_total_pa_sp_acnt).toMoney(2) );
-    $('#grand_total_dpa').val( (grand_total_dpa+phy_con_total_pa_dpa+pr_con_total_pa_dpa).toMoney(2) );
-    $('#grand_total_own_fund').val( (grand_total_own_fund+phy_con_total_own_fund+pr_con_total_own_fund).toMoney(2) );
-    $('#grand_total_own_fund_fe').val( (grand_total_own_fund_fe+phy_con_total_own_fund_fe+pr_con_total_own_fund_fe).toMoney(2) );
-    $('#grand_total_other').val( (grand_total_other+phy_con_total_other+pr_con_total_other).toMoney(2) );
-    $('#grand_total_other_fe').val( (grand_total_other_fe+phy_con_total_other_fe+pr_con_total_other_fe).toMoney(2) );
+    $('#grand_total_weight').val( (grand_total_weight+phy_con_weight+pr_con_weight).toMoney(2));
 }
 
 function calculateComponentTotalCost(yearID)
