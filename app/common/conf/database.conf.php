@@ -49,6 +49,7 @@
 
   define('COUNTRY_LOOKUP_TBL',           DB_NAME . '.country_lookup');
   define('MINISTRY_LOOKUP_TBL',          DB_NAME . '.ministry_lookup');
+  define('DEV_PARTNER_LOOKUP_TBL',       DB_NAME . '.dev_partner_lookup');
   define('AGENCY_LOOKUP_TBL',            DB_NAME . '.agency_lookup');
   define('ADP_SECTOR_LOOKUP_TBL',        DB_NAME . '.adp_sector_lookup');
   define('ADP_SUBSECTOR_LOOKUP_TBL',     DB_NAME . '.adp_subsector_lookup');
@@ -83,6 +84,10 @@
   
   define('PROJECT_ANNEX_V_CON_TBL',          DB_NAME . '.annexure_v_contingency');
   define('PROJECT_ANNEX_V_CON_DETAILS_TBL',  DB_NAME . '.annexure_v_contingency_details');
+  
+  
+  //Views 
+  define('PROJECT_YEAR_WISE_GOB_OWNFUND',  DB_NAME . '.year_wise_gob_ownfund');
   
   if (AUTO_CONNECT_TO_DATABASE)
   {

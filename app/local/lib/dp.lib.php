@@ -20,6 +20,23 @@
         }
         return $data;
     } 
+    
+    function getDevelopmentPartnerList()
+    {
+        $info['table']  = DEV_PARTNER_LOOKUP_TBL;
+        $info['fields'] = array('id','name');
+        $info['where']  = " status='Active' ORDER By name ASC";
+        $info['debug']  = false;
+
+        if ($result = select($info))
+        {
+            foreach($result as $key => $value)
+            {
+                $data[$value->id] =  $value->name; 
+             }
+        }
+        return $data;
+    } 
    
     function getAgencyList()
     {

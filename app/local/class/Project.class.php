@@ -32,6 +32,16 @@ class Project
         }
     }
     
+    public function loadYearWiseGobOwnfundTotal()
+    {
+        $info['table']  = PROJECT_YEAR_WISE_GOB_OWNFUND;
+        $info['debug']  = false;
+        $info['where']  = "pid = $this->id";
+        
+        $result = select($info);
+        return $result;
+    }        
+    
     public function loadBasicInfo()
     {
         $info['table'] = PROJECT_TBL;
@@ -44,7 +54,7 @@ class Project
         $this->basicInfo->ministries      = $this->loadMinistries();        
         $this->basicInfo->agencies        = $this->loadAgencies();        
         $this->basicInfo->partners        = $this->loadDevPartners();        
-        $this->basicInfo->modefinancing   = $this->loadModeOfFinancing();        
+        $data->basicInfo->modefinancing   = $this->loadModeOfFinancing();        
         $this->basicInfo->locations       = $this->loadLocations();        
     }
     
@@ -174,9 +184,14 @@ class Project
     {
         $info['table'] = PROJECT_MODE_FINANCING_TBL;
         $info['data']  = getUserDataSet(PROJECT_MODE_FINANCING_TBL);
+        $info['data']['pid']  = $this->id;
         $info['debug'] = false;
         
-        if($this->id && !empty($this->basicInfo->modefinancing))
+        
+        $mode_of_finance_id  = getUserField('mode_of_finance_id');
+        
+        
+        if($mode_of_finance_id)
         {
             $info['where'] = "pid = $this->id";
             update($info);
