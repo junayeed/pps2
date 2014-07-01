@@ -308,7 +308,9 @@ class projectManagerApp extends DefaultApplication
     {
         $PI                    = getUserField('PI');    
         $pid                   = base64_decode($PI);
-        $data['PI']            = $PI;
+        $report_type           = getUserField('report_type');
+        
+        $data['PI']                          = $PI;
         $data['econimonic_code_list']        = getEconomicCodeList();
         $data['econimonic_subcode_list']     = getEconomicSubCodeList();
         $data['component_list']              = getComponentList($pid);
@@ -317,6 +319,7 @@ class projectManagerApp extends DefaultApplication
         $data['annex_v_contingency_details'] = getAnnexVContingencyDetails($pid);
         
         //dumpvar($data['annx_v_component_details']);
+        $this->annexVExportTo($pid, $report_type);
         
         return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);
     }
@@ -342,9 +345,6 @@ class projectManagerApp extends DefaultApplication
         return createPage(PROJECT_ANNEX_IV_TEMPLATE, $data);
     }
    
-    
-    
-    
     function showProjectHomePage()
     {
         $pid     = base64_decode(getUserField('PI'));
@@ -406,34 +406,59 @@ class projectManagerApp extends DefaultApplication
         return createPage(PROJECT_LIST_TEMPLATE, $data);
    }
    
-   function exportTo($procurement_category, $report_type)
-   {
-       $pid     = base64_decode(getUserField('PI'));
-       
-       $info['table']  = PROJECT_PROCUREMENT_PLAN_TBL;
-       $info['debug']  = false;
-       $info['where']  = 'pid = ' . $pid . ' AND procurement_category = ' . q($procurement_category);
-       
-       $result = select($info);
-       
-       if ($report_type == 'excel')
-       {    
-           MakeExcel($result, strtoupper($procurement_category));
-       }
-       else if ($report_type == 'word')
-       {
-           MakeWordDoc($result, strtoupper($procurement_category));
-       }
-       else if ($report_type == 'pdf')
-       {
-           $data['proc_plan_list']        = $result;
-           $data['procurement_category']  = strtoupper($procurement_category);
-           
-           $screen = createPage(PROC_PLAN_PDF_TEMPLATE, $data);
-           
-           MakePDFDoc($screen, $procurement_category);
-       }
-   }
+    function exportTo($procurement_category, $report_type)
+    {
+        $pid     = base64_decode(getUserField('PI'));
+
+        $info['table']  = PROJECT_PROCUREMENT_PLAN_TBL;
+        $info['debug']  = false;
+        $info['where']  = 'pid = ' . $pid . ' AND procurement_category = ' . q($procurement_category);
+
+        $result = select($info);
+
+        if ($report_type == 'excel')
+        {    
+            MakeExcel($result, strtoupper($procurement_category));
+        }
+        else if ($report_type == 'word')
+        {
+            MakeWordDoc($result, strtoupper($procurement_category));
+        }
+        else if ($report_type == 'pdf')
+        {
+            $data['proc_plan_list']        = $result;
+            $data['procurement_category']  = strtoupper($procurement_category);
+
+            $screen = createPage(PROC_PLAN_PDF_TEMPLATE, $data);
+
+            MakePDFDoc($screen, $procurement_category);
+        }
+    }
+    
+    function annexVExportTo($pid, $report_type)
+    {
+        $info['table']  = PROJECT_ANNEX_V_TBL . ' AS PAVT LEFT JOIN ' . ECONOMIC_CODE_LOOKUP_TBL . ' AS ECLT ON (PAVT.economic_code_id = ECLT.id)' . 
+                          ' LEFT JOIN ' . ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id = ESLT.id)';
+        $info['debug']  = false;
+        $info['where']  = 'PAVT.pid = ' . $pid;
+        $info['fields'] = array('ECLT.economic_code', 'ESLT.economic_subcode', 'ECLT.component_type', 'PAVT.economic_subcode_name', 
+                                'PAVT.unit', 'PAVT.unit_cost', 'PAVT.qty', 'PAVT.total_cost', 'PAVT.gob', 'PAVT.gob_fe', 'PAVT.rpa_through_gob', 
+                                'PAVT.rpa_special_account', 'PAVT.dpa', 'PAVT.own_fund', 'PAVT.own_fund_fe', 'PAVT.other', 'PAVT.other_fe');
+
+        $result = select($info);
+        
+        foreach($result as $value)
+        {
+            $retData[$value->component_type][] = $value;
+        }
+        
+        //dumpVar($retData);
+
+        if ($report_type == 'excel')
+        {    
+            makeAnnexVExcel($result);
+        }
+    }
    
    function getAgencyListByMinistry()
     {

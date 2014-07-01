@@ -15,6 +15,18 @@ function createReport(procurement_category)
     }
 }
 
+function createAnnexVReport()
+{
+    var PI          = $('#PI').val();
+    var report_type = $('#report_type').val();
+    
+    if (report_type)
+    {
+        location.href = 'http://'+document.domain+'/app/project_manager/project_manager.php?cmd=annexV&PI='+PI+
+                        '&report_type='+report_type;
+    }
+}
+
 function submittForm()
 {
     //alert(1);

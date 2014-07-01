@@ -50,7 +50,16 @@
             <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
             <form class="form-horizontal" id="procure_plan_services_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_services_form"> 
                 <div class="control-group">
-                   <div class="span12"> 
+                    <div id="export_to_container">
+                        Export To: 
+                        <select name="report_type" id="report_type" class="span6" onchange="createAnnexVReport();">
+                            <option value=""></option>
+                            <option value="pdf">pdf</option>
+                            <option value="excel">excel</option>
+                            <option value="word">word</option>
+                        </select>
+                    </div>
+                    <div class="span12"> 
                         <div id="annex-container">
                             <div id="economic_code_container">
                                 <i class="icon-blank"></i>
@@ -198,8 +207,8 @@
                             </div>
                             
                         </div>
-                        <a href="#" onClick="addNewComponent();">Add Component</a>
-                        <a href="#" onClick="addNewYear();">Add Year</a>
+                        <a href="javascript:void(0);" onClick="addNewComponent();">Add Component</a>
+                        <a href="javascript:void(0);" onClick="addNewYear();">Add Year</a>
                         <div class="form-actions2">
                             <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                             <input type="hidden" value="saveAnnexV" name="cmd"/>

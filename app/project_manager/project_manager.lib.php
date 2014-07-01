@@ -596,4 +596,117 @@
         
         update($info);
     }
+    
+    function makeAnnexVExcel($data)
+    {
+        $headerArray = array('A'=>'Economic Code', 'B'=>"Economic Sub Code", 'C'=>'Code Description', 'D'=>'Unit', 'E'=>'Unit Cost', 
+                             'F'=>'Qty', 'G'=>'Total Cost', 'H'=>"GoB\n(FE)", 'I'=>'Project Aid', 'J'=>"Own Fund\n(FE)", 'K'=>"Other\n(FE)");
+        
+        $header = 'Annex - V';
+        
+        // create new PHPExcel object
+        $objPHPExcel = new PHPExcel;
+
+        // set default font
+        $objPHPExcel->getDefaultStyle()->getFont()->setName('Calibri');
+
+        // set default font size
+        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+        
+        // set the page orientation
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
+        
+        //Define current and number format. currency format, &euro; with < 0 being in red color
+        $currencyFormat = '#,#0.#00;[Red]-#,#0.#00';
+
+        // number format, with thousands seperator and two decimal points.
+        $numberFormat = '#,#0.##0;[Red]-#,#0.##0';
+
+        // writer will create the first sheet for us, let's get it
+        $objSheet = $objPHPExcel->getActiveSheet();
+
+        // rename the sheet
+        $objSheet->setTitle('Annex - V');
+        
+        $objSheet->getColumnDimension('A')->setWidth('10');
+        $objSheet->getColumnDimension('B')->setWidth('20');
+        $objSheet->getColumnDimension('C')->setWidth('8');
+        $objSheet->getColumnDimension('D')->setWidth('10');
+        $objSheet->getColumnDimension('E')->setWidth('15');
+        $objSheet->getColumnDimension('F')->setWidth('12');
+        $objSheet->getColumnDimension('G')->setWidth('10');
+        $objSheet->getColumnDimension('H')->setWidth('10');
+        $objSheet->getColumnDimension('I')->setWidth('15');
+        $objSheet->getColumnDimension('J')->setWidth('15');
+        $objSheet->getColumnDimension('K')->setWidth('15');
+        
+        $row = 1;
+        
+        $row++;
+        $objSheet->mergeCells('A'.$row.':K'.$row);
+        $objSheet->getStyle('A'.$row.':K'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $objSheet->getStyle('A'.$row.':k'.$row)->getFont()->setBold(true)->setSize(8);
+        $objSheet->getCell('A'.$row)->setValue('Detailed annual phasing cost');
+        
+        $row++;
+        
+        // print Report Hearder and Sub Headers --  END
+        
+        $row+=2;
+        // print the table headers -- START
+        $objSheet->getStyle('A'.$row.':K'.$row)->getFont()->setBold(true)->setSize(10);
+        $objSheet->getStyle('A'.$row.':K'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+        
+        
+        foreach($headerArray as $key => $value)
+        {
+            $objSheet->getCell($key.$row)->setValue($value);
+            $objSheet->getStyle($key.$row)->getAlignment()->setWrapText(true);
+            $objSheet->getStyle('A'.$row.':K'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        }
+        // print the headers -- END
+        
+        $row++;
+        // print the data
+        foreach($data as $oKey => $oValue)    
+        {
+            $objSheet->getStyle('A'.$row.':K'.$row)->getFont()->setSize(10);
+            $objSheet->getStyle('A'.$row.':K'.$row)->getAlignment()->setWrapText(true);
+            $objSheet->getCell('A'.$row)->setValue($oValue->economic_code);
+            $objSheet->getCell('B'.$row)->setValue($oValue->economic_subcode);
+            $objSheet->getCell('C'.$row)->setValue($oValue->economic_subcode_name);
+            $objSheet->getCell('D'.$row)->setValue($oValue->unit);
+            $objSheet->getCell('E'.$row)->setValue($oValue->unit_cost);
+            $objSheet->getCell('F'.$row)->setValue($oValue->qty);
+            $objSheet->getCell('G'.$row)->setValue($oValue->total_cost);
+            $objSheet->getCell('H'.$row)->setValue($oValue->gob . "\n(" . $oValue->gob_fe . ")");
+            $objSheet->getCell('I'.$row)->setValue($oValue->rpa_through_gob);
+            $objSheet->getCell('J'.$row)->setValue($oValue->tender_invitation);
+            $objSheet->getCell('K'.$row)->setValue($oValue->contract_sign);
+            $objSheet->getStyle('A'.$row.':K'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+            
+            $row++;
+        }
+        
+        $objPHPExcel->getActiveSheet()->getStyle('H7:H'.$row)->getNumberFormat()->setFormatCode($currencyFormat);
+        
+        // print the grand total
+        $objSheet->mergeCells('A'.$row.':G'.$row);
+        $objSheet->getStyle('A'.$row)->getFont()->setBold(true)->setSize(11);
+        $objSheet->getCell('A'.$row)->setValue('Grand Total'); 
+        $objSheet->getStyle('H'.$row)->getFont()->setBold(true)->setSize(11);
+        $objSheet->getCell('H'.$row)->setValue('=SUM(H7:H'.($row-1).')' ); 
+        $objSheet->getStyle('A'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT); 
+        $objSheet->getStyle('A'.$row.':K'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+  
+        $filename  = 'Annex-V' . '.xls';
+        
+        header('Content-Disposition: attachment;filename="' . $filename. '"');
+        //header('Content-Type: application/pdf');
+        header('Content-Type: text/plain; charset=utf-8');
+        $objWriter->save($_SERVER['DOCUMENT_ROOT'].'/files/'.$filename);
+        header ('Location: /files/'.$filename);
+    }
 ?>
