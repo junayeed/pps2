@@ -187,6 +187,7 @@ class projectManagerApp extends DefaultApplication
       
        $data                     = $project;
        $data->ministryList       = getMinistryList();
+       $data->partnerList        = getDevelopmentPartnerList();
        $data->agencyList         = getAgencyList();
        $data->adpSectorList      = getADPSectorList();
        $data->adpSubSectorList   = getADPSubSectorList();
@@ -194,7 +195,17 @@ class projectManagerApp extends DefaultApplication
        $data->divisionList       = getDivisionList();
        $data->districtList       = getDistrictList();
        $data->upazilaList        = getUpzilaList();
-       //dumpVar($data);
+       $data->modefinancing      = $project->loadModeOfFinancing();
+       
+       $data->year_wise_gob_ownfund  = $project->loadYearWiseGobOwnfundTotal();
+       
+       $data->econimonic_code_list        = getEconomicCodeList();
+       $data->econimonic_subcode_list     = getEconomicSubCodeList();
+       $data->component_list              = getComponentList($pid);
+       $data->annx_v_component_details    = getAnnexVComponentDetails($pid);
+       $data->annex_v_contingency_list   = getContingencyList($pid);
+       $data->annex_v_contingency_details = getAnnexVContingencyDetails($pid);
+       //dumpVar($_SESSION);
        $data->PI              = getUserField('PI'); 
        
       return createPage(PROJECT_PART_A_TEMPLATE, $data);
