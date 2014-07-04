@@ -246,6 +246,47 @@
            return $result;
        }
    }
+   
+   function getProjectWiseEconomicCodeList($pid)
+   {
+        $info['table']  = PROJECT_ANNEX_V_TBL . ' AS PAVT LEFT JOIN ' . ECONOMIC_CODE_LOOKUP_TBL . ' AS ECLT ON (PAVT.economic_code_id = ECLT.id)' . 
+                          ' LEFT JOIN ' . ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id = ESLT.id)';
+        $info['debug']  = true;
+        $info['where']  = 'PAVT.pid = ' . $pid . ' ORDER BY ECLT.economic_code, ESLT.economic_subcode';
+        $info['fields'] = array('ECLT.economic_code', 'ESLT.economic_subcode', 'ECLT.component_type', 'PAVT.economic_subcode_name', 
+                                'PAVT.unit', 'PAVT.unit_cost', 'PAVT.qty', 'PAVT.total_cost', 'PAVT.gob', 'PAVT.gob_fe', 'PAVT.rpa_through_gob', 
+                                'PAVT.rpa_special_account', 'PAVT.dpa', 'PAVT.own_fund', 'PAVT.own_fund_fe', 'PAVT.other', 'PAVT.other_fe');
+
+        $result = select($info); 
+        
+        if ( !empty($result) )
+        {
+            return $result;
+        }
+        else
+        {
+            return;
+        }
+   }
+   
+   function getProjectWiseContingencyList($pid)
+   {
+        $info['table']  = PROJECT_ANNEX_V_CON_TBL;
+        $info['debug']  = false;
+        $info['where']  = 'pid = ' . $pid . ' ORDER BY economic_code_id DESC';
+
+        $result = select($info); 
+        
+        if ( !empty($result) )
+        {
+            return $result;
+        }
+        else
+        {
+            return;
+        }
+   }
+   
   /**
    * This function calculate difference between two dates
    *

@@ -180,54 +180,66 @@ class projectManagerApp extends DefaultApplication
        header ('Location: project_manager.php?cmd=partA&PI='.  base64_encode($pid));
    }
            
-   function showProjectPartA()
-   {
-       $pid     = base64_decode(getUserField('PI'));
-       $project = new Project($pid);
-      
-       $data                     = $project;
-       $data->ministryList       = getMinistryList();
-       $data->partnerList        = getDevelopmentPartnerList();
-       $data->agencyList         = getAgencyList();
-       $data->adpSectorList      = getADPSectorList();
-       $data->adpSubSectorList   = getADPSubSectorList();
-       $data->sectorDivisionList = getSectorDivisionList();
-       $data->divisionList       = getDivisionList();
-       $data->districtList       = getDistrictList();
-       $data->upazilaList        = getUpzilaList();
-       $data->modefinancing      = $project->loadModeOfFinancing();
+    function showProjectPartA()
+    {
+        $pid     = base64_decode(getUserField('PI'));
+        $project = new Project($pid);
+
+        $data                         = $project;
+        $data->ministryList           = getMinistryList();
+        $data->partnerList            = getDevelopmentPartnerList();
+        $data->agencyList             = getAgencyList();
+        $data->adpSectorList          = getADPSectorList();
+        $data->adpSubSectorList       = getADPSubSectorList();
+        $data->sectorDivisionList     = getSectorDivisionList();
+        $data->divisionList           = getDivisionList();
+        $data->districtList           = getDistrictList();
+        $data->upazilaList            = getUpzilaList();
+        $data->modefinancing          = $project->loadModeOfFinancing();
+        $data->year_wise_gob_ownfund  = $project->loadYearWiseGobOwnfundTotal();
        
-       $data->year_wise_gob_ownfund  = $project->loadYearWiseGobOwnfundTotal();
-       
-       $data->econimonic_code_list        = getEconomicCodeList();
-       $data->econimonic_subcode_list     = getEconomicSubCodeList();
-       $data->component_list              = getComponentList($pid);
-       $data->annx_v_component_details    = getAnnexVComponentDetails($pid);
-       $data->annex_v_contingency_list   = getContingencyList($pid);
-       $data->annex_v_contingency_details = getAnnexVContingencyDetails($pid);
-       //dumpVar($_SESSION);
-       $data->PI              = getUserField('PI'); 
-       
-      return createPage(PROJECT_PART_A_TEMPLATE, $data);
+        $result = getProjectWiseEconomicCodeList($pid);
+        
+        foreach($result as $value)
+        {
+            $economicCodeList[$value->component_type][] = $value;
+        }
+        
+        $data->component_list = $economicCodeList;
+        
+        $result = getProjectWiseContingencyList($pid);
+        
+        foreach($result as $value)
+        {
+            $contingencyeList[$value->economic_subcode_name] = $value;
+        }
+        
+        $data->contingency_list = $contingencyeList;
+        $data->PI              = getUserField('PI'); 
+        
+        //dumpVar($data->component_list);
+        
+        return createPage(PROJECT_PART_A_TEMPLATE, $data);
    }
    
-   function showProjectPartB()
-   {
-     $pid         = base64_decode(getUserField('PI'));
-     $project     = new Project($pid);  
-     $data        = $project;
-     $data->PI    = getUserField('PI'); 
-     $data->partB = $project->loadPartB();
-      return createPage(PROJECT_PART_B_TEMPLATE, $data);
-   }
+    function showProjectPartB()
+    {
+        $pid          = base64_decode(getUserField('PI'));
+        $project      = new Project($pid);  
+        $data         = $project;
+        $data->PI     = getUserField('PI'); 
+        $data->partB  = $project->loadPartB();
+        
+        return createPage(PROJECT_PART_B_TEMPLATE, $data);
+    }
    
     function showProjectLocation()
     {
-        $PI        = getUserField('PI');    
-        $pid       = base64_decode($PI);
-        $project   = new Project($pid);
-        $data->location = $project->basicInfo->locations;
-        $data->PI  =  $PI;
+        $PI              = getUserField('PI');    
+        $pid             = base64_decode($PI);
+        $project         = new Project($pid);
+        $data->location  = $project->basicInfo->locations;
+        $data->PI        =  $PI;
         //dumpVar($data);
        
         return createPage(PROJECT_ANNEX_I_LOCATION_TEMPLATE, $data);
@@ -448,22 +460,14 @@ class projectManagerApp extends DefaultApplication
     
     function annexVExportTo($pid, $report_type)
     {
-        $info['table']  = PROJECT_ANNEX_V_TBL . ' AS PAVT LEFT JOIN ' . ECONOMIC_CODE_LOOKUP_TBL . ' AS ECLT ON (PAVT.economic_code_id = ECLT.id)' . 
-                          ' LEFT JOIN ' . ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id = ESLT.id)';
-        $info['debug']  = false;
-        $info['where']  = 'PAVT.pid = ' . $pid;
-        $info['fields'] = array('ECLT.economic_code', 'ESLT.economic_subcode', 'ECLT.component_type', 'PAVT.economic_subcode_name', 
-                                'PAVT.unit', 'PAVT.unit_cost', 'PAVT.qty', 'PAVT.total_cost', 'PAVT.gob', 'PAVT.gob_fe', 'PAVT.rpa_through_gob', 
-                                'PAVT.rpa_special_account', 'PAVT.dpa', 'PAVT.own_fund', 'PAVT.own_fund_fe', 'PAVT.other', 'PAVT.other_fe');
-
-        $result = select($info);
+        $result = getProjectWiseEconomicCodeList($pid);
         
         foreach($result as $value)
         {
             $retData[$value->component_type][] = $value;
         }
         
-        //dumpVar($retData);
+        dumpVar($retData);
 
         if ($report_type == 'excel')
         {    

@@ -377,82 +377,97 @@
                 <div class="control-group">
                    <div class="span12"> 
                         <div id="annex-iv-container">
-                            <div id="economic_code_container">
-                                <i class="icon-blank"></i>
-                                <table id="economic_code_tbl" class="annex-iv-table table table-striped table-bordered table-hover table_bug_report">
+                            <div>
+                                <i class="icon-blank">9.0 Component Wise Estimated Cost Summary: </i>
+                                <table id="economic_code_tbl11" class="annex-iv-table table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
                                         <tr>
-                                            <th class="span1" rowspan="1">Economic Code</th>
-                                            <th class="span1" rowspan="1">Economic Sub-code</th>
-                                            <th class="span12" rowspan="1">Code description</th>
+                                            <th class="span1" rowspan="2">Economic Code</th>
+                                            <th class="span1" rowspan="2">Economic Sub-code</th>
+                                            <th class="span12" rowspan="2">Component description</th>
+                                            <th class="span3" rowspan="2">Unit</th>
+                                            <th class="span2" rowspan="2">Qty</th>
+                                            <th class="span4" rowspan="2">Total Cost</th>
+                                            <th class="span4" rowspan="2">GoB (FE)</th>
+                                            <th class="span4" colspan="3">Project Aid</th>
+                                            <th class="span4">Own Fund (FE)</th>
+                                            <th class="span4">Other (FE)</th>
+                                            <th class="span4">% of Total Project Cost</th>
                                         </tr>
                                         <tr>
-                                            <th class="span1">&nbsp;</th>
-                                            <th class="span1">&nbsp;</th>
+                                            <th class="span1" colspan="2">RPA</th> <!--Project Aid-->
+                                            <th class="span12">DPA</th>  <!--DPA-->
+                                            <th class="span12">&nbsp;</th>
+                                            <th class="span12">&nbsp;</th>
+                                            <th class="span12">&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="span1">&nbsp;</th>  <!--Economic Code-->
+                                            <th class="span1">&nbsp;</th>  <!--Economic Sub-code-->
+                                            <th class="span12">&nbsp;</th> <!--Component description-->
+                                            <th class="span1">&nbsp;</th>  <!--Unit-->
+                                            <th class="span1">&nbsp;</th>  <!--Qty-->
+                                            <th class="span12">&nbsp;</th> <!--Total Cost-->
+                                            <th class="span12">&nbsp;</th> <!--Gob (FE)-->
+                                            <th class="span1">Through GoB</th>
+                                            <th class="span1">Special Account **</th>
+                                            <th class="span12">&nbsp;</th>
+                                            <th class="span12">&nbsp;</th>
+                                            <th class="span12">&nbsp;</th>
                                             <th class="span12">&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody id="economic_code_content">
+                                        {foreach from=$component_list key=key item=item}
+                                            <tr>
+                                                <td colspan="13">{if $key eq "Revenue Component"}(a){else if $key eq "Capital Component"}(b){/if} {$key}<td>
+                                            </tr>
+                                            {foreach from=$item key=iKey item=vItem}
+                                            <tr>
+                                                <td>{$vItem->economic_code}</td>
+                                                <td>{$vItem->economic_subcode}</td>
+                                                <td>{$vItem->economic_subcode_name}</td>
+                                                <td>{if $vItem->unit}{$vItem->unit}{else}-{/if}</td>
+                                                <td>{$vItem->qty}</td>
+                                                <td>{$vItem->total_cost}</td>
+                                                <td>{$vItem->gob}<br>({$vItem->gob_fe})</td>
+                                                <td>{$vItem->rpa_through_gob}</td>
+                                                <td>{$vItem->rpa_special_account}</td>
+                                                <td>{$vItem->dpa}</td>
+                                                <td>{$vItem->own_fund}<br>({$vItem->own_fund_fe})</td>
+                                                <td>{$vItem->other}<br>({$vItem->other_fe})</td>
+                                                <td>{assign var="percentage_of_project" value=$vItem->total_cost/$basicInfo->total_cost*100}{$percentage_of_project|number_format:2:'.':''}%</td>
+                                            </tr>
+                                            {/foreach}
+                                            <tr>
+                                                <td colspan="3">Sub Total ({$key})<td>
+                                                <td colspan="10">Sub Total ({$key})<td>
+                                            </tr>
+                                        {/foreach}
                                     </tbody>
                                     <tfoot>
+                                        {foreach from=$contingency_list key=conKey item=conItem}
                                         <tr>
-                                            <td colspan="4">Physical Contingency</td>
+                                            <td colspan="3">{$conItem->economic_subcode_name}</td>
+                                            <td>&nbsp;</td>
+                                            <td>{$conItem->qty}</td>
+                                            <td>{$conItem->total_cost}</td>
+                                            <td>{$conItem->gob}<br>({$conItem->gob_fe})</td>
+                                            <td>{$conItem->rpa_through_gob}</td>
+                                            <td>{$conItem->rpa_special_account}</td>
+                                            <td>{$conItem->dpa}</td>
+                                            <td>{$conItem->own_fund}<br>({$conItem->own_fund_fe})</td>
+                                            <td>{$conItem->other}<br>({$conItem->other_fe})</td>
+                                            <td>{assign var="con_percentage_of_project" value=$conItem->total_cost/$basicInfo->total_cost*100}{$con_percentage_of_project|number_format:2:'.':''}%</td>
                                         </tr>
-                                        <tr>
-                                            <td colspan="4">Price Contingency</td>
-                                        </tr>
+                                        {/foreach}
                                     </tfoot>
                                 </table>
                             </div>
-                            <div id="total_cost_container">
-                                <i class="icon-blank"></i>
-                                <table id="total_cost_tbl" class="annex-iv-table table table-striped table-bordered table-hover table_bug_report">
-                                    <thead>
-                                        <tr>
-                                            <th colspan="5">Total Physical & Financial Target</th>
-                                        </tr>    
-                                        <tr>
-                                            <th class="span3">Unit</th>
-                                            <th class="span2">Unit Cost</th>
-                                            <th class="span2">Qty</th>
-                                            <th class="span4">Total Cost</th>
-                                            <th class="span4">Weight</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="total_cost_content">
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="2">&nbsp;</td>
-                                            <td><input type="text" class="span12" name="physical_contigency_qty" id="physical_contigency_qty" readonly></td>
-                                            <td><input type="text" class="span12" name="physical_contigency_total" id="physical_contigency_total" readonly></td>
-                                            <td><input type="text" class="span12" name="physical_contigency_weight" id="physical_contigency_weight" readonly></td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">&nbsp;</td>
-                                            <td><input type="text" class="span12" name="price_contigency_qty" id="price_contigency_qty" readonly></td>
-                                            <td><input type="text" class="span12" name="price_contigency_total" id="price_contigency_total" readonly></td>
-                                            <td><input type="text" class="span12" name="price_contigency_weight" id="price_contigency_weight" readonly></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3">Grand Total: </td>
-                                            <td><input type="text" class="span12" name="grand_total" id="grand_total" readonly></td>
-                                            <td><input type="text" class="span12" name="grand_total_weight" id="grand_total_weight" readonly></td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                          
-                            
                         </div>
-                        
-                       
-                           
-                            <input type="hidden" value="saveAnnexV" name="cmd"/>
-                            <input type="hidden" id="PI" name="PI" value="{$PI}"/>
-                            <input type="hidden" id="total_year_in_annexv" name="total_year_in_annexv" value=""/>
-                      
+                        <input type="hidden" value="saveAnnexV" name="cmd"/>
+                        <input type="hidden" id="PI" name="PI" value="{$PI}"/>
+                        <input type="hidden" id="total_year_in_annexv" name="total_year_in_annexv" value=""/>
                     </div>      
                 </div>
                 
@@ -665,106 +680,6 @@
                     $(".alert-success").fadeOut(4000);
                     //$(".ministries").chosen().trigger("chosen:updated");
                     
-                    
-                    {literal}            
-                    $('#toggle_total_cost_breakdown').click(function() 
-                    {
-                        if( $('#total_cost_breakdown_tbl').is(":visible") )
-                        {
-                            $('#total_cost_breakdown_tbl').hide("slow", function() {$('#total_cost_breakdown_container').css('width', '15px');});
-
-                        }
-                        else
-                        {
-                            $('#total_cost_breakdown_tbl').show("slow", function() {$('#total_cost_breakdown_container').css('width', '500px');});
-
-                        }
-
-                    });
-
-                    {/literal}
-                    var economicCodeArr = [];
-                    var i = 1;
-                    {foreach from=$econimonic_code_list item=item}
-
-                       economicCodeArr.push({ldelim}'code':"{$item->economic_code}" , 
-                                                    'component_type':"{$item->component_type}",
-                                                    'code_name':"{$item->economic_code_name}", 
-                                                    'id':"{$item->id}" 
-                                            {rdelim}
-                                            );
-                       $('#total_year_in_annexv').val({$item->total_year})                     
-
-                    {/foreach}
-
-                    var economicSubCodeArray = [];
-                    var i = 1;
-                    {foreach from=$econimonic_subcode_list item=item}
-
-                       economicSubCodeArray.push({ldelim}'id':"{$item->id}" , 
-                                                    'sub_code':"{$item->economic_subcode}",
-                                                    'economic_subcode_name':"{$item->economic_subcode_name}", 
-                                                    'economic_code_id':"{$item->economic_code_id}" 
-                                            {rdelim}
-                                            );
-
-                    {/foreach}
-
-                    var component_count = 0;
-
-                    {foreach from=$component_list item=item}
-                        addNewComponent();
-                        populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}", "{$item->unit}", 
-                                                 "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
-                                                 "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
-                                                 "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}");
-
-                       var total_years = "{$item->total_year}";    
-
-                       calculateComponentWeight("{$project_info->total_cost}","{$item->total_cost}");
-                       //calculateComponentPercentage("{$project_info->total_cost}");
-
-                       component_count++;
-                    {/foreach}
-
-                    //populate years
-                    for(var i = 0; i<total_years;i++)
-                    {
-                        addNewYear();
-                    }
-                    var count=1;
-                    {foreach from=$annx_v_component_details item=item}
-                        populateAnnexComponentDetails("{$item->year_serial}", "{$item->id}","{$item->financial_year}", count, "{$item->total}", "{$project_info->total_cost}");
-
-                        if(count%component_count == 0) count=0;
-
-                        count++;
-                    {/foreach}
-
-
-
-                    var count=1;
-                    {foreach from=$annex_v_contingency_list item=item}
-
-                        populateContingency("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}",  
-                                            "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
-                                            "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
-                                            "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}", "{$item->type}");
-                        calculateContingencyWeight("{$project_info->total_cost}","{$item->total_cost}","{$item->type}")
-                    {/foreach}
-
-
-                    {foreach from=$annex_v_contingency_details item=item}
-                        populateAnnexContingencyDetails("{$item->year_serial}", "{$item->id}","{$item->financial_year}", count, "{$item->total}",
-                                                        "{$item->type}", "{$project_info->total_cost}");
-
-                        if(count%component_count == 0) count=0;
-
-                        count++;
-                    {/foreach}
-
-
-                    calculateAnnexVGrandTotal();
                     
                     {literal}
                        
@@ -1053,4 +968,21 @@ function loadDistrict()
     );  
 }
 {/literal}
-</script>    
+</script> 
+
+<script>
+    
+    $(function() {
+    var table = $("#economic_code_tbl1");
+
+    $(window).scroll(function() {
+        var windowTop = $(window).scrollTop();
+        if (windowTop > table.offset().top) {
+            $("thead", table).addClass("Fixed").css("top", windowTop-10);
+        }
+        else {
+            $("thead", table).removeClass("Fixed");
+        }
+    });
+});
+</script>
