@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
                 <script type="text/javascript" src="/ext/ckeditor/ckeditor.js"></script>
+                <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
 	</head>
 
 					
@@ -52,7 +53,7 @@
 
     
     <div class="control-group">
-        <label class="control-label" for="project_title_en">Project Title (English)</label>
+        <label class="control-label" for="project_title_en">1.0 Project Title (English)</label>
             <div class="controls">  
                 <label class="control-label">: <b>{$basicInfo->project_title_en}</b></label>
             </div>
@@ -80,7 +81,7 @@
             <form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}"> 
                 <input type="hidden" name="PI" value="{$PI}"/>
                 <div class="control-group">
-                    <label class="control-label" for="ministries[]">Ministry/Division</label>
+                    <label class="control-label" for="ministries[]">2.1 Ministry/Division</label>
                     <div class="controls">
                         <select multiple class="chzn-select span6 ministries" id="ministries[]"  name="ministries[]" data-placeholder="Choose a Ministry/Division...">
                             <option value=""></option>
@@ -91,7 +92,7 @@
 		</div>
             
                 <div class="control-group">
-                    <label class="control-label" for="agencies[]">Implementing Agency</label>
+                    <label class="control-label" for="agencies[]">2.2 Implementing Agency</label>
                     <div class="controls">
                         <select multiple class="chzn-select span6 agencies" id="agencies[]"  name="agencies[]" data-placeholder="Choose a Agencies...">
                             <option value=""></option>
@@ -102,7 +103,7 @@
 		</div>
             
                 <div class="control-group">
-                    <label class="control-label" for="adp_sector">Concerned Sector of ADP</label>
+                    <label class="control-label" for="adp_sector">2.3 Concerned Sector of ADP</label>
                     <div class="controls">
                         <select id="adp_sector" name="adp_sector">
                             <option value="">Select Sector</option>
@@ -122,7 +123,7 @@
 		</div>
             
                 <div class="control-group">
-                    <label class="control-label" for="sector_division">Concerned Division of Planning Commission</label>
+                    <label class="control-label" for="sector_division">2.4 Concerned Division of Planning Commission</label>
                     <div class="controls">
                         <select id="sector_division" name="sector_division">
                             <option value="">Select Sector</option>
@@ -142,167 +143,220 @@
                     </div>
                 </div>
                 
-                 <div class="control-group">
-                    <label class="control-label" for="objectives">Objectives</label>
+                <div class="control-group">
+                    <label class="control-label" for="objectives">3.0 Objectives<br>(Please specify in quantity and/or in percentage and write in bullet form)</label>
                     <div class="controls" style="margin-left: 289px !important">
                         <textarea rows="5" class="ckeditor" name="objectives" id="objectives">{$basicInfo->objectives}</textarea>
                     </div>
                 </div>
                 
-                 <div class="control-group">
-                    <label class="control-label" for="project_cost">Estimated Cost of the project(in Lakh Taka)</label>
+                <div class="control-group">
+                    <label class="control-label" for="project_implementation_period">4.0 Project implementation period: </label>
                     <div class="controls"><br><br>
-                        <label for="project_cost">Total:{$basicInfo->total_cost}</label>
-                        <label  for="project_cost">GOB (FE):{$basicInfo->gob_cost} ({$basicInfo->gob_fe_cost})</label>
-                        <label for="project_cost">PA (RPA):{$basicInfo->pa_through_gob_cost} ({$basicInfo->pa_dpa_cost})</label>
-                        <label  for="project_cost">Own Fund (FE):{$basicInfo->own_fund_cost} ({$basicInfo->own_fund_fe_cost})</label>
-                        <label  for="project_cost">Others (FE):{$basicInfo->other_cost} ({$basicInfo->other_fe_cost})</label>
+                        <label for="project_implementation_period">i)  Date of commencement: {$basicInfo->date_of_commencement|date_format:"%d/%m/%Y"}</label>
+                        <label  for="project_implementation_period">ii) Date of completion: {$basicInfo->date_of_completion|date_format:"%d/%m/%Y"}</label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="project_cost">5.1 Estimated Cost of the project(in Lakh Taka)</label>
+                    <div class="controls"><br><br>
+                        <table id="table_bug_report" class="table table-striped table-bordered table-hover span5">
+                            <tr>
+                                <td class="span6">Total: </td>
+                                <td class="span6">{$basicInfo->total_cost}</td>
+                            </tr>
+                            <tr>
+                                <td>GoB (FE): </td>
+                                <td>
+                                    <label id="lbl_project_gob_cost">{$basicInfo->gob_cost}</label> 
+                                    <label id="lbl_project_gob_fe_cost">({$basicInfo->gob_fe_cost})</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PA (RPA): </td>
+                                <td>
+                                    <label id="lbl_pa">{$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost}</label>
+                                    <label id="lbl_rpa">({$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost})</label></td>
+                            </tr>
+                            <tr>
+                                <td>Own Fund (FE): </td>
+                                <td>
+                                    <label id="lbl_project_own_fund">{$basicInfo->own_fund_cost}</label> 
+                                    <label id="lbl_project_own_fund_fe">({$basicInfo->own_fund_fe_cost})</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Others (FE): </td>
+                                <td>
+                                    <label id="lbl_other_cost">{$basicInfo->other_cost}</label> 
+                                    <label id="lbl_other_fe_cost">({$basicInfo->other_fe_cost})</label></td>
+                            </tr>
+                        </table>
+<!--                        <label for="project_cost">Total: {$basicInfo->total_cost}</label>
+                        <label for="project_cost">GOB (FE): {$basicInfo->gob_cost} ({$basicInfo->gob_fe_cost})</label>
+                        <label for="project_cost">PA (RPA): {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost} ({$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost})</label>
+                        <label for="project_cost">Own Fund (FE): {$basicInfo->own_fund_cost} ({$basicInfo->own_fund_fe_cost})</label>
+                        <label for="project_cost">Others (FE): {$basicInfo->other_cost} ({$basicInfo->other_fe_cost})</label>-->
                     </div>
                 </div>
                 
                 <div class="control-group">
-			<label class="control-label" for="exchange_rate">Exchange rate(s) with date</label>
-			<div class="controls">
-                            <textarea rows="2" style="width:545px" name="exchange_rate" id="exchange_rate">{$basicInfo->exchange_rate}</textarea>
-			</div>
+                    <label class="control-label" for="exchange_rate">5.2 Exchange rate(s) with date (Source Bangladesh Bank): </label>
+                    <div class="controls">
+                        <textarea rows="2" style="width:545px" name="exchange_rate" id="exchange_rate">{$basicInfo->exchange_rate}</textarea>
+                    </div>
 		</div>
                 
                 <div class="control-group">
-			<label class="control-label" for="mode_of_financing">Mode of financing</label>
-			<div class="span11">
-                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-                                <thead>
-                                        <tr>
-                                               
-                                                <th>Mode\Source</th>
-                                                <th>GOB<br>(FE)</th>
-                                                <th>PA<br>(RPA)</th>
-                                                <th> Own Fund<br>(FE)</th>
-                                                <th>Others<br>(Specify)</th>
-                                                <th>PA sources</th>
-                                        </tr>
-                                </thead>
+                    <label class="control-label" for="mode_of_financing">6.0 Mode of financing</label><br>
+                    <label class="" for="year_wise_allocation">6.1 Year wise allocation of GOB Fund and Own Fund</label>
+                    <div class="span11">
+                        <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Mode\Source</th>
+                                    <th>GOB<br>(FE)</th>
+                                    <th>PA<br>(RPA)</th>
+                                    <th> Own Fund<br>(FE)</th>
+                                    <th>Others<br>(Specify)</th>
+                                    <th>PA sources</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr> 
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                </tr>
+                                <tr> 
+                                    <td>Loan/credit</td>
+                                    <td>
+                                        <input class="span8" type="text" id="loan_gob" name="loan_gob" value="{$modefinancing->loan_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GoB" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="loan_gob_fe" name="loan_gob_fe" value="{$modefinancing->loan_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="loan_pa" name="loan_pa" value="{$modefinancing->loan_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="loan_pa_rpa" name="loan_rpa" value="{$modefinancing->loan_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="loan_own_fund" name="loan_own_fund" value="{$modefinancing->loan_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="loan_own_fund_fe" name="loan_own_fund_fe" value="{$modefinancing->loan_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="loan_others" name="loan_others" value="{$modefinancing->loan_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="loan_others_fe" name="loan_others_fe" value="{$modefinancing->loan_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span15" type="text" id="loan_pa_source" name="loan_pa_source" value="{$modefinancing->loan_pa_source}" placeholder="Source of the Amount">
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td>Grant</td>
+                                    <td>
+                                        <input class="span8" type="text" id="grant_gob" name="grant_gob" value="{$modefinancing->grant_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="grant_gob_fe" name="grant_gob_fe" value="{$modefinancing->grant_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="grant_pa" name="grant_pa" value="{$modefinancing->grant_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA"  onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="grant_pa_rpa" name="grant_rpa" value="{$modefinancing->grant_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="grant_own_fund" name="grant_own_fund" value="{$modefinancing->grant_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="grant_own_fund_fe" name="grant_own_fund_fe" value="{$modefinancing->grant_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="grant_others" name="grant_others" value="{$modefinancing->grant_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="grant_others_fe" name="grant_others_fe" value="{$modefinancing->grant_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
 
-                                <tbody>
-                                        <tr> 
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>3</td>
-                                                <td>4</td>
-                                                <td>5</td>
-                                                <td>6</td>
-                                        </tr>
-                                        <tr> 
-                                                <td>Loan/credit</td>
-                                                <td>
-                                                    <input class="span8" type="text" id="loan_gob" name="loan_gob" value="{$modefinancing->loan_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB">
-                                                    <br><input class="span8" type="text" id="loan_gob_fe" name="loan_gob_fe" value="{$modefinancing->loan_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="loan_pa" name="loan_pa" value="{$modefinancing->loan_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA">
-                                                    <br><input class="span8" type="text" id="loan_pa_rpa" name="loan_rpa" value="{$modefinancing->loan_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="loan_own_fund" name="loan_own_fund" value="{$modefinancing->loan_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund">
-                                                    <br><input class="span8" type="text" id="loan_own_fund_fe" name="loan_own_fund_fe" value="{$modefinancing->loan_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="loan_others" name="loan_others" value="{$modefinancing->loan_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others">
-                                                    <br><input class="span8" type="text" id="loan_specify" name="loan_specify" value="{$modefinancing->loan_specify|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                               
-                                                <td>
-                                                    <input class="span15" type="text" id="loan_pa_source" name="loan_pa_source" value="{$modefinancing->loan_pa_source}" placeholder="Source of the Amount">
-                                                </td>
-                                        </tr>
-                                        
-                                        <tr> 
-                                                <td>Grant</td>
-                                                <td>
-                                                    <input class="span8" type="text" id="grant_gob" name="grant_gob" value="{$modefinancing->grant_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB">
-                                                    <br><input class="span8" type="text" id="grant_gob_fe" name="grant_gob_fe" value="{$modefinancing->grant_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="grant_pa" name="grant_pa" value="{$modefinancing->grant_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA">
-                                                    <br><input class="span8" type="text" id="grant_pa_rpa" name="grant_rpa" value="{$modefinancing->grant_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="grant_own_fund" name="grant_own_fund" value="{$modefinancing->grant_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund">
-                                                    <br><input class="span8" type="text" id="grant_own_fund_fe" name="grant_own_fund_fe" value="{$modefinancing->grant_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="grant_others" name="grant_others" value="{$modefinancing->grant_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others">
-                                                    <br><input class="span8" type="text" id="grant_specify" name="grant_specify" value="{$modefinancing->grant_specify|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                               
-                                                <td>
-                                                    <input class="span15" type="text" id="grant_pa_source" name="grant_pa_source" value="{$modefinancing->grant_pa_source}" placeholder="Source of the Amount">
-                                                </td>
-                                        </tr>
-                                        <tr> 
-                                                <td>Equity</td>
-                                                <td>
-                                                    <input class="span8" type="text" id="equity_gob" name="equity_gob" value="{$modefinancing->equity_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB">
-                                                    <br><input class="span8" type="text" id="equity_gob_fe" name="equity_gob_fe" value="{$modefinancing->equity_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="equity_pa" name="equity_pa" value="{$modefinancing->equity_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA">
-                                                    <br><input class="span8" type="text" id="equity_pa_rpa" name="equity_pa_rpa" value="{$modefinancing->equity_pa_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="equity_own_fund" name="equity_own_fund" value="{$modefinancing->equity_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund">
-                                                    <br><input class="span8" type="text" id="equity_own_fund_fe" name="equity_own_fund_fe" value="{$modefinancing->equity_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="equity_others" name="equity_others" value="{$modefinancing->equity_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others">
-                                                    <br><input class="span8" type="text" id="equity_others_s" name="equity_others_s" value="{$modefinancing->equity_others_s|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                               
-                                                <td>
-                                                    <input class="span15" type="text" id="equity_pa_sources" name="equity_pa_sources" value="{$modefinancing->equity_pa_sources}" placeholder="Source of the Amount">
-                                                </td>
-                                        </tr>
-                                        
-                                        <tr> 
-                                                <td>Others(Specify)</td>
-                                                <td>
-                                                    <input class="span8" type="text" id="others_gob" name="others_gob" value="{$modefinancing->others_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB">
-                                                    <br><input class="span8" type="text" id="others_gob_fe" name="others_gob_fe" value="{$modefinancing->others_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="others_pa" name="others_pa" value="{$modefinancing->others_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA">
-                                                    <br><input class="span8" type="text" id="others_pa_rpa" name="others_pa_rpa" value="{$modefinancing->others_pa_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="others_own_fund" name="others_own_fund" value="{$modefinancing->others_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund">
-                                                    <br><input class="span8" type="text" id="others_own_fund_fe" name="others_own_fund_fe" value="{$modefinancing->others_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="others_others" name="others_others" value="{$modefinancing->others_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others">
-                                                    <br><input class="span8" type="text" id="others_others_s" name="others_others_s" value="{$modefinancing->others_others_s|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                               
-                                                <td>
-                                                    <input class="span15" type="text" id="others_pa_sources" name="others_pa_sources" value="{$modefinancing->others_pa_sources}" placeholder="Source of the Amount">
-                                                    <input type="hidden" id="mode_of_finance_id" name="mode_of_finance_id" value="{$modefinancing->id}" />
-                                                </td>
-                                                
-                                        </tr>
-                                        
-                                </tbody>
-                            </table>
-			</div>
+                                    <td>
+                                        <input class="span15" type="text" id="grant_pa_source" name="grant_pa_source" value="{$modefinancing->grant_pa_source}" placeholder="Source of the Amount">
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td>Equity</td>
+                                    <td>
+                                        <input class="span8" type="text" id="equity_gob" name="equity_gob" value="{$modefinancing->equity_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="equity_gob_fe" name="equity_gob_fe" value="{$modefinancing->equity_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="equity_pa" name="equity_pa" value="{$modefinancing->equity_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="equity_pa_rpa" name="equity_pa_rpa" value="{$modefinancing->equity_pa_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="equity_own_fund" name="equity_own_fund" value="{$modefinancing->equity_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="equity_own_fund_fe" name="equity_own_fund_fe" value="{$modefinancing->equity_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="equity_others" name="equity_others" value="{$modefinancing->equity_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="equity_others_fe" name="equity_others_fe" value="{$modefinancing->equity_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+
+                                    <td>
+                                        <input class="span15" type="text" id="equity_pa_sources" name="equity_pa_sources" value="{$modefinancing->equity_pa_sources}" placeholder="Source of the Amount">
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td>Others(Specify)</td>
+                                    <td>
+                                        <input class="span8" type="text" id="others_gob" name="others_gob" value="{$modefinancing->others_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB"  onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="others_gob_fe" name="others_gob_fe" value="{$modefinancing->others_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="others_pa" name="others_pa" value="{$modefinancing->others_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="others_pa_rpa" name="others_pa_rpa" value="{$modefinancing->others_pa_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="others_own_fund" name="others_own_fund" value="{$modefinancing->others_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="others_own_fund_fe" name="others_own_fund_fe" value="{$modefinancing->others_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="others_others" name="others_others" value="{$modefinancing->others_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="others_others_fe" name="others_others_fe" value="{$modefinancing->others_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+
+                                    <td>
+                                        <input class="span15" type="text" id="others_pa_sources" name="others_pa_sources" value="{$modefinancing->others_pa_sources}" placeholder="Source of the Amount">
+                                        <input type="hidden" id="mode_of_finance_id" name="mode_of_finance_id" value="{$modefinancing->id}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Grand Total</td>
+                                    <td>
+                                        <input class="span8" type="text" id="total_gob" name="total_gob" value="" readonly ><br>
+                                        <input class="span8" type="text" id="total_gob_fe" name="total_gob_fe" value="" readonly >
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="total_pa" name="total_pa" value="" readonly ><br>
+                                        <input class="span8" type="text" id="total_rpa" name="total_rpa" value="" readonly >
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="total_own_fund" name="total_own_fund" value="" readonly ><br>
+                                        <input class="span8" type="text" id="total_own_fund_fe" name="total_own_fund_fe" value="" readonly >
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="total_other" name="total_other" value="" readonly ><br>
+                                        <input class="span8" type="text" id="total_other_fe" name="total_other_fe" value="" readonly >
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 		</div>
                 
                 <div class="control-group">
-			<label class="" for="year_wise_allocation">Year wise allocation of GOB Fund and Own Fund</label>
+			<label class="" for="year_wise_allocation">6.2 Year wise allocation of GOB Fund and Own Fund</label>
 			<div class="span11">
                             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                                 <thead>
                                         <tr>
                                                 <th>Financial Year</th>
-                                                <th>GOB(FE)</th>
-                                                <th> Own Fund(FE)</th>
+                                                <th>GOB<br>(FE)</th>
+                                                <th>Own Fund<br>(FE)</th>
                                         </tr>
                                 </thead>
 
@@ -311,8 +365,8 @@
                                         {foreach from=$year_wise_gob_ownfund item=item}
                                         <tr> 
                                                 <td>{$item->financial_year}</td>
-                                                <td>{$item->gob_total} ({$item->gob_fe_total})</td>
-                                                <td>{$item->own_fund_total} ({$item->own_fund_fe_total})</td>
+                                                <td>{$item->gob_total|number_format:2:'.':''}<br>({$item->gob_fe_total|number_format:2:'.':''})</td>
+                                                <td>{$item->own_fund_total|number_format:2:'.':''}<br>({$item->own_fund_fe_total|number_format:2:'.':''})</td>
                                         </tr>
                                         {/foreach}
                                 </tbody>
@@ -385,13 +439,13 @@
                                             <th class="span1" rowspan="2">Economic Code</th>
                                             <th class="span1" rowspan="2">Economic Sub-code</th>
                                             <th class="span12" rowspan="2">Component description</th>
-                                            <th class="span3" rowspan="2">Unit</th>
-                                            <th class="span2" rowspan="2">Qty</th>
-                                            <th class="span4" rowspan="2">Total Cost</th>
-                                            <th class="span4" rowspan="2">GoB (FE)</th>
+                                            <th class="span3" rowspan="2" class="span3">Unit</th>
+                                            <th class="span2" rowspan="2" class="span3">Qty</th>
+                                            <th class="span4" rowspan="2" class="span5">Total Cost<br>Σ(7+8+9+10+11+12)</th>
+                                            <th class="span4" rowspan="2">GoB<br>(FE)</th>
                                             <th class="span4" colspan="3">Project Aid</th>
-                                            <th class="span4">Own Fund (FE)</th>
-                                            <th class="span4">Other (FE)</th>
+                                            <th class="span4">Own Fund<br>(FE)</th>
+                                            <th class="span4">Other<br>(FE)</th>
                                             <th class="span4">% of Total Project Cost</th>
                                         </tr>
                                         <tr>
@@ -429,26 +483,34 @@
                                                 <td>{$vItem->economic_subcode_name}</td>
                                                 <td>{if $vItem->unit}{$vItem->unit}{else}-{/if}</td>
                                                 <td>{$vItem->qty}</td>
-                                                <td>{$vItem->total_cost}</td>
-                                                <td>{$vItem->gob}<br>({$vItem->gob_fe})</td>
-                                                <td>{$vItem->rpa_through_gob}</td>
-                                                <td>{$vItem->rpa_special_account}</td>
-                                                <td>{$vItem->dpa}</td>
-                                                <td>{$vItem->own_fund}<br>({$vItem->own_fund_fe})</td>
-                                                <td>{$vItem->other}<br>({$vItem->other_fe})</td>
+                                                <td>{$vItem->total_cost|number_format:2:'.':''}</td>
+                                                <td>{$vItem->gob|number_format:2:'.':''}<br>({$vItem->gob_fe|number_format:2:'.':''})</td>
+                                                <td>{$vItem->rpa_through_gob|number_format:2:'.':''}</td>
+                                                <td>{$vItem->rpa_special_account|number_format:2:'.':''}</td>
+                                                <td>{$vItem->dpa|number_format:2:'.':''}</td>
+                                                <td>{$vItem->own_fund|number_format:2:'.':''}<br>({$vItem->own_fund_fe|number_format:2:'.':''})</td>
+                                                <td>{$vItem->other|number_format:2:'.':''}<br>({$vItem->other_fe|number_format:2:'.':''})</td>
                                                 <td>{assign var="percentage_of_project" value=$vItem->total_cost/$basicInfo->total_cost*100}{$percentage_of_project|number_format:2:'.':''}%</td>
                                             </tr>
                                             {/foreach}
                                             <tr>
-                                                <td colspan="3">Sub Total ({$key})<td>
-                                                <td colspan="10">Sub Total ({$key})<td>
+                                                <td colspan="4">Sub Total ({$key})</td>
+                                                <td>&nbsp;</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_total_cost|number_format:2:'.':''}</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_gob|number_format:2:'.':''}<br>({$comp_sub_total_list.$key->sub_total_gob_fe|number_format:2:'.':''})</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_rpa_through_gob|number_format:2:'.':''}</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_rpa_special_account|number_format:2:'.':''}</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_dpa|number_format:2:'.':''}</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_own_fund|number_format:2:'.':''}<br>({$comp_sub_total_list.$key->sub_total_own_fund_fe|number_format:2:'.':''})</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_other|number_format:2:'.':''}<br>({$comp_sub_total_list.$key->sub_total_other_fe|number_format:2:'.':''})</td>
+                                                <td>&nbsp;</td>
                                             </tr>
                                         {/foreach}
                                     </tbody>
                                     <tfoot>
                                         {foreach from=$contingency_list key=conKey item=conItem}
                                         <tr>
-                                            <td colspan="3">{$conItem->economic_subcode_name}</td>
+                                            <td colspan="3">{if $conKey eq "Physical Contingency"}(c){else if $conKey eq "Price Contingency"}(d){/if} {$conItem->economic_subcode_name}</td>
                                             <td>&nbsp;</td>
                                             <td>{$conItem->qty}</td>
                                             <td>{$conItem->total_cost}</td>
@@ -461,6 +523,17 @@
                                             <td>{assign var="con_percentage_of_project" value=$conItem->total_cost/$basicInfo->total_cost*100}{$con_percentage_of_project|number_format:2:'.':''}%</td>
                                         </tr>
                                         {/foreach}
+                                        <tr>
+                                            <td colspan="5">Grand Total (a+b+c+d)</td>
+                                            <td>{$basicInfo->total_cost}</td>
+                                            <td>{$basicInfo->gob_cost}<br>({$basicInfo->gob_fe_cost})</td>
+                                            <td>{$basicInfo->pa_through_gob_cost}</td>
+                                            <td>{$basicInfo->pa_spc_acnt_cost}</td>
+                                            <td>{$basicInfo->pa_dpa_cost}</td>
+                                            <td>{$basicInfo->own_fund_cost}<br>({$basicInfo->own_fund_fe_cost})</td>
+                                            <td>{$basicInfo->other_cost}<br>({$basicInfo->other_fe_cost})</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
                                     </tfoot>
                                 </table>
                             </div>
@@ -942,7 +1015,7 @@ function loadDistrict()
 {
     
     var username = $('.divisions').val();
-    alert(username);
+   
     $.ajax
     (
         {                                      
@@ -968,21 +1041,33 @@ function loadDistrict()
     );  
 }
 {/literal}
+//ajaj
+var project_total_gob           = {$basicInfo->gob_cost};
+var project_total_gob_fe        = {$basicInfo->gob_fe_cost};
+var project_total_gob_fe        = {$basicInfo->pa_through_gob_cost};
+var project_total_pa            = {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost};
+var project_total_rpa           = {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost};
+var project_total_own_fund      = {$basicInfo->own_fund_cost};
+var project_total_own_fund_fe   = {$basicInfo->own_fund_fe_cost};
+var project_total_other         = {$basicInfo->other_cost};
+var project_total_other_fe      = {$basicInfo->other_fe_cost};
+
+calculateModeOfFinanceGrandTotal();
 </script> 
 
 <script>
     
-    $(function() {
-    var table = $("#economic_code_tbl1");
-
-    $(window).scroll(function() {
-        var windowTop = $(window).scrollTop();
-        if (windowTop > table.offset().top) {
-            $("thead", table).addClass("Fixed").css("top", windowTop-10);
-        }
-        else {
-            $("thead", table).removeClass("Fixed");
-        }
-    });
-});
+//    $(function() {
+//    var table = $("#economic_code_tbl1");
+//
+//    $(window).scroll(function() {
+//        var windowTop = $(window).scrollTop();
+//        if (windowTop > table.offset().top) {
+//            $("thead", table).addClass("Fixed").css("top", windowTop-10);
+//        }
+//        else {
+//            $("thead", table).removeClass("Fixed");
+//        }
+//    });
+//});
 </script>

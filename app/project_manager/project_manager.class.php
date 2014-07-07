@@ -214,10 +214,11 @@ class projectManagerApp extends DefaultApplication
             $contingencyeList[$value->economic_subcode_name] = $value;
         }
         
-        $data->contingency_list = $contingencyeList;
-        $data->PI              = getUserField('PI'); 
+        $data->contingency_list    = $contingencyeList;
+        $data->comp_sub_total_list = getProjectWiseComponentSubTotal($pid);
+        $data->PI                  = getUserField('PI'); 
         
-        //dumpVar($data->component_list);
+        //dumpVar($data->basicInfo);
         
         return createPage(PROJECT_PART_A_TEMPLATE, $data);
    }
@@ -322,7 +323,7 @@ class projectManagerApp extends DefaultApplication
         updateAnnexV();
         updateAnnexVContingency();
         updateProjectTotalCost($pid);
-        
+        //die;
         header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid));
         //return $this->showAnnexV();
     }
@@ -460,18 +461,40 @@ class projectManagerApp extends DefaultApplication
     
     function annexVExportTo($pid, $report_type)
     {
-        $result = getProjectWiseEconomicCodeList($pid);
+        $economic_code_list          = getProjectWiseEconomicCodeList($pid);
+        $contingency_list            = getContingencyList($pid);
+        $economic_code_details_list  = getAnnexVComponentDetails($pid);
+        $contingency_details_list    = getAnnexVContingencyDetails($pid);
         
-        foreach($result as $value)
+        // arrange the economic code list according to the component type
+        // NOTE: economic code and contingency list are under same name that is "component_list"
+        foreach($economic_code_list as $value)
         {
-            $retData[$value->component_type][] = $value;
+            $retData['component_list'][$value->component_type][] = $value;
         }
         
-        dumpVar($retData);
+        // arranging the contingency list according tp the sub code code name
+        foreach($contingency_list as $value)
+        {
+            $retData['component_list'][$value->economic_subcode_name][] = $value;
+        }
+        
+        // arranging the economic code details phasing cost according to the year serial or year wise
+        foreach($economic_code_details_list as $value)
+        {
+            $retData['component_details'][$value->year_serial][] = $value;
+        }
+        // arranging the contingency details phasing cost according to the year serial or year wise
+        foreach($contingency_details_list as $value)
+        {
+            $retData['contingency_details'][$value->year_serial][] = $value;
+        }
+        
+        //dumpVar($retData);
 
         if ($report_type == 'excel')
         {    
-            makeAnnexVExcel($result);
+            makeAnnexVExcel($retData);
         }
     }
    

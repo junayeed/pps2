@@ -4,18 +4,14 @@
    *
    * General Purpose Function Library
    *
-   * Purpose: the functions found in the library are widely
-   *          used througout EVOKNOW projects.
    *
-   * Notice : *EVOKNOW developers* MUST NOT change any of the
+   * Notice : *Developers* MUST NOT change any of the
    *          functions provided here without MAINTAINER's explicit
    *          permission. All change requests must be first
    *          emailed to MAINTAINER and can be only included if
    *          MAINTAINER agrees to do so.
    *
-   * Copyright (c) 2005 by EVOKNOW, Inc.
    *
-   *  MAINTAINER: Mohammed J. Kabir (kabir@evoknow.com)
    *
    *
    * History

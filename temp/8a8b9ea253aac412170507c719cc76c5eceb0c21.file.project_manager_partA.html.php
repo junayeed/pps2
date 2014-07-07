@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-07-03 11:05:28
+<?php /* Smarty version Smarty-3.1.17, created on 2014-07-06 15:32:59
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\project_manager_partA.html" */ ?>
 <?php /*%%SmartyHeaderCode:51539e7626de38b5-52101686%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '8a8b9ea253aac412170507c719cc76c5eceb0c21' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\project_manager_partA.html',
-      1 => 1404378324,
+      1 => 1404653467,
       2 => 'file',
     ),
   ),
@@ -38,7 +38,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'key' => 0,
     'vItem' => 0,
     'percentage_of_project' => 0,
+    'comp_sub_total_list' => 0,
     'contingency_list' => 0,
+    'conKey' => 0,
     'conItem' => 0,
     'con_percentage_of_project' => 0,
     'SYSTEM_COMMON_JAVASCRIPT_DIR' => 0,
@@ -47,6 +49,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_539e76270ac406_44559884')) {function content_539e76270ac406_44559884($_smarty_tpl) {?><?php if (!is_callable('smarty_function_html_options')) include 'E:/xampp/htdocs/pps2/ext/smarty3/libs/plugins\\function.html_options.php';
+if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/ext/smarty3/libs/plugins\\modifier.date_format.php';
 ?><div id="main-content" class="clearfix">
     	<head>
 		
@@ -57,6 +60,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
                 <script type="text/javascript" src="/ext/ckeditor/ckeditor.js"></script>
+                <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
 	</head>
 
 					
@@ -103,7 +107,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
     
     <div class="control-group">
-        <label class="control-label" for="project_title_en">Project Title (English)</label>
+        <label class="control-label" for="project_title_en">1.0 Project Title (English)</label>
             <div class="controls">  
                 <label class="control-label">: <b><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->project_title_en;?>
 </b></label>
@@ -135,7 +139,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                 <input type="hidden" name="PI" value="<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
 "/>
                 <div class="control-group">
-                    <label class="control-label" for="ministries[]">Ministry/Division</label>
+                    <label class="control-label" for="ministries[]">2.1 Ministry/Division</label>
                     <div class="controls">
                         <select multiple class="chzn-select span6 ministries" id="ministries[]"  name="ministries[]" data-placeholder="Choose a Ministry/Division...">
                             <option value=""></option>
@@ -147,7 +151,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		</div>
             
                 <div class="control-group">
-                    <label class="control-label" for="agencies[]">Implementing Agency</label>
+                    <label class="control-label" for="agencies[]">2.2 Implementing Agency</label>
                     <div class="controls">
                         <select multiple class="chzn-select span6 agencies" id="agencies[]"  name="agencies[]" data-placeholder="Choose a Agencies...">
                             <option value=""></option>
@@ -159,7 +163,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		</div>
             
                 <div class="control-group">
-                    <label class="control-label" for="adp_sector">Concerned Sector of ADP</label>
+                    <label class="control-label" for="adp_sector">2.3 Concerned Sector of ADP</label>
                     <div class="controls">
                         <select id="adp_sector" name="adp_sector">
                             <option value="">Select Sector</option>
@@ -181,7 +185,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		</div>
             
                 <div class="control-group">
-                    <label class="control-label" for="sector_division">Concerned Division of Planning Commission</label>
+                    <label class="control-label" for="sector_division">2.4 Concerned Division of Planning Commission</label>
                     <div class="controls">
                         <select id="sector_division" name="sector_division">
                             <option value="">Select Sector</option>
@@ -203,215 +207,279 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                     </div>
                 </div>
                 
-                 <div class="control-group">
-                    <label class="control-label" for="objectives">Objectives</label>
+                <div class="control-group">
+                    <label class="control-label" for="objectives">3.0 Objectives<br>(Please specify in quantity and/or in percentage and write in bullet form)</label>
                     <div class="controls" style="margin-left: 289px !important">
                         <textarea rows="5" class="ckeditor" name="objectives" id="objectives"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->objectives;?>
 </textarea>
                     </div>
                 </div>
                 
-                 <div class="control-group">
-                    <label class="control-label" for="project_cost">Estimated Cost of the project(in Lakh Taka)</label>
+                <div class="control-group">
+                    <label class="control-label" for="project_implementation_period">4.0 Project implementation period: </label>
                     <div class="controls"><br><br>
-                        <label for="project_cost">Total:<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->total_cost;?>
+                        <label for="project_implementation_period">i)  Date of commencement: <?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['basicInfo']->value->date_of_commencement,"%d/%m/%Y");?>
 </label>
-                        <label  for="project_cost">GOB (FE):<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->gob_cost;?>
+                        <label  for="project_implementation_period">ii) Date of completion: <?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['basicInfo']->value->date_of_completion,"%d/%m/%Y");?>
+</label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="project_cost">5.1 Estimated Cost of the project(in Lakh Taka)</label>
+                    <div class="controls"><br><br>
+                        <table id="table_bug_report" class="table table-striped table-bordered table-hover span5">
+                            <tr>
+                                <td class="span6">Total: </td>
+                                <td class="span6"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->total_cost;?>
+</td>
+                            </tr>
+                            <tr>
+                                <td>GoB (FE): </td>
+                                <td>
+                                    <label id="lbl_project_gob_cost"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->gob_cost;?>
+</label> 
+                                    <label id="lbl_project_gob_fe_cost">(<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->gob_fe_cost;?>
+)</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PA (RPA): </td>
+                                <td>
+                                    <label id="lbl_pa"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_through_gob_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_spc_acnt_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_dpa_cost;?>
+</label>
+                                    <label id="lbl_rpa">(<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_through_gob_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_spc_acnt_cost;?>
+)</label></td>
+                            </tr>
+                            <tr>
+                                <td>Own Fund (FE): </td>
+                                <td>
+                                    <label id="lbl_project_own_fund"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->own_fund_cost;?>
+</label> 
+                                    <label id="lbl_project_own_fund_fe">(<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->own_fund_fe_cost;?>
+)</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Others (FE): </td>
+                                <td>
+                                    <label id="lbl_other_cost"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->other_cost;?>
+</label> 
+                                    <label id="lbl_other_fe_cost">(<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->other_fe_cost;?>
+)</label></td>
+                            </tr>
+                        </table>
+<!--                        <label for="project_cost">Total: <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->total_cost;?>
+</label>
+                        <label for="project_cost">GOB (FE): <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->gob_cost;?>
  (<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->gob_fe_cost;?>
 )</label>
-                        <label for="project_cost">PA (RPA):<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_through_gob_cost;?>
- (<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_dpa_cost;?>
+                        <label for="project_cost">PA (RPA): <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_through_gob_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_spc_acnt_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_dpa_cost;?>
+ (<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_through_gob_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_spc_acnt_cost;?>
 )</label>
-                        <label  for="project_cost">Own Fund (FE):<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->own_fund_cost;?>
+                        <label for="project_cost">Own Fund (FE): <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->own_fund_cost;?>
  (<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->own_fund_fe_cost;?>
 )</label>
-                        <label  for="project_cost">Others (FE):<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->other_cost;?>
+                        <label for="project_cost">Others (FE): <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->other_cost;?>
  (<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->other_fe_cost;?>
-)</label>
+)</label>-->
                     </div>
                 </div>
                 
                 <div class="control-group">
-			<label class="control-label" for="exchange_rate">Exchange rate(s) with date</label>
-			<div class="controls">
-                            <textarea rows="2" style="width:545px" name="exchange_rate" id="exchange_rate"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->exchange_rate;?>
+                    <label class="control-label" for="exchange_rate">5.2 Exchange rate(s) with date (Source Bangladesh Bank): </label>
+                    <div class="controls">
+                        <textarea rows="2" style="width:545px" name="exchange_rate" id="exchange_rate"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->exchange_rate;?>
 </textarea>
-			</div>
+                    </div>
 		</div>
                 
                 <div class="control-group">
-			<label class="control-label" for="mode_of_financing">Mode of financing</label>
-			<div class="span11">
-                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-                                <thead>
-                                        <tr>
-                                               
-                                                <th>Mode\Source</th>
-                                                <th>GOB<br>(FE)</th>
-                                                <th>PA<br>(RPA)</th>
-                                                <th> Own Fund<br>(FE)</th>
-                                                <th>Others<br>(Specify)</th>
-                                                <th>PA sources</th>
-                                        </tr>
-                                </thead>
+                    <label class="control-label" for="mode_of_financing">6.0 Mode of financing</label><br>
+                    <label class="" for="year_wise_allocation">6.1 Year wise allocation of GOB Fund and Own Fund</label>
+                    <div class="span11">
+                        <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Mode\Source</th>
+                                    <th>GOB<br>(FE)</th>
+                                    <th>PA<br>(RPA)</th>
+                                    <th> Own Fund<br>(FE)</th>
+                                    <th>Others<br>(Specify)</th>
+                                    <th>PA sources</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr> 
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                </tr>
+                                <tr> 
+                                    <td>Loan/credit</td>
+                                    <td>
+                                        <input class="span8" type="text" id="loan_gob" name="loan_gob" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_gob,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="GoB" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="loan_gob_fe" name="loan_gob_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_gob_fe,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="loan_pa" name="loan_pa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_pa,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="loan_pa_rpa" name="loan_rpa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_rpa,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="loan_own_fund" name="loan_own_fund" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_own_fund,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="loan_own_fund_fe" name="loan_own_fund_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_own_fund_fe,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="loan_others" name="loan_others" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_others,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="loan_others_fe" name="loan_others_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_others_fe,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span15" type="text" id="loan_pa_source" name="loan_pa_source" value="<?php echo $_smarty_tpl->tpl_vars['modefinancing']->value->loan_pa_source;?>
+" placeholder="Source of the Amount">
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td>Grant</td>
+                                    <td>
+                                        <input class="span8" type="text" id="grant_gob" name="grant_gob" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_gob,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="GOB" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="grant_gob_fe" name="grant_gob_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_gob_fe,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="grant_pa" name="grant_pa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_pa,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="PA"  onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="grant_pa_rpa" name="grant_rpa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_rpa,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="grant_own_fund" name="grant_own_fund" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_own_fund,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="grant_own_fund_fe" name="grant_own_fund_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_own_fund_fe,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="grant_others" name="grant_others" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_others,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="grant_others_fe" name="grant_others_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_others_fe,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
 
-                                <tbody>
-                                        <tr> 
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>3</td>
-                                                <td>4</td>
-                                                <td>5</td>
-                                                <td>6</td>
-                                        </tr>
-                                        <tr> 
-                                                <td>Loan/credit</td>
-                                                <td>
-                                                    <input class="span8" type="text" id="loan_gob" name="loan_gob" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_gob,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="GOB">
-                                                    <br><input class="span8" type="text" id="loan_gob_fe" name="loan_gob_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_gob_fe,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="loan_pa" name="loan_pa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_pa,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="PA">
-                                                    <br><input class="span8" type="text" id="loan_pa_rpa" name="loan_rpa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_rpa,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="RPA">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="loan_own_fund" name="loan_own_fund" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_own_fund,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="Own Fund">
-                                                    <br><input class="span8" type="text" id="loan_own_fund_fe" name="loan_own_fund_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_own_fund_fe,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="loan_others" name="loan_others" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_others,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="Others">
-                                                    <br><input class="span8" type="text" id="loan_specify" name="loan_specify" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->loan_specify,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                               
-                                                <td>
-                                                    <input class="span15" type="text" id="loan_pa_source" name="loan_pa_source" value="<?php echo $_smarty_tpl->tpl_vars['modefinancing']->value->loan_pa_source;?>
+                                    <td>
+                                        <input class="span15" type="text" id="grant_pa_source" name="grant_pa_source" value="<?php echo $_smarty_tpl->tpl_vars['modefinancing']->value->grant_pa_source;?>
 " placeholder="Source of the Amount">
-                                                </td>
-                                        </tr>
-                                        
-                                        <tr> 
-                                                <td>Grant</td>
-                                                <td>
-                                                    <input class="span8" type="text" id="grant_gob" name="grant_gob" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_gob,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="GOB">
-                                                    <br><input class="span8" type="text" id="grant_gob_fe" name="grant_gob_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_gob_fe,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="grant_pa" name="grant_pa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_pa,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="PA">
-                                                    <br><input class="span8" type="text" id="grant_pa_rpa" name="grant_rpa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_rpa,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="RPA">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="grant_own_fund" name="grant_own_fund" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_own_fund,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="Own Fund">
-                                                    <br><input class="span8" type="text" id="grant_own_fund_fe" name="grant_own_fund_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_own_fund_fe,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="grant_others" name="grant_others" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_others,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="Others">
-                                                    <br><input class="span8" type="text" id="grant_specify" name="grant_specify" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->grant_specify,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                               
-                                                <td>
-                                                    <input class="span15" type="text" id="grant_pa_source" name="grant_pa_source" value="<?php echo $_smarty_tpl->tpl_vars['modefinancing']->value->grant_pa_source;?>
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td>Equity</td>
+                                    <td>
+                                        <input class="span8" type="text" id="equity_gob" name="equity_gob" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_gob,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="GOB" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="equity_gob_fe" name="equity_gob_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_gob_fe,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="equity_pa" name="equity_pa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_pa,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="equity_pa_rpa" name="equity_pa_rpa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_pa_rpa,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="equity_own_fund" name="equity_own_fund" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_own_fund,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="equity_own_fund_fe" name="equity_own_fund_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_own_fund_fe,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="equity_others" name="equity_others" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_others,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="equity_others_fe" name="equity_others_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_others_fe,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+
+                                    <td>
+                                        <input class="span15" type="text" id="equity_pa_sources" name="equity_pa_sources" value="<?php echo $_smarty_tpl->tpl_vars['modefinancing']->value->equity_pa_sources;?>
 " placeholder="Source of the Amount">
-                                                </td>
-                                        </tr>
-                                        <tr> 
-                                                <td>Equity</td>
-                                                <td>
-                                                    <input class="span8" type="text" id="equity_gob" name="equity_gob" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_gob,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="GOB">
-                                                    <br><input class="span8" type="text" id="equity_gob_fe" name="equity_gob_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_gob_fe,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="equity_pa" name="equity_pa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_pa,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="PA">
-                                                    <br><input class="span8" type="text" id="equity_pa_rpa" name="equity_pa_rpa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_pa_rpa,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="RPA">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="equity_own_fund" name="equity_own_fund" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_own_fund,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="Own Fund">
-                                                    <br><input class="span8" type="text" id="equity_own_fund_fe" name="equity_own_fund_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_own_fund_fe,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="equity_others" name="equity_others" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_others,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="Others">
-                                                    <br><input class="span8" type="text" id="equity_others_s" name="equity_others_s" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->equity_others_s,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                               
-                                                <td>
-                                                    <input class="span15" type="text" id="equity_pa_sources" name="equity_pa_sources" value="<?php echo $_smarty_tpl->tpl_vars['modefinancing']->value->equity_pa_sources;?>
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td>Others(Specify)</td>
+                                    <td>
+                                        <input class="span8" type="text" id="others_gob" name="others_gob" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_gob,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="GOB"  onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="others_gob_fe" name="others_gob_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_gob_fe,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="others_pa" name="others_pa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_pa,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="others_pa_rpa" name="others_pa_rpa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_pa_rpa,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="others_own_fund" name="others_own_fund" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_own_fund,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="others_own_fund_fe" name="others_own_fund_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_own_fund_fe,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="others_others" name="others_others" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_others,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="others_others_fe" name="others_others_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_others_fe,2,'.','');?>
+" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+
+                                    <td>
+                                        <input class="span15" type="text" id="others_pa_sources" name="others_pa_sources" value="<?php echo $_smarty_tpl->tpl_vars['modefinancing']->value->others_pa_sources;?>
 " placeholder="Source of the Amount">
-                                                </td>
-                                        </tr>
-                                        
-                                        <tr> 
-                                                <td>Others(Specify)</td>
-                                                <td>
-                                                    <input class="span8" type="text" id="others_gob" name="others_gob" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_gob,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="GOB">
-                                                    <br><input class="span8" type="text" id="others_gob_fe" name="others_gob_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_gob_fe,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="others_pa" name="others_pa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_pa,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="PA">
-                                                    <br><input class="span8" type="text" id="others_pa_rpa" name="others_pa_rpa" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_pa_rpa,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="RPA">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="others_own_fund" name="others_own_fund" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_own_fund,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="Own Fund">
-                                                    <br><input class="span8" type="text" id="others_own_fund_fe" name="others_own_fund_fe" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_own_fund_fe,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                                <td>
-                                                    <input class="span8" type="text" id="others_others" name="others_others" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_others,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="Others">
-                                                    <br><input class="span8" type="text" id="others_others_s" name="others_others_s" value="<?php echo number_format($_smarty_tpl->tpl_vars['modefinancing']->value->others_others_s,2,'.','');?>
-" onkeypress="return isNumberKey(event);" placeholder="FE">
-                                                </td>
-                                               
-                                                <td>
-                                                    <input class="span15" type="text" id="others_pa_sources" name="others_pa_sources" value="<?php echo $_smarty_tpl->tpl_vars['modefinancing']->value->others_pa_sources;?>
-" placeholder="Source of the Amount">
-                                                    <input type="hidden" id="mode_of_finance_id" name="mode_of_finance_id" value="<?php echo $_smarty_tpl->tpl_vars['modefinancing']->value->id;?>
+                                        <input type="hidden" id="mode_of_finance_id" name="mode_of_finance_id" value="<?php echo $_smarty_tpl->tpl_vars['modefinancing']->value->id;?>
 " />
-                                                </td>
-                                                
-                                        </tr>
-                                        
-                                </tbody>
-                            </table>
-			</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Grand Total</td>
+                                    <td>
+                                        <input class="span8" type="text" id="total_gob" name="total_gob" value="" readonly ><br>
+                                        <input class="span8" type="text" id="total_gob_fe" name="total_gob_fe" value="" readonly >
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="total_pa" name="total_pa" value="" readonly ><br>
+                                        <input class="span8" type="text" id="total_rpa" name="total_rpa" value="" readonly >
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="total_own_fund" name="total_own_fund" value="" readonly ><br>
+                                        <input class="span8" type="text" id="total_own_fund_fe" name="total_own_fund_fe" value="" readonly >
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="total_other" name="total_other" value="" readonly ><br>
+                                        <input class="span8" type="text" id="total_other_fe" name="total_other_fe" value="" readonly >
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 		</div>
                 
                 <div class="control-group">
-			<label class="" for="year_wise_allocation">Year wise allocation of GOB Fund and Own Fund</label>
+			<label class="" for="year_wise_allocation">6.2 Year wise allocation of GOB Fund and Own Fund</label>
 			<div class="span11">
                             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                                 <thead>
                                         <tr>
                                                 <th>Financial Year</th>
-                                                <th>GOB(FE)</th>
-                                                <th> Own Fund(FE)</th>
+                                                <th>GOB<br>(FE)</th>
+                                                <th>Own Fund<br>(FE)</th>
                                         </tr>
                                 </thead>
 
@@ -425,11 +493,11 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                                         <tr> 
                                                 <td><?php echo $_smarty_tpl->tpl_vars['item']->value->financial_year;?>
 </td>
-                                                <td><?php echo $_smarty_tpl->tpl_vars['item']->value->gob_total;?>
- (<?php echo $_smarty_tpl->tpl_vars['item']->value->gob_fe_total;?>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['item']->value->gob_total,2,'.','');?>
+<br>(<?php echo number_format($_smarty_tpl->tpl_vars['item']->value->gob_fe_total,2,'.','');?>
 )</td>
-                                                <td><?php echo $_smarty_tpl->tpl_vars['item']->value->own_fund_total;?>
- (<?php echo $_smarty_tpl->tpl_vars['item']->value->own_fund_fe_total;?>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['item']->value->own_fund_total,2,'.','');?>
+<br>(<?php echo number_format($_smarty_tpl->tpl_vars['item']->value->own_fund_fe_total,2,'.','');?>
 )</td>
                                         </tr>
                                         <?php } ?>
@@ -508,13 +576,13 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                                             <th class="span1" rowspan="2">Economic Code</th>
                                             <th class="span1" rowspan="2">Economic Sub-code</th>
                                             <th class="span12" rowspan="2">Component description</th>
-                                            <th class="span3" rowspan="2">Unit</th>
-                                            <th class="span2" rowspan="2">Qty</th>
-                                            <th class="span4" rowspan="2">Total Cost</th>
-                                            <th class="span4" rowspan="2">GoB (FE)</th>
+                                            <th class="span3" rowspan="2" class="span3">Unit</th>
+                                            <th class="span2" rowspan="2" class="span3">Qty</th>
+                                            <th class="span4" rowspan="2" class="span5">Total Cost<br>Σ(7+8+9+10+11+12)</th>
+                                            <th class="span4" rowspan="2">GoB<br>(FE)</th>
                                             <th class="span4" colspan="3">Project Aid</th>
-                                            <th class="span4">Own Fund (FE)</th>
-                                            <th class="span4">Other (FE)</th>
+                                            <th class="span4">Own Fund<br>(FE)</th>
+                                            <th class="span4">Other<br>(FE)</th>
                                             <th class="span4">% of Total Project Cost</th>
                                         </tr>
                                         <tr>
@@ -570,32 +638,49 @@ $_smarty_tpl->tpl_vars['vItem']->_loop = true;
 <?php } else { ?>-<?php }?></td>
                                                 <td><?php echo $_smarty_tpl->tpl_vars['vItem']->value->qty;?>
 </td>
-                                                <td><?php echo $_smarty_tpl->tpl_vars['vItem']->value->total_cost;?>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['vItem']->value->total_cost,2,'.','');?>
 </td>
-                                                <td><?php echo $_smarty_tpl->tpl_vars['vItem']->value->gob;?>
-<br>(<?php echo $_smarty_tpl->tpl_vars['vItem']->value->gob_fe;?>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['vItem']->value->gob,2,'.','');?>
+<br>(<?php echo number_format($_smarty_tpl->tpl_vars['vItem']->value->gob_fe,2,'.','');?>
 )</td>
-                                                <td><?php echo $_smarty_tpl->tpl_vars['vItem']->value->rpa_through_gob;?>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['vItem']->value->rpa_through_gob,2,'.','');?>
 </td>
-                                                <td><?php echo $_smarty_tpl->tpl_vars['vItem']->value->rpa_special_account;?>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['vItem']->value->rpa_special_account,2,'.','');?>
 </td>
-                                                <td><?php echo $_smarty_tpl->tpl_vars['vItem']->value->dpa;?>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['vItem']->value->dpa,2,'.','');?>
 </td>
-                                                <td><?php echo $_smarty_tpl->tpl_vars['vItem']->value->own_fund;?>
-<br>(<?php echo $_smarty_tpl->tpl_vars['vItem']->value->own_fund_fe;?>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['vItem']->value->own_fund,2,'.','');?>
+<br>(<?php echo number_format($_smarty_tpl->tpl_vars['vItem']->value->own_fund_fe,2,'.','');?>
 )</td>
-                                                <td><?php echo $_smarty_tpl->tpl_vars['vItem']->value->other;?>
-<br>(<?php echo $_smarty_tpl->tpl_vars['vItem']->value->other_fe;?>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['vItem']->value->other,2,'.','');?>
+<br>(<?php echo number_format($_smarty_tpl->tpl_vars['vItem']->value->other_fe,2,'.','');?>
 )</td>
                                                 <td><?php $_smarty_tpl->tpl_vars["percentage_of_project"] = new Smarty_variable($_smarty_tpl->tpl_vars['vItem']->value->total_cost/$_smarty_tpl->tpl_vars['basicInfo']->value->total_cost*100, null, 0);?><?php echo number_format($_smarty_tpl->tpl_vars['percentage_of_project']->value,2,'.','');?>
 %</td>
                                             </tr>
                                             <?php } ?>
                                             <tr>
-                                                <td colspan="3">Sub Total (<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
-)<td>
-                                                <td colspan="10">Sub Total (<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
-)<td>
+                                                <td colspan="4">Sub Total (<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+)</td>
+                                                <td>&nbsp;</td>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['comp_sub_total_list']->value[$_smarty_tpl->tpl_vars['key']->value]->sub_total_total_cost,2,'.','');?>
+</td>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['comp_sub_total_list']->value[$_smarty_tpl->tpl_vars['key']->value]->sub_total_gob,2,'.','');?>
+<br>(<?php echo number_format($_smarty_tpl->tpl_vars['comp_sub_total_list']->value[$_smarty_tpl->tpl_vars['key']->value]->sub_total_gob_fe,2,'.','');?>
+)</td>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['comp_sub_total_list']->value[$_smarty_tpl->tpl_vars['key']->value]->sub_total_rpa_through_gob,2,'.','');?>
+</td>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['comp_sub_total_list']->value[$_smarty_tpl->tpl_vars['key']->value]->sub_total_rpa_special_account,2,'.','');?>
+</td>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['comp_sub_total_list']->value[$_smarty_tpl->tpl_vars['key']->value]->sub_total_dpa,2,'.','');?>
+</td>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['comp_sub_total_list']->value[$_smarty_tpl->tpl_vars['key']->value]->sub_total_own_fund,2,'.','');?>
+<br>(<?php echo number_format($_smarty_tpl->tpl_vars['comp_sub_total_list']->value[$_smarty_tpl->tpl_vars['key']->value]->sub_total_own_fund_fe,2,'.','');?>
+)</td>
+                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['comp_sub_total_list']->value[$_smarty_tpl->tpl_vars['key']->value]->sub_total_other,2,'.','');?>
+<br>(<?php echo number_format($_smarty_tpl->tpl_vars['comp_sub_total_list']->value[$_smarty_tpl->tpl_vars['key']->value]->sub_total_other_fe,2,'.','');?>
+)</td>
+                                                <td>&nbsp;</td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
@@ -608,7 +693,7 @@ $_smarty_tpl->tpl_vars['conItem']->_loop = true;
  $_smarty_tpl->tpl_vars['conKey']->value = $_smarty_tpl->tpl_vars['conItem']->key;
 ?>
                                         <tr>
-                                            <td colspan="3"><?php echo $_smarty_tpl->tpl_vars['conItem']->value->economic_subcode_name;?>
+                                            <td colspan="3"><?php if ($_smarty_tpl->tpl_vars['conKey']->value=="Physical Contingency") {?>(c)<?php } elseif ($_smarty_tpl->tpl_vars['conKey']->value=="Price Contingency") {?>(d)<?php }?> <?php echo $_smarty_tpl->tpl_vars['conItem']->value->economic_subcode_name;?>
 </td>
                                             <td>&nbsp;</td>
                                             <td><?php echo $_smarty_tpl->tpl_vars['conItem']->value->qty;?>
@@ -634,6 +719,27 @@ $_smarty_tpl->tpl_vars['conItem']->_loop = true;
 %</td>
                                         </tr>
                                         <?php } ?>
+                                        <tr>
+                                            <td colspan="5">Grand Total (a+b+c+d)</td>
+                                            <td><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->total_cost;?>
+</td>
+                                            <td><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->gob_cost;?>
+<br>(<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->gob_fe_cost;?>
+)</td>
+                                            <td><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_through_gob_cost;?>
+</td>
+                                            <td><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_spc_acnt_cost;?>
+</td>
+                                            <td><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_dpa_cost;?>
+</td>
+                                            <td><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->own_fund_cost;?>
+<br>(<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->own_fund_fe_cost;?>
+)</td>
+                                            <td><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->other_cost;?>
+<br>(<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->other_fe_cost;?>
+)</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
                                     </tfoot>
                                 </table>
                             </div>
@@ -1151,7 +1257,7 @@ function loadDistrict()
 {
     
     var username = $('.divisions').val();
-    alert(username);
+   
     $.ajax
     (
         {                                      
@@ -1177,22 +1283,43 @@ function loadDistrict()
     );  
 }
 
+//ajaj
+var project_total_gob           = <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->gob_cost;?>
+;
+var project_total_gob_fe        = <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->gob_fe_cost;?>
+;
+var project_total_gob_fe        = <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_through_gob_cost;?>
+;
+var project_total_pa            = <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_through_gob_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_spc_acnt_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_dpa_cost;?>
+;
+var project_total_rpa           = <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_through_gob_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_spc_acnt_cost;?>
+;
+var project_total_own_fund      = <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->own_fund_cost;?>
+;
+var project_total_own_fund_fe   = <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->own_fund_fe_cost;?>
+;
+var project_total_other         = <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->other_cost;?>
+;
+var project_total_other_fe      = <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->other_fe_cost;?>
+;
+
+calculateModeOfFinanceGrandTotal();
 </script> 
 
 <script>
     
-    $(function() {
-    var table = $("#economic_code_tbl1");
-
-    $(window).scroll(function() {
-        var windowTop = $(window).scrollTop();
-        if (windowTop > table.offset().top) {
-            $("thead", table).addClass("Fixed").css("top", windowTop-10);
-        }
-        else {
-            $("thead", table).removeClass("Fixed");
-        }
-    });
-});
+//    $(function() {
+//    var table = $("#economic_code_tbl1");
+//
+//    $(window).scroll(function() {
+//        var windowTop = $(window).scrollTop();
+//        if (windowTop > table.offset().top) {
+//            $("thead", table).addClass("Fixed").css("top", windowTop-10);
+//        }
+//        else {
+//            $("thead", table).removeClass("Fixed");
+//        }
+//    });
+//});
 </script>
 <?php }} ?>

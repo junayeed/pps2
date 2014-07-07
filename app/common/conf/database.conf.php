@@ -73,16 +73,19 @@
   define('USER_GROUP_TBL',               DB_NAME . '.user_group');
   define('PROJECT_TBL',                  DB_NAME . '.projects');
   define('PROJECT_PART_B_TBL',           DB_NAME . '.projects_part_b');
-  define('PROJECT_MINISTRY_TBL',         DB_NAME . '.project_ministries');
-  define('PROJECT_AGENCY_TBL',           DB_NAME . '.project_agencies');
-  define('PROJECT_DEV_PARTNER_TBL',      DB_NAME . '.project_dev_partners');
-  define('PROJECT_MODE_FINANCING_TBL',   DB_NAME . '.project_mode_financing');
-  define('PROJECT_LOCATIONS_TBL',        DB_NAME . '.project_locations');
-  define('PROJECT_PROCUREMENT_PLAN_TBL', DB_NAME . '.project_procurement_plans');
-  define('PROJECT_ANNEX_V_TBL',          DB_NAME . '.annexure_v');
-  define('PROJECT_ANNEX_V_DETAILS_TBL',  DB_NAME . '.annexure_v_details');
+  define('PROJECT_MINISTRY_TBL',             DB_NAME . '.project_ministries');
+  define('PROJECT_AGENCY_TBL',               DB_NAME . '.project_agencies');
+  define('PROJECT_DEV_PARTNER_TBL',          DB_NAME . '.project_dev_partners');
+  define('PROJECT_MODE_FINANCING_TBL',       DB_NAME . '.project_mode_financing');
+  define('PROJECT_LOCATIONS_TBL',            DB_NAME . '.project_locations');
+  define('PROJECT_PROCUREMENT_PLAN_TBL',     DB_NAME . '.project_procurement_plans');
+  define('PROJECT_ANNEX_V_TBL',              DB_NAME . '.annexure_v');
+  define('PROJECT_ANNEX_V_DETAILS_TBL',      DB_NAME . '.annexure_v_details');
   define('PROJECT_ANNEX_V_CON_TBL',          DB_NAME . '.annexure_v_contingency');
   define('PROJECT_ANNEX_V_CON_DETAILS_TBL',  DB_NAME . '.annexure_v_contingency_details');
+  
+  
+  define('PROJECT_SUB_TOTAL_VIEW',           DB_NAME . '.view_project_wise_component_sub_total');
   
   
   //Views 

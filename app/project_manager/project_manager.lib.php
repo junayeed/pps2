@@ -52,7 +52,7 @@
     {
         //dumpvar($_REQUEST);
         $info['table'] = PROJECT_ANNEX_V_TBL;
-        $info['debug'] = false;
+        $info['debug'] = true;
         $data['pid']   = base64_decode(getUserField('PI'));
         
         foreach( $_REQUEST as $key => $value)
@@ -103,7 +103,7 @@
     {
         //dumPVar($_REQUEST); die;
         $info['table'] = PROJECT_ANNEX_V_DETAILS_TBL;
-        $info['debug'] = false;
+        $info['debug'] = true;
         $data['pid']   = base64_decode(getUserField('PI'));
         
         for($year=1; $year<=$total_year;$year++) 
@@ -136,7 +136,6 @@
                 $info['where'] = 'id = ' . $data['annex_details_id'] . ' AND annex_id = ' . $annex_id;
                 update($info);
             }
-            //die;
         } 
     }
     
@@ -599,10 +598,14 @@
     
     function makeAnnexVExcel($data)
     {
-        $headerArray = array('A'=>'Economic Code', 'B'=>"Economic Sub Code", 'C'=>'Code Description', 'D'=>'Unit', 'E'=>'Unit Cost', 
-                             'F'=>'Qty', 'G'=>'Total Cost', 'H'=>"GoB\n(FE)", 'I'=>'Project Aid', 'J'=>"Own Fund\n(FE)", 'K'=>"Other\n(FE)");
+        $headerArray_1 = array('A'=>'Economic Code', 'B'=>"Economic Sub Code", 'C'=>'Economic Sub Code Description (in detail)', 'D'=>'Total Project');
+        $headerArray_2 = array('D'=>'Unit', 'E' => 'Unit Cost', 'F' => 'Qty', 'G' => 'Total Cost', 'H' => "GoB\n(FE)", 
+                               'I' => 'Project Aid', 'L' => "Own Fund\n(FE)", 'M' => "Other\n(FE)");
+        $headerArray_3 = array('I' => 'RPA', 'K' => 'DPA');
+        $headerArray_4 = array('I' => "Through\nGoB", 'J' => "Special\nAccount");
         
-        $header = 'Annex - V';
+        $header   = 'Annex - V';
+        $header2  = 'Detailed annual phasing of cost';
         
         // create new PHPExcel object
         $objPHPExcel = new PHPExcel;
@@ -611,7 +614,7 @@
         $objPHPExcel->getDefaultStyle()->getFont()->setName('Calibri');
 
         // set default font size
-        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+        $objPHPExcel->getDefaultStyle()->getFont()->setSize(10);
         
         // set the page orientation
         $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
@@ -628,68 +631,155 @@
         $objSheet = $objPHPExcel->getActiveSheet();
 
         // rename the sheet
-        $objSheet->setTitle('Annex - V');
+        $objSheet->setTitle($header);
         
-        $objSheet->getColumnDimension('A')->setWidth('10');
-        $objSheet->getColumnDimension('B')->setWidth('20');
-        $objSheet->getColumnDimension('C')->setWidth('8');
-        $objSheet->getColumnDimension('D')->setWidth('10');
-        $objSheet->getColumnDimension('E')->setWidth('15');
-        $objSheet->getColumnDimension('F')->setWidth('12');
-        $objSheet->getColumnDimension('G')->setWidth('10');
+        $objSheet->getColumnDimension('A')->setWidth('8');
+        $objSheet->getColumnDimension('B')->setWidth('8');
+        $objSheet->getColumnDimension('C')->setWidth('18');
+        $objSheet->getColumnDimension('D')->setWidth('8');
+        $objSheet->getColumnDimension('E')->setWidth('8');
+        $objSheet->getColumnDimension('F')->setWidth('8');
+        $objSheet->getColumnDimension('G')->setWidth('12');
         $objSheet->getColumnDimension('H')->setWidth('10');
-        $objSheet->getColumnDimension('I')->setWidth('15');
-        $objSheet->getColumnDimension('J')->setWidth('15');
-        $objSheet->getColumnDimension('K')->setWidth('15');
+        $objSheet->getColumnDimension('I')->setWidth('10');
+        $objSheet->getColumnDimension('J')->setWidth('10');
+        $objSheet->getColumnDimension('K')->setWidth('10');
+        $objSheet->getColumnDimension('L')->setWidth('10');
+        $objSheet->getColumnDimension('M')->setWidth('10');
         
         $row = 1;
-        
+        $objSheet->getStyle('A'.$row.':K'.$row)->getFont()->setSize(14);
+        // print $header
         $row++;
-        $objSheet->mergeCells('A'.$row.':K'.$row);
-        $objSheet->getStyle('A'.$row.':K'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-        $objSheet->getStyle('A'.$row.':k'.$row)->getFont()->setBold(true)->setSize(8);
-        $objSheet->getCell('A'.$row)->setValue('Detailed annual phasing cost');
+        $objSheet->mergeCells('A'.$row.':M'.$row);
+        $objSheet->getStyle('A'.$row.':M'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $objSheet->getStyle('A'.$row.':M'.$row)->getFont()->setBold(true)->setSize(8);
+        $objSheet->getCell('A'.$row)->setValue($header);
+        
+        // print $header2
+        $row++;
+        $objSheet->mergeCells('A'.$row.':M'.$row);
+        $objSheet->getStyle('A'.$row.':M'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $objSheet->getStyle('A'.$row.':M'.$row)->getFont()->setBold(true)->setSize(8);
+        $objSheet->getCell('A'.$row)->setValue($header2);
         
         $row++;
         
         // print Report Hearder and Sub Headers --  END
         
-        $row+=2;
         // print the table headers -- START
-        $objSheet->getStyle('A'.$row.':K'.$row)->getFont()->setBold(true)->setSize(10);
-        $objSheet->getStyle('A'.$row.':K'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+        $row+=2;
+        $objSheet->getStyle('A'.$row.':M'.($row+3))->getFont()->setBold(true);
+        $objSheet->getStyle('A'.$row.':M'.($row+3))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+        $objSheet->getStyle('A'.$row.':M'.($row+3))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $objSheet->getStyle('A'.$row.':M'.($row+3))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $objSheet->getStyle('A'.$row.':M'.($row+3))->getAlignment()->setWrapText(true);
         
-        
-        foreach($headerArray as $key => $value)
+        foreach($headerArray_1 as $key => $value)
         {
             $objSheet->getCell($key.$row)->setValue($value);
-            $objSheet->getStyle($key.$row)->getAlignment()->setWrapText(true);
-            $objSheet->getStyle('A'.$row.':K'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            
+            if ($key == 'A' || $key == 'B' || $key == 'C')
+            {
+                $objSheet->mergeCells($key.$row.':'.$key.($row+3)); 
+                $objSheet->getStyle($key.$row.':'.$key.($row+3))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+            }
+            if ($key == 'D')
+            {
+                end($headerArray_1);                       
+                $last_key_header_1 = key($headerArray_1); // get the last key of Header_1
+                end($headerArray_2);
+                $last_key_header_2 = key($headerArray_2); // get the last key of header_2
+        
+                $objSheet->mergeCells($last_key_header_1.$row.':'.$last_key_header_2.$row);  // now merge the first header
+            }
+        }
+        
+        $row++;
+        
+        foreach($headerArray_2 as $key => $value)
+        {
+            $objSheet->getCell($key.$row)->setValue($value);
+            
+            if ($key == 'I')
+            {
+                $objSheet->mergeCells($key.$row.':K'.$row);
+                continue;
+            }
+            $objSheet->mergeCells($key.$row.':'.$key.($row+2)); 
+            $objSheet->getStyle($key.$row.':'.$key.($row+2))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+            
+        }
+        $row++;
+        
+        foreach($headerArray_3 as $key => $value)
+        {
+            $objSheet->getCell($key.$row)->setValue($value);
+            
+            if ($key == 'I')
+            {
+                $objSheet->mergeCells($key.$row.':J'.$row);
+            }
+            
+            if ($key == 'K')
+            {
+                $objSheet->mergeCells($key.$row.':'.$key.($row+1));
+            }
+        }
+        $row++;
+        
+        foreach($headerArray_4 as $key => $value)
+        {
+            $objSheet->getCell($key.$row)->setValue($value);
         }
         // print the headers -- END
         
         $row++;
-        // print the data
-        foreach($data as $oKey => $oValue)    
-        {
-            $objSheet->getStyle('A'.$row.':K'.$row)->getFont()->setSize(10);
-            $objSheet->getStyle('A'.$row.':K'.$row)->getAlignment()->setWrapText(true);
-            $objSheet->getCell('A'.$row)->setValue($oValue->economic_code);
-            $objSheet->getCell('B'.$row)->setValue($oValue->economic_subcode);
-            $objSheet->getCell('C'.$row)->setValue($oValue->economic_subcode_name);
-            $objSheet->getCell('D'.$row)->setValue($oValue->unit);
-            $objSheet->getCell('E'.$row)->setValue($oValue->unit_cost);
-            $objSheet->getCell('F'.$row)->setValue($oValue->qty);
-            $objSheet->getCell('G'.$row)->setValue($oValue->total_cost);
-            $objSheet->getCell('H'.$row)->setValue($oValue->gob . "\n(" . $oValue->gob_fe . ")");
-            $objSheet->getCell('I'.$row)->setValue($oValue->rpa_through_gob);
-            $objSheet->getCell('J'.$row)->setValue($oValue->tender_invitation);
-            $objSheet->getCell('K'.$row)->setValue($oValue->contract_sign);
-            $objSheet->getStyle('A'.$row.':K'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-            
-            $row++;
-        }
         
+        // print the data
+        $objSheet->getStyle('C')->getAlignment()->setWrapText(true);
+        foreach($data['component_list'] as $oKey => $oValue)    
+        {
+            $objSheet->getStyle('A'.$row.':M'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+            $objSheet->getCell('A'.$row)->setValue($oKey);
+            $objSheet->mergeCells('A'.$row.':M'.$row);
+            $row++;
+            
+            foreach($oValue AS $key => $value)
+            {
+                $objSheet->getStyle('A'.$row.':M'.$row)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+                $objSheet->getStyle('A'.$row.':M'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+                $objSheet->getCell('A'.$row)->setValue($value->economic_code);
+                $objSheet->getCell('B'.$row)->setValue($value->economic_subcode);
+                $objSheet->getStyle('C'.$row)->getAlignment()->setWrapText(true);
+                $objSheet->getCell('C'.$row)->setValue($value->economic_subcode_name);
+                $objSheet->getCell('D'.$row)->setValue($value->unit);
+                $objSheet->getCell('E'.$row)->setValue($value->unit_cost);
+                $objSheet->getCell('F'.$row)->setValue($value->qty);
+                $objSheet->getCell('G'.$row)->setValue($value->total_cost);
+                $objSheet->getStyle('H'.$row)->getAlignment()->setWrapText(true);
+                $objSheet->getCell('H'.$row)->setValue($value->gob . "\n(" . $value->gob_fe . ")");
+                $objSheet->getCell('I'.$row)->setValue($value->rpa_through_gob);
+                $objSheet->getCell('J'.$row)->setValue($value->rpa_special_account);
+                $objSheet->getCell('K'.$row)->setValue($value->dpa);
+                $objSheet->getStyle('L'.$row)->getAlignment()->setWrapText(true);
+                $objSheet->getCell('L'.$row)->setValue($value->own_fund . "\n(" . $value->own_fund_fe . ")");
+                $objSheet->getStyle('M'.$row)->getAlignment()->setWrapText(true);
+                $objSheet->getCell('M'.$row)->setValue($value->other . "\n(" . $value->other_fe . ")");
+                
+                $row++;
+            }
+            
+            if ($oKey == 'Revenue Component' || $oKey == 'Capital  Component')
+            {
+                $objSheet->getStyle('A'.$row.':M'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+                $objSheet->mergeCells('A'.$row.':C'.$row);
+                $objSheet->getStyle('A'.$row.':C'.$row)->getFont()->setBold(true);
+                $objSheet->getCell('A'.$row)->setValue('Sub Total (' . $oKey . ')');
+                $row++;
+            }
+        }
+        /*
         $objPHPExcel->getActiveSheet()->getStyle('H7:H'.$row)->getNumberFormat()->setFormatCode($currencyFormat);
         
         // print the grand total
@@ -700,8 +790,8 @@
         $objSheet->getCell('H'.$row)->setValue('=SUM(H7:H'.($row-1).')' ); 
         $objSheet->getStyle('A'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT); 
         $objSheet->getStyle('A'.$row.':K'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-  
-        $filename  = 'Annex-V' . '.xls';
+        */
+        $filename  = 'Annex-V' . '.xlsx';
         
         header('Content-Disposition: attachment;filename="' . $filename. '"');
         //header('Content-Type: application/pdf');

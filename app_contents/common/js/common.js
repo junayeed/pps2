@@ -7,8 +7,9 @@
 *  CVS ID: $Id$
 *
 **************************************************************/
-var DEFAULT_HIGHLIGHT_COLOR = '#ff0000';
-var DEFAULT_RESET_COLOR     = '#557799';
+var DEFAULT_HIGHLIGHT_COLOR     = '#ff0000';
+var DEFAULT_RESET_COLOR         = '#2A002A';
+var DEFAULT_BORDER_RESET_COLOR  = '#65BCDA';
 
 // Global array required for storing
 // required fields information for
@@ -91,6 +92,18 @@ function highlightTableColumn(id, highColor)
    thisElement.style.fontWeight = "bold";
 }
 
+function highlightColumn(id, highColor)
+{
+
+   if (!highColor)
+       highColor = DEFAULT_HIGHLIGHT_COLOR;
+
+   // get the object
+   thisElementObj                 = document.getElementById(id);
+   
+   thisElementObj.style.borderColor  = highColor;
+}
+
 //
 // Reset a table column foreground color and style using ID
 //
@@ -101,7 +114,19 @@ function resetTableColumn(id, resetColor)
 
    thisElement                  = document.getElementById(id);
    thisElement.style.color      = resetColor;
-   thisElement.style.fontWeight = "bold";
+   thisElement.style.fontWeight = "normal";
+   
+}
+
+function resetColumn(id, resetColor)
+{
+   if (!resetColor)
+       resetColor = DEFAULT_RESET_COLOR;
+
+   // get the object
+   thisElementObj                 = document.getElementById(id);
+
+   thisElementObj.style.borderColor  = DEFAULT_BORDER_RESET_COLOR;
    
 }
 

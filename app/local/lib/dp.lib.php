@@ -251,7 +251,7 @@
    {
         $info['table']  = PROJECT_ANNEX_V_TBL . ' AS PAVT LEFT JOIN ' . ECONOMIC_CODE_LOOKUP_TBL . ' AS ECLT ON (PAVT.economic_code_id = ECLT.id)' . 
                           ' LEFT JOIN ' . ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id = ESLT.id)';
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['where']  = 'PAVT.pid = ' . $pid . ' ORDER BY ECLT.economic_code, ESLT.economic_subcode';
         $info['fields'] = array('ECLT.economic_code', 'ESLT.economic_subcode', 'ECLT.component_type', 'PAVT.economic_subcode_name', 
                                 'PAVT.unit', 'PAVT.unit_cost', 'PAVT.qty', 'PAVT.total_cost', 'PAVT.gob', 'PAVT.gob_fe', 'PAVT.rpa_through_gob', 
@@ -267,6 +267,22 @@
         {
             return;
         }
+   }
+   
+   function getProjectWiseComponentSubTotal($pid)
+   {
+       $info['table']  = PROJECT_SUB_TOTAL_VIEW;
+       $info['debug']  = false;
+       $info['where']  = 'pid = ' . $pid;
+       
+       $result = select($info);
+       
+       foreach($result as $key => $value)
+       {
+           $retData[$value->component_type] = $value;
+       }
+       
+       return $retData;
    }
    
    function getProjectWiseContingencyList($pid)
@@ -285,6 +301,13 @@
         {
             return;
         }
+   }
+   
+   function getProjectWiseGrandTotal($pid)
+   {
+       $info['table']  = PROJECT_ANNEX_V_TBL;
+       $info['debug']  = true;
+       $info['where']  = 'pid = ' . $pid;
    }
    
   /**
