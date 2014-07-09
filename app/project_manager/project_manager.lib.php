@@ -50,16 +50,22 @@
     
     function updateAnnexV()
     {
-        //dumpvar($_REQUEST);
-        $info['table'] = PROJECT_ANNEX_V_TBL;
-        $info['debug'] = true;
-        $data['pid']   = base64_decode(getUserField('PI'));
         
-        foreach( $_REQUEST as $key => $value)
+        $info['table'] = PROJECT_ANNEX_V_TBL;
+        $info['debug'] = false;
+        $data['pid']   = base64_decode(getUserField('PI'));
+        $cnt = 1;
+        $componentArray = explode(",", $_REQUEST['component_list']);
+        
+        //dumpvar($componentArray);
+        
+        foreach( $componentArray as $key => $value)
 	{
-            if( preg_match('/economic_code_(\d+)/', $key, $matches))
+            //echo_br('Iteration = ' . $cnt++);
+            //if( preg_match('/economic_code_(\d+)/', $key, $matches))
             {
-                $id = $matches[1];
+                //$id = $matches[1];
+                $id = $value;
                 
                 $data['economic_code_id']          = $_REQUEST['economic_code_' . $id];
                 $data['economic_subcode_id']       = $_REQUEST['sub_code_' . $id];
@@ -97,13 +103,14 @@
                 }
  	    }
         }
+        //echo_br('Dying...........');
+        //die;
     }
     
     function updateAnnexVDetails($annex_id,$total_year,$row_id)
     {
-        //dumPVar($_REQUEST); die;
         $info['table'] = PROJECT_ANNEX_V_DETAILS_TBL;
-        $info['debug'] = true;
+        $info['debug'] = false; 
         $data['pid']   = base64_decode(getUserField('PI'));
         
         for($year=1; $year<=$total_year;$year++) 
@@ -157,7 +164,7 @@
             $data['total_cost']                = $_REQUEST[$contingency[$i].'_contigency_total']           ? $_REQUEST[$contingency[$i].'_contigency_total']           : 0.0;
             $data['gob']                       = $_REQUEST[$contingency[$i].'_contigency_gob']             ? $_REQUEST[$contingency[$i].'_contigency_gob']             : 0.0;
             $data['gob_fe']                    = $_REQUEST[$contingency[$i].'_contigency_gob_fe']          ? $_REQUEST[$contingency[$i].'_contigency_gob_fe']          : 0.0;
-            $data['rpa_through_gob']           = $_REQUEST[$contingency[$i].'_contigency_pa_through_gob']  ? $_REQUEST[$contingency[$i].'_contigency_pa_through_gob']  : 0.0;
+            $data['rpa_through_gob']           = $_REQUESTcd [$contingency[$i].'_contigency_pa_through_gob']  ? $_REQUEST[$contingency[$i].'_contigency_pa_through_gob']  : 0.0;
             $data['rpa_special_account']       = $_REQUEST[$contingency[$i].'_contigency_pa_sp_acnt']      ? $_REQUEST[$contingency[$i].'_contigency_pa_sp_acnt']      : 0.0;
             $data['dpa']                       = $_REQUEST[$contingency[$i].'_contigency_pa_dpa']          ? $_REQUEST[$contingency[$i].'_contigency_pa_dpa']          : 0.0;
             $data['own_fund']                  = $_REQUEST[$contingency[$i].'_contigency_own_fund']        ? $_REQUEST[$contingency[$i].'_contigency_own_fund']        : 0.0;
@@ -614,7 +621,14 @@
         $objPHPExcel->getDefaultStyle()->getFont()->setName('Calibri');
 
         // set default font size
-        $objPHPExcel->getDefaultStyle()->getFont()->setSize(10);
+        $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+        
+        // set default alignment
+        $objPHPExcel->getDefaultStyle()->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $objPHPExcel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        
+        // set default wrap text
+        $objPHPExcel->getDefaultStyle()->getAlignment()->setWrapText(true);
         
         // set the page orientation
         $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
@@ -648,19 +662,18 @@
         $objSheet->getColumnDimension('M')->setWidth('10');
         
         $row = 1;
-        $objSheet->getStyle('A'.$row.':K'.$row)->getFont()->setSize(14);
         // print $header
         $row++;
         $objSheet->mergeCells('A'.$row.':M'.$row);
         $objSheet->getStyle('A'.$row.':M'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-        $objSheet->getStyle('A'.$row.':M'.$row)->getFont()->setBold(true)->setSize(8);
+        $objSheet->getStyle('A'.$row.':M'.$row)->getFont()->setBold(true)->setSize(12);
         $objSheet->getCell('A'.$row)->setValue($header);
         
         // print $header2
         $row++;
         $objSheet->mergeCells('A'.$row.':M'.$row);
         $objSheet->getStyle('A'.$row.':M'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-        $objSheet->getStyle('A'.$row.':M'.$row)->getFont()->setBold(true)->setSize(8);
+        $objSheet->getStyle('A'.$row.':M'.$row)->getFont()->setBold(true)->setSize(10);
         $objSheet->getCell('A'.$row)->setValue($header2);
         
         $row++;
@@ -669,11 +682,12 @@
         
         // print the table headers -- START
         $row+=2;
+        $header_start_cell = $row;
         $objSheet->getStyle('A'.$row.':M'.($row+3))->getFont()->setBold(true);
         $objSheet->getStyle('A'.$row.':M'.($row+3))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
         $objSheet->getStyle('A'.$row.':M'.($row+3))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $objSheet->getStyle('A'.$row.':M'.($row+3))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-        $objSheet->getStyle('A'.$row.':M'.($row+3))->getAlignment()->setWrapText(true);
+        $table_header_row_start = $row;
         
         foreach($headerArray_1 as $key => $value)
         {
@@ -735,11 +749,11 @@
         // print the headers -- END
         
         $row++;
-        
+        $data_row = $row;
         // print the data
-        $objSheet->getStyle('C')->getAlignment()->setWrapText(true);
         foreach($data['component_list'] as $oKey => $oValue)    
         {
+            $objSheet->getStyle('A'.$row.':M'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
             $objSheet->getStyle('A'.$row.':M'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
             $objSheet->getCell('A'.$row)->setValue($oKey);
             $objSheet->mergeCells('A'.$row.':M'.$row);
@@ -747,24 +761,20 @@
             
             foreach($oValue AS $key => $value)
             {
-                $objSheet->getStyle('A'.$row.':M'.$row)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
                 $objSheet->getStyle('A'.$row.':M'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
                 $objSheet->getCell('A'.$row)->setValue($value->economic_code);
                 $objSheet->getCell('B'.$row)->setValue($value->economic_subcode);
-                $objSheet->getStyle('C'.$row)->getAlignment()->setWrapText(true);
+                $objSheet->getStyle('A'.$row.':M'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
                 $objSheet->getCell('C'.$row)->setValue($value->economic_subcode_name);
                 $objSheet->getCell('D'.$row)->setValue($value->unit);
                 $objSheet->getCell('E'.$row)->setValue($value->unit_cost);
                 $objSheet->getCell('F'.$row)->setValue($value->qty);
                 $objSheet->getCell('G'.$row)->setValue($value->total_cost);
-                $objSheet->getStyle('H'.$row)->getAlignment()->setWrapText(true);
                 $objSheet->getCell('H'.$row)->setValue($value->gob . "\n(" . $value->gob_fe . ")");
                 $objSheet->getCell('I'.$row)->setValue($value->rpa_through_gob);
                 $objSheet->getCell('J'.$row)->setValue($value->rpa_special_account);
                 $objSheet->getCell('K'.$row)->setValue($value->dpa);
-                $objSheet->getStyle('L'.$row)->getAlignment()->setWrapText(true);
                 $objSheet->getCell('L'.$row)->setValue($value->own_fund . "\n(" . $value->own_fund_fe . ")");
-                $objSheet->getStyle('M'.$row)->getAlignment()->setWrapText(true);
                 $objSheet->getCell('M'.$row)->setValue($value->other . "\n(" . $value->other_fe . ")");
                 
                 $row++;
@@ -779,6 +789,102 @@
                 $row++;
             }
         }
+        
+        
+        $details_colum_start_cell_no = 13;
+        $details_colum_start_cell = PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no);  // N = 13as A = 0 as column number
+        
+        $content_header_1 = array('A' => "GoB\n(FE)", 'B' => 'Project Aid', 'C' => "Own Fund\n(FE)", 'D' => "Other\n(FE)");
+        $content_header_2 = array('A' => "RPA", 'B' => 'DPA');
+        $content_header_3 = array('A' => "Through\nGoB", 'B' => "Special\nAccount");
+        
+        foreach($data['component_details'] as $comKey => $comValue)
+        {
+            $row = $table_header_row_start;
+            $objSheet->mergeCells($details_colum_start_cell.$row.':' . PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no+5).$row);
+            $objSheet->getStyle($details_colum_start_cell.$row.':' . PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no+5).$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+            $objSheet->getCell($details_colum_start_cell.$row)->setValue($comKey);
+            $row++;
+            
+            $kk = $details_colum_start_cell; // this is for second header after printing the financial_year at the top of table
+
+            //print the header_1 after the <financial_year> -- START 
+            foreach($content_header_1 as $content_header_key => $content_header_value)
+            {
+                //echo_br('Key = ' . $content_header_key . ' = '.$kk . '-' . PHPExcel_Cell::columnIndexFromString($kk));
+                if ($content_header_key == "B")
+                {
+                    $objSheet->mergeCells($kk.$row.':'.PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($kk)+1).$row);
+                    $objSheet->getStyle($kk.$row.':'.PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($kk)+1).$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+                    $objSheet->getStyle($kk.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+                    $objSheet->getCell($kk.$row)->setValue($content_header_value);
+                    $kk = PHPExcel_Cell::stringFromColumnIndex( PHPExcel_Cell::columnIndexFromString($kk)+2 );
+                    continue;
+                }
+                
+                $objSheet->mergeCells($kk.$row.':'.PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($kk)-1).($row+2));
+                $objSheet->getStyle($kk.$row.':'.PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($kk)-1).($row+2))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+                $objSheet->getCell($kk.$row)->setValue($content_header_value);
+                
+                $kk = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($kk));
+            }
+            //print the header_1 after the <financial_year> -- END 
+            $row++;
+            //print the header_2 after the <financial_year> -- START
+            $cell_position = PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no+1);
+            foreach($content_header_2 as $content_header_key_2 => $content_header_value_2)
+            {
+                //
+                if ($content_header_key_2 == 'A')
+                {
+                    $objSheet->mergeCells($cell_position.$row.':'.PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($cell_position)).$row);
+                    $objSheet->getStyle($cell_position.$row.':'.PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($cell_position)).$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+                    $objSheet->getCell($cell_position.$row)->setValue($content_header_value_2);
+                    $cell_position = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($cell_position)+1);
+                    continue;
+                }
+                
+                $objSheet->getStyle($cell_position.$row.':'.PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($cell_position)-1).($row+1))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+                $objSheet->mergeCells($cell_position.$row.':'.PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($cell_position)-1).($row+1));
+                $objSheet->getCell($cell_position.$row)->setValue($content_header_value_2);
+                $cell_position = PHPExcel_Cell::stringFromColumnIndex(++$cell_position);
+            }
+            //print the header_2 after the <financial_year> -- END 
+            $row++;
+            //print the header_3 after the <financial_year> -- START 
+            $cell_position = PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no+1);
+            foreach($content_header_3 as $content_header_value_3)
+            {
+                //echo_br('Key = ' . $content_header_key_3 . ' Cell Pos = '. $cell_position.$row);
+                $objSheet->getCell($cell_position.$row)->setValue($content_header_value_3);
+                $objSheet->getStyle($cell_position.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+                $cell_position = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($cell_position));
+            }
+            //print the header_3 after the <financial_year> -- END 
+            
+            $objSheet->getStyle($details_colum_start_cell.$header_start_cell.':'.PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no+5).$row)->getFont()->setBold(true);
+            
+            
+            
+            $row+=2;
+            //NOW PRINT THE COMPONENT DETAILS DATA
+            $data_column = $details_colum_start_cell;
+            foreach($comValue as $component_details_val)
+            {
+                //ajaj
+                $objSheet->getCell($data_column.$row)->setValue($component_details_val->gob . "\n(" . $component_details_val->gob_fe . ")");
+                $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($data_column)).$row)->setValue($component_details_val->rpa_through_gob);
+                $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($data_column)+1).$row)->setValue($component_details_val->rpa_special_account);
+                $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($data_column)+2).$row)->setValue($component_details_val->dpa);
+                $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($data_column)+3).$row)->setValue($component_details_val->own_fund . "\n(" . $component_details_val->own_fund_fe . ")");
+                $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($data_column)+4).$row)->setValue($component_details_val->other . "\n(" . $component_details_val->other_fe . ")");
+                $row++;
+            }
+            
+            $details_colum_start_cell_no +=6;
+            $details_colum_start_cell = PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no);
+        }
+        $row++;
         /*
         $objPHPExcel->getActiveSheet()->getStyle('H7:H'.$row)->getNumberFormat()->setFormatCode($currencyFormat);
         
@@ -799,4 +905,4 @@
         $objWriter->save($_SERVER['DOCUMENT_ROOT'].'/files/'.$filename);
         header ('Location: /files/'.$filename);
     }
-?>
+?>  

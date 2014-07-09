@@ -236,7 +236,7 @@
    function getAnnexVComponentDetails($pid)
    {
        $info['table']  = PROJECT_ANNEX_V_DETAILS_TBL;
-       $info['debug']  = false;
+       $info['debug']  = true;
        $info['where']  = 'pid = ' . $pid.' order by year_serial';
        
        $result = select($info);

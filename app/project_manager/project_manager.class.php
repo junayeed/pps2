@@ -323,7 +323,7 @@ class projectManagerApp extends DefaultApplication
         updateAnnexV();
         updateAnnexVContingency();
         updateProjectTotalCost($pid);
-        //die;
+
         header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid));
         //return $this->showAnnexV();
     }
@@ -482,7 +482,7 @@ class projectManagerApp extends DefaultApplication
         // arranging the economic code details phasing cost according to the year serial or year wise
         foreach($economic_code_details_list as $value)
         {
-            $retData['component_details'][$value->year_serial][] = $value;
+            $retData['component_details'][$value->financial_year][] = $value;
         }
         // arranging the contingency details phasing cost according to the year serial or year wise
         foreach($contingency_details_list as $value)
@@ -490,7 +490,7 @@ class projectManagerApp extends DefaultApplication
             $retData['contingency_details'][$value->year_serial][] = $value;
         }
         
-        //dumpVar($retData);
+        //dumpVar($retData['component_details']);
 
         if ($report_type == 'excel')
         {    

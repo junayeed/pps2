@@ -196,6 +196,7 @@ function addNewComponent()
     
     $(".chzn-select").chosen();
     componentRowIDArray.push(COMPONENT_ROW_ID);
+    $('#component_list').val(componentRowIDArray);
     COMPONENT_ROW_ID++;
     
     adjustComponentRowPerYear(1,COMPONENT_ROW_ID-1);
@@ -252,6 +253,7 @@ function deleteComponent(elemID)
     if(index!=-1)
     {
         componentRowIDArray.splice(index, 1);
+        $('#component_list').val(componentRowIDArray);
     }
     
     calculateAnnexVGrandTotal();
