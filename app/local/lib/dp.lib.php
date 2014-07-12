@@ -193,9 +193,10 @@
    
    function getComponentList($pid)
    {
-       $info['table']  = PROJECT_ANNEX_V_TBL;
+       $info['table']  = PROJECT_ANNEX_V_TBL . ' AS PAVT LEFT JOIN ' . ECONOMIC_CODE_LOOKUP_TBL . ' AS ECLT ON (PAVT.economic_code_id = ECLT.id)';
        $info['debug']  = false;
        $info['where']  = 'pid = ' . $pid;
+       $info['fields'] = array('PAVT.*', 'ECLT.component_type');
        
        $result = select($info);
        
@@ -236,7 +237,7 @@
    function getAnnexVComponentDetails($pid)
    {
        $info['table']  = PROJECT_ANNEX_V_DETAILS_TBL;
-       $info['debug']  = true;
+       $info['debug']  = false;
        $info['where']  = 'pid = ' . $pid.' order by year_serial';
        
        $result = select($info);

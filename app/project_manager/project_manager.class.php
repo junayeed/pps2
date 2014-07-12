@@ -341,8 +341,9 @@ class projectManagerApp extends DefaultApplication
         $data['annx_v_component_details']    = getAnnexVComponentDetails($pid);
         $data['annex_v_contingency_list']    = getContingencyList($pid);
         $data['annex_v_contingency_details'] = getAnnexVContingencyDetails($pid);
+        $data['annex_v_category_sub_total']  = getProjectWiseComponentSubTotal($pid);
         
-        //dumpvar($data['annx_v_component_details']);
+        //dumpvar($data['annex_v_category_sub_total']);
         $this->annexVExportTo($pid, $report_type);
         
         return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);

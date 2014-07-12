@@ -63,16 +63,15 @@
   define('ECONOMIC_SUBCODE_LOOKUP_TBL',  DB_NAME . '.economic_subcode_lookup');
   
   
-  define('US_STATE_TBL',                 DB_NAME . '.us_states');
+  define('US_STATE_TBL',                     DB_NAME . '.us_states');
+  define('DOCUMENT_TBL',                     DB_NAME . '.document');
 
-  define('DOCUMENT_TBL',                 DB_NAME . '.document');
-
-  define('GROUP_TBL',                    DB_NAME . '.group');
-  define('USER_TBL',                     DB_NAME . '.user');
-  define('ADDRESS_TBL',                  DB_NAME . '.user_address');
-  define('USER_GROUP_TBL',               DB_NAME . '.user_group');
-  define('PROJECT_TBL',                  DB_NAME . '.projects');
-  define('PROJECT_PART_B_TBL',           DB_NAME . '.projects_part_b');
+  define('GROUP_TBL',                        DB_NAME . '.group');
+  define('USER_TBL',                         DB_NAME . '.user');
+  define('ADDRESS_TBL',                      DB_NAME . '.user_address');
+  define('USER_GROUP_TBL',                   DB_NAME . '.user_group');
+  define('PROJECT_TBL',                      DB_NAME . '.projects');
+  define('PROJECT_PART_B_TBL',               DB_NAME . '.projects_part_b');
   define('PROJECT_MINISTRY_TBL',             DB_NAME . '.project_ministries');
   define('PROJECT_AGENCY_TBL',               DB_NAME . '.project_agencies');
   define('PROJECT_DEV_PARTNER_TBL',          DB_NAME . '.project_dev_partners');
@@ -85,11 +84,9 @@
   define('PROJECT_ANNEX_V_CON_DETAILS_TBL',  DB_NAME . '.annexure_v_contingency_details');
   
   
+  
+  define('PROJECT_YEAR_WISE_GOB_OWNFUND',    DB_NAME . '.year_wise_gob_ownfund');
   define('PROJECT_SUB_TOTAL_VIEW',           DB_NAME . '.view_project_wise_component_sub_total');
-  
-  
-  //Views 
-  define('PROJECT_YEAR_WISE_GOB_OWNFUND',  DB_NAME . '.year_wise_gob_ownfund');
   
   if (AUTO_CONNECT_TO_DATABASE)
   {

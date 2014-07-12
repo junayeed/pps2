@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 07, 2014 at 10:58 AM
+-- Generation Time: Jul 12, 2014 at 02:33 PM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -529,11 +529,10 @@ INSERT INTO `annexure_v` (`id`, `pid`, `economic_code_id`, `economic_subcode_id`
 (5, 19, 2, 2, 'Pay of Establishment', 'AS', 44.44, 2, 88.88, 11.98, 12, 15.9, 15, 13, 17, 103, 16, 12, 3, ''),
 (11, 19, 5, 130, 'Motor Vehicles', 'LS', 49, 4, 196, 10, 106, 11, 45, 11, 15, 11, 104, 11, 3, ''),
 (12, 19, 1, 1, 'Pay of Officers', '', 0, 0, 108, 18, 18, 18, 18, 18, 18, 18, 18, 18, 3, ''),
-(13, 20, 2, 2, 'Pay of Establishment', 'AS', 5075, 2, 10150, 3200, 7900, 6809, 63, 26, 26, 27, 26, 27, 2, ''),
-(14, 20, 5, 133, 'Machineries & Equipment', 'LS', 219.71, 45, 9887, 206, 643, 8892, 669, 46, 7, 7, 67, 7, 2, ''),
-(15, 20, 9, 341, 'Water Transport', 'Nos', 108.53, 23, 2496.27, 2229.75, 3, 59.9, 94.97, 15.98, 83.67, 50.98, 12, 13.09, 2, ''),
-(16, 20, 12, 408, 'Investment for Recapitalization of Bank', 'Acre', 0, 0, 63, 7, 8, 9, 10, 11, 12, 13, 14, 9, 2, ''),
-(17, 20, 13, 428, 'City Corporations', 'TS', 0, 0, 282, 107, 17, 107, 17, 17, 17, 17, 17, 17, 2, '');
+(13, 20, 2, 2, 'Pay of Establishment', 'AS', 5096, 2, 10192, 3203, 7900, 6809, 96, 26, 29, 27, 29, 27, 3, ''),
+(14, 20, 5, 133, 'Machineries & Equipment', 'LS', 219.91, 45, 9896, 209, 643, 8892, 672, 46, 10, 7, 67, 7, 3, ''),
+(16, 20, 12, 408, 'Investment for Recapitalization of Bank', 'Acre', 0, 0, 69, 10, 8, 9, 10, 11, 15, 13, 14, 9, 3, ''),
+(17, 20, 13, 428, 'City Corporations', 'TS', 0, 0, 288, 110, 17, 107, 17, 17, 20, 17, 17, 17, 3, '');
 
 -- --------------------------------------------------------
 
@@ -572,8 +571,8 @@ CREATE TABLE IF NOT EXISTS `annexure_v_contingency` (
 INSERT INTO `annexure_v_contingency` (`id`, `pid`, `economic_code_id`, `economic_subcode_id`, `economic_subcode_name`, `unit`, `unit_cost`, `qty`, `total_cost`, `gob`, `gob_fe`, `rpa_through_gob`, `rpa_special_account`, `dpa`, `own_fund`, `own_fund_fe`, `other`, `other_fe`, `total_year`, `type`) VALUES
 (1, 19, 99999, 9999901, 'Physical Contingency', '', 0, 0, 78, 10, 10, 13, 14, 15, 16, 10, 10, 10, 0, 'Physical'),
 (2, 19, 88888, 8888801, 'Price Contingency', '', 0, 0, 60, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 'Price'),
-(3, 20, 99999, 9999901, 'Physical Contingency', '', 0, 0, 510, 7.4, 8.79, 8, 12.8, 12.5, 6.5, 58.7, 462.8, 67, 0, 'Physical'),
-(4, 20, 88888, 8888801, 'Price Contingency', '', 0, 0, 382.74, 105.34, 338.78, 38.67, 88.8, 70.6, 39.43, 96.89, 39.9, 48.8, 0, 'Price');
+(3, 20, 99999, 9999901, 'Physical Contingency', '', 0, 0, 519, 10.4, 8.79, 0, 12.8, 12.5, 9.5, 58.7, 465.8, 67, 0, 'Physical'),
+(4, 20, 88888, 8888801, 'Price Contingency', '', 0, 0, 391.74, 108.34, 338.78, 0, 88.8, 70.6, 42.43, 96.89, 42.9, 48.8, 0, 'Price');
 
 -- --------------------------------------------------------
 
@@ -597,7 +596,7 @@ CREATE TABLE IF NOT EXISTS `annexure_v_contingency_details` (
   `year_serial` int(11) NOT NULL,
   `type` enum('Physical','Price') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `annexure_v_contingency_details`
@@ -607,7 +606,9 @@ INSERT INTO `annexure_v_contingency_details` (`id`, `pid`, `gob`, `gob_fe`, `rpa
 (7, 20, 2.4, 3.79, 3, 7.8, 8.5, 3.5, 3.7, 406.8, 0, 432, 1, 'Physical'),
 (8, 20, 100.34, 333.78, 33.67, 32.8, 4.6, 33.43, 30.89, 34.9, 44.8, 239.74, 1, 'Price'),
 (9, 20, 5, 5, 5, 5, 4, 3, 55, 56, 67, 78, 2, 'Physical'),
-(10, 20, 5, 5, 5, 56, 66, 6, 66, 5, 4, 143, 2, 'Price');
+(10, 20, 5, 5, 5, 56, 66, 6, 66, 5, 4, 143, 2, 'Price'),
+(11, 20, 3, 0, 0, 0, 0, 3, 0, 3, 0, 9, 3, 'Physical'),
+(12, 20, 3, 0, 0, 0, 0, 3, 0, 3, 0, 9, 3, 'Price');
 
 -- --------------------------------------------------------
 
@@ -632,7 +633,7 @@ CREATE TABLE IF NOT EXISTS `annexure_v_details` (
   `financial_year` varchar(256) NOT NULL,
   `year_serial` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=57 ;
 
 --
 -- Dumping data for table `annexure_v_details`
@@ -641,14 +642,16 @@ CREATE TABLE IF NOT EXISTS `annexure_v_details` (
 INSERT INTO `annexure_v_details` (`id`, `annex_id`, `pid`, `gob`, `gob_fe`, `rpa_through_gob`, `rpa_special_account`, `dpa`, `own_fund`, `own_fund_fe`, `other`, `other_fe`, `total`, `financial_year`, `year_serial`) VALUES
 (42, 13, 20, 2999, 7878, 6787, 41, 4, 4, 5, 4, 5, 9839, 'Harun', 1),
 (43, 14, 20, 199, 78, 8888, 666, 1, 1, 1, 1, 1, 9756, 'Harun', 1),
-(44, 15, 20, 2225.75, 0, 35.9, 89.97, 9.98, 7.67, 45.98, 8, 9.09, 2377.27, 'Harun', 1),
 (45, 13, 20, 2, 3, 4, 5, 6, 7, 8, 9, 4, 33, 'Year 2', 2),
 (46, 14, 20, 4, 3, 24, 5, 6, 76, 5, 4, 4, 119, 'Year 2', 2),
-(47, 15, 20, 7, 565, 4, 3, 45, 6, 6, 66, 6, 131, 'Year 2', 2),
 (48, 16, 20, 101, 11, 101, 11, 11, 11, 11, 11, 11, 246, 'Harun', 1),
 (49, 16, 20, 201, 22, 22, 22, 22, 22, 22, 22, 22, 311, 'Year 2', 2),
 (50, 17, 20, 5, 5, 5, 5, 5, 5, 5, 5, 5, 30, 'Harun', 1),
-(51, 17, 20, 6, 6, 6, 6, 6, 6, 6, 6, 6, 36, 'Year 2', 2);
+(51, 17, 20, 6, 6, 6, 6, 6, 6, 6, 6, 6, 36, 'Year 2', 2),
+(52, 13, 20, 3, 0, 0, 33, 0, 3, 0, 3, 0, 42, 'Year: 2014-2015', 3),
+(53, 14, 20, 3, 0, 0, 3, 0, 3, 0, 0, 0, 9, 'Year: 2014-2015', 3),
+(55, 16, 20, 3, 0, 0, 0, 0, 3, 0, 0, 0, 6, 'Year: 2014-2015', 3),
+(56, 17, 20, 3, 0, 0, 0, 0, 3, 0, 0, 0, 6, 'Year: 2014-2015', 3);
 
 -- --------------------------------------------------------
 
@@ -1303,7 +1306,7 @@ CREATE TABLE IF NOT EXISTS `document` (
 CREATE TABLE IF NOT EXISTS `economic_code_lookup` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `economic_code` int(11) NOT NULL,
-  `component_type` enum('Revenue Component','Capital  Component') NOT NULL,
+  `component_type` enum('Revenue Component','Capital Component') NOT NULL,
   `economic_code_name` varchar(256) NOT NULL,
   `status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`id`)
@@ -1322,12 +1325,12 @@ INSERT INTO `economic_code_lookup` (`id`, `economic_code`, `component_type`, `ec
 (6, 5000, 'Revenue Component', 'Term Loan Interest', 'Active'),
 (7, 5900, 'Revenue Component', 'Grants in Aid', 'Active'),
 (8, 6600, 'Revenue Component', 'Block Allocations', 'Active'),
-(9, 6800, 'Capital  Component', 'Acquisition of Assets', 'Active'),
-(10, 6900, 'Capital  Component', 'Acquisition / Purchase of Land', 'Active'),
-(11, 7000, 'Capital  Component', 'Construction and Works', 'Active'),
-(12, 7100, 'Capital  Component', 'Investments in Shares and Equities', 'Active'),
-(13, 7200, 'Capital  Component', 'Capital Grants', 'Active'),
-(14, 7900, 'Capital  Component', 'Development Import Duty and VAT', 'Active');
+(9, 6800, 'Capital Component', 'Acquisition of Assets', 'Active'),
+(10, 6900, 'Capital Component', 'Acquisition / Purchase of Land', 'Active'),
+(11, 7000, 'Capital Component', 'Construction and Works', 'Active'),
+(12, 7100, 'Capital Component', 'Investments in Shares and Equities', 'Active'),
+(13, 7200, 'Capital Component', 'Capital Grants', 'Active'),
+(14, 7900, 'Capital Component', 'Development Import Duty and VAT', 'Active');
 
 -- --------------------------------------------------------
 
@@ -1979,7 +1982,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
 --
 
 INSERT INTO `projects` (`id`, `project_title_en`, `project_title_bn`, `project_type`, `create_date`, `date_of_commencement`, `date_of_completion`, `adp_sector`, `adp_sub_sector`, `sector_division`, `objectives`, `total_cost`, `gob_cost`, `pa_through_gob_cost`, `pa_spc_acnt_cost`, `pa_dpa_cost`, `own_fund_cost`, `other_cost`, `exchange_rate`, `status`, `current_holder_id`, `gob_fe_cost`, `own_fund_fe_cost`, `other_fe_cost`) VALUES
-(20, 'Implementation of digital ECNEC', 'Implementation of digital ECNEC', 'DPP', '2014-06-24 16:10:27', '2014-07-01', '2016-06-30', 1, 20, 4, '<p>asdf asdf asd asdfa sdf asdfasd fasdfasdf asdfhasdkf asldflasdf lasdjflasdflsdf lasdkjf hfdjasdfkldasjfj askldfjaskld fjasldkfj asdlfjaskldf lasdjf lsadkfj lasdjf</p>', 23771.01, 5862.49, 15923.57, 955.57, 199.08, 191.6, 638.7, 'asd fasdf asdf', 'Draff', 0, 8918.57, 270.57, 188.89);
+(20, 'Implementation of digital ECNEC', 'Implementation of digital ECNEC', 'DPP', '2014-06-24 16:10:27', '2014-07-01', '2016-06-30', 1, 20, 4, '<p>asdf asdf asd asdfa sdf asdfasd fasdfasdf asdfhasdkf asldflasdf lasdjflasdflsdf lasdkjf hfdjasdfkldasjfj askldfjaskld fjasldkfj asdlfjaskldf lasdjf lsadkfj lasdjf</p>', 21355.74, 3650.74, 15817, 896.6, 183.1, 125.93, 635.7, 'asd fasdf asdf', 'Draff', 0, 8915.57, 219.59, 175.8);
 
 -- --------------------------------------------------------
 
@@ -2985,11 +2988,50 @@ INSERT INTO `us_states` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `view_component_type_wise_subtotal`
+--
+CREATE TABLE IF NOT EXISTS `view_component_type_wise_subtotal` (
+`pid` int(11)
+,`component_type` enum('Revenue Component','Capital Component')
+,`sub_total_cost` double
+,`sub_gob` double
+,`sub_gob_fe` double
+,`sub_rpa` double
+,`sub_rpa_special` double
+,`sub_dpa` double
+,`sub_own_fund` double
+,`sub_own_fund_fe` double
+,`sub_other` double
+,`sub_other_fe` double
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `view_component_type_year_wise_subtotal`
+--
+CREATE TABLE IF NOT EXISTS `view_component_type_year_wise_subtotal` (
+`pid` int(11)
+,`year_serial` int(11)
+,`component_type` enum('Revenue Component','Capital Component')
+,`sub_total_cost` double
+,`sub_gob` double
+,`sub_gob_fe` double
+,`sub_rpa` double
+,`sub_rpa_special` double
+,`sub_dpa` double
+,`sub_own_fund` double
+,`sub_own_fund_fe` double
+,`sub_other` double
+,`sub_other_fe` double
+);
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `view_project_wise_component_sub_total`
 --
 CREATE TABLE IF NOT EXISTS `view_project_wise_component_sub_total` (
 `pid` int(11)
-,`component_type` enum('Revenue Component','Capital  Component')
+,`component_type` enum('Revenue Component','Capital Component')
 ,`sub_total_total_cost` double
 ,`sub_total_gob` double
 ,`sub_total_gob_fe` double
@@ -3015,6 +3057,24 @@ CREATE TABLE IF NOT EXISTS `year_wise_gob_ownfund` (
 ,`year_serial` int(11)
 ,`financial_year` varchar(256)
 );
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_component_type_wise_subtotal`
+--
+DROP TABLE IF EXISTS `view_component_type_wise_subtotal`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_component_type_wise_subtotal` AS select `anx`.`pid` AS `pid`,`ec`.`component_type` AS `component_type`,sum(`anx`.`total_cost`) AS `sub_total_cost`,sum(`anx`.`gob`) AS `sub_gob`,sum(`anx`.`gob_fe`) AS `sub_gob_fe`,sum(`anx`.`rpa_through_gob`) AS `sub_rpa`,sum(`anx`.`rpa_special_account`) AS `sub_rpa_special`,sum(`anx`.`dpa`) AS `sub_dpa`,sum(`anx`.`own_fund`) AS `sub_own_fund`,sum(`anx`.`own_fund_fe`) AS `sub_own_fund_fe`,sum(`anx`.`other`) AS `sub_other`,sum(`anx`.`other_fe`) AS `sub_other_fe` from (`annexure_v` `anx` left join `economic_code_lookup` `ec` on((`anx`.`economic_code_id` = `ec`.`id`))) where 1 group by `ec`.`component_type`,`anx`.`pid`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_component_type_year_wise_subtotal`
+--
+DROP TABLE IF EXISTS `view_component_type_year_wise_subtotal`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_component_type_year_wise_subtotal` AS select `anx`.`pid` AS `pid`,`anx_d`.`year_serial` AS `year_serial`,`ec`.`component_type` AS `component_type`,sum(`anx_d`.`total`) AS `sub_total_cost`,sum(`anx_d`.`gob`) AS `sub_gob`,sum(`anx_d`.`gob_fe`) AS `sub_gob_fe`,sum(`anx_d`.`rpa_through_gob`) AS `sub_rpa`,sum(`anx_d`.`rpa_special_account`) AS `sub_rpa_special`,sum(`anx_d`.`dpa`) AS `sub_dpa`,sum(`anx_d`.`own_fund`) AS `sub_own_fund`,sum(`anx_d`.`own_fund_fe`) AS `sub_own_fund_fe`,sum(`anx_d`.`other`) AS `sub_other`,sum(`anx_d`.`other_fe`) AS `sub_other_fe` from ((`annexure_v_details` `anx_d` left join `annexure_v` `anx` on((`anx_d`.`annex_id` = `anx`.`id`))) left join `economic_code_lookup` `ec` on((`anx`.`economic_code_id` = `ec`.`id`))) where 1 group by `ec`.`component_type`,`anx_d`.`year_serial`,`anx`.`pid`;
+
 -- --------------------------------------------------------
 
 --

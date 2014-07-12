@@ -72,9 +72,29 @@
                                             <th class="span12">Code description</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="economic_code_content">
+                                    <tbody id="Revenue_Component_economic_code_content">
+                                        <tr>
+                                            <td colspan="4" style="height: 29px !important;">Revenue Component</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="Capital_Component_economic_code_content">
+                                        <tr>
+                                            <td colspan="4">
+                                                (a) Revenue Component Sub Total<br><br>
+                                                <a href="javascript:void(0);" onClick="addNewComponent('Revenue Component');">Add Revenue Component</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="height: 29px !important;">Capital Component</td>
+                                        </tr>
                                     </tbody>
                                     <tfoot>
+                                        <tr>
+                                            <td colspan="4">
+                                                (b) Capital Contingency Sub Total<br><br>
+                                                <a href="javascript:void(0);" onClick="addNewComponent('Capital Component');">Add Revenue Component</a>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td colspan="4">Physical Contingency</td>
                                         </tr>
@@ -95,9 +115,25 @@
                                             <th class="span4">Total Cost</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="total_cost_content">
+                                    <tbody id="Revenue_Component_total_cost_content">
+                                        <tr>
+                                            <td colspan="4" style="height: 29px !important;">&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="Capital_Component_total_cost_content">
+                                        <tr>
+                                            <td colspan="3">&nbsp;</td>
+                                            <td><input type="text" id="Revenue_Component_sub_total_total_cost" name="Revenue_Component_sub_total_total_cost" class="span12" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="height: 29px !important;">&nbsp;</td>
+                                        </tr>
                                     </tbody>
                                     <tfoot>
+                                        <tr>
+                                            <td colspan="3">&nbsp;</td>
+                                            <td><input type="text" id="Capital_Component_sub_total_total_cost" name="Capital_Component_sub_total_total_cost" class="span12" readonly ></td>
+                                        </tr>
                                         <tr>
                                             <td colspan="2">&nbsp;</td>
                                             <td><input type="text" class="span12" name="physical_contigency_qty" id="physical_contigency_qty" readonly></td>
@@ -134,9 +170,65 @@
                                             <th class="span3">Special Account*</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="total_cost_breakdown_content">
+                                    <tbody id="Revenue_Component_total_cost_breakdown_content">
+                                        <tr>
+                                            <td colspan="6">&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="Capital_Component_total_cost_breakdown_content">
+                                        <!-- FOR REVENUE COMPONENT SUB TOTAL STARTS-->
+                                        <tr>
+                                            <td>
+                                                <input type="text" id="Revenue_Component_sub_total_gob" name="Revenue_Component_sub_total_gob" class="span12" readonly >
+                                                <input type="text" id="Revenue_Component_sub_total_gob_fe" name="Revenue_Component_sub_total_gob_fe" class="span12" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Revenue_Component_sub_total_rpa_through_gob" name="Revenue_Component_sub_total_rpa_through_gob" class="span12" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Revenue_Component_sub_total_rpa_special_account" name="Revenue_Component_sub_total_rpa_special_account" class="span12" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Revenue_Component_sub_total_dpa" name="Revenue_Component_sub_total_dpa" class="span12" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Revenue_Component_sub_total_own_fund" name="Revenue_Component_sub_total_own_fund" class="span12" readonly >
+                                                <input type="text" id="Revenue_Component_sub_total_own_fund_fe" name="Revenue_Component_sub_total_own_fund_fe" class="span12" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Revenue_Component_sub_total_other" name="Revenue_Component_sub_total_other" class="span12" readonly >
+                                                <input type="text" id="Revenue_Component_sub_total_other_fe" name="Revenue_Component_sub_total_other_fe" class="span12" readonly >
+                                            </td>
+                                        </tr>
+                                        <tr><td colspan="6">&nbsp;</td></tr>
+                                        <!-- FOR REVENUE COMPONENT SUB TOTAL ENDS-->
                                     </tbody>
                                     <tfoot>
+                                        <!-- FOR CAPITAL COMPONENT SUB TOTAL STARTS-->
+                                        <tr>
+                                            <td>
+                                                <input type="text" id="Capital_Component_sub_total_gob" name="Capital_Component_sub_total_gob" class="span12" readonly >
+                                                <input type="text" id="Capital_Component_sub_total_gob_fe" name="Capital_Component_sub_total_gob_fe" class="span12" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Capital_Component_sub_total_rpa_through_gob" name="Capital_Component_sub_total_rpa_through_gob" class="span12" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Capital_Component_sub_total_rpa_special_account" name="Capital_Component_sub_total_rpa_special_account" class="span12" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Capital_Component_sub_total_dpa" name="Capital_Component_sub_total_dpa" class="span12" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Capital_Component_sub_total_own_fund" name="Capital_Component_sub_total_own_fund" class="span12" readonly >
+                                                <input type="text" id="Capital_Component_sub_total_own_fund_fe" name="Capital_Component_sub_total_own_fund_fe" class="span12" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Capital_Component_sub_total_other" name="Capital_Component_sub_total_other" class="span12" readonly >
+                                                <input type="text" id="Capital_Component_sub_total_other_fe" name="Capital_Component_sub_total_other_fe" class="span12" readonly >
+                                            </td>
+                                        </tr>
+                                        <!-- FOR CAPITAL COMPONENT SUB TOTAL ENDS-->
                                         <tr>
                                             <td>
                                                 <input type="text" class="span12" name="physical_contigency_gob" id="physical_contigency_gob" readonly>
@@ -318,7 +410,8 @@
         
         var component_count = 0;
         {foreach from=$component_list item=item}
-            addNewComponent();
+            
+            addNewComponent("{$item->component_type}");
             populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}", "{$item->unit}", 
                                      "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
@@ -345,8 +438,6 @@
             count++;
         {/foreach}
         
-        
-        
         var count=1;
         {foreach from=$annex_v_contingency_list item=item}
             
@@ -357,12 +448,19 @@
            
         {/foreach}
         
+        {foreach from=$annex_v_category_sub_total item=item}
+            
+            populateCategoryWiseComponentSubTotal("{$item->component_type}", "{$item->sub_total_total_cost}", "{$item->sub_total_gob}",  
+                                                  "{$item->sub_total_gob_fe}", "{$item->sub_total_rpa_through_gob}", "{$item->sub_total_rpa_special_account}",  
+                                                  "{$item->sub_total_dpa}", "{$item->sub_total_own_fund}", "{$item->sub_total_own_fund_fe}", 
+                                                  "{$item->sub_total_other}", "{$item->sub_total_other_fe}");
+           
+        {/foreach}
         
         {foreach from=$annex_v_contingency_details item=item}
-            populateAnnexContingencyDetails("{$item->gob}", "{$item->gob_fe}", 
-                                     "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
-                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->year_serial}", "{$item->id}","{$item->financial_year}", 
-                                     count, "{$item->total}","{$item->type}");
+            populateAnnexContingencyDetails("{$item->gob}", "{$item->gob_fe}", "{$item->rpa_through_gob}", "{$item->rpa_special_account}", 
+                                            "{$item->dpa}", "{$item->own_fund}", "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", 
+                                            "{$item->year_serial}", "{$item->id}","{$item->financial_year}", count, "{$item->total}","{$item->type}");
             
             
             if(count%component_count == 0) count=0;
