@@ -334,16 +334,17 @@ class projectManagerApp extends DefaultApplication
         $pid                   = base64_decode($PI);
         $report_type           = getUserField('report_type');
         
-        $data['PI']                          = $PI;
-        $data['econimonic_code_list']        = getEconomicCodeList();
-        $data['econimonic_subcode_list']     = getEconomicSubCodeList();
-        $data['component_list']              = getComponentList($pid);
-        $data['annx_v_component_details']    = getAnnexVComponentDetails($pid);
-        $data['annex_v_contingency_list']    = getContingencyList($pid);
-        $data['annex_v_contingency_details'] = getAnnexVContingencyDetails($pid);
-        $data['annex_v_category_sub_total']  = getProjectWiseComponentSubTotal($pid);
+        $data['PI']                                    = $PI;
+        $data['econimonic_code_list']                  = getEconomicCodeList();
+        $data['econimonic_subcode_list']               = getEconomicSubCodeList();
+        $data['component_list']                        = getComponentList($pid);
+        $data['annx_v_component_details']              = getAnnexVComponentDetails($pid);
+        $data['annex_v_contingency_list']              = getContingencyList($pid);
+        $data['annex_v_contingency_details']           = getAnnexVContingencyDetails($pid);
+        $data['annex_v_category_sub_total']            = getProjectWiseComponentSubTotal($pid);
+        $data['annex_v_category_year_wise_sub_total']  = getProjectCategoryYearWiseComponentSubTotal($pid);
         
-        //dumpvar($data['annex_v_category_sub_total']);
+        //dumpvar($data['annex_v_category_year_wise_sub_total']);
         $this->annexVExportTo($pid, $report_type);
         
         return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);

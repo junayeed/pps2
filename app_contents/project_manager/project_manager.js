@@ -169,23 +169,36 @@ function populateAnnexContingencyDetails(gob, gob_fe, rpa_through_gob, rpa_speci
 
 function populateAnnexComponentDetails(gob, gob_fe, rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe, year, annex_details_id, financial_year, i, total)
 {
-    //var totalElement = COMPONENT_ROW_ID - 1;
-    //alert(total)
-    //for(var i=1;i<=totalElement;i++)
-    {    
-        $('#gob_'+year+'_'+i).val(gob);
-        $('#gob_fe_'+year+'_'+i).val(gob_fe);
-        $('#rpa_through_gob_'+year+'_'+i).val(rpa_through_gob);
-        $('#rpa_special_account_'+year+'_'+i).val(rpa_special_account);
-        $('#dpa_'+year+'_'+i).val(dpa);
-        $('#own_fund_'+year+'_'+i).val(own_fund);
-        $('#own_fund_fe_'+year+'_'+i).val(own_fund_fe);
-        $('#other_'+year+'_'+i).val(other);
-        $('#other_fe_'+year+'_'+i).val(other_fe);
-        $('#annex_details_id_'+year+'_'+i).val(annex_details_id);
-        $('#financial_year_'+year).val(financial_year);
-        $('#total_'+year+'_'+i).val(total);
-    }
+    $('#gob_'+year+'_'+i).val(gob);
+    $('#gob_fe_'+year+'_'+i).val(gob_fe);
+    $('#rpa_through_gob_'+year+'_'+i).val(rpa_through_gob);
+    $('#rpa_special_account_'+year+'_'+i).val(rpa_special_account);
+    $('#dpa_'+year+'_'+i).val(dpa);
+    $('#own_fund_'+year+'_'+i).val(own_fund);
+    $('#own_fund_fe_'+year+'_'+i).val(own_fund_fe);
+    $('#other_'+year+'_'+i).val(other);
+    $('#other_fe_'+year+'_'+i).val(other_fe);
+    $('#annex_details_id_'+year+'_'+i).val(annex_details_id);
+    $('#financial_year_'+year).val(financial_year);
+    $('#total_'+year+'_'+i).val(total);
+}
+
+function populateComponentYearWiseSubtotal(cmp_type,sub_total,gob, gob_fe, rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe,year)
+{
+    
+    var component_type = cmp_type.replace(' ', '_');
+    
+    $('#'+component_type+'_sub_total_gob_'+year).val(gob);
+    $('#'+component_type+'_sub_total_gob_fe_'+year).val(gob_fe);
+    $('#'+component_type+'_sub_total_rpa_through_gob_'+year).val(rpa_through_gob);
+    $('#'+component_type+'_sub_total_rpa_special_account_'+year).val(rpa_special_account);
+    $('#'+component_type+'_sub_total_dpa_'+year).val(dpa);
+    $('#'+component_type+'_sub_total_own_fund_'+year).val(own_fund);
+    $('#'+component_type+'_sub_total_own_fund_fe_'+year).val(own_fund_fe);
+    $('#'+component_type+'_sub_total_other_'+year).val(other);
+    $('#'+component_type+'_sub_total_other_fe_'+year).val(other_fe);
+    $('#'+component_type+'_sub_total_total_'+year).val(sub_total);
+    
 }
 
 function addNewComponent(com_type)
@@ -310,10 +323,52 @@ function addNewYear()
                                                            <th class="span3">Special Account*</th>\n\
                                                        </tr>\n\
                                                    </thead>\n\
-                                                   <tbody id="Revenue_Component_total_cost_breakdown_content_'+YEAR_COUNT+'"></tbody>\n\
-                                                   <tbody id="Capital_Component_total_cost_breakdown_content_'+YEAR_COUNT+'"></tbody>\n\
+                                                   <tbody id="Revenue_Component_total_cost_breakdown_content_'+YEAR_COUNT+'">\n\
+                                                   <tr><td colspan="7">Reveue Component&nbsp;</td></tr>\n\
+                                                   </tbody>\n\
+                                                   <tbody id="Capital_Component_total_cost_breakdown_content_'+YEAR_COUNT+'">\n\
+                                                       <tr>\n\
+                                                           <td>\n\
+                                                               <input type="text" id="Revenue_Component_sub_total_gob_'+YEAR_COUNT+'" name="Revenue_Component_sub_total_gob_'+YEAR_COUNT+'" class="span12" readonly >\n\
+                                                               <input type="text" id="Revenue_Component_sub_total_gob_fe_'+YEAR_COUNT+'" name="Revenue_Component_sub_total_gob_fe_'+YEAR_COUNT+'" class="span12" readonly >\n\
+                                                           </td>\n\
+                                                           <td><input type="text" id="Revenue_Component_sub_total_rpa_through_gob_'+YEAR_COUNT+'" name="Revenue_Component_sub_total_rpa_through_gob_'+YEAR_COUNT+'" class="span12" readonly ></td>\n\
+                                                           <td><input type="text" id="Revenue_Component_sub_total_rpa_special_account_'+YEAR_COUNT+'" name="Revenue_Component_sub_total_rpa_special_account_'+YEAR_COUNT+'" class="span12" readonly ></td>\n\
+                                                           <td><input type="text" id="Revenue_Component_sub_total_dpa_'+YEAR_COUNT+'" name="Revenue_Component_sub_total_dpa_'+YEAR_COUNT+'" class="span12" readonly ></td>\n\
+                                                           <td>\n\
+                                                               <input type="text" id="Revenue_Component_sub_total_own_fund_'+YEAR_COUNT+'" name="Revenue_Component_sub_total_own_fund_'+YEAR_COUNT+'" class="span12" readonly >\n\
+                                                               <input type="text" id="Revenue_Component_sub_total_own_fund_fe_'+YEAR_COUNT+'" name="Revenue_Component_sub_total_own_fund_fe_'+YEAR_COUNT+'" class="span12" readonly >\n\
+                                                           </td>\n\
+                                                           <td>\n\
+                                                               <input type="text" id="Revenue_Component_sub_total_other_'+YEAR_COUNT+'" name="Revenue_Component_sub_total_other_'+YEAR_COUNT+'" class="span12" readonly >\n\
+                                                               <input type="text" id="Revenue_Component_sub_total_other_fe_'+YEAR_COUNT+'" name="Revenue_Component_sub_total_other_fe_'+YEAR_COUNT+'" class="span12" readonly >\n\
+                                                           </td>\n\
+                                                           <td><input type="text" id="Revenue_Component_sub_total_total_'+YEAR_COUNT+'" name="Revenue_Component_sub_total_total_'+YEAR_COUNT+'" class="span12" readonly ></td>\n\
+                                                       </tr>\n\
+                                                       <tr><td colspan="7">Capital Component&nbsp;</td></tr>\n\
+                                                   </tbody>\n\
                                                    <tfoot>\n\
-                                                        <tr>\n\
+                                                       <tr>\n\
+                                                           <td>\n\
+                                                               <input type="text" id="Capital_Component_sub_total_gob_'+YEAR_COUNT+'" name="Capital_Component_sub_total_gob_'+YEAR_COUNT+'" class="span12" readonly >\n\
+                                                               <input type="text" id="Capital_Component_sub_total_gob_fe_'+YEAR_COUNT+'" name="Capital_Component_sub_total_gob_fe_'+YEAR_COUNT+'" class="span12" readonly >\n\
+                                                           </td>\n\
+                                                           <td><input type="text" id="Capital_Component_sub_total_rpa_through_gob_'+YEAR_COUNT+'" name="Capital_Component_sub_total_rpa_through_gob_'+YEAR_COUNT+'" class="span12" readonly ></td>\n\
+                                                           <td><input type="text" id="Capital_Component_sub_total_rpa_special_account_'+YEAR_COUNT+'" name="Capital_Component_sub_total_rpa_special_account_'+YEAR_COUNT+'" class="span12" readonly ></td>\n\
+                                                           <td><input type="text" id="Capital_Component_sub_total_dpa_'+YEAR_COUNT+'" name="Capital_Component_sub_total_dpa_'+YEAR_COUNT+'" class="span12" readonly ></td>\n\
+                                                           <td>\n\
+                                                               <input type="text" id="Capital_Component_sub_total_own_fund_'+YEAR_COUNT+'" name="Capital_Component_sub_total_own_fund_'+YEAR_COUNT+'" class="span12" readonly >\n\
+                                                               <input type="text" id="Capital_Component_sub_total_own_fund_fe_'+YEAR_COUNT+'" name="Capital_Component_sub_total_own_fund_fe_'+YEAR_COUNT+'" class="span12" readonly >\n\
+                                                           </td>\n\
+                                                           <td>\n\
+                                                               <input type="text" id="Capital_Component_sub_total_other_'+YEAR_COUNT+'" name="Capital_Component_sub_total_other_'+YEAR_COUNT+'" class="span12" readonly >\n\
+                                                               <input type="text" id="Capital_Component_sub_total_other_fe_'+YEAR_COUNT+'" name="Capital_Component_sub_total_other_fe_'+YEAR_COUNT+'" class="span12" readonly >\n\
+                                                           </td>\n\
+                                                           <td>\n\
+                                                               <input type="text" id="Capital_Component_sub_total_total_'+YEAR_COUNT+'" name="Capital_Component_sub_total_total_'+YEAR_COUNT+'" class="span12" readonly >\n\
+                                                           </td>\n\
+                                                       </tr>\n\
+                                                         <tr>\n\
                                                             <td>\n\
                                                                 <input type="text" class="span12" name="physical_contigency_gob_'+YEAR_COUNT+'" id="physical_contigency_gob_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" />\n\
                                                                 <input type="text" class="span12" name="physical_contigency_gob_fe_'+YEAR_COUNT+'" id="physical_contigency_gob_fe_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" />\n\
@@ -499,13 +554,13 @@ function toggleFiscalYear(elemID)
 
 function adjustComponentRowPerYear(thisyear,compnents, component_type)
 {
-    alert(component_type);
+    //alert('Type = ' + component_type);
     for(var year=thisyear; year<=YEAR_COUNT-1; year++)
     {
         for(var i=0; i<componentRowIDArray.length; i++)
         {
             // if exists then continue
-            if ( $('#total_cost_breakdown_tbl_'+year+' > tbody').find('#tr_'+year+'_' + componentRowIDArray[i]).length )
+            if ( $("#total_cost_breakdown_tbl_"+year+" > #" + component_type+"_total_cost_breakdown_content_"+year).find('#tr_'+year+'_' + componentRowIDArray[i]).length )
             {
                 continue;
             }    
@@ -523,11 +578,33 @@ function adjustComponentRowPerYear(thisyear,compnents, component_type)
             var td_hidden       = '<input type="hidden"   name="annex_details_id_'+year+'_'+componentRowIDArray[i]+'"     id="annex_details_id_'+year+'_'+componentRowIDArray[i]+'" />';
             $('<tr id="tr_'+year+'_'+componentRowIDArray[i]+'">'+ td_total_gob + td_pa_gob + td_pa_spc_acnt + td_pa_dpa 
                                                                 + td_own_fund + td_other + td_comp_total + td_hidden 
-                                                                +'</tr>').appendTo("#"+component_type+"_total_cost_breakdown_tbl_"+year+" > tbody");
+                                                                +'</tr>').appendTo("#total_cost_breakdown_tbl_"+year+" > #" + component_type+"_total_cost_breakdown_content_"+year);
         }
     }
     
     deleteYearIconAdjustment();
+}
+
+
+function addYearWiseNewComponentDetailsRow(com_type, year, elemID)
+{
+    //var elemID = COMPONENT_ROW_ID-1;
+    var component_type = com_type.replace(' ', '_');
+
+    var td_total_gob    = '<td><input type="text" name="gob_'+year+'_'+elemID+'"                  id="gob_'+year+'_'+elemID+'"                 value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /><br>\n\
+                               <input type="text" name="gob_fe_'+year+'_'+elemID+'"               id="gob_fe_'+year+'_'+elemID+'"              value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /></td>';
+    var td_pa_gob       = '<td><input type="text" name="rpa_through_gob_'+year+'_'+elemID+'"      id="rpa_through_gob_'+year+'_'+elemID+'"     value="" class="span9"  onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /></td>';
+    var td_pa_spc_acnt  = '<td><input type="text" name="rpa_special_account_'+year+'_'+elemID+'"  id="rpa_special_account_'+year+'_'+elemID+'" value="" class="span9"  onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /></td>';
+    var td_pa_dpa       = '<td><input type="text" name="dpa_'+year+'_'+elemID+'"                  id="dpa_'+year+'_'+elemID+'"                 value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /></td>';
+    var td_own_fund     = '<td><input type="text" name="own_fund_'+year+'_'+elemID+'"             id="own_fund_'+year+'_'+elemID+'"            value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /><br>\n\
+                               <input type="text" name="own_fund_fe_'+year+'_'+elemID+'"          id="own_fund_fe_'+year+'_'+elemID+'"         value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /></td>';
+    var td_other        = '<td><input type="text" name="other_'+year+'_'+elemID+'"                id="other_'+year+'_'+elemID+'"               value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /><br>\n\
+                               <input type="text" name="other_fe_'+year+'_'+elemID+'"             id="other_fe_'+year+'_'+elemID+'"            value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /></td>';
+    var td_comp_total   = '<td><input type="text" name="total_'+year+'_'+elemID+'"                id="total_'+year+'_'+elemID+'"               value="" class="span12" readonly /></td>';
+    var td_hidden       = '<input type="hidden"   name="annex_details_id_'+year+'_'+elemID+'"     id="annex_details_id_'+year+'_'+elemID+'" />';
+    $('<tr id="tr_'+year+'_'+elemID+'">'+ td_total_gob + td_pa_gob + td_pa_spc_acnt + td_pa_dpa 
+                                                        + td_own_fund + td_other + td_comp_total + td_hidden 
+                                                        +'</tr>').appendTo("#total_cost_breakdown_tbl_"+year+" > #" + component_type+"_total_cost_breakdown_content_"+year);
 }
 
 function deleteYearIconAdjustment()

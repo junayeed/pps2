@@ -84,9 +84,10 @@
   define('PROJECT_ANNEX_V_CON_DETAILS_TBL',  DB_NAME . '.annexure_v_contingency_details');
   
   
-  
-  define('PROJECT_YEAR_WISE_GOB_OWNFUND',    DB_NAME . '.year_wise_gob_ownfund');
-  define('PROJECT_SUB_TOTAL_VIEW',           DB_NAME . '.view_project_wise_component_sub_total');
+  // VIEWS
+  define('PROJECT_YEAR_WISE_GOB_OWNFUND',                   DB_NAME . '.year_wise_gob_ownfund');
+  define('PROJECT_SUB_TOTAL_VIEW',                          DB_NAME . '.view_project_wise_component_sub_total');
+  define('PROJECT_COMP_YEAR_WSIE_SUB_TOTAL_VIEW',           DB_NAME . '.view_component_type_year_wise_subtotal');
   
   if (AUTO_CONNECT_TO_DATABASE)
   {

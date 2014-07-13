@@ -427,6 +427,8 @@
         }
         var count=1;
         {foreach from=$annx_v_component_details item=item}
+            //alert("{$item->component_type}" +"\nYear: "+"{$item->year_serial}");
+            addYearWiseNewComponentDetailsRow("{$item->component_type}", "{$item->year_serial}", count);
             populateAnnexComponentDetails("{$item->gob}", "{$item->gob_fe}", 
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
                                      "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->year_serial}", "{$item->id}","{$item->financial_year}", 
@@ -467,6 +469,16 @@
             
             count++;
         {/foreach}
+        
+        
+        {foreach from=$annex_v_category_year_wise_sub_total item=item}
+           populateComponentYearWiseSubtotal("{$item->component_type}", "{$item->sub_total_cost}", "{$item->sub_gob}", "{$item->sub_gob_fe}", 
+                                            "{$item->sub_rpa}", "{$item->sub_rpa_special}", "{$item->sub_dpa}", "{$item->sub_own_fund}", "{$item->sub_own_fund_fe}", 
+                                            "{$item->sub_other}","{$item->sub_other_fe}","{$item->year_serial}");
+        {/foreach}
+        
+        
+       //Revenue_Component_sub_total_gob_
         
         calculateYearWiseGrandTotal();
         calculateAnnexVGrandTotal();
