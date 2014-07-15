@@ -61,8 +61,6 @@
         
         foreach( $componentArray as $key => $value)
 	{
-            //echo_br('Iteration = ' . $cnt++);
-            //if( preg_match('/economic_code_(\d+)/', $key, $matches))
             {
                 //$id = $matches[1];
                 $id = $value;
@@ -129,7 +127,6 @@
             $data['financial_year']        = $_REQUEST['financial_year_' . $year];
             $data['annex_id']              = $annex_id;
             $data['year_serial']           = $year;
-
             $info['data'] = $data; 
 
             // if procurement_plan_id is there then update the record
@@ -144,6 +141,7 @@
                 update($info);
             }
         } 
+       
     }
     
     function updateAnnexVContingency()

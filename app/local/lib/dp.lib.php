@@ -193,9 +193,10 @@
    
    function getComponentList($pid)
    {
-       $info['table']  = PROJECT_ANNEX_V_TBL . ' AS PAVT LEFT JOIN ' . ECONOMIC_CODE_LOOKUP_TBL . ' AS ECLT ON (PAVT.economic_code_id = ECLT.id)';
+       $info['table']  = PROJECT_ANNEX_V_TBL . ' AS PAVT LEFT JOIN ' . ECONOMIC_CODE_LOOKUP_TBL . ' AS ECLT ON (PAVT.economic_code_id = ECLT.id)' . 
+                         ' LEFT JOIN ' . ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id = ESLT.id)';
        $info['debug']  = false;
-       $info['where']  = 'pid = ' . $pid;
+       $info['where']  = 'pid = ' . $pid.' ORDER BY ESLT.economic_subcode';
        $info['fields'] = array('PAVT.*', 'ECLT.component_type');
        
        $result = select($info);
@@ -237,9 +238,10 @@
    function getAnnexVComponentDetails($pid)
    {
        $info['table']  = PROJECT_ANNEX_V_DETAILS_TBL . ' AS PAVDT LEFT JOIN ' . PROJECT_ANNEX_V_TBL . ' AS PAVT ON (PAVDT.annex_id = PAVT.id)' . 
-                         ' LEFT JOIN ' . ECONOMIC_CODE_LOOKUP_TBL . ' AS ECLT ON (PAVT.economic_code_id=ECLT.id)';
+                         ' LEFT JOIN ' . ECONOMIC_CODE_LOOKUP_TBL . ' AS ECLT ON (PAVT.economic_code_id = ECLT.id)' . 
+                         ' LEFT JOIN ' . ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id=ESLT.id)';
        $info['debug']  = false;
-       $info['where']  = 'PAVDT.pid = ' . $pid.' order by year_serial';
+       $info['where']  = 'PAVDT.pid = ' . $pid.' ORDER BY ESLT.economic_subcode, PAVDT.id';
        $info['fields'] = array('PAVDT.*', 'ECLT.component_type', 'PAVT.id AS annex_id');
        
        $result = select($info);

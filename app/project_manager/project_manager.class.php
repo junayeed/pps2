@@ -67,13 +67,22 @@ class projectManagerApp extends DefaultApplication
         $info['debug']  = false;
         $info['where']  = 'annex_id = ' . $annex_id;
                 
-        delete($info);
+        ;
         
-        $info['table']  = PROJECT_ANNEX_V_TBL;
-        $info['debug']  = false;
-        $info['where']  = 'id = ' . $annex_id;
+        $infop['table']  = PROJECT_ANNEX_V_TBL;
+        $infop['debug']  = false;
+        $infop['where']  = 'id = ' . $annex_id;
                 
-        delete($info);
+        if ( delete($info) && delete($infop) )
+        {
+            echo json_encode('1');
+            die;    
+        }
+        else
+        {
+            echo json_encode('');
+            die;
+        }
     }
     
     function deleteYear()
@@ -82,12 +91,21 @@ class projectManagerApp extends DefaultApplication
         $year_serial = getUserField('year_serial');
         
         $info['table']  = PROJECT_ANNEX_V_DETAILS_TBL;
-        $info['debug']  = false;
+        $info['debug']  = true;
         $info['where']  = 'pid = ' . $pid . ' AND year_serial = ' . $year_serial;
                 
-        delete($info);
+        if ( delete($info) )
+        {
+            $this->updateAnexVTotalyear($pid, $year_serial-1);
         
-        $this->updateAnexVTotalyear($pid, $year_serial-1);
+            echo json_encode('1');
+            die;
+        }
+        else
+        {
+            echo json_encode('');
+            die;
+        }
     }
     
     function updateAnexVTotalyear($pid, $year)
@@ -95,7 +113,7 @@ class projectManagerApp extends DefaultApplication
         $data['total_year'] = $year;
         
         $info['table']  = PROJECT_ANNEX_V_TBL;
-        $info['debug']  = false;
+        $info['debug']  = true;
         $info['where']  = 'pid = ' . $pid;
         $info['data']   = $data;
                 

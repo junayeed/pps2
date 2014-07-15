@@ -81,7 +81,7 @@
                                         <tr>
                                             <td colspan="4">
                                                 (a) Revenue Component Sub Total<br><br>
-                                                <a href="javascript:void(0);" onClick="addNewComponent('Revenue Component');">Add Revenue Component</a>
+                                                <a href="javascript:void(0);" onClick="addNewComponent('Revenue Component',1);">Add Revenue Component</a>
                                             </td>
                                         </tr>
                                         <tr>
@@ -92,7 +92,7 @@
                                         <tr>
                                             <td colspan="4">
                                                 (b) Capital Contingency Sub Total<br><br>
-                                                <a href="javascript:void(0);" onClick="addNewComponent('Capital Component');">Add Capital Component</a>
+                                                <a href="javascript:void(0);" onClick="addNewComponent('Capital Component',1);">Add Capital Component</a>
                                             </td>
                                         </tr>
                                         <tr>
@@ -411,7 +411,7 @@
         var component_count = 0;
         {foreach from=$component_list item=item}
             
-            addNewComponent("{$item->component_type}");
+            addNewComponent("{$item->component_type}",0);
             populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}", "{$item->unit}", 
                                      "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
@@ -426,8 +426,10 @@
             addNewYear(0);
         }
         var count=1;
+        var year_count=1;
+        var cp_count =1;
         {foreach from=$annx_v_component_details item=item}
-            //alert("{$item->component_type}" +"\nYear: "+"{$item->year_serial}");
+            //alert("Year: "+"{$item->year_serial}"+"\nCount = " + count);
             addYearWiseNewComponentDetailsRow("{$item->component_type}", "{$item->year_serial}", count);
             populateAnnexComponentDetails("{$item->gob}", "{$item->gob_fe}", 
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
@@ -435,9 +437,12 @@
                                      count, "{$item->total}");
             
             
-            if(count%component_count == 0) count=0;
+            if( year_count%total_years==0 ) count++;
             
-            count++;
+            if(cp_count%total_years==0) cp_count=0;
+            cp_count++;
+            year_count++;
+            
         {/foreach}
         
         var count=1;

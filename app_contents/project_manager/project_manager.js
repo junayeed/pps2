@@ -39,7 +39,7 @@ function submittForm()
 
 function getEconomicCode(elemName, comp_id, com_type)
 {
-    var str_options = '';
+    var str_options = '<option value=""></option>';
     
     for(var i=0; i<economicCodeArr.length; i++)
     {
@@ -89,16 +89,16 @@ function populateCategoryWiseComponentSubTotal(comp_type, sub_total_total_cost, 
     
     //alert('Type = ' + component_type + 'Total = ' + sub_total_total_cost);
 
-    $('#'+component_type+'_sub_total_total_cost').val(sub_total_total_cost);
-    $('#'+component_type+'_sub_total_gob').val(sub_total_gob);
-    $('#'+component_type+'_sub_total_gob_fe').val(sub_total_gob_fe);
-    $('#'+component_type+'_sub_total_rpa_through_gob').val(sub_total_rpa_through_gob);
-    $('#'+component_type+'_sub_total_rpa_special_account').val(sub_total_rpa_special_account);
-    $('#'+component_type+'_sub_total_dpa').val(sub_total_dpa);
-    $('#'+component_type+'_sub_total_own_fund').val(sub_total_own_fund);
-    $('#'+component_type+'_sub_total_own_fund_fe').val(sub_total_own_fund_fe);
-    $('#'+component_type+'_sub_total_other').val(sub_total_other);
-    $('#'+component_type+'_sub_total_other_fe').val(sub_total_other_fe);
+    $('#'+component_type+'_sub_total_total_cost').val((sub_total_total_cost*1).toMoney(2));
+    $('#'+component_type+'_sub_total_gob').val((sub_total_gob*1).toMoney(2));
+    $('#'+component_type+'_sub_total_gob_fe').val((sub_total_gob_fe*1).toMoney(2));
+    $('#'+component_type+'_sub_total_rpa_through_gob').val((sub_total_rpa_through_gob*1).toMoney(2));
+    $('#'+component_type+'_sub_total_rpa_special_account').val((sub_total_rpa_special_account*1).toMoney(2));
+    $('#'+component_type+'_sub_total_dpa').val((sub_total_dpa*1).toMoney(2));
+    $('#'+component_type+'_sub_total_own_fund').val((sub_total_own_fund*1).toMoney(2));
+    $('#'+component_type+'_sub_total_own_fund_fe').val((sub_total_own_fund_fe*1).toMoney(2));
+    $('#'+component_type+'_sub_total_other').val((sub_total_other*1).toMoney(2));
+    $('#'+component_type+'_sub_total_other_fe').val((sub_total_other_fe*1).toMoney(2));
 }
 
 function populateContingency(economic_code_id, economic_subcode_id, economic_subcode_name, qty, total_cost, gob, gob_fe, 
@@ -132,18 +132,18 @@ function populateComponentDetails(economic_code_id, economic_subcode_id, economi
     $('#sub_code_'+elemID).val(economic_subcode_id);
     $('#code_desc_'+elemID).val(economic_subcode_name);
     $('#unit_'+elemID).val(unit);
-    $('#unit_cost_'+elemID).val(unit_cost);
+    $('#unit_cost_'+elemID).val((unit_cost*1).toMoney(2));
     $('#qty_'+elemID).val(qty);
-    $('#total_cost_'+elemID).val(total_cost);
-    $('#total_gob_'+elemID).val(gob);
-    $('#total_gob_fe_'+elemID).val(gob_fe);
-    $('#pa_gob_'+elemID).val(rpa_through_gob);
-    $('#pa_spc_acnt_'+elemID).val(rpa_special_account);
-    $('#pa_dpa_'+elemID).val(dpa);
-    $('#own_fund_'+elemID).val(own_fund);
-    $('#own_fund_fe_'+elemID).val(own_fund_fe);
-    $('#other_'+elemID).val(other);
-    $('#other_fe_'+elemID).val(other_fe);
+    $('#total_cost_'+elemID).val((total_cost*1).toMoney(2));
+    $('#total_gob_'+elemID).val((gob*1).toMoney(2));
+    $('#total_gob_fe_'+elemID).val((gob_fe*1).toMoney(2));
+    $('#pa_gob_'+elemID).val((rpa_through_gob*1).toMoney(2));
+    $('#pa_spc_acnt_'+elemID).val((rpa_special_account*1).toMoney(2));
+    $('#pa_dpa_'+elemID).val((dpa*1).toMoney(2));
+    $('#own_fund_'+elemID).val((own_fund*1).toMoney(2));
+    $('#own_fund_fe_'+elemID).val((own_fund_fe*1).toMoney(2));
+    $('#other_'+elemID).val((other*1).toMoney(2));
+    $('#other_fe_'+elemID).val((other_fe*1).toMoney(2));
     $('#annex_id_'+elemID).val(annex_id);
     
 }
@@ -154,34 +154,34 @@ function populateAnnexContingencyDetails(gob, gob_fe, rpa_through_gob, rpa_speci
 {
     var contingency_type = type.toLowerCase();
     
-    $('#'+contingency_type+'_contigency_gob_'+year).val(gob);
-    $('#'+contingency_type+'_contigency_gob_fe_'+year).val(gob_fe);
-    $('#'+contingency_type+'_contigency_pa_through_gob_'+year).val(rpa_through_gob);
-    $('#'+contingency_type+'_contigency_pa_sp_acnt_'+year).val(rpa_special_account);
-    $('#'+contingency_type+'_contigency_pa_dpa_'+year).val(dpa);
-    $('#'+contingency_type+'_contigency_own_fund_'+year).val(own_fund);
-    $('#'+contingency_type+'_contigency_own_fund_fe_'+year).val(own_fund_fe);
-    $('#'+contingency_type+'_contigency_other_'+year).val(other);
-    $('#'+contingency_type+'_contigency_other_fe_'+year).val(other_fe);
-    $('#'+contingency_type+'_contigency_total_'+year).val(total);
-    $('#'+contingency_type+'_contigency_con_id_'+year).val(con_details_id);
+    $('#'+contingency_type+'_contigency_gob_'+year).val((gob*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_gob_fe_'+year).val((gob_fe*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_pa_through_gob_'+year).val((rpa_through_gob*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_pa_sp_acnt_'+year).val((rpa_special_account*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_pa_dpa_'+year).val((dpa*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_own_fund_'+year).val((own_fund*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_own_fund_fe_'+year).val((own_fund_fe*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_other_'+year).val((other*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_other_fe_'+year).val((other_fe*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_total_'+year).val((total*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_con_id_'+year).val((con_details_id*1).toMoney(2));
 }
 
 
 function populateAnnexComponentDetails(gob, gob_fe, rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe, year, annex_details_id, financial_year, i, total)
 {
-    $('#gob_'+year+'_'+i).val(gob);
-    $('#gob_fe_'+year+'_'+i).val(gob_fe);
-    $('#rpa_through_gob_'+year+'_'+i).val(rpa_through_gob);
-    $('#rpa_special_account_'+year+'_'+i).val(rpa_special_account);
-    $('#dpa_'+year+'_'+i).val(dpa);
-    $('#own_fund_'+year+'_'+i).val(own_fund);
-    $('#own_fund_fe_'+year+'_'+i).val(own_fund_fe);
-    $('#other_'+year+'_'+i).val(other);
-    $('#other_fe_'+year+'_'+i).val(other_fe);
-    $('#annex_details_id_'+year+'_'+i).val(annex_details_id);
+    $('#gob_'+year+'_'+i).val((gob*1).toMoney(2));
+    $('#gob_fe_'+year+'_'+i).val((gob_fe*1).toMoney(2));
+    $('#rpa_through_gob_'+year+'_'+i).val((rpa_through_gob*1).toMoney(2));
+    $('#rpa_special_account_'+year+'_'+i).val((rpa_special_account*1).toMoney(2));
+    $('#dpa_'+year+'_'+i).val((dpa*1).toMoney(2));
+    $('#own_fund_'+year+'_'+i).val((own_fund*1).toMoney(2));
+    $('#own_fund_fe_'+year+'_'+i).val((own_fund_fe*1).toMoney(2));
+    $('#other_'+year+'_'+i).val((other*1).toMoney(2));
+    $('#other_fe_'+year+'_'+i).val((other_fe*1).toMoney(2));
+    $('#annex_details_id_'+year+'_'+i).val((annex_details_id*1).toMoney(2));
     $('#financial_year_'+year).val(financial_year);
-    $('#total_'+year+'_'+i).val(total);
+    $('#total_'+year+'_'+i).val((total*1).toMoney(2));
 }
 
 function populateComponentYearWiseSubtotal(cmp_type,sub_total,gob, gob_fe, rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe,year)
@@ -189,24 +189,24 @@ function populateComponentYearWiseSubtotal(cmp_type,sub_total,gob, gob_fe, rpa_t
     
     var component_type = cmp_type.replace(' ', '_');
     
-    $('#'+component_type+'_sub_total_gob_'+year).val(gob);
-    $('#'+component_type+'_sub_total_gob_fe_'+year).val(gob_fe);
-    $('#'+component_type+'_sub_total_rpa_through_gob_'+year).val(rpa_through_gob);
-    $('#'+component_type+'_sub_total_rpa_special_account_'+year).val(rpa_special_account);
-    $('#'+component_type+'_sub_total_dpa_'+year).val(dpa);
-    $('#'+component_type+'_sub_total_own_fund_'+year).val(own_fund);
-    $('#'+component_type+'_sub_total_own_fund_fe_'+year).val(own_fund_fe);
-    $('#'+component_type+'_sub_total_other_'+year).val(other);
-    $('#'+component_type+'_sub_total_other_fe_'+year).val(other_fe);
-    $('#'+component_type+'_sub_total_total_'+year).val(sub_total);
+    $('#'+component_type+'_sub_total_gob_'+year).val((gob*1).toMoney(2));
+    $('#'+component_type+'_sub_total_gob_fe_'+year).val((gob_fe*1).toMoney(2));
+    $('#'+component_type+'_sub_total_rpa_through_gob_'+year).val((rpa_through_gob*1).toMoney(2));
+    $('#'+component_type+'_sub_total_rpa_special_account_'+year).val((rpa_special_account*1).toMoney(2));
+    $('#'+component_type+'_sub_total_dpa_'+year).val((dpa*1).toMoney(2));
+    $('#'+component_type+'_sub_total_own_fund_'+year).val((own_fund*1).toMoney(2));
+    $('#'+component_type+'_sub_total_own_fund_fe_'+year).val((own_fund_fe*1).toMoney(2));
+    $('#'+component_type+'_sub_total_other_'+year).val((other*1).toMoney(2));
+    $('#'+component_type+'_sub_total_other_fe_'+year).val((other_fe*1).toMoney(2));
+    $('#'+component_type+'_sub_total_total_'+year).val((sub_total*1).toMoney(2));
     
 }
 
-function addNewComponent(com_type)
+function addNewComponent(com_type,buttonClick)
 {
     var component_type = com_type.replace(' ', '_');
     ///alert('ID = ' + COMPONENT_ROW_ID + ' Type = ' + component_type);
-    var td_delete_code     = '<td><img src="/app_contents/common/images/cross.png" onClick="deleteComponent('+COMPONENT_ROW_ID+');" class="delete_year_icon" "></td>';
+    var td_delete_code     = '<td><img src="/app_contents/common/images/cross.png" onClick="deleteComponent('+COMPONENT_ROW_ID+',\''+component_type+'\');" class="delete_year_icon" "></td>';
     var td_economic_code   = '<td>' + getEconomicCode("economic_code_"+COMPONENT_ROW_ID, COMPONENT_ROW_ID, com_type) + '</td>';
     var td_sub_code        = '<td>' + createEconomicSubCodeDropdown(COMPONENT_ROW_ID, 0) + '</td>';
     var td_code_desc       = '<td><textarea name="code_desc_'+COMPONENT_ROW_ID+'" id="code_desc_'+COMPONENT_ROW_ID+'" class="span12" style="height: 60px;" /></textarea></td>';
@@ -240,13 +240,17 @@ function addNewComponent(com_type)
     COMPONENT_ROW_ID++;
     
     //adjustComponentRowPerYear(1,COMPONENT_ROW_ID-1, component_type);
+    
+    //alert(COMPONENT_ROW_ID)
+    
+    if(buttonClick)   //buttonClick = 1 mean click from the button
     for(var year=1; year<YEAR_COUNT; year++ )
     {
         addYearWiseNewComponentDetailsRow(com_type, year, COMPONENT_ROW_ID-1)
     }
 }
 
-function deleteComponent(elemID)
+function deleteComponent(elemID,component_type)
 {
     var annexID = $('#annex_id_'+elemID).val();
     
@@ -262,47 +266,49 @@ function deleteComponent(elemID)
                     dataType: 'json',
                     success: function(responseText)
                     {
+                        alert('Success');
+                        $('#economic_code_tbl >  #'+component_type+'_economic_code_content').find('#tr_' + elemID).fadeOut(50,function() 
+                        {
+                            $('#economic_code_tbl > #'+component_type+'_economic_code_content > #tr_' + elemID).remove();
+                        });
+
+                        $('#total_cost_tbl > tbody').find('#tr_' + elemID).fadeOut(50,function() 
+                        {
+                            $('#total_cost_tbl > tbody > #tr_' + elemID).remove();
+                        });
+
+                        $('#total_cost_breakdown_tbl > tbody').find('#tr_' + elemID).fadeOut(50,function() 
+                        {
+                            $('#total_cost_breakdown_tbl > tbody > #tr_' + elemID).remove();
+                        });
+
+                        for(var y=1;y<YEAR_COUNT;y++)
+                        {   
+
+                            $('#total_cost_breakdown_tbl_'+y+' > tbody').find('#tr_'+y+'_' + elemID).fadeOut(50,function() 
+                            {
+
+                                $('#total_cost_breakdown_tbl_'+y+' > tbody > #tr_'+y+'_'+ elemID).remove();
+                            });
+                        }
+
+                        var index = componentRowIDArray.indexOf(elemID);
+                        if(index!=-1)
+                        {
+                            componentRowIDArray.splice(index, 1);
+                            componentRowTypeArray.splice(index, 1);
+
+                            $('#component_list').val(componentRowIDArray);
+                        }
+
+                        calculateAnnexVGrandTotal();
                     }    
                 }
             );
         }
     }
     
-    $('#economic_code_tbl > tbody').find('#tr_' + elemID).fadeOut(50,function() 
-    {
-        $('#economic_code_tbl > tbody > #tr_' + elemID).remove();
-    });
     
-    $('#total_cost_tbl > tbody').find('#tr_' + elemID).fadeOut(50,function() 
-    {
-        $('#total_cost_tbl > tbody > #tr_' + elemID).remove();
-    });
-    
-    $('#total_cost_breakdown_tbl > tbody').find('#tr_' + elemID).fadeOut(50,function() 
-    {
-        $('#total_cost_breakdown_tbl > tbody > #tr_' + elemID).remove();
-    });
-    
-    for(var y=1;y<YEAR_COUNT;y++)
-    {   
-       
-        $('#total_cost_breakdown_tbl_'+y+' > tbody').find('#tr_'+y+'_' + elemID).fadeOut(50,function() 
-        {
-            
-            $('#total_cost_breakdown_tbl_'+y+' > tbody > #tr_'+y+'_'+ elemID).remove();
-        });
-    }
-    
-    var index = componentRowIDArray.indexOf(elemID);
-    if(index!=-1)
-    {
-        componentRowIDArray.splice(index, 1);
-        componentRowTypeArray.splice(index, 1);
-        
-        $('#component_list').val(componentRowIDArray);
-    }
-    
-    calculateAnnexVGrandTotal();
 }
 
 function addNewYear(fromAddButton)
@@ -446,6 +452,7 @@ function addNewYear(fromAddButton)
     YEAR_COUNT++;
     if(fromAddButton)
     adjustComponentRowPerYear(YEAR_COUNT-1);
+    deleteYearIconAdjustment();
 }
 
 function calculatePhysicalContingency()
@@ -597,7 +604,7 @@ function adjustComponentRowPerYear(year)
 function addYearWiseNewComponentDetailsRow(com_type, year, elemID)
 {
     var component_type = com_type.replace(' ', '_');
-
+    //alert('Year = ' + year + ' == Count = ' + elemID);
     var td_total_gob    = '<td><input type="text" name="gob_'+year+'_'+elemID+'"                  id="gob_'+year+'_'+elemID+'"                 value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+elemID+');" /><br>\n\
                                <input type="text" name="gob_fe_'+year+'_'+elemID+'"               id="gob_fe_'+year+'_'+elemID+'"              value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+elemID+');" /></td>';
     var td_pa_gob       = '<td><input type="text" name="rpa_through_gob_'+year+'_'+elemID+'"      id="rpa_through_gob_'+year+'_'+elemID+'"     value="" class="span9"  onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+elemID+');" /></td>';
@@ -611,9 +618,10 @@ function addYearWiseNewComponentDetailsRow(com_type, year, elemID)
     var td_hidden       = '<input type="hidden"   name="annex_details_id_'+year+'_'+elemID+'"     id="annex_details_id_'+year+'_'+elemID+'" />';
 
     $('<tr id="tr_'+year+'_'+elemID+'">'+ td_total_gob + td_pa_gob + td_pa_spc_acnt + td_pa_dpa 
-                                                        + td_own_fund + td_other + td_comp_total + td_hidden 
-                                                        +'</tr>').appendTo("#total_cost_breakdown_tbl_"+year+" > #" 
-                                                        + component_type+"_total_cost_breakdown_content_"+year);
+                                                       + td_own_fund + td_other + td_comp_total + td_hidden 
+                                                       +'</tr>').appendTo("#total_cost_breakdown_tbl_"+year+" > #" 
+                                                       + component_type+"_total_cost_breakdown_content_"+year);
+    
 }
 
 function deleteYearIconAdjustment()
@@ -621,6 +629,7 @@ function deleteYearIconAdjustment()
     for (var y=1; y<YEAR_COUNT; y++)
     {   
         // define the last year to put the delete sign for year
+        
         if (y == YEAR_COUNT-1)
         {
             // show the delete sign
@@ -648,22 +657,20 @@ function deleteYear()
                 dataType: 'json',
                 success: function(responseText)
                 {
+                    // remove the div
+                    $('#total_cost_breakdown_container_'+year).remove();
+    
+                    // decrease the year count value 
+                    YEAR_COUNT--;
+                    $('#total_year_in_annexv').val(YEAR_COUNT)
+                    calculateAll();
+    
+                    // adjust the delete sign
+                    deleteYearIconAdjustment();
                 }    
             }
         );
     }
-    
-    
-    // remove the div
-    $('#total_cost_breakdown_container_'+year).remove();
-    
-    // decrease the year count value 
-    YEAR_COUNT--;
-    
-    calculateAll();
-    
-    // adjust the delete sign
-    deleteYearIconAdjustment();
 }
 
 function calculateAll()
@@ -682,6 +689,143 @@ function calculateAll()
     calculateYearWiseGrandTotal();
     
     calculateAnnexVGrandTotal();
+    
+    calculateComponentDetailsSubTotal();
+    
+    calculateSubTotal();
+}
+
+function calculateSubTotal()
+{
+    var Revenue_Component_sub_total_total_cost = 0, Revenue_Component_sub_total_gob = 0, Revenue_Component_sub_total_gob_fe = 0,
+        Revenue_Component_sub_total_rpa_through_gob = 0, Revenue_Component_sub_total_rpa_special_account = 0, Revenue_Component_sub_total_dpa = 0,
+        Revenue_Component_sub_total_own_fund = 0, Revenue_Component_sub_total_own_fund_fe = 0, Revenue_Component_sub_total_other = 0,
+        Revenue_Component_sub_total_other_fe = 0;
+
+    var Capital_Component_sub_total_total_cost = 0, Capital_Component_sub_total_gob = 0, Capital_Component_sub_total_gob_fe = 0,
+        Capital_Component_sub_total_rpa_through_gob = 0, Capital_Component_sub_total_rpa_special_account = 0, Capital_Component_sub_total_dpa = 0,
+        Capital_Component_sub_total_own_fund = 0, Capital_Component_sub_total_own_fund_fe = 0, Capital_Component_sub_total_other = 0,
+        Capital_Component_sub_total_other_fe = 0;
+
+    for(var i=0; i<componentRowIDArray.length; i++)
+    {
+        
+        if (componentRowTypeArray[i] == 'Revenue Component')
+        {
+            Revenue_Component_sub_total_total_cost           += $('#total_cost_'+componentRowIDArray[i]).val()*1;
+            Revenue_Component_sub_total_gob                  += $('#total_gob_'+componentRowIDArray[i]).val()*1;
+            Revenue_Component_sub_total_gob_fe               += $('#total_gob_fe_'+componentRowIDArray[i]).val()*1;
+            Revenue_Component_sub_total_rpa_through_gob      += $('#pa_gob_'+componentRowIDArray[i]).val()*1;
+            Revenue_Component_sub_total_rpa_special_account  += $('#pa_spc_acnt_'+componentRowIDArray[i]).val()*1;
+            Revenue_Component_sub_total_dpa                  += $('#pa_spc_acnt_'+componentRowIDArray[i]).val()*1;
+            Revenue_Component_sub_total_own_fund             += $('#own_fund_'+componentRowIDArray[i]).val()*1;
+            Revenue_Component_sub_total_own_fund_fe          += $('#own_fund_fe_'+componentRowIDArray[i]).val()*1;
+            Revenue_Component_sub_total_other                += $('#other_'+componentRowIDArray[i]).val()*1;
+            Revenue_Component_sub_total_other_fe             += $('#other_fe_'+componentRowIDArray[i]).val()*1;
+        }
+        else
+        {
+            Capital_Component_sub_total_total_cost           += $('#total_cost_'+componentRowIDArray[i]).val()*1;
+            Capital_Component_sub_total_gob                  += $('#total_gob_'+componentRowIDArray[i]).val()*1;
+            Capital_Component_sub_total_gob_fe               += $('#total_gob_fe_'+componentRowIDArray[i]).val()*1;
+            Capital_Component_sub_total_rpa_through_gob      += $('#pa_gob_'+componentRowIDArray[i]).val()*1;
+            Capital_Component_sub_total_rpa_special_account  += $('#pa_spc_acnt_'+componentRowIDArray[i]).val()*1;
+            Capital_Component_sub_total_dpa                  += $('#pa_spc_acnt_'+componentRowIDArray[i]).val()*1;
+            Capital_Component_sub_total_own_fund             += $('#own_fund_'+componentRowIDArray[i]).val()*1;
+            Capital_Component_sub_total_own_fund_fe          += $('#own_fund_fe_'+componentRowIDArray[i]).val()*1;
+            Capital_Component_sub_total_other                += $('#other_'+componentRowIDArray[i]).val()*1;
+            Capital_Component_sub_total_other_fe             += $('#other_fe_'+componentRowIDArray[i]).val()*1;
+        }
+    }
+    
+    $('#Revenue_Component_sub_total_total_cost').val(Revenue_Component_sub_total_total_cost.toMoney(2));
+    $('#Revenue_Component_sub_total_gob').val(Revenue_Component_sub_total_gob.toMoney(2));
+    $('#Revenue_Component_sub_total_gob_fe').val(Revenue_Component_sub_total_gob_fe.toMoney(2));
+    $('#Revenue_Component_sub_total_rpa_through_gob').val(Revenue_Component_sub_total_rpa_through_gob.toMoney(2));
+    $('#Revenue_Component_sub_total_rpa_special_account').val(Revenue_Component_sub_total_rpa_special_account.toMoney(2));
+    $('#Revenue_Component_sub_total_dpa').val(Revenue_Component_sub_total_dpa.toMoney(2));
+    $('#Revenue_Component_sub_total_own_fund').val(Revenue_Component_sub_total_own_fund.toMoney(2));
+    $('#Revenue_Component_sub_total_own_fund_fe').val(Revenue_Component_sub_total_own_fund_fe.toMoney(2));
+    $('#Revenue_Component_sub_total_other').val(Revenue_Component_sub_total_other.toMoney(2));
+    $('#Revenue_Component_sub_total_other_fe').val(Revenue_Component_sub_total_other_fe.toMoney(2));
+    
+    $('#Capital_Component_sub_total_total_cost').val(Capital_Component_sub_total_total_cost.toMoney(2));
+    $('#Capital_Component_sub_total_gob').val(Capital_Component_sub_total_gob.toMoney(2));
+    $('#Capital_Component_sub_total_gob_fe').val(Capital_Component_sub_total_gob_fe.toMoney(2));
+    $('#Capital_Component_sub_total_rpa_through_gob').val(Capital_Component_sub_total_rpa_through_gob.toMoney(2));
+    $('#Capital_Component_sub_total_rpa_special_account').val(Capital_Component_sub_total_rpa_special_account.toMoney(2));
+    $('#Capital_Component_sub_total_dpa').val(Capital_Component_sub_total_dpa.toMoney(2));
+    $('#Capital_Component_sub_total_own_fund').val(Capital_Component_sub_total_own_fund.toMoney(2));
+    $('#Capital_Component_sub_total_own_fund_fe').val(Capital_Component_sub_total_own_fund_fe.toMoney(2));
+    $('#Capital_Component_sub_total_other').val(Capital_Component_sub_total_other.toMoney(2));
+    $('#Capital_Component_sub_total_other_fe').val(Capital_Component_sub_total_other_fe.toMoney(2));
+}
+
+function calculateComponentDetailsSubTotal()
+{
+    for(var year=1; year<YEAR_COUNT; year++)
+    {
+        var Rev_Comp_sub_total_total_cost = 0, Rev_Comp_sub_total_gob = 0, Rev_Comp_sub_total_gob_fe = 0, Rev_Comp_sub_total_rpa_through_gob = 0,
+            Rev_Comp_sub_total_dpa = 0, Rev_Comp_sub_total_own_fund = 0, Rev_Comp_sub_total_own_fund_fe = 0,  Rev_Comp_sub_total_other = 0,
+            Rev_Comp_sub_total_other_fe = 0, Rev_Comp_sub_total_rpa_special_account = 0;
+        
+        var Cap_Comp_sub_total_total_cost = 0, Cap_Comp_sub_total_gob = 0, Cap_Comp_sub_total_gob_fe = 0, Cap_Comp_sub_total_rpa_through_gob = 0,
+            Cap_Comp_sub_total_dpa = 0, Cap_Comp_sub_total_own_fund = 0, Cap_Comp_sub_total_own_fund_fe = 0,  Cap_Comp_sub_total_other = 0,
+            Cap_Comp_sub_total_other_fe = 0, Cap_Comp_sub_total_rpa_special_account = 0;
+    
+        for(var i=0; i<componentRowIDArray.length; i++)
+        {
+            if (componentRowTypeArray[i] == 'Revenue Component')
+            {
+                Rev_Comp_sub_total_total_cost += $('#total_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Rev_Comp_sub_total_gob += $('#gob_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Rev_Comp_sub_total_gob_fe += $('#gob_fe_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Rev_Comp_sub_total_rpa_through_gob += $('#rpa_through_gob_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Rev_Comp_sub_total_rpa_special_account += $('#rpa_special_account_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Rev_Comp_sub_total_dpa += $('#dpa_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Rev_Comp_sub_total_own_fund += $('#own_fund_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Rev_Comp_sub_total_own_fund_fe += $('#own_fund_fe_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Rev_Comp_sub_total_other += $('#other_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Rev_Comp_sub_total_other_fe += $('#other_fe_'+year+'_'+componentRowIDArray[i]).val()*1;
+                
+            }
+            else 
+            {
+                Cap_Comp_sub_total_total_cost += $('#total_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Cap_Comp_sub_total_gob += $('#gob_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Cap_Comp_sub_total_gob_fe += $('#gob_fe_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Cap_Comp_sub_total_rpa_through_gob += $('#rpa_through_gob_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Cap_Comp_sub_total_rpa_special_account += $('#rpa_special_account_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Cap_Comp_sub_total_dpa += $('#dpa_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Cap_Comp_sub_total_own_fund += $('#own_fund_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Cap_Comp_sub_total_own_fund_fe += $('#own_fund_fe_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Cap_Comp_sub_total_other += $('#other_'+year+'_'+componentRowIDArray[i]).val()*1;
+                Cap_Comp_sub_total_other_fe += $('#other_fe_'+year+'_'+componentRowIDArray[i]).val()*1;
+            }
+        }
+        
+        $('#Revenue_Component_sub_total_total_cost_'+year).val(Rev_Comp_sub_total_total_cost.toMoney(2));
+        $('#Revenue_Component_sub_total_gob_'+year).val(Rev_Comp_sub_total_gob.toMoney(2));
+        $('#Revenue_Component_sub_total_gob_fe_'+year).val(Rev_Comp_sub_total_gob_fe.toMoney(2));
+        $('#Revenue_Component_sub_total_rpa_through_gob_'+year).val(Rev_Comp_sub_total_rpa_through_gob.toMoney(2));
+        $('#Revenue_Component_sub_total_rpa_special_account_'+year).val(Rev_Comp_sub_total_rpa_special_account.toMoney(2));
+        $('#Revenue_Component_sub_total_dpa_'+year).val(Rev_Comp_sub_total_dpa.toMoney(2));
+        $('#Revenue_Component_sub_total_own_fund_'+year).val(Rev_Comp_sub_total_own_fund.toMoney(2));
+        $('#Revenue_Component_sub_total_own_fund_fe_'+year).val(Rev_Comp_sub_total_own_fund_fe.toMoney(2));
+        $('#Revenue_Component_sub_total_other_'+year).val(Rev_Comp_sub_total_other.toMoney(2));
+        $('#Revenue_Component_sub_total_other_fe_'+year).val(Rev_Comp_sub_total_other_fe.toMoney(2));
+        
+        $('#Capital_Component_sub_total_total_cost_'+year).val(Cap_Comp_sub_total_total_cost.toMoney(2));
+        $('#Capital_Component_sub_total_gob_'+year).val(Cap_Comp_sub_total_gob.toMoney(2));
+        $('#Capital_Component_sub_total_gob_fe_'+year).val(Cap_Comp_sub_total_gob_fe.toMoney(2));
+        $('#Capital_Component_sub_total_rpa_through_gob_'+year).val(Cap_Comp_sub_total_rpa_through_gob.toMoney(2));
+        $('#Capital_Component_sub_total_rpa_special_account_'+year).val(Cap_Comp_sub_total_rpa_special_account.toMoney(2));
+        $('#Capital_Component_sub_total_dpa_'+year).val(Cap_Comp_sub_total_dpa.toMoney(2));
+        $('#Capital_Component_sub_total_own_fund_'+year).val(Cap_Comp_sub_total_own_fund.toMoney(2));
+        $('#Capital_Component_sub_total_own_fund_fe_'+year).val(Cap_Comp_sub_total_own_fund_fe.toMoney(2));
+        $('#Capital_Component_sub_total_other_'+year).val(Cap_Comp_sub_total_other.toMoney(2));
+        $('#Capital_Component_sub_total_other_fe_'+year).val(Cap_Comp_sub_total_other_fe.toMoney(2));
+    }
 }
 
 function calculateYearWiseGrandTotal()
