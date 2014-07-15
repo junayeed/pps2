@@ -92,7 +92,7 @@
                                         <tr>
                                             <td colspan="4">
                                                 (b) Capital Contingency Sub Total<br><br>
-                                                <a href="javascript:void(0);" onClick="addNewComponent('Capital Component');">Add Revenue Component</a>
+                                                <a href="javascript:void(0);" onClick="addNewComponent('Capital Component');">Add Capital Component</a>
                                             </td>
                                         </tr>
                                         <tr>
@@ -298,9 +298,9 @@
                                 </table>
                             </div>
                             
-                        </div>
-                        <a href="javascript:void(0);" onClick="addNewComponent();">Add Component</a>
-                        <a href="javascript:void(0);" onClick="addNewYear();">Add Year</a>
+                        </div>  
+                        <!--<a href="javascript:void(0);" onClick="addNewComponent('Capital_Component');">Add Component</a>-->
+                        <a href="javascript:void(0);" onClick="addNewYear(1);">Add Year</a>
                         <div class="form-actions2">
                             <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                             <input type="hidden" value="saveAnnexV" name="cmd"/>
@@ -423,7 +423,7 @@
         //populate years
         for(var i = 0; i<total_years;i++)
         {
-            addNewYear();
+            addNewYear(0);
         }
         var count=1;
         {foreach from=$annx_v_component_details item=item}

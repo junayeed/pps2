@@ -344,7 +344,7 @@ class projectManagerApp extends DefaultApplication
         $data['annex_v_category_sub_total']            = getProjectWiseComponentSubTotal($pid);
         $data['annex_v_category_year_wise_sub_total']  = getProjectCategoryYearWiseComponentSubTotal($pid);
         
-        //dumpvar($data['annex_v_category_year_wise_sub_total']);
+        //dumpvar($data['annx_v_component_details']);
         $this->annexVExportTo($pid, $report_type);
         
         return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);
