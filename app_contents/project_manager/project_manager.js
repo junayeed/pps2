@@ -266,50 +266,65 @@ function deleteComponent(elemID,component_type)
                     dataType: 'json',
                     success: function(responseText)
                     {
-                        alert('Success');
-                        $('#economic_code_tbl >  #'+component_type+'_economic_code_content').find('#tr_' + elemID).fadeOut(50,function() 
-                        {
-                            $('#economic_code_tbl > #'+component_type+'_economic_code_content > #tr_' + elemID).remove();
-                        });
-
-                        $('#total_cost_tbl > tbody').find('#tr_' + elemID).fadeOut(50,function() 
-                        {
-                            $('#total_cost_tbl > tbody > #tr_' + elemID).remove();
-                        });
-
-                        $('#total_cost_breakdown_tbl > tbody').find('#tr_' + elemID).fadeOut(50,function() 
-                        {
-                            $('#total_cost_breakdown_tbl > tbody > #tr_' + elemID).remove();
-                        });
-
-                        for(var y=1;y<YEAR_COUNT;y++)
-                        {   
-
-                            $('#total_cost_breakdown_tbl_'+y+' > tbody').find('#tr_'+y+'_' + elemID).fadeOut(50,function() 
-                            {
-
-                                $('#total_cost_breakdown_tbl_'+y+' > tbody > #tr_'+y+'_'+ elemID).remove();
-                            });
+                        if (responseText == '1')
+                        {    
+                            //alert('here')
+                            removeComponentRow(component_type, elemID);
                         }
-
-                        var index = componentRowIDArray.indexOf(elemID);
-                        if(index!=-1)
-                        {
-                            componentRowIDArray.splice(index, 1);
-                            componentRowTypeArray.splice(index, 1);
-
-                            $('#component_list').val(componentRowIDArray);
-                        }
-
-                        calculateAnnexVGrandTotal();
                     }    
                 }
             );
         }
     }
-    
+    else
+    {
+        if ( doConfirm('The component will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
+        {
+            removeComponentRow(component_type, elemID);
+        }
+    }
     
 }
+
+function removeComponentRow(component_type, elemID)
+{
+    $('#economic_code_tbl >  #'+component_type+'_economic_code_content').find('#tr_' + elemID).fadeOut(50,function() 
+    {
+        $('#economic_code_tbl > #'+component_type+'_economic_code_content > #tr_' + elemID).remove();
+    });
+
+    $('#total_cost_tbl > #'+component_type+'_total_cost_content').find('#tr_' + elemID).fadeOut(50,function() 
+    {
+        $('#total_cost_tbl > #'+component_type+'_total_cost_content > #tr_' + elemID).remove();
+    });
+
+    $('#total_cost_breakdown_tbl #'+component_type+'_total_cost_breakdown_content').find('#tr_' + elemID).fadeOut(50,function() 
+    {
+        $('#total_cost_breakdown_tbl > #'+component_type+'_total_cost_breakdown_content > #tr_' + elemID).remove();
+    });
+
+    for(var y=1;y<YEAR_COUNT;y++)   
+    {   
+
+        $('#total_cost_breakdown_tbl_'+y+' > #'+component_type+'_total_cost_breakdown_content_'+y).find('#tr_'+y+'_' + elemID).fadeOut(50,function() 
+        {
+
+            $('#total_cost_breakdown_tbl_'+y+' > #'+component_type+'_total_cost_breakdown_content_'+y+' > #tr_'+y+'_'+ elemID).remove();
+        });
+    }
+
+    var index = componentRowIDArray.indexOf(elemID);
+    if(index!=-1)
+    {
+        componentRowIDArray.splice(index, 1);
+        componentRowTypeArray.splice(index, 1);
+
+        $('#component_list').val(componentRowIDArray);
+    }
+
+    calculateAll();
+}
+
 
 function addNewYear(fromAddButton)
 {
@@ -502,7 +517,8 @@ function calculatePhysicalContingency()
     
     $('#physical_contigency_total').val(contingency_total.toMoney(2));
     
-    calculateAnnexVGrandTotal();
+    calculateAnnexVGrandTotal(); 
+    calculateYearWiseGrandTotal();
 }
 
 function calculatePriceContingency()
@@ -553,6 +569,7 @@ function calculatePriceContingency()
     $('#price_contigency_total').val(contingency_total.toMoney(2));
     
     calculateAnnexVGrandTotal();
+    calculateYearWiseGrandTotal();
 }
 
 function toggleFiscalYear(elemID)
@@ -657,20 +674,23 @@ function deleteYear()
                 dataType: 'json',
                 success: function(responseText)
                 {
-                    // remove the div
-                    $('#total_cost_breakdown_container_'+year).remove();
-    
-                    // decrease the year count value 
-                    YEAR_COUNT--;
-                    $('#total_year_in_annexv').val(YEAR_COUNT)
-                    calculateAll();
-    
-                    // adjust the delete sign
-                    deleteYearIconAdjustment();
                 }    
             }
         );
+            
+        // remove the div
+        $('#total_cost_breakdown_container_'+year).remove();
+    
+        // decrease the year count value 
+        YEAR_COUNT--;
+        $('#total_year_in_annexv').val(YEAR_COUNT)
+        calculateAll();
+    
+        // adjust the delete sign
+        deleteYearIconAdjustment();    
     }
+    
+    
 }
 
 function calculateAll()
@@ -717,7 +737,7 @@ function calculateSubTotal()
             Revenue_Component_sub_total_gob_fe               += $('#total_gob_fe_'+componentRowIDArray[i]).val()*1;
             Revenue_Component_sub_total_rpa_through_gob      += $('#pa_gob_'+componentRowIDArray[i]).val()*1;
             Revenue_Component_sub_total_rpa_special_account  += $('#pa_spc_acnt_'+componentRowIDArray[i]).val()*1;
-            Revenue_Component_sub_total_dpa                  += $('#pa_spc_acnt_'+componentRowIDArray[i]).val()*1;
+            Revenue_Component_sub_total_dpa                  += $('#pa_dpa_'+componentRowIDArray[i]).val()*1;
             Revenue_Component_sub_total_own_fund             += $('#own_fund_'+componentRowIDArray[i]).val()*1;
             Revenue_Component_sub_total_own_fund_fe          += $('#own_fund_fe_'+componentRowIDArray[i]).val()*1;
             Revenue_Component_sub_total_other                += $('#other_'+componentRowIDArray[i]).val()*1;
@@ -730,7 +750,7 @@ function calculateSubTotal()
             Capital_Component_sub_total_gob_fe               += $('#total_gob_fe_'+componentRowIDArray[i]).val()*1;
             Capital_Component_sub_total_rpa_through_gob      += $('#pa_gob_'+componentRowIDArray[i]).val()*1;
             Capital_Component_sub_total_rpa_special_account  += $('#pa_spc_acnt_'+componentRowIDArray[i]).val()*1;
-            Capital_Component_sub_total_dpa                  += $('#pa_spc_acnt_'+componentRowIDArray[i]).val()*1;
+            Capital_Component_sub_total_dpa                  += $('#pa_dpa_'+componentRowIDArray[i]).val()*1;
             Capital_Component_sub_total_own_fund             += $('#own_fund_'+componentRowIDArray[i]).val()*1;
             Capital_Component_sub_total_own_fund_fe          += $('#own_fund_fe_'+componentRowIDArray[i]).val()*1;
             Capital_Component_sub_total_other                += $('#other_'+componentRowIDArray[i]).val()*1;
@@ -804,7 +824,7 @@ function calculateComponentDetailsSubTotal()
             }
         }
         
-        $('#Revenue_Component_sub_total_total_cost_'+year).val(Rev_Comp_sub_total_total_cost.toMoney(2));
+        $('#Revenue_Component_sub_total_total_'+year).val(Rev_Comp_sub_total_total_cost.toMoney(2));
         $('#Revenue_Component_sub_total_gob_'+year).val(Rev_Comp_sub_total_gob.toMoney(2));
         $('#Revenue_Component_sub_total_gob_fe_'+year).val(Rev_Comp_sub_total_gob_fe.toMoney(2));
         $('#Revenue_Component_sub_total_rpa_through_gob_'+year).val(Rev_Comp_sub_total_rpa_through_gob.toMoney(2));
@@ -815,7 +835,7 @@ function calculateComponentDetailsSubTotal()
         $('#Revenue_Component_sub_total_other_'+year).val(Rev_Comp_sub_total_other.toMoney(2));
         $('#Revenue_Component_sub_total_other_fe_'+year).val(Rev_Comp_sub_total_other_fe.toMoney(2));
         
-        $('#Capital_Component_sub_total_total_cost_'+year).val(Cap_Comp_sub_total_total_cost.toMoney(2));
+        $('#Capital_Component_sub_total_total_'+year).val(Cap_Comp_sub_total_total_cost.toMoney(2));
         $('#Capital_Component_sub_total_gob_'+year).val(Cap_Comp_sub_total_gob.toMoney(2));
         $('#Capital_Component_sub_total_gob_fe_'+year).val(Cap_Comp_sub_total_gob_fe.toMoney(2));
         $('#Capital_Component_sub_total_rpa_through_gob_'+year).val(Cap_Comp_sub_total_rpa_through_gob.toMoney(2));
@@ -841,9 +861,11 @@ function calculateYearWiseGrandTotal()
         var grand_total_own_fund_fe  = 0;
         var grand_total_other        = 0;
         var grand_total_other_fe     = 0;
+        var grand_total              = 0;
         
         for(var i=0; i<componentRowIDArray.length; i++)
         {
+            grand_total              += $('#total_'+year+'_'+componentRowIDArray[i]).val()*1;
             grand_total_gob          += $('#gob_'+year+'_'+componentRowIDArray[i]).val()*1;
             grand_total_gob_fe       += $('#gob_fe_'+year+'_'+componentRowIDArray[i]).val()*1;
             grand_total_through_gob  += $('#rpa_through_gob_'+year+'_'+componentRowIDArray[i]).val()*1;
@@ -855,16 +877,18 @@ function calculateYearWiseGrandTotal()
             grand_total_other_fe     += $('#other_fe_'+year+'_'+componentRowIDArray[i]).val()*1;
         }
         
+        grand_total              += $('#physical_contigency_total_'+year).val()*1           + $('#price_contigency_total_'+year).val()*1;
         grand_total_gob          += $('#physical_contigency_gob_'+year).val()*1             + $('#price_contigency_gob_'+year).val()*1;
         grand_total_gob_fe       += $('#physical_contigency_gob_fe_'+year).val()*1          + $('#price_contigency_gob_fe_'+year).val()*1;
         grand_total_through_gob  += $('#physical_contigency_pa_through_gob_'+year).val()*1  + $('#price_contigency_pa_through_gob_'+year).val()*1;
-        grand_total_spc_acnt     += $('#physical_contigency_pa_sp_acnt_'+year).val()*1           + $('#price_contigency_pa_sp_acnt_'+year).val()*1;
-        grand_total_dpa          += $('#physical_contigency_pa_dpa_'+year).val()*1      + $('#price_contigency_pa_dpa_'+year).val()*1;
-        grand_total_own_fund     += $('#physical_contigency_own_fund_'+year).val()*1    + $('#price_contigency_own_fund_'+year).val()*1;
-        grand_total_own_fund_fe  += $('#physical_contigency_own_fund_fe_'+year).val()*1 + $('#price_contigency_own_fund_fe_'+year).val()*1;
-        grand_total_other        += $('#physical_contigency_other_'+year).val()*1       + $('#price_contigency_other_'+year).val()*1;
-        grand_total_other_fe     += $('#physical_contigency_other_fe_'+year).val()*1    + $('#price_contigency_other_fe_'+year).val()*1;
+        grand_total_spc_acnt     += $('#physical_contigency_pa_sp_acnt_'+year).val()*1      + $('#price_contigency_pa_sp_acnt_'+year).val()*1;
+        grand_total_dpa          += $('#physical_contigency_pa_dpa_'+year).val()*1          + $('#price_contigency_pa_dpa_'+year).val()*1;
+        grand_total_own_fund     += $('#physical_contigency_own_fund_'+year).val()*1        + $('#price_contigency_own_fund_'+year).val()*1;
+        grand_total_own_fund_fe  += $('#physical_contigency_own_fund_fe_'+year).val()*1     + $('#price_contigency_own_fund_fe_'+year).val()*1;
+        grand_total_other        += $('#physical_contigency_other_'+year).val()*1           + $('#price_contigency_other_'+year).val()*1;
+        grand_total_other_fe     += $('#physical_contigency_other_fe_'+year).val()*1        + $('#price_contigency_other_fe_'+year).val()*1;
         
+        $('#grand_total_'+year).val(grand_total.toMoney(2));
         $('#grand_total_gob_'+year).val(grand_total_gob.toMoney(2));
         $('#grand_total_gob_fe_'+year).val(grand_total_gob_fe.toMoney(2));
         $('#grand_total_through_gob_'+year).val(grand_total_through_gob.toMoney(2));

@@ -763,7 +763,7 @@
             $smarty->assign($key ,$value);
             
       }
-
+      
       $smarty->assign('USER_TYPE', $_SESSION['user_type']);
       $userType =  preg_replace("/[^a-z]/", '_', strtolower($_SESSION['user_type']));
 

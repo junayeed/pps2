@@ -127,8 +127,12 @@ class Project
 
     public function saveBasicInfo()
     {
+        $data                 = getUserDataSet(PROJECT_TBL);
+        $data['ministry_id']  = $_SESSION['ministry_id'];
+        $data['agency_id']    = $_SESSION['agency_id'];
+        
         $info['table'] = PROJECT_TBL;
-        $info['data']  = getUserDataSet(PROJECT_TBL);
+        $info['data']  = $data;
         $info['debug'] = false;
         
         if($this->id)

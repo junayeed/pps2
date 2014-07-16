@@ -4,9 +4,7 @@
  * This application is used to authenticate users
  *
  * @package LoginApp
- * @author  php@evoknow.com
  * @version $Id$
- * @copyright 2005 EVOKNOW, Inc.
  *
  */
 

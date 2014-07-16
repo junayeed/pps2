@@ -21,8 +21,11 @@
    /**#@+
    * Template Constant
    */   
+   
+   $userType =  preg_replace("/[^a-z]/", '_', strtolower($_SESSION['user_type']));
+   
    define('DEFAULT_HOME_TEMPLATE',        TEMPLATE_DIR                . '/default_home.html');
    define('DEFAULT_HEADER_TEMPLATE',      TEMPLATE_DIR                . '/default_header.html');
    define('DEFAULT_NAVIGATION_TEMPLATE',  TEMPLATE_DIR                . '/default_navigation.html');
-   define('DASHBOARD_TEMPLATE',           TEMPLATE_DIR                . '/dashboard.html');
+   define('DASHBOARD_TEMPLATE',           TEMPLATE_DIR                . '/'.$userType.'_dashboard.html');
 ?>

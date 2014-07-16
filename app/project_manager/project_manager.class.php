@@ -90,11 +90,17 @@ class projectManagerApp extends DefaultApplication
         $pid         = base64_decode(getUserField('pid'));
         $year_serial = getUserField('year_serial');
         
+        // delete from Annex V details table
         $info['table']  = PROJECT_ANNEX_V_DETAILS_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['where']  = 'pid = ' . $pid . ' AND year_serial = ' . $year_serial;
+        
+        // delete from Annex V contingency details table
+        $infoC['table']  = PROJECT_ANNEX_V_CON_DETAILS_TBL;
+        $infoC['debug']  = false;
+        $infoC['where']  = 'pid = ' . $pid . ' AND year_serial = ' . $year_serial;
                 
-        if ( delete($info) )
+        if ( delete($info) && delete($infoC))
         {
             $this->updateAnexVTotalyear($pid, $year_serial-1);
         
@@ -113,7 +119,7 @@ class projectManagerApp extends DefaultApplication
         $data['total_year'] = $year;
         
         $info['table']  = PROJECT_ANNEX_V_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['where']  = 'pid = ' . $pid;
         $info['data']   = $data;
                 
@@ -406,9 +412,9 @@ class projectManagerApp extends DefaultApplication
    */
    function saveRecord()
    {
-       
        $project = new Project();
        $newid   = $project->saveBasicInfo();
+       
        if($newid)
        { 
            header ('Location: project_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
@@ -437,8 +443,9 @@ class projectManagerApp extends DefaultApplication
             $filterClause .= " and project_type = '$project_type' ";
 
         $info['table'] = PROJECT_TBL;
-        $info['debug'] = false;
-        $info['where'] = $filterClause . ' Order By project_title_en ASC';
+        $info['debug'] = true;
+        $info['where'] = $filterClause . ' AND ministry_id = ' . $_SESSION['ministry_id'] . 
+                         ' AND agency_id = ' . $_SESSION['agency_id'] .' Order By project_title_en ASC';
 
         $data['list'] = select($info);
 
