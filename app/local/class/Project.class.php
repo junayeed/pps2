@@ -54,7 +54,7 @@ class Project
         $this->basicInfo->ministries      = $this->loadMinistries();        
         $this->basicInfo->agencies        = $this->loadAgencies();        
         $this->basicInfo->partners        = $this->loadDevPartners();        
-        $data->basicInfo->modefinancing   = $this->loadModeOfFinancing();        
+        $this->basicInfo->modefinancing   = $this->loadModeOfFinancing();        
         $this->basicInfo->locations       = $this->loadLocations();        
     }
     

@@ -850,6 +850,7 @@ function calculateComponentDetailsSubTotal()
 
 function calculateYearWiseGrandTotal()
 {
+    
     for(var year=1; year < YEAR_COUNT; year++)
     {
         var grand_total_gob          = 0;
@@ -875,6 +876,7 @@ function calculateYearWiseGrandTotal()
             grand_total_own_fund_fe  += $('#own_fund_fe_'+year+'_'+componentRowIDArray[i]).val()*1;
             grand_total_other        += $('#other_'+year+'_'+componentRowIDArray[i]).val()*1;
             grand_total_other_fe     += $('#other_fe_'+year+'_'+componentRowIDArray[i]).val()*1;
+            
         }
         
         grand_total              += $('#physical_contigency_total_'+year).val()*1           + $('#price_contigency_total_'+year).val()*1;

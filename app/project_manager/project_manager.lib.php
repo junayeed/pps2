@@ -58,7 +58,8 @@
         $componentArray = explode(",", $_REQUEST['component_list']);
         
         //dumpvar($componentArray);
-        
+        //dumpVar($_REQUEST);
+        //die;
         foreach( $componentArray as $key => $value)
 	{
             {
