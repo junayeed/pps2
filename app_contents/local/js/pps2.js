@@ -42,15 +42,15 @@ function populateProcurementPlanDetails(package_no, procurement_desc, procuremen
 
 function addNewProcuremtPlanRow(targetID, procurementCategory)
 {
-    var td_package_no           = '<td><input type="text" name="package_no_'+ROW_ID+'" id="package_no_'+ROW_ID+'" value="" class="span10" /></td>';
-    var td_procurement_desc     = '<td><textarea name="procurement_desc_'+ROW_ID+'" id="procurement_desc_'+ROW_ID+'" class="span12" style="resize: vertical;"></textarea></td>';  
-    var td_procurement_unit     = '<td><input type="text" name="procurement_unit_'+ROW_ID+'" id="procurement_unit_'+ROW_ID+'" value="" class="span12" maxlength="12" /></td>';
-    var td_procurement_qty      = '<td><input type="text" name="procurement_qty_'+ROW_ID+'" id="procurement_qty_'+ROW_ID+'" value="" class="span10" onkeypress="return isNumberKey(event);" /></td>';
+    var td_package_no           = '<td><input type="text" name="package_no_'+ROW_ID+'" id="package_no_'+ROW_ID+'" value="" class="span10" required /></td>';
+    var td_procurement_desc     = '<td><textarea name="procurement_desc_'+ROW_ID+'" id="procurement_desc_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';  
+    var td_procurement_unit     = '<td><input type="text" name="procurement_unit_'+ROW_ID+'" id="procurement_unit_'+ROW_ID+'" value="" class="span12" maxlength="12" required /></td>';
+    var td_procurement_qty      = '<td><input type="text" name="procurement_qty_'+ROW_ID+'" id="procurement_qty_'+ROW_ID+'" value="" class="span10" onkeypress="return isNumberKey(event);" required/></td>';
     var td_procurement_method   = '<td>'+getProcurementMethod('procurement_method_'+ROW_ID);+'</td>';
     var td_procurement_type     = '<td>'+getProcurementType('procurement_type_'+ROW_ID);+'</td>';
     var td_approv_auth          = '<td><input type="text" name="approv_auth_'+ROW_ID+'" id="approv_auth_'+ROW_ID+'" value="" class="span11" /></td>';
     var td_fund_src             = '<td><input type="text" name="fund_src_'+ROW_ID+'" id="fund_src_'+ROW_ID+'" value="" class="span12" /></td>';
-    var td_estd_cost            = '<td><input type="text" name="estd_cost_'+ROW_ID+'" id="estd_cost_'+ROW_ID+'" value="" class="span12" onChange="calculateProcurementTotal(\''+procurementCategory+'\');" onkeypress="return isNumberKey(event);" /></td>';
+    var td_estd_cost            = '<td><input type="text" name="estd_cost_'+ROW_ID+'" id="estd_cost_'+ROW_ID+'" value="" class="span12" onChange="calculateProcurementTotal(\''+procurementCategory+'\');" onkeypress="return isNumberKey(event);" required/></td>';
     var td_tender_invitation    = '<td><input class="span12 date-picker" id="tender_invitation_'+ROW_ID+'" name="tender_invitation_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_contract_sign        = '<td><input class="span12 date-picker" id="contract_sign_'+ROW_ID+'" name="contract_sign_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_contract_completion  = '<td><input class="span12 date-picker" id="contract_completion_'+ROW_ID+'" name="contract_completion_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';

@@ -34,11 +34,11 @@
 <div class="row-fluid">
 <!-- PAGE CONTENT BEGINS HERE -->
 
-<div class="alert alert-success">
+<!--div class="alert alert-success">
     <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
     <strong><i class="icon-info-sign"></i> Project Created Successfully</strong>,
     Now you can fillup Part-A, Part-B and other Annexures <br />
-</div>
+</div -->
 
 <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}">
     <div class="control-group">
@@ -65,14 +65,14 @@
     <div class="control-group">
         <label class="control-label" for="implementing_period">Date of commencement</label>
         <div class="controls">
-             <label class="control-label">: {$basicInfo->date_of_commencement}</label>   
+             <label class="control-label">: {$basicInfo->date_of_commencement|date_format}</label>   
         </div>    
     </div>  
 
     <div class="control-group">
         <label class="control-label" for="implementing_period">Date of completion</label>
          <div class="controls">
-             <label class="control-label">: {$basicInfo->date_of_completion}</label>   
+             <label class="control-label">: {$basicInfo->date_of_completion|date_format}</label>   
         </div>    
     </div>  
 </form>

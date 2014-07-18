@@ -88,6 +88,7 @@
   define('PROJECT_YEAR_WISE_GOB_OWNFUND',                   DB_NAME . '.year_wise_gob_ownfund');
   define('PROJECT_SUB_TOTAL_VIEW',                          DB_NAME . '.view_project_wise_component_sub_total');
   define('PROJECT_COMP_YEAR_WSIE_SUB_TOTAL_VIEW',           DB_NAME . '.view_component_type_year_wise_subtotal');
+  define('VIEW_PROJECT_GRAND_TOTAL',                        DB_NAME . '.view_project_grand_total');
   
   if (AUTO_CONNECT_TO_DATABASE)
   {

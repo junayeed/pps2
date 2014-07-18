@@ -348,11 +348,12 @@ class User extends Entity
       if (empty($loginID) || empty($password))
           return false;
 
-      $info['table'] = $this->entity_table;
-      $info['debug'] = false;
-      $info['where'] = "$loginIDField = " . q($loginID)
-                       . " AND password = " . q(md5($password))
-                       . " AND status = " . q(ACTIVE_USER_STATUS);
+      $info['table']  = $this->entity_table .' AS U LEFT JOIN '.MINISTRY_LOOKUP_TBL.' AS MLT on (U.ministry_id=MLT.id) LEFT JOIN '.AGENCY_LOOKUP_TBL.' AS ALT ON (U.agency_id=ALT.id)';
+      $info['debug']  = false;
+      $info['fields'] = array('U.*','MLT.name as minstry_name','ALT.name as agency_name') ;
+      $info['where']  = "U.$loginIDField = " . q($loginID)
+                       . " AND U.password = " . q(md5($password))
+                       . " AND U.status = " . q(ACTIVE_USER_STATUS);
 
       $userRecord = select($info);
 

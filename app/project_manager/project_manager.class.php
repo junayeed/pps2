@@ -329,15 +329,15 @@ class projectManagerApp extends DefaultApplication
         
         if ($cmd == 'saveAnnexIIIa')
         {
-            return $this->showProcurementPlanGOODS();
+            header ('Location: project_manager.php?cmd=annexIIIa&PI='.  base64_encode($pid));
         }
         else if ($cmd == 'saveAnnexIIIb')
         {
-            return $this->showProcurementPlanWORKS();
+            header ('Location: project_manager.php?cmd=annexIIIb&PI='.  base64_encode($pid));
         }
         else if ($cmd == 'saveAnnexIIIc')
         {
-            return $this->showProcurementPlanSERVICES();
+            header ('Location: project_manager.php?cmd=annexIIIc&PI='.  base64_encode($pid));
         }
     }
     
@@ -346,7 +346,7 @@ class projectManagerApp extends DefaultApplication
         $pid       = base64_decode(getUserField('PI'));
         updateAnnexV();
         updateAnnexVContingency();
-        updateProjectTotalCost($pid);
+        //updateProjectTotalCost($pid);
 
         header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid));
         //return $this->showAnnexV();

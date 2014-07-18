@@ -49,7 +49,7 @@ function getEconomicCode(elemName, comp_id, com_type)
         }
     }
     
-    return '<select name='+elemName+' id='+elemName+' class="span12" onchange=populateEconomicSubCodeList('+comp_id+',this.value) >' + str_options + '</select>';
+    return '<select name='+elemName+' id='+elemName+' class="span12" onchange=populateEconomicSubCodeList('+comp_id+',this.value)  required>' + str_options + '</select>';
 }
 
 function populateSubCodeDescription(elemID, thisField)
@@ -78,7 +78,7 @@ function populateEconomicSubCodeList(elemID, thisField)
 function createEconomicSubCodeDropdown(elemID,thisField)
 {
     
-    return '<select name="sub_code_'+elemID+'" id="sub_code_'+elemID+'" class="span12" onChange="populateSubCodeDescription('+elemID+', this);">' +  + '</select>';
+    return '<select name="sub_code_'+elemID+'" id="sub_code_'+elemID+'" class="span12" onChange="populateSubCodeDescription('+elemID+', this);" required>' +  + '</select>';
 }
 
 function populateCategoryWiseComponentSubTotal(comp_type, sub_total_total_cost, sub_total_gob, sub_total_gob_fe, sub_total_rpa_through_gob,
@@ -333,7 +333,7 @@ function addNewYear(fromAddButton)
                                                <table id="total_cost_breakdown_tbl_'+YEAR_COUNT+'" class="table table-striped table-bordered table-hover table_bug_report">\n\
                                                    <thead>\n\
                                                        <tr>\n\
-                                                           <th colspan="7">Fiscal Year '+YEAR_COUNT+': <input type="text" name="financial_year_'+YEAR_COUNT+'" id="financial_year_'+YEAR_COUNT+'">\n\
+                                                           <th colspan="7">Fiscal Year '+YEAR_COUNT+': <input type="text" name="financial_year_'+YEAR_COUNT+'" id="financial_year_'+YEAR_COUNT+'" required>\n\
                                                            <img src="/app_contents/common/images/cross.png" onClick="deleteYear();" class="delete_year_icon" id="year_delete_'+YEAR_COUNT+'" style="display: none;"></th>\n\
                                                        </tr>\n\
                                                        <tr>\n\
@@ -435,23 +435,23 @@ function addNewYear(fromAddButton)
                                                         </tr><input type="hidden" id="price_contigency_con_id_'+YEAR_COUNT+'" name="price_contigency_con_id_'+YEAR_COUNT+'" value="" >\n\
                                                         <tr>\n\
                                                             <td>\n\
-                                                                <input type="text" class="span12" name="grand_total_gob_'+YEAR_COUNT+'" id="grand_total_gob_'+YEAR_COUNT+'" readonly>\n\
-                                                                <input type="text" class="span12" name="grand_total_gob_fe_'+YEAR_COUNT+'" id="grand_total_gob_fe_'+YEAR_COUNT+'" readonly>\n\
+                                                                <input type="text" class="span12 bold" name="grand_total_gob_'+YEAR_COUNT+'" id="grand_total_gob_'+YEAR_COUNT+'" readonly>\n\
+                                                                <input type="text" class="span12 bold" name="grand_total_gob_fe_'+YEAR_COUNT+'" id="grand_total_gob_fe_'+YEAR_COUNT+'" readonly>\n\
                                                             </td>\n\
                                                             <td>\n\
-                                                                <input type="text" class="span12" name="grand_total_through_gob_'+YEAR_COUNT+'" id="grand_total_through_gob_'+YEAR_COUNT+'" readonly>\n\
+                                                                <input type="text" class="span12 bold" name="grand_total_through_gob_'+YEAR_COUNT+'" id="grand_total_through_gob_'+YEAR_COUNT+'" readonly>\n\
                                                             </td>\n\
-                                                            <td><input type="text" class="span12" name="grand_total_spc_acnt_'+YEAR_COUNT+'" id="grand_total_spc_acnt_'+YEAR_COUNT+'" readonly></td>\n\
-                                                            <td><input type="text" class="span12" name="grand_total_dpa_'+YEAR_COUNT+'" id="grand_total_dpa_'+YEAR_COUNT+'" readonly></td>\n\
+                                                            <td><input type="text" class="span12 bold" name="grand_total_spc_acnt_'+YEAR_COUNT+'" id="grand_total_spc_acnt_'+YEAR_COUNT+'" readonly></td>\n\
+                                                            <td><input type="text" class="span12 bold" name="grand_total_dpa_'+YEAR_COUNT+'" id="grand_total_dpa_'+YEAR_COUNT+'" readonly></td>\n\
                                                             <td>\n\
-                                                                <input type="text" class="span12" name="grand_total_own_fund_'+YEAR_COUNT+'" id="grand_total_own_fund_'+YEAR_COUNT+'" readonly>\n\
-                                                                <input type="text" class="span12" name="grand_total_own_fund_fe_'+YEAR_COUNT+'" id="grand_total_own_fund_fe_'+YEAR_COUNT+'" readonly>\n\
+                                                                <input type="text" class="span12 bold" name="grand_total_own_fund_'+YEAR_COUNT+'" id="grand_total_own_fund_'+YEAR_COUNT+'" readonly>\n\
+                                                                <input type="text" class="span12 bold" name="grand_total_own_fund_fe_'+YEAR_COUNT+'" id="grand_total_own_fund_fe_'+YEAR_COUNT+'" readonly>\n\
                                                             </td>\n\
                                                             <td>\n\
-                                                                <input type="text" class="span12" name="grand_total_other_'+YEAR_COUNT+'" id="grand_total_other_'+YEAR_COUNT+'" readonly>\n\
-                                                                <input type="text" class="span12" name="grand_total_other_fe_'+YEAR_COUNT+'" id="grand_total_other_fe_'+YEAR_COUNT+'" readonly>\n\
+                                                                <input type="text" class="span12 bold" name="grand_total_other_'+YEAR_COUNT+'" id="grand_total_other_'+YEAR_COUNT+'" readonly>\n\
+                                                                <input type="text" class="span12 bold" name="grand_total_other_fe_'+YEAR_COUNT+'" id="grand_total_other_fe_'+YEAR_COUNT+'" readonly>\n\
                                                             </td>\n\
-                                                            <td><input type="text" class="span12" name="grand_total_'+YEAR_COUNT+'" id="grand_total_'+YEAR_COUNT+'" readonly></td>\n\
+                                                            <td><input type="text" class="span12 bold" name="grand_total_'+YEAR_COUNT+'" id="grand_total_'+YEAR_COUNT+'" readonly></td>\n\
                                                         </tr>\n\
                                                     </tfoot>\n\
                                                 </table>\n\

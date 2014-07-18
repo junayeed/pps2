@@ -44,13 +44,22 @@ class Project
     
     public function loadBasicInfo()
     {
-        $info['table'] = PROJECT_TBL;
-        $info['where'] = "id = $this->id";
+        $info['table'] = PROJECT_TBL.' AS P LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VP ON(P.id=VP.pid)';
+        
+        $info['where'] = "P.id = $this->id";
         $info['debug'] = false;
 
         $row = select($info);
-
-        $this->basicInfo                  = $row[0];        
+        
+        if($row)
+        {
+            foreach ($row[0] as $key=>$value)
+            {
+                $thisData->$key = $value ? $value: 0.0;
+            }
+        }    
+        
+        $this->basicInfo                  = $thisData;        
         $this->basicInfo->ministries      = $this->loadMinistries();        
         $this->basicInfo->agencies        = $this->loadAgencies();        
         $this->basicInfo->partners        = $this->loadDevPartners();        
@@ -127,9 +136,13 @@ class Project
 
     public function saveBasicInfo()
     {
-        $data                 = getUserDataSet(PROJECT_TBL);
-        $data['ministry_id']  = $_SESSION['ministry_id'];
-        $data['agency_id']    = $_SESSION['agency_id'];
+        $data                         = getUserDataSet(PROJECT_TBL);
+        $data['date_of_commencement'] = $_REQUEST['date_of_commencement'];
+        $data['date_of_completion']   = $_REQUEST['date_of_completion'];
+        $data['ministry_id']          = $_SESSION['ministry_id'];
+        $data['agency_id']            = $_SESSION['agency_id'];
+        $data['created_by']           = $_SESSION['uid'];
+        $data['current_holder']       = $_SESSION['uid'];
         
         $info['table'] = PROJECT_TBL;
         $info['data']  = $data;

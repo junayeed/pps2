@@ -29,8 +29,9 @@
 	        $data['eoi_invitation']         = $_REQUEST['eoi_invitation_' . $id];
 	        $data['create_date']            = date('Y-m-d');
 	        $data['procurement_plan_id']    = $_REQUEST['proc_plan_id_' . $id];
-                $data['procurement_category ']  = $_REQUEST['procurement_category_' .$id];
+                $data['procurement_category']   = $_REQUEST['procument_category_' .$id];
                 $data['pid']                    = base64_decode(getUserField('PI'));
+                
                 
                 $info['data'] = $data;                
                 // if procurement_plan_id is there then update the record
@@ -46,6 +47,7 @@
                 }
  	    }
         }
+        
     }
     
     function updateAnnexV()
@@ -59,6 +61,7 @@
         
         //dumpvar($componentArray);
         //dumpVar($_REQUEST);
+        //dumpVar($data['pid']);
         //die;
         foreach( $componentArray as $key => $value)
 	{

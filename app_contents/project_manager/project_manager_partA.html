@@ -720,6 +720,7 @@
                     
                     ministries.push({$smarty.session.ministry_id})
                     agencies.push({$smarty.session.agency_id})
+                    
                     {foreach from=$basicInfo->ministries item=item key=key}
                        ministries.push({$item->ministry_id})
                     {/foreach}
