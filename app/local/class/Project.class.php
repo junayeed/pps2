@@ -113,9 +113,12 @@ class Project
     
     public function loadLocations()
     {
-        $info['table'] = PROJECT_LOCATIONS_TBL;
+        $info['table'] = PROJECT_LOCATIONS_TBL.' AS Loc LEFT JOIN '.DIVISION_LOOKUP_TBL.' AS Div1 ON (Loc.location_id=Div1.divid)'.
+                         ' LEFT JOIN '.DISTRICT_LOOKUP_TBL.' AS Dis ON (Loc.location_id=Dis.district_id)'.
+                         ' LEFT JOIN '.UPZILA_LOOKUP_TBL.' AS Upz ON (Loc.location_id=Upz.upzila_id)';
         $info['debug'] = false;
-        $info['where'] = "pid = $this->id";
+        $info['fields'] = array('Loc.*','Div1.division_name','Dis.district_name','Dis.div_id','Upz.upzila_name','Upz.district_id');
+        $info['where'] = "Loc.pid = $this->id";
         
         $result =   select($info);    
         

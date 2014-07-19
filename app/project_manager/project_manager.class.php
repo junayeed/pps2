@@ -27,6 +27,7 @@ class projectManagerApp extends DefaultApplication
            case 'partB'              : $screen = $this->showProjectPartB();            break;
            case 'savePartB'          : $screen = $this->saveProjectPartB();            break;
            case 'anaexI'             : $screen = $this->showProjectLocation();         break;
+           case 'saveAnnexI'         : $screen = $this->saveProjectLocationWithCost(); break;
            case 'annexIIIa'          : $screen = $this->showProcurementPlanGOODS();    break;
            case 'saveAnnexIIIa'      : $screen = $this->saveProcurementPlan($cmd);     break;
            case 'annexIIIb'          : $screen = $this->showProcurementPlanWORKS();    break;
@@ -266,6 +267,8 @@ class projectManagerApp extends DefaultApplication
         $data->location  = $project->basicInfo->locations;
         $data->PI        =  $PI;
         //dumpVar($data);
+        
+        $data->location_body = makeLocationView($data->location); 
        
         return createPage(PROJECT_ANNEX_I_LOCATION_TEMPLATE, $data);
     }
@@ -341,6 +344,14 @@ class projectManagerApp extends DefaultApplication
         }
     }
     
+    function saveProjectLocationWithCost()
+    {
+        $pid       = base64_decode(getUserField('PI'));
+        
+        updateLocationWithCost();
+        header ('Location: project_manager.php?cmd=anaexI&PI='.  base64_encode($pid));
+    }
+            
     function saveAnnexV()
     {
         $pid       = base64_decode(getUserField('PI'));
@@ -442,10 +453,10 @@ class projectManagerApp extends DefaultApplication
         if ($project_type)
             $filterClause .= " and project_type = '$project_type' ";
 
-        $info['table'] = PROJECT_TBL;
-        $info['debug'] = true;
-        $info['where'] = $filterClause . ' AND ministry_id = ' . $_SESSION['ministry_id'] . 
-                         ' AND agency_id = ' . $_SESSION['agency_id'] .' Order By project_title_en ASC';
+        $info['table'] = PROJECT_TBL.' AS P LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VP ON(P.id=VP.pid)';
+        $info['debug'] = false;
+        $info['where'] = $filterClause . ' AND P.ministry_id = ' . $_SESSION['ministry_id'] . 
+                         ' AND P.agency_id = ' . $_SESSION['agency_id'] .' Order By P.project_title_en ASC';
 
         $data['list'] = select($info);
 

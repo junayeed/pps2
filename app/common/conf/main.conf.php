@@ -58,7 +58,7 @@
    if (PRODUCTION_MODE)
       error_reporting(E_ALL ^ E_NOTICE);
    else
-      error_reporting(E_ALL ^ E_NOTICE);
+      error_reporting(E_NONE);
 
    /**
    * Setup server information constants

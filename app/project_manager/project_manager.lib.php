@@ -1,5 +1,73 @@
 <?php
 
+    function makeLocationView($data)
+    {
+        
+        foreach($data as $value)
+        {
+            if($value->location_type =='Division') $division[] = $value;
+            if($value->location_type =='District') $district[] = $value;
+            if($value->location_type =='Upzila')   $upzila[]   = $value;
+        }  
+        $count=1;
+        foreach($division as $thisDivision)
+        {
+            $body.="<tr><td>$count</td><td>$thisDivision->division_name</td><td>&nbsp;</td><td>&nbsp;</td><td><input type='text' name='cost_$thisDivision->id' value='$thisDivision->location_cost' class='span12' onkeypress='return isNumberKey(event);'></td><td><textarea name='comment_$thisDivision->id'>$thisDivision->location_comments</textarea></td></tr>";
+            $count++;
+            foreach($district as $thisDistrict)
+            {
+                
+                if($thisDistrict->div_id == $thisDivision->location_id)
+                {   
+                    $body.="<tr><td>$count</td><td>&nbsp;</td><td>$thisDistrict->district_name</td><td>&nbsp;</td><td><input type='text' name='cost_$thisDistrict->id' value='$thisDivision->location_cost' class='span12' onkeypress='return isNumberKey(event);'></td><td><textarea name='comment_$thisDistrict->id'>$thisDistrict->location_comments</textarea></td></tr>";
+                    $count++;
+                    foreach($upzila as $thisUzila)
+                    {
+                        
+                        if($thisUzila->district_id == $thisDistrict->location_id)
+                        {
+                           $body.="<tr><td>$count</td><td>&nbsp;</td><td>&nbsp;</td><td>$thisUzila->upzila_name</td><td><input type='text' name='cost_$thisUzila->id' value='$thisUzila->location_cost' class='span12' onkeypress='return isNumberKey(event);'></td><td><textarea name='comment_$thisUzila->id'>$thisUzila->location_comments</textarea></td></tr>";
+                           $count++;
+                        }
+                        
+                    }
+                }
+                
+            }    
+        }
+        
+        return $body;
+    }    
+    
+    function updateLocationWithCost()
+    {
+        $info['table'] = PROJECT_LOCATIONS_TBL;
+        $info['debug'] = true;
+       
+        
+        //$data['pid']   = base64_decode(getUserField('PI'));
+        
+        
+        foreach( $_REQUEST as $key => $value)
+	{
+            
+           if( preg_match('/cost_(\d+)/', $key, $matches))
+            {
+               
+                $id = $matches[1];
+                $info['where'] = 'id = ' . $id;
+                $data['location_cost']     = $_REQUEST['cost_' . $id]    ? $_REQUEST['cost_'.$id]    : 0.0 ;
+                $data['location_comments'] = $_REQUEST['comment_' . $id] ? $_REQUEST['comment_'.$id] : '';
+                
+                $info['data'] = $data;             
+                update($info);
+                
+            }    
+        }    
+       
+       
+    }
+    
     function updateProcurementPlan()
     {
         $info['table'] = PROJECT_PROCUREMENT_PLAN_TBL;

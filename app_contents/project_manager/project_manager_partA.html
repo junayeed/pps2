@@ -83,7 +83,7 @@
                 <div class="control-group">
                     <label class="control-label" for="ministries[]">2.1 Ministry/Division</label>
                     <div class="controls">
-                        <select multiple class="chzn-select span6 ministries" id="ministries[]"  name="ministries[]" data-placeholder="Choose a Ministry/Division...">
+                        <select multiple class="chzn-select span6 ministries" id="ministries" onchange="getAgencyList()" name="ministries[]" required data-placeholder="Choose a Ministry/Division...">
                             <option value=""></option>
                             {html_options options=$ministryList}
                         </select>  
@@ -94,7 +94,7 @@
                 <div class="control-group">
                     <label class="control-label" for="agencies[]">2.2 Implementing Agency</label>
                     <div class="controls">
-                        <select multiple class="chzn-select span6 agencies" id="agencies[]"  name="agencies[]" data-placeholder="Choose a Agencies...">
+                        <select multiple class="chzn-select span6 agencies" id="agencies" required  name="agencies[]" data-placeholder="Choose a Agencies...">
                             <option value=""></option>
                            {html_options options=$agencyList}
                         </select>  
@@ -105,7 +105,7 @@
                 <div class="control-group">
                     <label class="control-label" for="adp_sector">2.3 Concerned Sector of ADP</label>
                     <div class="controls">
-                        <select id="adp_sector" name="adp_sector">
+                        <select id="adp_sector" required name="adp_sector" onchange="getSubSector()">
                             <option value="">Select Sector</option>
                             {html_options options=$adpSectorList selected=$basicInfo->adp_sector}
                         </select>    
@@ -115,7 +115,7 @@
                 <div class="control-group">
                     <label class="control-label" for="adp_sub_sector">Concerned Sub-sector of ADP</label>
                     <div class="controls">
-                        <select id="adp_sub_sector" name="adp_sub_sector">
+                        <select id="adp_sub_sector" required name="adp_sub_sector">
                             <option value="">Select Sector</option>
                             {html_options options=$adpSubSectorList selected=$basicInfo->adp_sub_sector}
                         </select>    
@@ -125,7 +125,7 @@
                 <div class="control-group">
                     <label class="control-label" for="sector_division">2.4 Concerned Division of Planning Commission</label>
                     <div class="controls">
-                        <select id="sector_division" name="sector_division">
+                        <select id="sector_division" required name="sector_division">
                             <option value="">Select Sector</option>
                             {html_options options=$sectorDivisionList selected=$basicInfo->sector_division}
                         </select>    
@@ -400,7 +400,7 @@
                 <div class="control-group">
                     <label class="control-label" for="location_districts[]">Districts</label>
                     <div class="controls">
-                        <select multiple class="chzn-select districts" id="location_districts[]"  name="location_districts[]"  data-placeholder="Choose a District...">
+                        <select multiple class="chzn-select districts" id="location_districts"  name="location_districts[]" onchange="loadUpzilla()"  data-placeholder="Choose a District..." required>
                             <option value=""></option>
                            {html_options options=$districtList}
                        </select>  
@@ -410,7 +410,7 @@
                 <div class="control-group">
                     <label class="control-label" for="location_upzilas[]">Upzila/City Corporations</label>
                     <div class="controls">
-                        <select multiple class="chzn-select upzilas" id="location_upzilas[]"  name="location_upzilas[]" data-placeholder="Choose a Upzilla/City Corporations...">
+                        <select multiple class="chzn-select upzilas" id="location_upzilas"  name="location_upzilas[]" data-placeholder="Choose a Upzilla/City Corporations...">
                             <option value=""></option>
                            {html_options options=$upazilaList} 
                         </select>  
@@ -720,6 +720,7 @@
                     
                     ministries.push({$smarty.session.ministry_id})
                     agencies.push({$smarty.session.agency_id})
+
                     
                     {foreach from=$basicInfo->ministries item=item key=key}
                        ministries.push({$item->ministry_id})
@@ -751,7 +752,7 @@
                     $(".divisions").val(divisions);
                     $(".districts").val(districts);
                     $(".upzilas").val(upzilas);
-                    $(".alert-success").fadeOut(4000);
+                    
                     //$(".ministries").chosen().trigger("chosen:updated");
                     
                     
@@ -890,29 +891,7 @@
 		focusInvalid: true  ,
 		rules: {
 			
-                        adp_sector: {
-				required: true
-			},
-                        adp_sub_sector: {
-				required: true
-			},
-                        sector_division: {
-				required: true
-			},
-                        'ministries[]': {
-				required: true
-			},
-                        'agencies[]': {
-				required: true
-			},
-                        'location_divisions[]': {
-				required: true
-			},
                        
-                        
-			project_type: {
-				required: true
-			}
                         
 			
 		},
@@ -1012,35 +991,141 @@
 	
 })
 
-function loadDistrict()
+
+function getAgencyList()
 {
+    var ministries  = $('#ministries').val();
     
-    var username = $('.divisions').val();
+    var domainname = window.location.hostname;
    
     $.ajax
     (
         {                                      
-            url: 'user_manager.php?cmd=checkuser',                    //the script to call to get data          
-            data: "username="+username,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getAgencyList',                    //the script to call to get data          
+            data: "ministries="+ministries,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
             dataType: 'json',                                         //data format      
             success: function(responseText)                           //on recieve of reply
             {
-                if ( responseText != '')
+                if(responseText!=null)
                 {
-                    highlightTableColumn('username');
-                    alert(DUPLICATE_USERNAME);
-                    duplicate_user = true;
-                    return false;
-                }
+                   
+                    
+                    $('#agencies').empty(); //remove all child nodes
+                    $('#agencies').append(responseText);
+                    $('#agencies').trigger("liszt:updated");
+                    
+                } 
                 else
                 {
-                    resetTableColumn('username');
-                    duplicate_user = false;
+                     $('#agencies').empty(); 
+                     $('#agencies').trigger("liszt:updated");
+                }
+            }
+        } 
+    );  
+    
+    
+}
+
+function getSubSector()
+{
+    var adp_sector  = $('#adp_sector').val();
+    
+    var domainname = window.location.hostname;
+   
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getSubSector',                    //the script to call to get data          
+            data: "adp_sector="+adp_sector,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            dataType: 'json',                                         //data format      
+            success: function(responseText)                           //on recieve of reply
+            {
+                if(responseText!=null)
+                {
+                   
+                    
+                    $('#adp_sub_sector').empty(); //remove all child nodes
+                    $('#adp_sub_sector').append(responseText);
+                    $('#adp_sub_sector').trigger("liszt:updated");
+                    
+                } 
+                else
+                {
+                     $('#agencies').empty(); 
+                     $('#agencies').trigger("liszt:updated");
+                }
+            }
+        } 
+    );  
+    
+    
+}
+
+function loadDistrict()
+{
+    
+    var divisions  = $('.divisions').val();
+    var domainname = window.location.hostname;
+   
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getDistrict',                    //the script to call to get data          
+            data: "divisions="+divisions,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            dataType: 'json',                                         //data format      
+            success: function(responseText)                           //on recieve of reply
+            {
+                if(responseText!=null)
+                {
+                   
+                   
+                    $('#location_districts').empty(); //remove all child nodes
+                    $('#location_districts').append(responseText);
+                    $('#location_districts').trigger("liszt:updated");
+                } 
+                else
+                {
+                     $('#location_districts').empty(); 
+                     $('#location_districts').trigger("liszt:updated");
                 }
             }
         } 
     );  
 }
+
+function loadUpzilla()
+{
+    
+    var districts  = $('.districts').val();
+    var domainname = window.location.hostname;
+   
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getUpzilla',                    //the script to call to get data          
+            data: "districts="+districts,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            dataType: 'json',                                         //data format      
+            success: function(responseText)                           //on recieve of reply
+            {
+                if(responseText!=null)
+                {
+                   
+                   
+                    $('#location_upzilas').empty(); //remove all child nodes
+                    $('#location_upzilas').append(responseText);
+                    $('#location_upzilas').trigger("liszt:updated");
+                } 
+                else
+                {
+                     $('#location_upzilas').empty(); 
+                     $('#location_upzilas').trigger("liszt:updated");
+                }
+            }
+        } 
+    );  
+}
+
 {/literal}
 //ajaj
 var project_total_gob           = {$basicInfo->gob_cost};
@@ -1054,6 +1139,8 @@ var project_total_other         = {$basicInfo->other_cost};
 var project_total_other_fe      = {$basicInfo->other_fe_cost};
 
 calculateModeOfFinanceGrandTotal();
+// getAgencyList()
+
 </script> 
 
 <script>
