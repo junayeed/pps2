@@ -27,6 +27,7 @@ class projectManagerApp extends DefaultApplication
            case 'partB'              : $screen = $this->showProjectPartB();            break;
            case 'savePartB'          : $screen = $this->saveProjectPartB();            break;
            case 'anaexI'             : $screen = $this->showProjectLocation();         break;
+           case 'annexII'            : $screen = $this->showAnnexII();                 break;
            case 'saveAnnexI'         : $screen = $this->saveProjectLocationWithCost(); break;
            case 'annexIIIa'          : $screen = $this->showProcurementPlanGOODS();    break;
            case 'saveAnnexIIIa'      : $screen = $this->saveProcurementPlan($cmd);     break;
@@ -289,6 +290,23 @@ class projectManagerApp extends DefaultApplication
         
         return createPage(PROJECT_PROCUREMENT_PLAN_GOODS_TEMPLATE, $data);
     }
+    function showAnnexII()
+    {
+        $PI                    = getUserField('PI');    
+        $pid                   = base64_decode($PI);
+        $report_type           = getUserField('report_type');
+        $procurement_category  = getUserField('procurement_category');
+        
+        $data->PI                       =  $PI;
+        $data->procurement_list         = getProcurementPlanList($pid, 'Goods');
+        $data->procurement_method_list  = getProcurementMethodList();
+        $data->procurement_type_list    = getProcurementTypeList();
+           
+        $this->exportTo($procurement_category, $report_type);
+        
+        return createPage(PROJECT_MANAGEMENT_TEMPLATE, $data);
+    }
+    
     
     function showProcurementPlanWORKS()
     {

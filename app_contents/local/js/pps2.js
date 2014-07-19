@@ -89,6 +89,34 @@ function addNewProcuremtPlanRow(targetID, procurementCategory)
     ROW_ID++;
 }
 
+function addNewProjectManagementRow()
+{
+    
+    var td_package_no           = '<td><input type="text" name="package_no_'+ROW_ID+'" id="package_no_'+ROW_ID+'" value="" class="span10" required /></td>';
+    var td_procurement_desc     = '<td><textarea name="procurement_desc_'+ROW_ID+'" id="procurement_desc_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';  
+    var td_procurement_unit     = '<td><input type="text" name="procurement_unit_'+ROW_ID+'" id="procurement_unit_'+ROW_ID+'" value="" class="span12" maxlength="12" required /></td>';
+    var td_procurement_qty      = '<td><input type="text" name="procurement_qty_'+ROW_ID+'" id="procurement_qty_'+ROW_ID+'" value="" class="span10" onkeypress="return isNumberKey(event);" required/></td>';
+    var td_procurement_method   = '<td>Harun</td>';
+    var td_procurement_type     = '<td>Junayeed</td>';
+    var td_approv_auth          = '<td><input type="text" name="approv_auth_'+ROW_ID+'" id="approv_auth_'+ROW_ID+'" value="" class="span11" /></td>';
+    var td_action               = '<td id="td_action_'+ROW_ID+'">\n\
+                                       <a href="javascript: void(0);" \n\
+                                          onClick="deleteProcurementPlanRow('+ROW_ID+');">\n\
+                                           <img src="/app_contents/common/images/cross2.png">\n\
+                                       </a>\n\
+                                   </td>';
+    var hidden_field    = '<input type="hidden" id="proc_plan_id_'+ROW_ID+'" name="proc_plan_id_'+ROW_ID+'" value="" >\n\
+                           <input type="hidden" id="procument_category_'+ROW_ID+'" name="procument_category_'+ROW_ID+'" value="hh">';
+    
+    // if the procurement category is GOODS
+   $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
+                             td_approv_auth+td_action+hidden_field+'</tr>').appendTo("#management_content");
+  
+        
+    rowIDArray.push(ROW_ID);
+    ROW_ID++;
+}
+
 function calculateProcurementTotal(procurementCategory)
 {
     var i;
