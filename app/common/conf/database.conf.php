@@ -78,6 +78,7 @@
   define('PROJECT_MODE_FINANCING_TBL',       DB_NAME . '.project_mode_financing');
   define('PROJECT_LOCATIONS_TBL',            DB_NAME . '.project_locations');
   define('PROJECT_PROCUREMENT_PLAN_TBL',     DB_NAME . '.project_procurement_plans');
+  define('PROJECT_MANAGEMENT_TBL',           DB_NAME . '.project_management');
   define('PROJECT_ANNEX_V_TBL',              DB_NAME . '.annexure_v');
   define('PROJECT_ANNEX_V_DETAILS_TBL',      DB_NAME . '.annexure_v_details');
   define('PROJECT_ANNEX_V_CON_TBL',          DB_NAME . '.annexure_v_contingency');

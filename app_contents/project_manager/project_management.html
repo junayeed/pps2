@@ -75,11 +75,12 @@
                                     <tr>
                                         <th>S/No.</th>
                                         <th class="span12">Name of the post</th>
-                                        <th class="span12">Quantity</th>
+                                        <th class="span4">Quantity</th>
                                         <th class="span12">Qualification</th>
-                                        <th class="span12">Scale/Amount</th>
+                                        <th class="span5">Scale/Amount</th>
                                         <th class="span12">Responsibility</th>
                                         <th class="span3">Attachment</th>
+                                        <th class="span3"></th>
                                     </tr>
                                 </thead>
                                 <tbody id="management_content">
@@ -87,10 +88,11 @@
                                 <tfoot>
                                     <tr>
                                         <td colspan="2" align="right">Total</td>
-                                        <td colspan="5"><input type="text" name="total" id="total" value="0.00" class="span4" /></td>
+                                        <td ><input type="text" name="total" id="total" value="0.00" class="span12" /></td>
+                                        <td colspan="5" align="right"></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="7"><a href="javascript:void(0)" onClick="addNewProjectManagementRow();">Add New Row</a></td>
+                                        <td colspan="8"><a href="javascript:void(0)" onClick="addNewProjectManagementRow();">Add New Row</a></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -99,7 +101,7 @@
 
                     <div class="form-actions2">
                         <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
-                        <input type="hidden" value="saveAnnexIIIa" name="cmd"/>
+                        <input type="hidden" value="saveAnnexII" name="cmd"/>
                         <input type="hidden" id="PI" name="PI" value="{$PI}"/>
                     </div>
                 </div>
@@ -149,5 +151,9 @@
     
                 
     <script>
-      
+      {foreach from=$management_list item=item}
+            addNewProjectManagementRow();
+            populateManagementDetails("{$item->name_of_the_post}", "{$item->qty}", "{$item->qualification}", "{$item->amount}", 
+                                           "{$item->responsibility}", "{$item->attachment}","{$item->id}");
+        {/foreach}
     </script>    

@@ -39,6 +39,20 @@ function populateProcurementPlanDetails(package_no, procurement_desc, procuremen
     
     calculateProcurementTotal(procument_category);
 }
+function populateManagementDetails(name_of_the_post, qty,qualification, amount, responsibility, attachment,id)
+{
+    var elemID = ROW_ID-1; 
+
+    $('#name_of_the_post_'+elemID).val(name_of_the_post);
+    $('#qty_'+elemID).val(qty);
+    $('#qualification_'+elemID).val(qualification);
+    $('#amount_'+elemID).val(amount);
+    $('#responsibility_'+elemID).val(responsibility);
+    $('#attachment_'+elemID).val(attachment);
+    $('#management_id_'+elemID).val(id);
+    
+     
+}
 
 function addNewProcuremtPlanRow(targetID, procurementCategory)
 {
@@ -92,25 +106,24 @@ function addNewProcuremtPlanRow(targetID, procurementCategory)
 function addNewProjectManagementRow()
 {
     
-    var td_package_no           = '<td><input type="text" name="package_no_'+ROW_ID+'" id="package_no_'+ROW_ID+'" value="" class="span10" required /></td>';
-    var td_procurement_desc     = '<td><textarea name="procurement_desc_'+ROW_ID+'" id="procurement_desc_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';  
-    var td_procurement_unit     = '<td><input type="text" name="procurement_unit_'+ROW_ID+'" id="procurement_unit_'+ROW_ID+'" value="" class="span12" maxlength="12" required /></td>';
-    var td_procurement_qty      = '<td><input type="text" name="procurement_qty_'+ROW_ID+'" id="procurement_qty_'+ROW_ID+'" value="" class="span10" onkeypress="return isNumberKey(event);" required/></td>';
-    var td_procurement_method   = '<td>Harun</td>';
-    var td_procurement_type     = '<td>Junayeed</td>';
-    var td_approv_auth          = '<td><input type="text" name="approv_auth_'+ROW_ID+'" id="approv_auth_'+ROW_ID+'" value="" class="span11" /></td>';
-    var td_action               = '<td id="td_action_'+ROW_ID+'">\n\
+    var td_sr_no             = '<td>'+ROW_ID+'</td>';
+    var td_name_of_post      = '<td><input type="text" name="name_of_the_post_'+ROW_ID+'" id="name_of_the_post_'+ROW_ID+'" value="" class="span10" required /></td>';
+    var td_qty               = '<td><input type="text" name="qty_'+ROW_ID+'" id="qty_'+ROW_ID+'" class="span12" required /></td>';  
+    var td_qualification     = '<td><textarea name="qualification_'+ROW_ID+'" id="qualification_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';
+    var td_amount            = '<td><input type="text" name="amount_'+ROW_ID+'" id="amount_'+ROW_ID+'" value="" class="span10" onkeypress="return isNumberKey(event);" required/></td>';
+    var td_responsibility    = '<td><textarea name="responsibility_'+ROW_ID+'" id="responsibility_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';
+    var td_attachment        = '<td><input type="text" name="attachment_'+ROW_ID+'" id="attachment_'+ROW_ID+'" value="" class="span11" /></td>';
+    var td_action            = '<td id="td_action_'+ROW_ID+'">\n\
                                        <a href="javascript: void(0);" \n\
-                                          onClick="deleteProcurementPlanRow('+ROW_ID+');">\n\
+                                          onClick="deleteManagementRow('+ROW_ID+');">\n\
                                            <img src="/app_contents/common/images/cross2.png">\n\
                                        </a>\n\
                                    </td>';
-    var hidden_field    = '<input type="hidden" id="proc_plan_id_'+ROW_ID+'" name="proc_plan_id_'+ROW_ID+'" value="" >\n\
-                           <input type="hidden" id="procument_category_'+ROW_ID+'" name="procument_category_'+ROW_ID+'" value="hh">';
+    var hidden_field    = '<input type="hidden" id="management_id_'+ROW_ID+'" name="management_id_'+ROW_ID+'" value="" >\n';
     
     // if the procurement category is GOODS
-   $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
-                             td_approv_auth+td_action+hidden_field+'</tr>').appendTo("#management_content");
+   $('<tr id="tr_'+ROW_ID+'">'+ td_sr_no+td_name_of_post+td_qty+td_qualification+td_amount+td_responsibility+
+                             td_attachment+td_action+hidden_field+'</tr>').appendTo("#management_content");
   
         
     rowIDArray.push(ROW_ID);
@@ -129,6 +142,54 @@ function calculateProcurementTotal(procurementCategory)
     }
     
     $('#'+procurementCategory+'_total').val(procurement_total.toMoney(2));
+}
+
+function deleteManagementRow(elemID)
+{
+     var domainname     = window.location.hostname;
+     var management_id  = $('#management_id_'+elemID).val();
+     if ( confirm('The record will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
+    { 
+        $.ajax
+        (
+            {                                      
+                url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=deleteManagement',                          
+                data: "management_id="+management_id,                              
+                dataType: 'json',                                         //data format      
+                success: function(responseText)                           //on recieve of reply
+                {
+                    if(responseText=='1')
+                    {
+                       $('#management_content').find('#tr_' + elemID).fadeOut(50,function() 
+                        {
+                            $('#management_content > #tr_' + elemID).remove();
+                        });
+
+                        var index = rowIDArray.indexOf(elemID);
+                        if(index!=-1)
+                        {
+                            rowIDArray.splice(index, 1);
+                        }
+
+                    } 
+                }
+            } 
+        );  
+    
+        if(!management_id)
+        {    
+           $('#management_content').find('#tr_' + elemID).fadeOut(50,function() 
+            {
+                $('#management_content > #tr_' + elemID).remove();
+            });
+
+            var index = rowIDArray.indexOf(elemID);
+            if(index!=-1)
+            {
+                rowIDArray.splice(index, 1);
+            }
+        }
+    }
 }
 
 function deleteProcurementPlanRow(elemID, targetID, procurementCategory)

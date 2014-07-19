@@ -39,6 +39,49 @@
         return $body;
     }    
     
+    function updateProjectManagement()
+    {
+        $info['table'] = PROJECT_MANAGEMENT_TBL;
+        $info['debug'] = true;
+       
+        
+        $data['pid']   = base64_decode(getUserField('PI'));
+        
+        
+        
+        foreach( $_REQUEST as $key => $value)
+	{
+            
+           if( preg_match('/name_of_the_post_(\d+)/', $key, $matches))
+            {
+               
+                $id = $matches[1];
+                
+                $data['name_of_the_post'] = $_REQUEST['name_of_the_post_'. $id]  ? $_REQUEST['name_of_the_post_'.$id]    : '' ;
+                $data['qty']              = $_REQUEST['qty_' . $id]              ? $_REQUEST['qty_'.$id] : 0.0;
+                $data['qualification']    = $_REQUEST['qualification_' . $id]    ? $_REQUEST['qualification_'.$id] : '';
+                $data['amount']           = $_REQUEST['amount_' . $id]           ? $_REQUEST['amount_'.$id] : 0.0;
+                $data['responsibility']   = $_REQUEST['responsibility_' . $id]   ? $_REQUEST['responsibility_'.$id] : '';
+                $data['attachment']       = $_REQUEST['attachment_' . $id]       ? $_REQUEST['attachment_'.$id] : '';
+                
+                $info['data'] = $data;
+                
+                $management_id       = $_REQUEST['management_id_' . $id];
+                
+                if($management_id)
+                {  
+                   $info['where']  = 'id = ' . $management_id; 
+                   update($info);
+                }
+                else
+                {
+                    insert($info);
+                }    
+            }    
+        }    
+       
+       
+    }
     function updateLocationWithCost()
     {
         $info['table'] = PROJECT_LOCATIONS_TBL;
@@ -308,6 +351,20 @@
         $info['table'] = PROJECT_PROCUREMENT_PLAN_TBL;
         $info['debug'] = false;
         $info['where'] = 'pid = ' . $pid . ' AND procurement_category = ' . q($procurement_category);
+        
+        $result = select($info);
+        
+        if ( !empty($result) )
+        {
+            return $result;
+        }
+    }
+    
+    function getManagementList($pid)
+    {
+        $info['table'] = PROJECT_MANAGEMENT_TBL;
+        $info['debug'] = false;
+        $info['where'] = 'pid = ' . $pid;
         
         $result = select($info);
         

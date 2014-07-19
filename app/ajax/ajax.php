@@ -24,25 +24,15 @@ class ajaxApp extends DefaultApplication
       switch ($cmd)
       {
           
-           case 'getAgencyList'         : $screen = $this->getAgencyListByMinistry();                  break;
-           case 'getSubSector'         : $screen = $this->getSubSectorByAdp();                  break;
-           case 'getDistrict'         : $screen = $this->getDistrictListByDivision();                  break;
-           case 'getUpzilla'         : $screen = $this->getUpzillaListByDistrict();                  break;
-           case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
-           default                   : $screen = $this->showEditor($msg);
+           case 'deleteManagement'         : $screen = $this->deleteManagementItem();                  break;
+           case 'getAgencyList'            : $screen = $this->getAgencyListByMinistry();                  break;
+           case 'getSubSector'             : $screen = $this->getSubSectorByAdp();                  break;
+           case 'getDistrict'              : $screen = $this->getDistrictListByDivision();                  break;
+           case 'getUpzilla'               : $screen = $this->getUpzillaListByDistrict();                  break;
+           case 'ProjectHome'              : $screen = $this->showProjectHomePage();         break;
+           default                         : $screen = $this->showEditor($msg);
       }
 
-      // Set the current navigation item
-      $this->setNavigation('project_manager');
-
-      if ($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear')
-      {
-         return;
-      }
-      //else
-      {
-         echo $this->displayScreen($screen);
-      }
 
       return true;
 
@@ -132,6 +122,20 @@ class ajaxApp extends DefaultApplication
         }
                 
         echo json_encode($option);
+        die;
+    } 
+   function deleteManagementItem()
+    {
+        $management_id     = getUserField('management_id');
+        
+        $info['table']  = PROJECT_MANAGEMENT_TBL;
+        $info['where']  = " id =$management_id";
+        $info['debug']  = false;
+
+        $result = delete($info);
+                
+        if($result) echo json_encode('1');
+        else        json_encode('');
         die;
     } 
 }

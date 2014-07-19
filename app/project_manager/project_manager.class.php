@@ -28,6 +28,7 @@ class projectManagerApp extends DefaultApplication
            case 'savePartB'          : $screen = $this->saveProjectPartB();            break;
            case 'anaexI'             : $screen = $this->showProjectLocation();         break;
            case 'annexII'            : $screen = $this->showAnnexII();                 break;
+           case 'saveAnnexII'        : $screen = $this->saveProjectManagement();       break;
            case 'saveAnnexI'         : $screen = $this->saveProjectLocationWithCost(); break;
            case 'annexIIIa'          : $screen = $this->showProcurementPlanGOODS();    break;
            case 'saveAnnexIIIa'      : $screen = $this->saveProcurementPlan($cmd);     break;
@@ -294,16 +295,11 @@ class projectManagerApp extends DefaultApplication
     {
         $PI                    = getUserField('PI');    
         $pid                   = base64_decode($PI);
-        $report_type           = getUserField('report_type');
-        $procurement_category  = getUserField('procurement_category');
         
         $data->PI                       =  $PI;
-        $data->procurement_list         = getProcurementPlanList($pid, 'Goods');
-        $data->procurement_method_list  = getProcurementMethodList();
-        $data->procurement_type_list    = getProcurementTypeList();
-           
-        $this->exportTo($procurement_category, $report_type);
-        
+        $data->management_list          = getManagementList($pid);
+       
+                
         return createPage(PROJECT_MANAGEMENT_TEMPLATE, $data);
     }
     
@@ -368,6 +364,14 @@ class projectManagerApp extends DefaultApplication
         
         updateLocationWithCost();
         header ('Location: project_manager.php?cmd=anaexI&PI='.  base64_encode($pid));
+    }
+    
+    function saveProjectManagement()
+    {
+        $pid       = base64_decode(getUserField('PI'));
+        
+        updateProjectManagement();
+        header ('Location: project_manager.php?cmd=annexII&PI='.  base64_encode($pid));
     }
             
     function saveAnnexV()
