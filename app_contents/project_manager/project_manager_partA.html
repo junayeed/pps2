@@ -9,6 +9,31 @@
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
                 <script type="text/javascript" src="/ext/ckeditor/ckeditor.js"></script>
                 <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
+                
+                <style>
+                    {literal}
+                    #map_canvas {
+                      width: 1100px;
+                      height: 400px;
+                    }
+                    {/literal}
+                </style>
+                  <script src="https://maps.googleapis.com/maps/api/js"></script>
+                  <script>
+                    {literal}  
+                    function initialize() {
+                      var map_canvas = document.getElementById('map_canvas');
+                      var map_options = {
+                        center: new google.maps.LatLng(23.709921, 90.407143),
+                        zoom: 8,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                      }
+                      var map = new google.maps.Map(map_canvas, map_options)
+                    }
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                    {/literal}
+                  </script>
+
 	</head>
 
 					
@@ -39,13 +64,6 @@
 
 <div class="row-fluid">
 <!-- PAGE CONTENT BEGINS HERE -->
-
-<div class="alert alert-success">
-     <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
-	<strong><i class="icon-ok"></i> Successfully Saved!</strong>
-        Your have to save all the data <br>
-</div>
-
 
 
 
@@ -389,7 +407,7 @@
                 <div class="control-group">
                     <label class="control-label" for="location_divisions[]">Divisions</label>
                     <div class="controls">
-                        <select multiple class="chzn-select divisions" id="location_divisions[]"  name="location_divisions[]" onchange="loadDistrict()" data-placeholder="Choose a Division...">
+                        <select multiple class="chzn-select divisions" id="location_divisions[]" style="width:500px"  name="location_divisions[]" onchange="loadDistrict()" data-placeholder="Choose a Division...">
                             <option value=""></option>
                              {html_options options=$divisionList}
                         </select>  
@@ -400,7 +418,7 @@
                 <div class="control-group">
                     <label class="control-label" for="location_districts[]">Districts</label>
                     <div class="controls">
-                        <select multiple class="chzn-select districts" id="location_districts"  name="location_districts[]" onchange="loadUpzilla()"  data-placeholder="Choose a District..." required>
+                        <select multiple class="chzn-select districts" id="location_districts" style="width:500px"   name="location_districts[]" onchange="loadUpzilla()"  data-placeholder="Choose a District..." required>
                             <option value=""></option>
                            {html_options options=$districtList}
                        </select>  
@@ -410,14 +428,15 @@
                 <div class="control-group">
                     <label class="control-label" for="location_upzilas[]">Upzila/City Corporations</label>
                     <div class="controls">
-                        <select multiple class="chzn-select upzilas" id="location_upzilas"  name="location_upzilas[]" data-placeholder="Choose a Upzilla/City Corporations...">
+                        <select multiple class="chzn-select upzilas" id="location_upzilas" style="width:500px"  name="location_upzilas[]" data-placeholder="Choose a Upzilla/City Corporations...">
                             <option value=""></option>
                            {html_options options=$upazilaList} 
                         </select>  
                         <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
                     </div>
 		</div>
-                
+                 <div id="map_canvas"></div>
+
                 <div class="form-actions2">
 		 <button class="btn btn-primary"><i class="icon-save"></i> Save</button>
                  <input type="hidden" value="saveLocations" name="cmd"/>

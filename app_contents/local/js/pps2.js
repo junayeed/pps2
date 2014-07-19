@@ -65,7 +65,7 @@ function addNewProcuremtPlanRow(targetID, procurementCategory)
     var td_approv_auth          = '<td><input type="text" name="approv_auth_'+ROW_ID+'" id="approv_auth_'+ROW_ID+'" value="" class="span11" /></td>';
     var td_fund_src             = '<td><input type="text" name="fund_src_'+ROW_ID+'" id="fund_src_'+ROW_ID+'" value="" class="span12" /></td>';
     var td_estd_cost            = '<td><input type="text" name="estd_cost_'+ROW_ID+'" id="estd_cost_'+ROW_ID+'" value="" class="span12" onChange="calculateProcurementTotal(\''+procurementCategory+'\');" onkeypress="return isNumberKey(event);" required/></td>';
-    var td_tender_invitation    = '<td><input class="span12 date-picker" id="tender_invitation_'+ROW_ID+'" name="tender_invitation_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
+    var td_tender_invitation    = '<td><input class="span12 date-picker" id="tender_invitation_'+ROW_ID+'"  name="tender_invitation_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_contract_sign        = '<td><input class="span12 date-picker" id="contract_sign_'+ROW_ID+'" name="contract_sign_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_contract_completion  = '<td><input class="span12 date-picker" id="contract_completion_'+ROW_ID+'" name="contract_completion_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_prequal_invitation   = '<td><input class="span12 date-picker" id="prequal_invitation_'+ROW_ID+'" name="prequal_invitation_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
@@ -80,23 +80,27 @@ function addNewProcuremtPlanRow(targetID, procurementCategory)
                            <input type="hidden" id="procument_category_'+ROW_ID+'" name="procument_category_'+ROW_ID+'" value="'+procurementCategory+'">';
     
     // if the procurement category is GOODS
+   
     if ( procurementCategory == 'Goods' )
     {
-        $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
+        var $row = $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
                                      td_approv_auth+td_fund_src+td_estd_cost+td_eoi_invitation+td_contract_sign+td_contract_completion+
                                      td_action+hidden_field+'</tr>').appendTo("#"+targetID+" > tbody");
+         $row.find('.date-picker').datepicker();                     
     }
     else if ( procurementCategory == 'Works' )
     {
-        $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
+       var $row = $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
                                      td_approv_auth+td_fund_src+td_estd_cost+td_prequal_invitation+td_tender_invitation+td_contract_sign+td_contract_completion+
                                      td_action+hidden_field+'</tr>').appendTo("#"+targetID+" > tbody");
+         $row.find('.date-picker').datepicker();                     
     } 
     else if ( procurementCategory == 'Services' )
     {
-        $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
+       var $row = $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
                                      td_approv_auth+td_fund_src+td_estd_cost+td_prequal_invitation+td_tender_invitation+td_contract_sign+td_contract_completion+
                                      td_action+hidden_field+'</tr>').appendTo("#"+targetID+" > tbody");
+         $row.find('.date-picker').datepicker();                     
     } 
         
     rowIDArray.push(ROW_ID);
@@ -196,7 +200,7 @@ function deleteProcurementPlanRow(elemID, targetID, procurementCategory)
 {
     var proc_plan_id        = $('#proc_plan_id_'+elemID).val();
     
-    if ( doConfirm('The record will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
+    if ( confirm('The record will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
     {
         $.ajax
         (
