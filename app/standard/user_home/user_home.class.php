@@ -79,8 +79,9 @@
         }
         
         $data['notice_list'] = $result;
-        //dumpvar($result);
-        
+        $data['project_list'] = getProjectList();
+        //dumpvar($_SESSION);
+        //dumpvar($data['project_list']);
         return createPage(DASHBOARD_TEMPLATE, $data);
       	
       }

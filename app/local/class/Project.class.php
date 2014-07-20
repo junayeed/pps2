@@ -135,6 +135,17 @@ class Project
         
         return $result[0];
     }
+    
+    public function loadLogFrame()
+    {
+        $info['table'] = PROJECT_LOG_FRAME_TBL;
+        $info['debug'] = false;
+        $info['where'] = "pid = $this->id";
+        
+        $result =   select($info);    
+        
+        return $result[0];
+    }
 
     public function saveBasicInfo()
     {
@@ -199,6 +210,28 @@ class Project
     }
     
     
+    public function saveLogFrame()
+    {
+        $info['table'] = PROJECT_LOG_FRAME_TBL;
+        $info['data']  = getUserDataSet(PROJECT_LOG_FRAME_TBL);
+        $info['data']['pid']  = $this->id;
+        $info['debug'] = true;
+        
+        
+        $log_frame_id  = getUserField('log_frame_id');
+        
+        
+        if($log_frame_id)
+        {
+            $info['where'] = "pid = $this->id";
+            update($info);
+        }
+        else 
+        {
+            $result = insert($info);
+        }
+        
+    }
     public function saveModeOfFinancing()
     {
         $info['table'] = PROJECT_MODE_FINANCING_TBL;

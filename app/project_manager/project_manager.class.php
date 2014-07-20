@@ -21,6 +21,7 @@ class projectManagerApp extends DefaultApplication
            case 'save'               : $screen = $this->saveRecord();                  break;
            case 'saveObjectiveCost'  : $screen = $this->saveObjectiveCost();           break;
            case 'saveLocations'      : $screen = $this->saveLocations();               break;
+           case 'saveLogFrame'       : $screen = $this->saveLogFrame();               break;
            case 'delete'             : $screen = $this->deleteRecord();                break;
            case 'list'               : $screen = $this->showList();                    break;
            case 'partA'              : $screen = $this->showProjectPartA();            break;
@@ -69,14 +70,12 @@ class projectManagerApp extends DefaultApplication
         $info['table']  = PROJECT_ANNEX_V_DETAILS_TBL;
         $info['debug']  = false;
         $info['where']  = 'annex_id = ' . $annex_id;
-                
-        ;
         
         $infop['table']  = PROJECT_ANNEX_V_TBL;
         $infop['debug']  = false;
         $infop['where']  = 'id = ' . $annex_id;
                 
-        if ( delete($info) && delete($infop) )
+        if (delete($infop) )
         {
             echo json_encode('1');
             die;    
@@ -206,6 +205,18 @@ class projectManagerApp extends DefaultApplication
        
        header ('Location: project_manager.php?cmd=partA&PI='.  base64_encode($pid));
    }
+   
+   function saveLogFrame()
+   {
+       $pid     = base64_decode(getUserField('PI'));
+       //dumpVar($_REQUEST);
+       //die;
+       $project = new Project($pid);
+      
+       $project->saveLogFrame();
+       
+       header ('Location: project_manager.php?cmd=partA&PI='.  base64_encode($pid));
+   }
            
     function showProjectPartA()
     {
@@ -223,6 +234,7 @@ class projectManagerApp extends DefaultApplication
         $data->districtList           = getDistrictList();
         $data->upazilaList            = getUpzilaList();
         $data->modefinancing          = $project->loadModeOfFinancing();
+        $data->logframe               = $project->loadLogFrame();
         $data->year_wise_gob_ownfund  = $project->loadYearWiseGobOwnfundTotal();
        
         $result = getProjectWiseEconomicCodeList($pid);

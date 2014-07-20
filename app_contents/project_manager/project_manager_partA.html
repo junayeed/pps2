@@ -568,6 +568,7 @@
             
             <!-- #logframe starts here-->
             <div id="logframe" class="tab-pane">
+                <form class="form-horizontal" id="validation-form-location"  method="post" action="{$SCRIPT_NAME}"> 
                 <div class="control-group">
 			<label class="" for="locframe"></label>
 			<div class="">
@@ -585,36 +586,44 @@
                                 <tbody>
                                         <tr> 
                                                 <td>Goal</td>
-                                                <td><textarea name="goal_summary"></textarea></td>
-                                                <td><textarea name="goal_ovi"></textarea></td>
-                                                <td><textarea name="goal_mov"></textarea></td>
-                                                <td><textarea name="goal_ia"></textarea></td>
+                                                <td><textarea name="goal_summary">{$logframe->goal_summary}</textarea></td>
+                                                <td><textarea name="goal_ovi">{$logframe->goal_ovi}</textarea></td>
+                                                <td><textarea name="goal_mov">{$logframe->goal_mov}</textarea></td>
+                                                <td><textarea name="goal_ai">{$logframe->goal_ai}</textarea></td>
                                         </tr>
                                         <tr> 
                                                 <td>Objective/Purpose</td>
-                                                <td><textarea name="objective_summary"></textarea></td>
-                                                <td><textarea name="objective_ovi"></textarea></td>
-                                                <td><textarea name="objective_mov"></textarea></td>
-                                                <td><textarea name="objective_ia"></textarea></td>
+                                                <td><textarea name="objective_summary">{$logframe->objective_summary}</textarea></td>
+                                                <td><textarea name="objective_ovi">{$logframe->objective_ovi}</textarea></td>
+                                                <td><textarea name="objective_mov">{$logframe->objective_mov}</textarea></td>
+                                                <td><textarea name="objective_ai">{$logframe->objective_ai}</textarea></td>
                                         </tr>
                                         <tr> 
                                                 <td>Output</td>
-                                                <td><textarea name="output_summary"></textarea></td>
-                                                <td><textarea name="output_ovi"></textarea></td>
-                                                <td><textarea name="output_mov"></textarea></td>
-                                                <td><textarea name="output_ia"></textarea></td>
+                                                <td><textarea name="output_summary">{$logframe->output_summary}</textarea></td>
+                                                <td><textarea name="output_ovi">{$logframe->output_ovi}</textarea></td>
+                                                <td><textarea name="output_mov">{$logframe->output_mov}</textarea></td>
+                                                <td><textarea name="output_ai">{$logframe->output_ai}</textarea></td>
                                         </tr>
                                         <tr> 
                                                 <td>Input</td>
-                                                <td><textarea name="input_summary"></textarea></td>
-                                                <td><textarea name="input_ovi"></textarea></td>
-                                                <td><textarea name="input_mov"></textarea></td>
-                                                <td><textarea name="input_ia"></textarea></td>
+                                                <td><textarea name="input_summary">{$logframe->input_summary}</textarea></td>
+                                                <td><textarea name="input_ovi">{$logframe->input_ovi}</textarea></td>
+                                                <td><textarea name="input_mov">{$logframe->input_mov}</textarea></td>
+                                                <td><textarea name="input_ai">{$logframe->input_ai}</textarea></td>
                                         </tr>
                                 </tbody>
                             </table>
 			</div>
 		</div>
+                <div class="form-actions2">
+                    <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                    <input type="hidden" value="{$logframe->id}" name="log_frame_id"/>
+                    <input type="hidden" name="PI" value="{$PI}"/> 
+                    <input type="hidden" value="saveLogFrame" name="cmd"/>
+	       </div>
+               </form>     
+                
             </div>
             <!-- #logframe ends here-->
             

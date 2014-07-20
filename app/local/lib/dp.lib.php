@@ -326,6 +326,38 @@
        $info['where']  = 'pid = ' . $pid;
    }
    
+   
+   function getProjectList()
+   {
+       $user_type      = $_SESSION['user_type'];
+       $ministry_id    = $_SESSION['ministry_id'];
+       $commission_id  = $_SESSION['commission_id'];
+       $agency_id      = $_SESSION['agency_id'];
+       
+       $filterClause = '1';
+
+        if ($user_type=='Agency')
+        {
+            $filterClause .= " AND agency_id=$agency_id";
+        }
+        elseif ($user_type=='Ministry')
+        {
+            $filterClause .= " AND ministry_id =$ministry_id";
+        }
+        elseif ($user_type=='Planning Commission')
+        {
+            $filterClause .= " AND commission_id =$commission_id";
+        }
+
+        $info['table'] = PROJECT_TBL.' AS P LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VP ON(P.id=VP.pid)';
+        $info['debug'] = false;
+        $info['where'] = $filterClause.' ORDER BY P.create_date DESC';
+
+        $result = select($info);
+        
+        return $result;;
+   }
+   
   /**
    * This function calculate difference between two dates
    *
