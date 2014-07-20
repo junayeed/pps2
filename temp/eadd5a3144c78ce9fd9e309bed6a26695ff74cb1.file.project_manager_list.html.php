@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-06-04 09:50:58
+<?php /* Smarty version Smarty-3.1.17, created on 2014-07-20 06:42:03
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\project_manager_list.html" */ ?>
-<?php /*%%SmartyHeaderCode:7225538ecfe24c7193-26126932%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2033253cb489b2e1df7-68572670%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'eadd5a3144c78ce9fd9e309bed6a26695ff74cb1' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\project_manager_list.html',
-      1 => 1399663848,
+      1 => 1405748608,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '7225538ecfe24c7193-26126932',
+  'nocache_hash' => '2033253cb489b2e1df7-68572670',
   'function' => 
   array (
   ),
@@ -24,9 +24,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_538ecfe252a3a1_13928209',
+  'unifunc' => 'content_53cb489b483f72_86950785',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_538ecfe252a3a1_13928209')) {function content_538ecfe252a3a1_13928209($_smarty_tpl) {?><div id="main-content" class="clearfix">
+<?php if ($_valid && !is_callable('content_53cb489b483f72_86950785')) {function content_53cb489b483f72_86950785($_smarty_tpl) {?><div id="main-content" class="clearfix">
     	<head>
 		
 		
@@ -42,22 +42,22 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 	</head>
 
 					
-					<div id="breadcrumbs">
-						<ul class="breadcrumb">
-							<li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-							<li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-							<li class="active">List</li>
-						</ul><!--.breadcrumb-->
+    <div id="breadcrumbs">
+            <ul class="breadcrumb">
+                    <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+                    <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+                    <li class="active">List</li>
+            </ul><!--.breadcrumb-->
 
-						<div id="nav-search">
-							<form class="form-search">
-									<span class="input-icon">
-										<input autocomplete="off" id="nav-search-input" type="text" class="input-small search-query" placeholder="Search ..." />
-										<i id="nav-search-icon" class="icon-search"></i>
-									</span>
-							</form>
-						</div><!--#nav-search-->
-					</div><!--#breadcrumbs-->
+            <div id="nav-search">
+                    <form class="form-search">
+                                    <span class="input-icon">
+                                            <input autocomplete="off" id="nav-search-input" type="text" class="input-small search-query" placeholder="Search ..." />
+                                            <i id="nav-search-icon" class="icon-search"></i>
+                                    </span>
+                    </form>
+            </div><!--#nav-search-->
+    </div><!--#breadcrumbs-->
 
 
 
@@ -102,9 +102,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		</div>
     
                 <div class="control-group">
-			<div class="table-header">
-                                Project List(s)
-                        </div>
+			 <h4 class="smaller lighter blue">
+                            <i class="icon-th-large"></i>
+                            Project(s)
+                        </h4>
 			<div class="">
                             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                                 <thead>

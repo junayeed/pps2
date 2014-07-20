@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-07-16 09:07:17
+<?php /* Smarty version Smarty-3.1.17, created on 2014-07-20 06:41:03
          compiled from "E:\xampp\htdocs\pps2\app_contents\standard\user_home\agency_header.html" */ ?>
-<?php /*%%SmartyHeaderCode:1602853c624a535a360-42233742%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1472153cb485f094ba0-91994801%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'a34058a89fb819c72564803c1e85bae21ae39e84' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\standard\\user_home\\agency_header.html',
-      1 => 1399663318,
+      1 => 1405748608,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1602853c624a535a360-42233742',
+  'nocache_hash' => '1472153cb485f094ba0-91994801',
   'function' => 
   array (
   ),
@@ -23,9 +23,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_53c624a5366da5_74775522',
+  'unifunc' => 'content_53cb485f117dc5_29059889',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_53c624a5366da5_74775522')) {function content_53c624a5366da5_74775522($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_53cb485f117dc5_29059889')) {function content_53cb485f117dc5_29059889($_smarty_tpl) {?>
             <div class="navbar navbar-inverse">
 		  <div class="navbar-inner">
 		   <div class="container-fluid">
@@ -33,16 +33,26 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 			  <a class="brand" href="#"><small><i class="icon-globe"></i> Project Planning System (PPS)</small> </a>
 			  <ul class="nav ace-nav pull-right">
-					
+					<li class="green">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="icon-envelope-alt icon-animated-vertical icon-only"></i>
+                                                        <?php if ($_SESSION['user_type']=='Agency') {?><span class=""><?php echo $_SESSION['agency_name'];?>
+</span>
+							<?php } elseif ($_SESSION['user_type']=='Ministry') {?><span class=""><?php echo $_SESSION['minstry_name'];?>
+</span>
+							<?php } elseif ($_SESSION['user_type']=='Planning Commission') {?><span class="">Planning Commission</span>
+							<?php } else { ?><span class="">Administrator</span><?php }?>
+						</a>
+                                        </li>    
 					<li class="light-blue user-profile">
 						<a class="user-menu dropdown-toggle" href="#" data-toggle="dropdown">
 							<span id="user_info">
-								<small>Welcome,</small> SAM Harun
+								<small>Welcome,</small> <?php echo $_SESSION['designation'];?>
+
 							</span>
 							<i class="icon-caret-down"></i>
 						</a>
 						<ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
-							<li><a href="#"><i class="icon-cog"></i> Settings</a></li>
 							<li><a href="#"><i class="icon-user"></i> Profile</a></li>
 							<li class="divider"></li>
 							<li><a href="/app/standard/logout/logout.php"><i class="icon-off"></i> Logout</a></li>

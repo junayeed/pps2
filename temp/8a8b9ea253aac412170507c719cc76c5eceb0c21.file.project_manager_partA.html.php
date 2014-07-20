@@ -1,22 +1,20 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-07-06 15:32:59
+<?php /* Smarty version Smarty-3.1.17, created on 2014-07-20 06:41:02
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\project_manager_partA.html" */ ?>
-<?php /*%%SmartyHeaderCode:51539e7626de38b5-52101686%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2778753cb485e5c8f43-78521423%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '8a8b9ea253aac412170507c719cc76c5eceb0c21' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\project_manager_partA.html',
-      1 => 1404653467,
+      1 => 1405830862,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '51539e7626de38b5-52101686',
+  'nocache_hash' => '2778753cb485e5c8f43-78521423',
   'function' => 
   array (
   ),
-  'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_539e76270ac406_44559884',
   'variables' => 
   array (
     'SCRIPT_NAME' => 0,
@@ -47,8 +45,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'REL_TEMPLATE_DIR' => 0,
   ),
   'has_nocache_code' => false,
+  'version' => 'Smarty-3.1.17',
+  'unifunc' => 'content_53cb485ec2edf0_50359276',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_539e76270ac406_44559884')) {function content_539e76270ac406_44559884($_smarty_tpl) {?><?php if (!is_callable('smarty_function_html_options')) include 'E:/xampp/htdocs/pps2/ext/smarty3/libs/plugins\\function.html_options.php';
+<?php if ($_valid && !is_callable('content_53cb485ec2edf0_50359276')) {function content_53cb485ec2edf0_50359276($_smarty_tpl) {?><?php if (!is_callable('smarty_function_html_options')) include 'E:/xampp/htdocs/pps2/ext/smarty3/libs/plugins\\function.html_options.php';
 if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/ext/smarty3/libs/plugins\\modifier.date_format.php';
 ?><div id="main-content" class="clearfix">
     	<head>
@@ -61,6 +61,31 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
                 <script type="text/javascript" src="/ext/ckeditor/ckeditor.js"></script>
                 <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
+                
+                <style>
+                    
+                    #map_canvas {
+                      width: 1100px;
+                      height: 400px;
+                    }
+                    
+                </style>
+                  <script src="https://maps.googleapis.com/maps/api/js"></script>
+                  <script>
+                      
+                    function initialize() {
+                      var map_canvas = document.getElementById('map_canvas');
+                      var map_options = {
+                        center: new google.maps.LatLng(23.709921, 90.407143),
+                        zoom: 8,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                      }
+                      var map = new google.maps.Map(map_canvas, map_options)
+                    }
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                    
+                  </script>
+
 	</head>
 
 					
@@ -93,13 +118,6 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
 
 <div class="row-fluid">
 <!-- PAGE CONTENT BEGINS HERE -->
-
-<div class="alert alert-success">
-     <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
-	<strong><i class="icon-ok"></i> Successfully Saved!</strong>
-        Your have to save all the data <br>
-</div>
-
 
 
 
@@ -141,7 +159,7 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
                 <div class="control-group">
                     <label class="control-label" for="ministries[]">2.1 Ministry/Division</label>
                     <div class="controls">
-                        <select multiple class="chzn-select span6 ministries" id="ministries[]"  name="ministries[]" data-placeholder="Choose a Ministry/Division...">
+                        <select multiple class="chzn-select span6 ministries" id="ministries" onchange="getAgencyList()" name="ministries[]" required data-placeholder="Choose a Ministry/Division...">
                             <option value=""></option>
                             <?php echo smarty_function_html_options(array('options'=>$_smarty_tpl->tpl_vars['ministryList']->value),$_smarty_tpl);?>
 
@@ -153,7 +171,7 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
                 <div class="control-group">
                     <label class="control-label" for="agencies[]">2.2 Implementing Agency</label>
                     <div class="controls">
-                        <select multiple class="chzn-select span6 agencies" id="agencies[]"  name="agencies[]" data-placeholder="Choose a Agencies...">
+                        <select multiple class="chzn-select span6 agencies" id="agencies" required  name="agencies[]" data-placeholder="Choose a Agencies...">
                             <option value=""></option>
                            <?php echo smarty_function_html_options(array('options'=>$_smarty_tpl->tpl_vars['agencyList']->value),$_smarty_tpl);?>
 
@@ -165,7 +183,7 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
                 <div class="control-group">
                     <label class="control-label" for="adp_sector">2.3 Concerned Sector of ADP</label>
                     <div class="controls">
-                        <select id="adp_sector" name="adp_sector">
+                        <select id="adp_sector" required name="adp_sector" onchange="getSubSector()">
                             <option value="">Select Sector</option>
                             <?php echo smarty_function_html_options(array('options'=>$_smarty_tpl->tpl_vars['adpSectorList']->value,'selected'=>$_smarty_tpl->tpl_vars['basicInfo']->value->adp_sector),$_smarty_tpl);?>
 
@@ -176,7 +194,7 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
                 <div class="control-group">
                     <label class="control-label" for="adp_sub_sector">Concerned Sub-sector of ADP</label>
                     <div class="controls">
-                        <select id="adp_sub_sector" name="adp_sub_sector">
+                        <select id="adp_sub_sector" required name="adp_sub_sector">
                             <option value="">Select Sector</option>
                             <?php echo smarty_function_html_options(array('options'=>$_smarty_tpl->tpl_vars['adpSubSectorList']->value,'selected'=>$_smarty_tpl->tpl_vars['basicInfo']->value->adp_sub_sector),$_smarty_tpl);?>
 
@@ -187,7 +205,7 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
                 <div class="control-group">
                     <label class="control-label" for="sector_division">2.4 Concerned Division of Planning Commission</label>
                     <div class="controls">
-                        <select id="sector_division" name="sector_division">
+                        <select id="sector_division" required name="sector_division">
                             <option value="">Select Sector</option>
                             <?php echo smarty_function_html_options(array('options'=>$_smarty_tpl->tpl_vars['sectorDivisionList']->value,'selected'=>$_smarty_tpl->tpl_vars['basicInfo']->value->sector_division),$_smarty_tpl);?>
 
@@ -523,7 +541,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                 <div class="control-group">
                     <label class="control-label" for="location_divisions[]">Divisions</label>
                     <div class="controls">
-                        <select multiple class="chzn-select divisions" id="location_divisions[]"  name="location_divisions[]" onchange="loadDistrict()" data-placeholder="Choose a Division...">
+                        <select multiple class="chzn-select divisions" id="location_divisions[]" style="width:500px"  name="location_divisions[]" onchange="loadDistrict()" data-placeholder="Choose a Division...">
                             <option value=""></option>
                              <?php echo smarty_function_html_options(array('options'=>$_smarty_tpl->tpl_vars['divisionList']->value),$_smarty_tpl);?>
 
@@ -535,7 +553,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                 <div class="control-group">
                     <label class="control-label" for="location_districts[]">Districts</label>
                     <div class="controls">
-                        <select multiple class="chzn-select districts" id="location_districts[]"  name="location_districts[]"  data-placeholder="Choose a District...">
+                        <select multiple class="chzn-select districts" id="location_districts" style="width:500px"   name="location_districts[]" onchange="loadUpzilla()"  data-placeholder="Choose a District..." required>
                             <option value=""></option>
                            <?php echo smarty_function_html_options(array('options'=>$_smarty_tpl->tpl_vars['districtList']->value),$_smarty_tpl);?>
 
@@ -546,7 +564,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                 <div class="control-group">
                     <label class="control-label" for="location_upzilas[]">Upzila/City Corporations</label>
                     <div class="controls">
-                        <select multiple class="chzn-select upzilas" id="location_upzilas[]"  name="location_upzilas[]" data-placeholder="Choose a Upzilla/City Corporations...">
+                        <select multiple class="chzn-select upzilas" id="location_upzilas" style="width:500px"  name="location_upzilas[]" data-placeholder="Choose a Upzilla/City Corporations...">
                             <option value=""></option>
                            <?php echo smarty_function_html_options(array('options'=>$_smarty_tpl->tpl_vars['upazilaList']->value),$_smarty_tpl);?>
  
@@ -554,7 +572,8 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                         <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
                     </div>
 		</div>
-                
+                 <div id="map_canvas"></div>
+
                 <div class="form-actions2">
 		 <button class="btn btn-primary"><i class="icon-save"></i> Save</button>
                  <input type="hidden" value="saveLocations" name="cmd"/>
@@ -932,6 +951,8 @@ $_smarty_tpl->tpl_vars['conItem']->_loop = true;
 )
                     agencies.push(<?php echo $_SESSION['agency_id'];?>
 )
+
+                    
                     <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
  $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
  $_from = $_smarty_tpl->tpl_vars['basicInfo']->value->ministries; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
@@ -992,7 +1013,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                     $(".divisions").val(divisions);
                     $(".districts").val(districts);
                     $(".upzilas").val(upzilas);
-                    $(".alert-success").fadeOut(4000);
+                    
                     //$(".ministries").chosen().trigger("chosen:updated");
                     
                     
@@ -1131,29 +1152,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 		focusInvalid: true  ,
 		rules: {
 			
-                        adp_sector: {
-				required: true
-			},
-                        adp_sub_sector: {
-				required: true
-			},
-                        sector_division: {
-				required: true
-			},
-                        'ministries[]': {
-				required: true
-			},
-                        'agencies[]': {
-				required: true
-			},
-                        'location_divisions[]': {
-				required: true
-			},
                        
-                        
-			project_type: {
-				required: true
-			}
                         
 			
 		},
@@ -1253,35 +1252,141 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 	
 })
 
-function loadDistrict()
+
+function getAgencyList()
 {
+    var ministries  = $('#ministries').val();
     
-    var username = $('.divisions').val();
+    var domainname = window.location.hostname;
    
     $.ajax
     (
         {                                      
-            url: 'user_manager.php?cmd=checkuser',                    //the script to call to get data          
-            data: "username="+username,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getAgencyList',                    //the script to call to get data          
+            data: "ministries="+ministries,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
             dataType: 'json',                                         //data format      
             success: function(responseText)                           //on recieve of reply
             {
-                if ( responseText != '')
+                if(responseText!=null)
                 {
-                    highlightTableColumn('username');
-                    alert(DUPLICATE_USERNAME);
-                    duplicate_user = true;
-                    return false;
-                }
+                   
+                    
+                    $('#agencies').empty(); //remove all child nodes
+                    $('#agencies').append(responseText);
+                    $('#agencies').trigger("liszt:updated");
+                    
+                } 
                 else
                 {
-                    resetTableColumn('username');
-                    duplicate_user = false;
+                     $('#agencies').empty(); 
+                     $('#agencies').trigger("liszt:updated");
+                }
+            }
+        } 
+    );  
+    
+    
+}
+
+function getSubSector()
+{
+    var adp_sector  = $('#adp_sector').val();
+    
+    var domainname = window.location.hostname;
+   
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getSubSector',                    //the script to call to get data          
+            data: "adp_sector="+adp_sector,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            dataType: 'json',                                         //data format      
+            success: function(responseText)                           //on recieve of reply
+            {
+                if(responseText!=null)
+                {
+                   
+                    
+                    $('#adp_sub_sector').empty(); //remove all child nodes
+                    $('#adp_sub_sector').append(responseText);
+                    $('#adp_sub_sector').trigger("liszt:updated");
+                    
+                } 
+                else
+                {
+                     $('#agencies').empty(); 
+                     $('#agencies').trigger("liszt:updated");
+                }
+            }
+        } 
+    );  
+    
+    
+}
+
+function loadDistrict()
+{
+    
+    var divisions  = $('.divisions').val();
+    var domainname = window.location.hostname;
+   
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getDistrict',                    //the script to call to get data          
+            data: "divisions="+divisions,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            dataType: 'json',                                         //data format      
+            success: function(responseText)                           //on recieve of reply
+            {
+                if(responseText!=null)
+                {
+                   
+                   
+                    $('#location_districts').empty(); //remove all child nodes
+                    $('#location_districts').append(responseText);
+                    $('#location_districts').trigger("liszt:updated");
+                } 
+                else
+                {
+                     $('#location_districts').empty(); 
+                     $('#location_districts').trigger("liszt:updated");
                 }
             }
         } 
     );  
 }
+
+function loadUpzilla()
+{
+    
+    var districts  = $('.districts').val();
+    var domainname = window.location.hostname;
+   
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getUpzilla',                    //the script to call to get data          
+            data: "districts="+districts,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            dataType: 'json',                                         //data format      
+            success: function(responseText)                           //on recieve of reply
+            {
+                if(responseText!=null)
+                {
+                   
+                   
+                    $('#location_upzilas').empty(); //remove all child nodes
+                    $('#location_upzilas').append(responseText);
+                    $('#location_upzilas').trigger("liszt:updated");
+                } 
+                else
+                {
+                     $('#location_upzilas').empty(); 
+                     $('#location_upzilas').trigger("liszt:updated");
+                }
+            }
+        } 
+    );  
+}
+
 
 //ajaj
 var project_total_gob           = <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->gob_cost;?>
@@ -1304,6 +1409,8 @@ var project_total_other_fe      = <?php echo $_smarty_tpl->tpl_vars['basicInfo']
 ;
 
 calculateModeOfFinanceGrandTotal();
+// getAgencyList()
+
 </script> 
 
 <script>

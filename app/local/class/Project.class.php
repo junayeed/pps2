@@ -45,7 +45,6 @@ class Project
     public function loadBasicInfo()
     {
         $info['table'] = PROJECT_TBL.' AS P LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VP ON(P.id=VP.pid)';
-        
         $info['where'] = "P.id = $this->id";
         $info['debug'] = false;
 

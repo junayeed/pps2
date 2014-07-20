@@ -80,42 +80,73 @@
 	<div class="infobox infobox-green">
 		<div class="infobox-icon"><i class="icon-comments"></i></div>
 		<div class="infobox-data">
-			<span class="infobox-data-number">32</span>
-			<span class="infobox-content">GOB</span>
+                    <span class="infobox-data-number">{$basicInfo->gob_cost|number_format:2:".":","}</span>
+                    <span class="infobox-content">GOB</span>
 		</div>
-		<div class="badge badge-success">+32%</div>
+		<div class="badge badge-success">
+                    {if $basicInfo->total_cost}
+                        {assign var="gob_percentage" value=$basicInfo->gob_cost/$basicInfo->total_cost*100}
+                        {$gob_percentage|number_format:2:".":","}%
+                    {else}
+                        0.00%
+                    {/if}
+                </div>
 	</div>
 
 
 	<div class="infobox infobox-blue">
 		<div class="infobox-icon"><i class="icon-twitter"></i></div>
 		<div class="infobox-data">
-			<span class="infobox-data-number">11</span>
-			<span class="infobox-content">Project Aid</span>
+                    <span class="infobox-data-number">
+                        {assign var="total_project_aid" value=$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost}
+                        {$total_project_aid|number_format:2:".":","}
+                    </span>
+                    <span class="infobox-content">Project Aid</span>
 		</div>
-		<div class="badge badge-success">+32%</div>
+		<div class="badge badge-success">
+                    {if $basicInfo->total_cost}
+                        {assign var="pa_percentage" value=$total_project_aid/$basicInfo->total_cost*100}
+                        {$pa_percentage|number_format:2:".":","}%
+                    {else}
+                        0.00%
+                    {/if}
+                </div>
 	</div>
-
-
-
-
-
 	<div class="infobox infobox-pink">
 		<div class="infobox-icon"><i class="icon-shopping-cart"></i></div>
 		<div class="infobox-data">
-			<span class="infobox-data-number">8</span>
-			<span class="infobox-content">FE</span>
+                    <span class="infobox-data-number">{$basicInfo->own_fund_cost|number_format:2:".":","}</span>
+                    <span class="infobox-content">Own Fund</span>
 		</div>
-		<div class="badge badge-success">+32%</div>
+		<div class="badge badge-success">
+                    {if $basicInfo->total_cost}
+                        {assign var="own_fund_percentage" value=$basicInfo->own_fund_cost/$basicInfo->total_cost*100}
+                        {$own_fund_percentage|number_format:2:".":","}%
+                    {else}
+                        0.00%
+                    {/if}
+                </div>
 	</div>
-
-
-
 	<div class="infobox infobox-red">
 		<div class="infobox-icon"><i class="icon-beaker"></i></div>
 		<div class="infobox-data">
-			<span class="infobox-data-number">7</span>
-			<span class="infobox-content">Own Fund</span>
+                    <span class="infobox-data-number">{$basicInfo->other_cost|number_format:2:".":","}</span>
+                    <span class="infobox-content">Other</span>
+		</div>
+                <div class="badge badge-success">
+                    {if $basicInfo->total_cost}
+                        {assign var="other_percentage" value=$basicInfo->other_cost/$basicInfo->total_cost*100}
+                        {$other_percentage|number_format:2:".":","}%
+                    {else}
+                        0.00%
+                    {/if}
+                </div>
+	</div>
+        <div class="infobox infobox-red">
+		<div class="infobox-icon"><i class="icon-beaker"></i></div>
+		<div class="infobox-data">
+                    <span class="infobox-data-number">{$basicInfo->total_cost|number_format:2:".":","}</span>
+                    <span class="infobox-content">Total Cost</span>
 		</div>
 	</div>
     </div>    
