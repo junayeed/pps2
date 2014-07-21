@@ -96,6 +96,7 @@
         <div class="tab-content">
             <!-- #basicinfo strats here-->  
             <div id="basicinfo" class="tab-pane in active">
+                
             <form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}"> 
                 <input type="hidden" name="PI" value="{$PI}"/>
                 <div class="control-group">
@@ -568,7 +569,7 @@
             
             <!-- #logframe starts here-->
             <div id="logframe" class="tab-pane">
-                <form class="form-horizontal" id="validation-form-location"  method="post" action="{$SCRIPT_NAME}"> 
+                <form class="form-horizontal" id="validation-form-logframe"  method="post" action="{$SCRIPT_NAME}"> 
                 <div class="control-group">
 			<label class="" for="locframe"></label>
 			<div class="">
@@ -780,12 +781,19 @@
                     $(".divisions").val(divisions);
                     $(".districts").val(districts);
                     $(".upzilas").val(upzilas);
-                    
+                   
                     //$(".ministries").chosen().trigger("chosen:updated");
+                    
+                    {if $basicInfo->current_holder neq $smarty.session.uid}   
+                        $("#validation-form :input").attr("disabled", true);
+                        $("#validation-form-location :input").attr("disabled", true);
+                        $("#validation-form-logframe :input").attr("disabled", true);
+                    {/if} 
                     
                     
                     {literal}
-                       
+                    
+                      
                         $(function() {
 			$('#id-disable-check').on('click', function() {
 				var inp = $('#form-input-readonly').get(0);
@@ -1168,6 +1176,7 @@ var project_total_other_fe      = {$basicInfo->other_fe_cost};
 
 calculateModeOfFinanceGrandTotal();
 // getAgencyList()
+
 
 </script> 
 
