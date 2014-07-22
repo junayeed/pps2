@@ -286,7 +286,7 @@
             $data['other_fe']                  = $_REQUEST[$contingency[$i].'_contigency_other_fe']        ? $_REQUEST[$contingency[$i].'_contigency_other_fe']        : 0.0;
             $data['contingency_id']            = $_REQUEST[$contingency[$i].'_con_id'];
             $data['type']                      = ucfirst($contingency[$i]);
-            
+            $data['total_year']                = $_REQUEST['total_year_in_annexv'];
             $info['data']  = $data;
             if( !$data['contingency_id'] )
             {    

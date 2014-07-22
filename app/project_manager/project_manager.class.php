@@ -18,10 +18,11 @@ class projectManagerApp extends DefaultApplication
       switch ($cmd)
       {
            case 'edit'               : $screen = $this->showEditor($msg);              break;
+           case 'saveProjectInfo'    : $screen = $this->saveProjectInfo();             break;
            case 'save'               : $screen = $this->saveRecord();                  break;
            case 'saveObjectiveCost'  : $screen = $this->saveObjectiveCost();           break;
            case 'saveLocations'      : $screen = $this->saveLocations();               break;
-           case 'saveLogFrame'       : $screen = $this->saveLogFrame();               break;
+           case 'saveLogFrame'       : $screen = $this->saveLogFrame();                break;
            case 'delete'             : $screen = $this->deleteRecord();                break;
            case 'list'               : $screen = $this->showList();                    break;
            case 'partA'              : $screen = $this->showProjectPartA();            break;
@@ -74,7 +75,9 @@ class projectManagerApp extends DefaultApplication
         $infop['table']  = PROJECT_ANNEX_V_TBL;
         $infop['debug']  = false;
         $infop['where']  = 'id = ' . $annex_id;
-                
+        
+        delete($info);
+        
         if (delete($infop) )
         {
             echo json_encode('1');
@@ -212,7 +215,8 @@ class projectManagerApp extends DefaultApplication
        //dumpVar($_REQUEST);
        //die;
        $project = new Project($pid);
-      
+       
+       $project->saveBasicInfo();
        $project->saveLogFrame();
        
        header ('Location: project_manager.php?cmd=partA&PI='.  base64_encode($pid));
@@ -414,6 +418,7 @@ class projectManagerApp extends DefaultApplication
         $data['annex_v_category_year_wise_sub_total']  = getProjectCategoryYearWiseComponentSubTotal($pid);
         
         //dumpvar($data['annx_v_component_details']);
+        if($report_type)
         $this->annexVExportTo($pid, $report_type);
         
         return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);
@@ -447,6 +452,8 @@ class projectManagerApp extends DefaultApplication
 
         $data      = $project;
         $data->PI  = getUserField('PI');
+        
+        
 
         return createPage(PROJECT_BASIC_TEMPLATE, $data);
     }
@@ -469,6 +476,15 @@ class projectManagerApp extends DefaultApplication
            $data['error']='yes';
            return createPage(PROJECT_CREATE_TEMPLATE, $data);
        }
+   }
+   function saveProjectInfo()
+   {
+       $pid     = base64_decode(getUserField('PI'));
+       $project = new Project($pid);
+       $project->saveBasicInfo();
+       
+       header ('Location: project_manager.php?cmd=partA&PI='.  base64_encode($pid));
+       
    }
 
    /**

@@ -682,8 +682,10 @@ function deleteYear()
         $('#total_cost_breakdown_container_'+year).remove();
     
         // decrease the year count value 
+        
         YEAR_COUNT--;
-        $('#total_year_in_annexv').val(YEAR_COUNT)
+        
+        $('#total_year_in_annexv').val(year-1);
         calculateAll();
     
         // adjust the delete sign

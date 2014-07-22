@@ -150,8 +150,6 @@ class Project
     public function saveBasicInfo()
     {
         $data                         = getUserDataSet(PROJECT_TBL);
-        $data['date_of_commencement'] = $_REQUEST['date_of_commencement'];
-        $data['date_of_completion']   = $_REQUEST['date_of_completion'];
         $data['ministry_id']          = $_SESSION['ministry_id'];
         $data['agency_id']            = $_SESSION['agency_id'];
         $data['created_by']           = $_SESSION['uid'];
@@ -160,6 +158,7 @@ class Project
         $info['table'] = PROJECT_TBL;
         $info['data']  = $data;
         $info['debug'] = false;
+        
         
         if($this->id)
         {
