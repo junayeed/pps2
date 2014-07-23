@@ -258,9 +258,9 @@
                           ' LEFT JOIN ' . ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id = ESLT.id)';
         $info['debug']  = false;
         $info['where']  = 'PAVT.pid = ' . $pid . ' ORDER BY ECLT.economic_code, ESLT.economic_subcode';
-        $info['fields'] = array('ECLT.economic_code', 'ESLT.economic_subcode', 'ECLT.component_type', 'PAVT.economic_subcode_name', 
+        $info['fields'] = array('PAVT.id','ECLT.economic_code', 'ESLT.economic_subcode', 'ECLT.component_type', 'PAVT.economic_subcode_name', 
                                 'PAVT.unit', 'PAVT.unit_cost', 'PAVT.qty', 'PAVT.total_cost', 'PAVT.gob', 'PAVT.gob_fe', 'PAVT.rpa_through_gob', 
-                                'PAVT.rpa_special_account', 'PAVT.dpa', 'PAVT.own_fund', 'PAVT.own_fund_fe', 'PAVT.other', 'PAVT.other_fe');
+                                'PAVT.rpa_special_account', 'PAVT.dpa', 'PAVT.own_fund', 'PAVT.own_fund_fe', 'PAVT.other', 'PAVT.other_fe','PAVT.major_item');
 
         $result = select($info); 
         

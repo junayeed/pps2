@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
                 <script type="text/javascript" src="/ext/ckeditor/ckeditor.js"></script>
+                <script type="text/javascript" src="/app_contents/project_manager/part_b.js"></script>
 	</head>
 
 					
@@ -157,6 +158,45 @@
                         <textarea class="ckeditor" name="lessons_learnt_not_work_well" id="lessons_learnt_not_work_well">{$partB->lessons_learnt_not_work_well}</textarea>
                     </div> 
                 </div>
+                
+                <div class="control-group">
+                    <label class="" for="lessons_learnt_not_work_well">18.0 Indicate the basis of item-wise cost estimate and date</label>
+                   
+                        <table  id="major_item_tbl" class="table table-striped table-bordered table-hover table_bug_report">
+                            <thead>
+                                <tr>
+                                    <th class="span1">Sl No</th>
+                                    <th class="span6">Major Items</th>
+                                    <th class="span2">Unit</th>
+                                    <th class="span2">Unit Cost</th>
+                                    <th class="span5">Basis</th>
+                                    <th class="span4">Date</th>
+                                </tr>
+                                <tr style="height: 5px !important; ">
+                                    <th class="span1">1</th>
+                                    <th class="span6">2</th>
+                                    <th class="span2">3</th>
+                                    <th class="span2">4</th>
+                                    <th class="span5">5</th>
+                                    <th class="span4">6</th>
+                                </tr>
+                            </thead>
+                            <tbody id="component_total_cost_content">
+                                {foreach from=$major_items key=key item=item}
+                                  <tr>
+                                    <td class="span1">{$key+1}</td>
+                                    <td class="span6">{$item->economic_subcode}: {$item->economic_subcode_name}</td>
+                                    <td class="span2">{if $item->unit}{$item->unit}{else}-{/if}</td>
+                                    <td class="span2">{$item->unit_cost}</td>
+                                    <td class="span5"><input type="text" name="basis_{$item->id}" id="basis_{$item->id}" value="{$item->basis}"></td>
+                                    <td class="span4"><input type="text" class="date-picker" name="basis_date_{$item->id}" data-date-format="yyyy-mm-dd" id="basis_date_{$item->id}" value="{$item->basis_date}"></td>
+                                </tr>
+                                {/foreach}
+                            </tbody>
+                        </table>
+                </div>
+                
+             
                 
                 <div class="form-actions2">
 		 <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
@@ -374,64 +414,59 @@
 		
 
 
-		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
-			<i class="icon-double-angle-up icon-only"></i>
-		</a>
-                        
-                        
-                <!-- basic scripts -->
-		<script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
-		<script type="text/javascript">
-		window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
-		</script>
-		
-		<script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
+
+<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+        <i class="icon-double-angle-up icon-only"></i>
+</a>
+
+
+<!-- basic scripts -->
+<script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
+<script type="text/javascript">
+window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
+</script>
+
+<script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
 
 
 
-		<!-- page specific plugin scripts -->
-		
-		<!--[if lt IE 9]>
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
-		<![endif]-->
+<!-- page specific plugin scripts -->
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
+<![endif]-->
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.spinner.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.spinner.js"></script>
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-timepicker.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
-                
-                <script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-timepicker.min.js"></script>
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
 
-                
-                
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/daterangepicker.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/daterangepicker.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.knob.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.autosize-min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
+<!-- ace scripts -->
+<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
+<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
 
-		
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.knob.min.js"></script>
-
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.autosize-min.js"></script>
-
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
-
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
-                <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
-
-               <!-- ace scripts -->
-		<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
-		<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+<script>
+    $('.date-picker').datepicker();
+</script>

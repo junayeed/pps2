@@ -190,6 +190,7 @@ class projectManagerApp extends DefaultApplication
        $project = new Project($pid);
        
        $project->savePartB();
+       //$project->savePartBMajorItems();
        
        
        header ('Location: project_manager.php?cmd=partB&PI='.  base64_encode($pid));
@@ -273,6 +274,9 @@ class projectManagerApp extends DefaultApplication
         $data         = $project;
         $data->PI     = getUserField('PI'); 
         $data->partB  = $project->loadPartB();
+        
+        $data->major_items  = $project->loadMajorItems();
+        //dumpVar($data->major_items);
         
         return createPage(PROJECT_PART_B_TEMPLATE, $data);
     }

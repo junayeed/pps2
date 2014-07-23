@@ -3,6 +3,28 @@ var componentRowIDArray  = [];
 var YEAR_COUNT           = 1;
 var distributionArray    = ['gob_', 'rpa_through_gob_', 'rpa_special_account_', 'dpa_', 'own_fund_', 'other_']; 
 
+
+function updateMajorItems(id,thisField)
+{
+    
+    
+    var domainname = window.location.hostname;
+    var major_item = thisField.checked ? 'Yes':'No' ;
+   
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=updateMajorItems',                    //the script to call to get data          
+            data: "id="+id+"&major_item="+major_item,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            dataType: 'json',                                         //data format      
+            success: function(responseText)                           //on recieve of reply
+            {
+               
+            }
+        } 
+    );  
+}
+
 function submittForm()
 {
     //alert(1);

@@ -88,6 +88,21 @@ class Project
         return $result[0];
     }
     
+    public function loadMajorItems()
+    {
+        $info['table'] = PROJECT_ANNEX_V_TBL.' AS PAVT LEFT JOIN '. PROJECT_MAJOR_ITEM_TBL.' AS PMIT ON (PAVT.id=PMIT.annex_id) LEFT JOIN ' . 
+                         ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id = ESLT.id)';
+        $info['debug'] = false;
+        $info['fields'] = array('ESLT.economic_subcode', 'PMIT.basis','PMIT.basis_date','PAVT.pid','PAVT.economic_subcode_id','PAVT.economic_subcode_name',
+                                'PAVT.unit','PAVT.unit_cost','PAVT.major_item', 'PAVT.id');
+        $info['where'] = "PAVT.pid = $this->id AND PAVT.major_item='Yes' ORDER BY PAVT.id";
+        
+        $result =   select($info);    
+        
+        return $result;
+        
+    }
+    
     public function loadAgencies()
     {
         $info['table'] = PROJECT_AGENCY_TBL;
@@ -205,7 +220,14 @@ class Project
             }    
             return  0;
         }
-            
+    }
+    
+    public function savePartBMajorItems()
+    {
+        $info['table']       = PROJECT_MAJOR_ITEM_TBL;
+        $info['debug']       = false;
+        
+        
     }
     
     

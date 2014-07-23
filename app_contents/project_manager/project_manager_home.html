@@ -37,43 +37,39 @@
     Now you can fillup Part-A, Part-B and other Annexures <br />
 </div -->
 <div class="span9">
-        <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}">
-            <div class="control-group">
-                <label class="control-label" for="project_title_en">Project Title (English)</label>
-                <div class="controls">  
-                    <label class="control-label">: <b>{$basicInfo->project_title_en}</b></label>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" for="project_title_bn">Project Title (Bangla)</label>
-                <div class="controls">
-                        <label class="control-label">: {$basicInfo->project_title_bn}</label>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" for="project_type">Project Type</label>
-                <div class="controls">
-                       <label class="control-label">: {$basicInfo->project_type}</label>   
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" for="implementing_period">Date of commencement</label>
-                <div class="controls">
-                     <label class="control-label">: {$basicInfo->date_of_commencement|date_format}</label>   
-                </div>    
-            </div>  
-
-            <div class="control-group">
-                <label class="control-label" for="implementing_period">Date of completion</label>
-                 <div class="controls">
-                     <label class="control-label">: {$basicInfo->date_of_completion|date_format}</label>   
-                </div>    
-            </div>  
-        </form>
-    </div>
+     
+            <table class="table table-striped table-bordered table-hover">
+              <tbody>  
+                <tr>
+                    <td class="span3"><label class="lbl">Project Name</label></td>
+                    <td><label class="lbl"><b>{$basicInfo->project_title_en}</b></label></td>
+                </tr>
+                <tr>
+                    <td class="span3"><label class="lbl">Project Name(Bangla)</label></td>
+                    <td><label class="lbl">{$basicInfo->project_title_bn}</label></td>
+                </tr>
+                <tr>
+                    <td class="span3"><label class=" label-default">Project Status</label></td>
+                    <td>
+                        <span class="label {if $basicInfo->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $basicInfo->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$basicInfo->status}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="lbl">Project Type</span></td>
+                    <td><label class="lbl">{$basicInfo->project_type}</label></td>
+                </tr>
+                <tr>
+                    <td><label class="lbl">Date of commencement</label></td>
+                    <td><label class="lbl">{$basicInfo->date_of_commencement}</label></td>
+                </tr>
+                <tr>
+                    <td><label class="lbl">Date of completion</label></td>
+                    <td><label class="lbl">{$basicInfo->date_of_completion}</label></td>
+                </tr>
+              </tbody>  
+            </table>    
+       
+ </div>
 
     <div class="span3">
 	

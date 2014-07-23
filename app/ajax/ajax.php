@@ -25,6 +25,7 @@ class ajaxApp extends DefaultApplication
       {
           
            case 'deleteManagement'         : $screen = $this->deleteManagementItem();                  break;
+           case 'updateMajorItems'         : $screen = $this->updateMajorItems();                  break;
            case 'getAgencyList'            : $screen = $this->getAgencyListByMinistry();                  break;
            case 'getSubSector'             : $screen = $this->getSubSectorByAdp();                  break;
            case 'getDistrict'              : $screen = $this->getDistrictListByDivision();                  break;
@@ -133,6 +134,24 @@ class ajaxApp extends DefaultApplication
         $info['debug']  = false;
 
         $result = delete($info);
+                
+        if($result) echo json_encode('1');
+        else        json_encode('');
+        die;
+    } 
+    
+    function updateMajorItems()
+    {
+        $annex_id      = getUserField('id');
+        $major_item    = getUserField('major_item');
+        
+        $info['table']  = PROJECT_ANNEX_V_TBL;
+        $info['where']  = " id =$annex_id";
+        $info['debug']  = false;
+        
+        $info['data']['major_item']   = $major_item;
+
+        $result = update($info);
                 
         if($result) echo json_encode('1');
         else        json_encode('');

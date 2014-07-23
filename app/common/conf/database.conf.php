@@ -84,6 +84,7 @@
   define('PROJECT_ANNEX_V_DETAILS_TBL',      DB_NAME . '.annexure_v_details');
   define('PROJECT_ANNEX_V_CON_TBL',          DB_NAME . '.annexure_v_contingency');
   define('PROJECT_ANNEX_V_CON_DETAILS_TBL',  DB_NAME . '.annexure_v_contingency_details');
+  define('PROJECT_MAJOR_ITEM_TBL',           DB_NAME . '.project_major_items');
   
   
   // VIEWS
