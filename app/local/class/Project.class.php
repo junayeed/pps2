@@ -91,10 +91,11 @@ class Project
     public function loadMajorItems()
     {
         $info['table'] = PROJECT_ANNEX_V_TBL.' AS PAVT LEFT JOIN '. PROJECT_MAJOR_ITEM_TBL.' AS PMIT ON (PAVT.id=PMIT.annex_id) LEFT JOIN ' . 
+                         PROJECT_MAJOR_ITEM_COM_COST_TBL. ' AS PMICT ON (PAVT.id=PMICT.annex_id) LEFT JOIN '.
                          ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id = ESLT.id)';
         $info['debug'] = false;
         $info['fields'] = array('ESLT.economic_subcode', 'PMIT.basis','PMIT.basis_date','PAVT.pid','PAVT.economic_subcode_id','PAVT.economic_subcode_name',
-                                'PAVT.unit','PAVT.unit_cost','PAVT.major_item', 'PAVT.id');
+                                'PAVT.unit','PAVT.unit_cost','PAVT.major_item', 'PAVT.id AS annex_id','PMIT.id','PMICT.id AS major_cost_com_id','PMICT.unit_cost_ongoing','PMICT.unit_cost_completed','PMICT.remarks');
         $info['where'] = "PAVT.pid = $this->id AND PAVT.major_item='Yes' ORDER BY PAVT.id";
         
         $result =   select($info);    
@@ -226,6 +227,54 @@ class Project
     {
         $info['table']       = PROJECT_MAJOR_ITEM_TBL;
         $info['debug']       = false;
+        
+        $info1['table']       = PROJECT_MAJOR_ITEM_COM_COST_TBL;
+        $info1['debug']       = false;
+        
+        $items = $this->loadMajorItems();
+        //dumpVar($items);
+        //die;
+        
+        foreach($items as $thisItem)
+        {
+            if($_REQUEST['basis_'.$thisItem->annex_id])      $data['basis']            = $_REQUEST['basis_'.$thisItem->annex_id];
+            if($_REQUEST['basis_date_'.$thisItem->annex_id]) $data['basis_date']  = $_REQUEST['basis_date_'.$thisItem->annex_id];
+            
+            
+            if($_REQUEST['unit_cost_ongoing_'.$thisItem->annex_id])   $data1['unit_cost_ongoing']    = $_REQUEST['unit_cost_ongoing_'.$thisItem->annex_id];
+            if($_REQUEST['unit_cost_completed_'.$thisItem->annex_id]) $data1['unit_cost_completed']  = $_REQUEST['unit_cost_completed_'.$thisItem->annex_id];
+            if($_REQUEST['remarks_'.$thisItem->annex_id])             $data1['remarks']              = $_REQUEST['remarks_'.$thisItem->annex_id];
+             
+            
+            if($thisItem->id)
+            {
+                $info['data']  = $data;
+                $info['where'] = 'id ='.$thisItem->id;
+                update($info);
+            }
+            else 
+            {
+                $data['pid']      = $this->id;
+                $data['annex_id'] = $thisItem->annex_id;
+                $info['data']     = $data;
+                insert($info);
+            }
+            
+            if($thisItem->major_cost_com_id)
+            {
+                $info1['data']  = $data1;
+                $info1['where'] = 'id ='.$thisItem->major_cost_com_id;
+                update($info1);
+            }
+            else 
+            {
+                $data1['pid']      = $this->id;
+                $data1['annex_id'] = $thisItem->annex_id;
+                $info1['data']     = $data1;
+                insert($info1);
+            }
+            
+        }    
         
         
     }

@@ -190,7 +190,7 @@ class projectManagerApp extends DefaultApplication
        $project = new Project($pid);
        
        $project->savePartB();
-       //$project->savePartBMajorItems();
+       $project->savePartBMajorItems();
        
        
        header ('Location: project_manager.php?cmd=partB&PI='.  base64_encode($pid));
