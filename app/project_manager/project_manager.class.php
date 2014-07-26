@@ -499,18 +499,34 @@ class projectManagerApp extends DefaultApplication
     {
         $project_title  = getUserField('project_title');
         $project_type   = getUserField('project_type');
-
+        
+        $user_type      = $_SESSION['user_type'];
+        
         $filterClause = '1';
+        
+        if($user_type =='Ministry')
+        {
+            $filterClause.=' AND P.ministry_id='.$_SESSION['ministry_id'];
+        }
+        elseif($user_type =='Agency')
+        {
+            $filterClause.=' AND P.agency_id='.$_SESSION['agency_id'];
+        }    
 
         if ($project_title)
+        {
             $filterClause .= " and project_title_en LIKE '%$project_title%' ";
+        }
         if ($project_type)
+        {
             $filterClause .= " and project_type = '$project_type' ";
+        }
 
-        $info['table'] = PROJECT_TBL.' AS P LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VP ON(P.id=VP.pid)';
-        $info['debug'] = false;
-        $info['where'] = $filterClause . ' AND P.ministry_id = ' . $_SESSION['ministry_id'] . 
-                         ' AND P.agency_id = ' . $_SESSION['agency_id'] .' Order By P.project_title_en ASC';
+        $info['table']  = PROJECT_TBL.' AS P LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VP ON(P.id=VP.pid)'.
+                         ' LEFT JOIN '.AGENCY_LOOKUP_TBL.' AS ALT ON(P.agency_id=ALT.id)';
+        $info['debug']  = false;
+        $info['fields'] = array('P.*','VP.*','ALT.name as agency_name');
+        $info['where']  = $filterClause .' Order By P.project_title_en ASC';
 
         $data['list'] = select($info);
 

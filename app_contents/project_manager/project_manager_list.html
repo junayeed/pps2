@@ -78,6 +78,9 @@
                                     <tr>
                                         <th>Sl</th>
                                         <th class="span10">Project Title</th>
+                                        {if $smarty.session.user_type neq 'Agency'}
+                                        <th class="span10">Name of the Agency</th>
+                                        {/if}
                                         <th class="hidden-480">Create Date</th>
                                         <th style="text-align: right;">Total Cost (In Lac)</th>
                                         <th style="text-align: center;" class="hidden-480">Status</th>
@@ -88,8 +91,11 @@
                                         <tr>
                                             <td>{$key+1}</td>
                                             <td><a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}">{$item->project_title_en}</a></td>
-                                            <td class="hidden-480">{$item->create_date|date_format:"%e %B, %Y"}</td>
-                                            <td style="text-align: right ;padding-right: 5px;">
+                                            {if $smarty.session.user_type neq 'Agency'}
+                                            <td class="span10">{$item->agency_name}</td>
+                                            {/if}
+                                            <td  class="span3 hidden-480">{$item->create_date|date_format:"%e %B, %Y"}</td>
+                                            <td class="span3" style="text-align: right ;padding-right: 5px;">
                                                 <b class="blue" >{$item->total_cost|number_format:2:'.':','}</b>
 				            </td>
                                             <td class="hidden-480" style="text-align: center;">

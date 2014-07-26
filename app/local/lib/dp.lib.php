@@ -338,20 +338,22 @@
 
         if ($user_type=='Agency')
         {
-            $filterClause .= " AND agency_id=$agency_id";
+            $filterClause .= " AND P.agency_id=$agency_id";
         }
         elseif ($user_type=='Ministry')
         {
-            $filterClause .= " AND ministry_id =$ministry_id";
+            $filterClause .= " AND P.ministry_id =$ministry_id";
         }
         elseif ($user_type=='Planning Commission')
         {
-            $filterClause .= " AND commission_id =$commission_id";
+            $filterClause .= " AND P.commission_id =$commission_id";
         }
 
-        $info['table'] = PROJECT_TBL.' AS P LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VP ON(P.id=VP.pid)';
-        $info['debug'] = false;
-        $info['where'] = $filterClause.' ORDER BY P.create_date DESC';
+        $info['table']  = PROJECT_TBL.' AS P LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VP ON(P.id=VP.pid)'.
+                         ' LEFT JOIN '.AGENCY_LOOKUP_TBL.' AS ALT ON(P.agency_id=ALT.id)';
+        $info['debug']  = false;
+        $info['fields'] = array('P.*','VP.*','ALT.name as agency_name');
+        $info['where']  = $filterClause .' Order By P.create_date DESC';
 
         $result = select($info);
         
