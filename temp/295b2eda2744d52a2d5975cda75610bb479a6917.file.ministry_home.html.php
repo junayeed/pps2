@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-07-26 13:08:50
+<?php /* Smarty version Smarty-3.1.17, created on 2014-07-26 19:26:11
          compiled from "D:\xampp2\htdocs\pps2\app_contents\standard\user_home\ministry_home.html" */ ?>
 <?php /*%%SmartyHeaderCode:2393353d38c42200fd9-53513090%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '295b2eda2744d52a2d5975cda75610bb479a6917' => 
     array (
       0 => 'D:\\xampp2\\htdocs\\pps2\\app_contents\\standard\\user_home\\ministry_home.html',
-      1 => 1406371966,
+      1 => 1406378901,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.17',
+  'unifunc' => 'content_53d38c42209d33_41062264',
   'variables' => 
   array (
     'USER_HEADER' => 0,
@@ -22,8 +24,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'contents' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_53d38c42209d33_41062264',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_53d38c42209d33_41062264')) {function content_53d38c42209d33_41062264($_smarty_tpl) {?><html>
 <head>
@@ -90,8 +90,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                         <?php echo $_smarty_tpl->tpl_vars['contents']->value;?>
 
                         
-                        <div id="footer" style="text-align: right">
-                            <p>Copyright &copy; 2014, IDE Project. All Rights Reserved.</p>
+                       <div class="footer">
+                                <div class="container">
+                                        <p>Copyright &copy; 2014, IDE Project. All Rights Reserved.</p>
+                                </div>
                         </div>
          	   
         </div> 

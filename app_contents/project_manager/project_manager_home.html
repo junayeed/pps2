@@ -21,13 +21,20 @@
 
 
 <div id="page-content" class="clearfix">
+    
     <div class="page-header position-relative">
 	<h1>Project <small><i class="icon-double-angle-right"></i> (DPP/TPP)</small></h1>
+        <form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}"> 
         <div id="nav-search">
             <a class="btn btn-small btn-primary" href="/app/standard/user_home/user_home.php">Dashboard</a>
-               <button class="btn btn-small btn-primary">Forward To Ministry</button>
+            {if $basicInfo->status neq 'Forwarded to Ministry'}<button class="btn btn-small btn-primary" >Forward To Ministry</button>{/if}
+            <input type="hidden" name="PI" value="{$PI}"/>    
+            <input type="hidden" name="status" value="Forwarded to Ministry"/>    
+            <input type="hidden" value="forwardProject" name="cmd"/>
         </div><!--#nav-search-->
+         </form>
     </div><!--/page-header-->
+   
 <div class="row-fluid">
 <!-- PAGE CONTENT BEGINS HERE -->
 
@@ -306,3 +313,12 @@
                <!-- ace scripts -->
 		<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
 		<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+                <script>
+                    {literal}
+                       function forwardToMinistry(projectID)
+                        {
+                            
+                            alert(projectID)
+                        }
+                    {/literal}
+                </script>

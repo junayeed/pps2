@@ -82,6 +82,7 @@
                                             </thead>
                                             <tbody>
                                                 {foreach from=$project_list key=key item=item}
+                                                {if $item->status eq 'Forwarded to Ministry'}
                                                     <tr>
                                                         <td>{$key+1}</td>
                                                         <td><a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}">{$item->project_title_en}</a></td>
@@ -94,6 +95,7 @@
                                                             <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>
                                                         </td>
                                                     </tr>
+                                                {/if}    
                                                 {/foreach}
                                             </tbody>
                                         </table>

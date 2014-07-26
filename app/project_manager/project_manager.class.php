@@ -45,6 +45,7 @@ class projectManagerApp extends DefaultApplication
            case 'deletecomponent'    : $screen = $this->deleteComponent();                  break;
            case 'deleteyear'         : $screen = $this->deleteYear();                  break;
            case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
+           case 'forwardProject'     : $screen = $this->forwardProject();               break;
            default                   : $screen = $this->showEditor($msg);
       }
 
@@ -64,6 +65,28 @@ class projectManagerApp extends DefaultApplication
 
    }
    
+    function forwardProject()
+    {
+        $pid    = base64_decode(getUserField('PI'));
+        $status = getUserField('status');
+        
+               
+        $info['table']  = PROJECT_TBL;
+        $info['debug']  = false;
+        $info['where']  = 'id = ' . $pid;
+        
+        $info['data']['status'] = $status;
+        
+        $result = update($info);
+        
+        if($result)
+        {
+            
+        }    
+        header ('Location: project_manager.php?cmd=ProjectHome&PI='.  base64_encode($pid));
+        
+       
+    }
     function deleteComponent()
     {
         $annex_id = getUserField('annex_id');
