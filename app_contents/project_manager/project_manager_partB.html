@@ -30,8 +30,7 @@
     <div class="page-header position-relative">
 	<h1>Part-B <small><i class="icon-double-angle-right"></i> (Project Details)</small></h1>
         <div id="nav-search">
-          <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
-          <button class="btn btn-small btn-primary">Forward To Ministry</button>
+            <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
         </div>  
     </div><!--/page-header-->
 
@@ -511,4 +510,20 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
 
 <script>
     $('.date-picker').datepicker();
+    
+    {if $basicInfo->current_holder eq $smarty.session.uid}
+        {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
+             lockProject();
+        {/if}
+    {else}
+        lockProject();
+    {/if} 
+        
+    {literal}
+        function lockProject()
+        {
+            $("#page-content :input").attr("disabled", true);   
+            $('.form-actions2').hide();
+        }
+    {/literal}
 </script>

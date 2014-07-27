@@ -296,7 +296,7 @@
                             
                         </div>  
                         <!--<a href="javascript:void(0);" onClick="addNewComponent('Capital_Component');">Add Component</a>-->
-                        <a href="javascript:void(0);" onClick="addNewYear(1);">Add Year</a>
+                        <a id="addyear" href="javascript:void(0);" onClick="addNewYear(1);">Add Year</a>
                         <div class="form-actions2">
                             <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                             <input type="hidden" value="saveAnnexV" name="cmd"/>
@@ -483,5 +483,23 @@
         
         calculateYearWiseGrandTotal();
         calculateAnnexVGrandTotal();
+        
+        {if $basicInfo->current_holder eq $smarty.session.uid}
+        {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
+             lockProject();
+        {/if}
+        {else}
+            lockProject();
+        {/if} 
+
+        {literal}
+            function lockProject()
+            {
+                $("#page-content :input").attr("disabled", true);   
+                $('.form-actions2').hide();
+                $("td > a").hide();
+                $("#addyear").hide();
+            }
+        {/literal}
     
     </script>    

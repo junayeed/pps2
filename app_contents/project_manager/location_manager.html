@@ -145,4 +145,23 @@
         $(".upzilas").val(upzilas);
         $(".alert-success").fadeOut(4000);
         //$(".ministries").chosen().trigger("chosen:updated");
+        
+        {if $basicInfo->current_holder eq $smarty.session.uid}
+        {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
+             lockProject();
+        {/if}
+        {else}
+            lockProject();
+        {/if} 
+
+        {literal}
+            function lockProject()
+            {
+                $("#page-content :input").attr("disabled", true);   
+                $('.form-actions2').hide();
+                $("td > a").hide();
+               
+            }
+        {/literal}    
+        
     </script>    

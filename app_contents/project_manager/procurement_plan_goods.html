@@ -166,27 +166,7 @@
         var procurement_method = [];
         var procurement_type = [];
                     
-        {foreach from=$basicInfo->ministries item=item key=key}
-            ministries.push({$item->ministry_id})
-        {/foreach}
-                        
-        {foreach from=$basicInfo->agencies item=item key=key}
-            agencies.push({$item->agency_id})
-        {/foreach}   
-                        
-        {foreach from=$basicInfo->partners item=item key=key}
-            partners.push({$item->dev_partner_id})
-        {/foreach}   
-                    
-        {foreach from=$basicInfo->locations item=item key=key}
-            {if $item->location_type eq 'Division'}
-                divisions.push({$item->location_id})
-            {elseif $item->location_type eq 'District'} 
-                districts.push({$item->location_id})
-            {else}
-                upzilas.push({$item->location_id})
-            {/if}
-        {/foreach}   
+        
         
         {foreach from=$procurement_method_list item=item key=key}
             procurement_method.push("{$item}")
@@ -220,5 +200,23 @@
             $(function() {
 	        $('.date-picker').datepicker();
             });
-       {/literal}     
+       {/literal} 
+           
+       {if $basicInfo->current_holder eq $smarty.session.uid}
+        {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
+             lockProject();
+        {/if}
+        {else}
+            lockProject();
+        {/if} 
+
+        {literal}
+            function lockProject()
+            {
+                $("#page-content :input").attr("disabled", true);   
+                $('.form-actions2').hide();
+                $("td > a").hide();
+               
+            }
+        {/literal}    
     </script>    

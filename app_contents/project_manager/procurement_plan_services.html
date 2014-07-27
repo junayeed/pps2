@@ -54,12 +54,7 @@
 
         <div class="row-fluid">
         <!-- PAGE CONTENT BEGINS HERE -->
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
-                <strong><i class="icon-ok"></i> Successfully Saved!</strong>
-                Your have to save all the data <br>
-            </div>
-
+           
             <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
             <form class="form-horizontal" id="procure_plan_services_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_services_form"> 
                 <div id="basicinfo" class="tab-pane in active">
@@ -172,27 +167,7 @@
         var procurement_method = [];
         var procurement_type = [];
                     
-        {foreach from=$basicInfo->ministries item=item key=key}
-            ministries.push({$item->ministry_id})
-        {/foreach}
-                        
-        {foreach from=$basicInfo->agencies item=item key=key}
-            agencies.push({$item->agency_id})
-        {/foreach}   
-                        
-        {foreach from=$basicInfo->partners item=item key=key}
-            partners.push({$item->dev_partner_id})
-        {/foreach}   
-                    
-        {foreach from=$basicInfo->locations item=item key=key}
-            {if $item->location_type eq 'Division'}
-                divisions.push({$item->location_id})
-            {elseif $item->location_type eq 'District'} 
-                districts.push({$item->location_id})
-            {else}
-                upzilas.push({$item->location_id})
-            {/if}
-        {/foreach}   
+        
         
         {foreach from=$procurement_method_list item=item key=key}
             procurement_method.push("{$item}")
@@ -221,48 +196,22 @@
                                            "{$item->estd_cost}", "{$item->tender_invitation}", "{$item->contract_sign}", "{$item->contract_completion}",
                                            "{$item->id}", "{$item->procurement_category}");
         {/foreach}
-        
-        
-        /*
-        
-         ;(function($) {
-   $.fn.fixMe = function() {
-      return this.each(function() {
-         var $this = $(this),
-            $t_fixed;
-         function init() {
-            $this.wrap('<div class="container" />');
-            $t_fixed = $this.clone();
-            $t_fixed.find("tbody").remove().end().addClass("fixed").insertBefore($this);
-            resizeFixed();
-         }
-         function resizeFixed() {
-            $t_fixed.find("th").each(function(index) {
-               $(this).css("width",$this.find("th").eq(index).outerWidth()+"px");
-            });
-         }
-         function scrollFixed() {
-            var offset = $(this).scrollTop(),
-            tableOffsetTop = $this.offset().top,
-            tableOffsetBottom = tableOffsetTop + $this.height() - $this.find("thead").height();
-            if(offset < tableOffsetTop || offset > tableOffsetBottom)
-               $t_fixed.hide();
-            else if(offset >= tableOffsetTop && offset <= tableOffsetBottom && $t_fixed.is(":hidden"))
-               $t_fixed.show();
-         }
-         $(window).resize(resizeFixed);
-         $(window).scroll(scrollFixed);
-         init();
-      });
-   };
-})(jQuery);
+            
+        {if $basicInfo->current_holder eq $smarty.session.uid}
+        {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
+             lockProject();
+        {/if}
+        {else}
+            lockProject();
+        {/if} 
 
-$(document).ready(function(){
-   $("table").fixMe();
-   $(".up").click(function() {
-      $('html, body').animate({
-      scrollTop: 0
-   }, 2000);
- });
-});*/
+        {literal}
+            function lockProject()
+            {
+                $("#page-content :input").attr("disabled", true);   
+                $('.form-actions2').hide();
+                $("td > a").hide();
+            }
+        {/literal}        
+
     </script>    

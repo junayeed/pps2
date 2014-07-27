@@ -309,8 +309,10 @@ class projectManagerApp extends DefaultApplication
         $PI              = getUserField('PI');    
         $pid             = base64_decode($PI);
         $project         = new Project($pid);
-        $data->location  = $project->basicInfo->locations;
-        $data->PI        =  $PI;
+        
+        $data->basicInfo   = $project->basicInfo;
+        $data->location    = $project->basicInfo->locations;
+        $data->PI          =  $PI;
         //dumpVar($data);
         
         $data->location_body = makeLocationView($data->location); 
@@ -324,6 +326,9 @@ class projectManagerApp extends DefaultApplication
         $pid                   = base64_decode($PI);
         $report_type           = getUserField('report_type');
         $procurement_category  = getUserField('procurement_category');
+        
+        $project               = new Project($pid);
+        $data->basicInfo     = $project->basicInfo;
         
         $data->PI                       =  $PI;
         $data->procurement_list         = getProcurementPlanList($pid, 'Goods');
@@ -339,6 +344,9 @@ class projectManagerApp extends DefaultApplication
         $PI                    = getUserField('PI');    
         $pid                   = base64_decode($PI);
         
+        $project               = new Project($pid);
+        $data->basicInfo       = $project->basicInfo;
+        
         $data->PI                       =  $PI;
         $data->management_list          = getManagementList($pid);
        
@@ -353,6 +361,9 @@ class projectManagerApp extends DefaultApplication
         $pid                   = base64_decode($PI);
         $report_type           = getUserField('report_type');
         $procurement_category  = getUserField('procurement_category');
+        
+        $project               = new Project($pid);
+        $data->basicInfo       = $project->basicInfo;
         
         $data->PI                       =  $PI;
         $data->procurement_list         = getProcurementPlanList($pid, 'Works');
@@ -370,6 +381,9 @@ class projectManagerApp extends DefaultApplication
         $pid                   = base64_decode($PI);
         $report_type           = getUserField('report_type');
         $procurement_category  = getUserField('procurement_category');
+        
+        $project               = new Project($pid);
+        $data->basicInfo       = $project->basicInfo;
         
         $data->PI                       =  $PI;
         $data->procurement_list         = getProcurementPlanList($pid, 'Services');
@@ -434,6 +448,9 @@ class projectManagerApp extends DefaultApplication
         $pid                   = base64_decode($PI);
         $report_type           = getUserField('report_type');
         
+        $project               = new Project($pid);
+        $data['basicInfo']     = $project->basicInfo;
+                
         $data['PI']                                    = $PI;
         $data['econimonic_code_list']                  = getEconomicCodeList();
         $data['econimonic_subcode_list']               = getEconomicSubCodeList();
@@ -444,7 +461,7 @@ class projectManagerApp extends DefaultApplication
         $data['annex_v_category_sub_total']            = getProjectWiseComponentSubTotal($pid);
         $data['annex_v_category_year_wise_sub_total']  = getProjectCategoryYearWiseComponentSubTotal($pid);
         
-        //dumpvar($data['annx_v_component_details']);
+        //dumpvar($data);
         if($report_type)
         $this->annexVExportTo($pid, $report_type);
         
