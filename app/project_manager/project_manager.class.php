@@ -46,13 +46,12 @@ class projectManagerApp extends DefaultApplication
            case 'deleteyear'         : $screen = $this->deleteYear();                  break;
            case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
            case 'forwardProject'     : $screen = $this->forwardProject();               break;
+           case 'commentPage'        : $screen = $this->commentPage();                  break;
            default                   : $screen = $this->showEditor($msg);
       }
 
-      // Set the current navigation item
-      $this->setNavigation('project_manager');
-
-      if ($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear')
+     
+     if($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear')
       {
          return;
       }
@@ -64,6 +63,14 @@ class projectManagerApp extends DefaultApplication
       return true;
 
    }
+   
+    function commentPage()
+    {
+       $pid    = base64_decode(getUserField('PI')); 
+        
+       return  createPage(PROJECT_COMMENT_TEMPLATE, $data); 
+       
+    }
    
     function forwardProject()
     {
@@ -494,10 +501,11 @@ class projectManagerApp extends DefaultApplication
         $pid     = base64_decode(getUserField('PI'));
         $project = new Project($pid);
 
-        $data      = $project;
-        $data->PI  = getUserField('PI');
+        $data                 = $project;
+        $data->PI             = getUserField('PI');
+        $data->project_status = $project->getAllStatus();
         
-        
+        //dumpVar($data->project_status);
 
         return createPage(PROJECT_BASIC_TEMPLATE, $data);
     }

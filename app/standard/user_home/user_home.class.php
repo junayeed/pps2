@@ -59,29 +59,11 @@
       
       function showDashBoard()
       {
-      	$info['table'] = NOTICE_BOARD_TBL;
-   	    //$info['debug'] = true;
-   	    $info['where'] = " 1 order by notice_date DESC LIMIT 10";
-   	    
-   	  
-   	    $result = select($info);
-        
-         
-        if($result)
-        {
-        	  foreach($result as $key => $value)
-        	  {
-        	  	  $val['uid'] = $value->user_id;
-        	  	  $user = new User($val);
-        	  	  //dumpvar($user->first_name);
-        	  	  $value->username = $user->first_name.' '.$user->last_name;
-        	  }
-        }
-        
-        $data['notice_list'] = $result;
-        $data['project_list'] = getProjectList();
+      	
+        $data['total_project'] = countProjectByStatus();
+        $data['project_list']  = getProjectList();
         //dumpvar($_SESSION);
-        //dumpvar($data['project_list']);
+        //dumpvar($data['total_project']);
         return createPage(DASHBOARD_TEMPLATE, $data);
       	
       }

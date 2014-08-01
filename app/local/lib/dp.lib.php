@@ -327,6 +327,71 @@
    }
    
    
+   function countProjectByStatus()
+   {
+       //$dataArr        = array();
+       $user_type      = $_SESSION['user_type'];
+       $ministry_id    = $_SESSION['ministry_id'];
+       $commission_id  = $_SESSION['commission_id'];
+       $agency_id      = $_SESSION['agency_id'];
+       
+       $filterClause = '1';
+
+        if ($user_type=='Agency')
+        {
+            $filterClause .= " AND agency_id=$agency_id";
+        }
+        elseif ($user_type=='Ministry')
+        {
+            $filterClause .= " AND ministry_id =$ministry_id";
+        }
+        elseif ($user_type=='Planning Commission')
+        {
+            $filterClause .= " AND commission_id =$commission_id";
+        }
+        
+        $info['table']  = PROJECT_TBL;
+        $info['debug']  = false;
+        $info['fields'] = array('count(id) as total,status');
+        $info['where']  = $filterClause.' GROUP BY status';
+
+        $result = select($info); 
+        
+        if ( !empty($result) )
+        {
+            foreach ($result as $key=>$item)
+            {
+                
+                if($item->status =='Draff' || strcmp($item->status,'Returned from Ministry')==0)
+                {
+                    $dataArr->agency_total+=$item->total;
+                    
+                }
+                else if(strcmp($item->status,'Forwarded to Ministry')==0 || strcmp($item->status,'Returned from Commission')==0)
+                {
+                    $dataArr->ministry_total+=$item->total;
+                }
+                else if(strcmp($item->status,'Forwarded to Commission')==0)
+                {
+                    $dataArr->commission_total+=$item->total;
+                }    
+                else if($item->status =='Approved')
+                {
+                    $dataArr->approved_total+=$item->total;
+                }    
+                else if($item->status =='Rejected')
+                {
+                    $dataArr->rejected_total+=$item->total;
+                }    
+            }    
+            return $dataArr;
+        }
+        else
+        {
+            return;
+        }
+   }
+   
    function getProjectList()
    {
        $user_type      = $_SESSION['user_type'];

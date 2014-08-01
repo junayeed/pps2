@@ -66,6 +66,16 @@ class Project
         $this->basicInfo->locations       = $this->loadLocations();        
     }
     
+    public function getAllStatus()
+    {
+        $info['table'] = PROJECT_STATUE_TBL;
+        $info['debug'] = false;
+        $info['where'] = "pid = $this->id ORDER BY date DESC";
+        
+        $result =   select($info);    
+        
+        return $result;
+    }        
     public function loadMinistries()
     {
         $info['table'] = PROJECT_MINISTRY_TBL;

@@ -33,6 +33,7 @@
    define('PROC_PLAN_PDF_TEMPLATE',                       TEMPLATE_DIR . '/proc_plan_pdf.html');
    define('PROJECT_ANNEX_V_TEMPLATE',                     TEMPLATE_DIR . '/annex_v.html');
    define('PROJECT_ANNEX_IV_TEMPLATE',                    TEMPLATE_DIR . '/annex_iv.html');
+   define('PROJECT_COMMENT_TEMPLATE',                     TEMPLATE_DIR . '/comment.html');
 
     define('ERROR',            'Error');
     define('SUCCESS',          'Success');

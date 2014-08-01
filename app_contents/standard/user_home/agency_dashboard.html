@@ -22,20 +22,19 @@
 	<div class="infobox infobox-green">
 		<div class="infobox-icon"><i class="icon-comments"></i></div>
 		<div class="infobox-data">
-			<span class="infobox-data-number">32</span>
+			<span class="infobox-data-number">{$total_project->agency_total|default:0}</span>
 			<span class="infobox-content">Projects in Agency</span>
 		</div>
-		<div class="stat stat-success">8%</div>
+		
 	</div>
 
 
 	<div class="infobox infobox-blue">
 		<div class="infobox-icon"><i class="icon-twitter"></i></div>
 		<div class="infobox-data">
-			<span class="infobox-data-number">11</span>
+			<span class="infobox-data-number">{$total_project->ministry_total|default:0}</span>
 			<span class="infobox-content">Projects in Ministry</span>
 		</div>
-		<div class="badge badge-success">+32%</div>
 	</div>
 
 
@@ -45,19 +44,16 @@
 	<div class="infobox infobox-pink">
 		<div class="infobox-icon"><i class="icon-shopping-cart"></i></div>
 		<div class="infobox-data">
-			<span class="infobox-data-number">8</span>
+			<span class="infobox-data-number">{$total_project->commission_total|default:0}</span>
 			<span class="infobox-content">Project in Commission</span>
 		</div>
-		<div class="stat stat-important">4%</div>
 	</div>
-
-
 
 	<div class="infobox infobox-red">
 		<div class="infobox-icon"><i class="icon-beaker"></i></div>
 		<div class="infobox-data">
-			<span class="infobox-data-number">7</span>
-			<span class="infobox-content">Draft Projects</span>
+			<span class="infobox-data-number">{$total_project->approved_total|default:0}</span>
+			<span class="infobox-content">Approved Projects</span>
 		</div>
 	</div>
     </div>    
