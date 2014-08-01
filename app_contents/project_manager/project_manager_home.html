@@ -27,9 +27,12 @@
         <form class="form-horizontal" name="forwardForms" id="validation-form"  onsubmit="return forwardProject()" method="post" action="{$SCRIPT_NAME}"> 
         <div id="nav-search">
             <a class="btn btn-small btn-primary" href="/app/standard/user_home/user_home.php">Dashboard</a>
-            {if $basicInfo->status neq 'Forwarded to Ministry'}<button id="bootbox-confirm" class="btn btn-small btn-primary" >Forward To Ministry</button>{/if}
+            {if $smarty.session.user_type eq 'Agency' AND ($basicInfo->status eq 'Draff' OR $basicInfo->status eq 'Returned from Ministry')}<button id="bootbox-confirm" class="btn btn-small btn-primary" onclick="document.forwardForms.status.value='Forwarded to Ministry'" >Forward To Ministry</button>{/if}
+            {if $smarty.session.user_type eq 'Ministry' AND ($basicInfo->status eq 'Forwarded to Ministry' OR $basicInfo->status eq 'Returned from Commission')}<button id="bootbox-confirm" class="btn btn-small btn-primary" onclick="document.forwardForms.status.value='Returned from Ministry'">Returned to Agency</button>{/if}
+            {if $smarty.session.user_type eq 'Ministry' AND ($basicInfo->status eq 'Forwarded to Ministry' OR $basicInfo->status eq 'Returned from Commission')}<button id="bootbox-confirm" class="btn btn-small btn-primary" onclick="document.forwardForms.status.value='Forwarded to Commission'">Forward To Commission</button>{/if}
+            {if $smarty.session.user_type eq 'Commission' AND $basicInfo->status eq 'Forwarded to Commission'}<button id="bootbox-confirm" class="btn btn-small btn-primary" onclick="document.forwardForms.status.value='Returned from Commission'">Return to Ministry</button>{/if}
             <input type="hidden" name="PI" value="{$PI}"/>    
-            <input type="hidden" name="status" value="Forwarded to Ministry"/>    
+            <input type="hidden" name="status" value=""/>    
             <input type="hidden" value="forwardProject" name="cmd"/>
         </div><!--#nav-search-->
          </form>

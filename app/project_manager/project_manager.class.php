@@ -76,7 +76,8 @@ class projectManagerApp extends DefaultApplication
     {
         $pid    = base64_decode(getUserField('PI'));
         $status = getUserField('status');
-        
+        //dumpVar($_REQUEST);
+        //die;
                
         $info['table']  = PROJECT_TBL;
         $info['debug']  = false;
@@ -506,6 +507,7 @@ class projectManagerApp extends DefaultApplication
         $data->project_status = $project->getAllStatus();
         
         //dumpVar($data->project_status);
+        //dumpVar($_SESSION);
 
         return createPage(PROJECT_BASIC_TEMPLATE, $data);
     }

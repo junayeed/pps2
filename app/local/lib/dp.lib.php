@@ -396,7 +396,7 @@
    {
        $user_type      = $_SESSION['user_type'];
        $ministry_id    = $_SESSION['ministry_id'];
-       $commission_id  = $_SESSION['commission_id'];
+       $commission_id  = $_SESSION['sector_division'];
        $agency_id      = $_SESSION['agency_id'];
        
        $filterClause = '1';
@@ -409,9 +409,9 @@
         {
             $filterClause .= " AND P.ministry_id =$ministry_id";
         }
-        elseif ($user_type=='Planning Commission')
+        elseif ($user_type=='Commission')
         {
-            $filterClause .= " AND P.commission_id =$commission_id";
+            $filterClause .= " AND P.sector_division =$commission_id";
         }
 
         $info['table']  = PROJECT_TBL.' AS P LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VP ON(P.id=VP.pid)'.

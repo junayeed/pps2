@@ -63,7 +63,7 @@
         $data['total_project'] = countProjectByStatus();
         $data['project_list']  = getProjectList();
         //dumpvar($_SESSION);
-        //dumpvar($data['total_project']);
+        //  dumpvar($data['project_list']);
         return createPage(DASHBOARD_TEMPLATE, $data);
       	
       }
