@@ -199,6 +199,7 @@
 
 <div class="row-fluid ">
          <h4 class="header smaller lighter blue">Project related other information</h4>
+         <a id="various3" class="btn btn-small btn-primary right" href="/app/project_manager/project_manager.php?cmd=commentPage&PI={$PI}">Add Comments</a>
 	<div class="tabbable">
             <ul class="nav nav-tabs" id="myTab">
               <li class="active"><a data-toggle="tab" href="#home"><i class="green icon-home bigger-110"></i>Attachment(s)</a></li>
@@ -217,16 +218,105 @@
                                 </div>
 			  </div>
 			  <div id="agency_feedback" class="tab-pane">
-                                <a id="various3" class="btn btn-small btn-primary right" href="/app/project_manager/project_manager.php?cmd=commentPage&PI={$PI}">Add Comments</a>
-				<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+                                
+				<div class="slim-scroll" data-height="100">
+                        
+                                    <div class="widget-main no-padding">
+                                        <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                                            <thead>                                               
+                                                <tr>
+                                                    <th>Sl</th>
+                                                    <th>Title</th>
+                                                    <th class="hidden-480">Message</th>
+                                                    <th class="hidden-480">Attachment</th>
+                                                    <th class="hidden-480">Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {foreach from=$project_msg key=key item=item}
+                                                    {if $item->msg_from eq 'Agency'}
+                                                    <tr>
+                                                        <td>{$key+1}</td>
+                                                        <td>{$item->title}</td>
+                                                        <td>{$item->msg}</td>
+                                                        <td>{$item->doc_id}</td>
+                                                        <td>
+                                                           {$item->create_date|date_format}
+                                                        </td>
+                                                    </tr>
+                                                    {/if}
+                                                {/foreach}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
 			  </div>
 			  <div id="ministry_feedback" class="tab-pane">
-                                <button class="btn btn-small btn-primary right">Add Comments</button>
-				<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+				<div class="slim-scroll" data-height="100">
+                        
+                                    <div class="widget-main no-padding">
+                                        <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                                            <thead>                                               
+                                                <tr>
+                                                    <th>Sl</th>
+                                                    <th>Title</th>
+                                                    <th class="hidden-480">Message</th>
+                                                    <th class="hidden-480">Attachment</th>
+                                                    <th class="hidden-480">Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {foreach from=$project_msg key=key item=item}
+                                                    {if $item->msg_from eq 'Ministry'}
+                                                    <tr>
+                                                        <td>{$key+1}</td>
+                                                        <td>{$item->title}</td>
+                                                        <td>{$item->msg}</td>
+                                                        <td>{$item->doc_id}</td>
+                                                        <td>
+                                                           {$item->create_date|date_format}
+                                                        </td>
+                                                    </tr>
+                                                    {/if}
+                                                {/foreach}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
 			  </div>
 			  <div id="commission_feedback" class="tab-pane">
-                                <button class="btn btn-small btn-primary right">Add Comments</button>
-				<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin.</p>
+				<div class="slim-scroll" data-height="100">
+                        
+                                    <div class="widget-main no-padding">
+                                        <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                                            <thead>                                               
+                                                <tr>
+                                                    <th>Sl</th>
+                                                    <th>Title</th>
+                                                    <th class="hidden-480">Message</th>
+                                                    <th class="hidden-480">Attachment</th>
+                                                    <th class="hidden-480">Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {foreach from=$project_msg key=key item=item}
+                                                    {if $item->msg_from eq 'Commission'}
+                                                    <tr>
+                                                        <td>{$key+1}</td>
+                                                        <td>{$item->title}</td>
+                                                        <td>{$item->msg}</td>
+                                                        <td>{$item->doc_id}</td>
+                                                        <td>
+                                                           {$item->create_date|date_format}
+                                                        </td>
+                                                    </tr>
+                                                    {/if}
+                                                {/foreach}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
 			  </div>
             </div>
 	</div>

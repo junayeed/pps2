@@ -47,6 +47,7 @@ class projectManagerApp extends DefaultApplication
            case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
            case 'forwardProject'     : $screen = $this->forwardProject();               break;
            case 'commentPage'        : $screen = $this->commentPage();                  break;
+           case 'saveComment'        : $screen = $this->saveComment();                  break;
            default                   : $screen = $this->showEditor($msg);
       }
 
@@ -64,9 +65,21 @@ class projectManagerApp extends DefaultApplication
 
    }
    
+    function saveComment()
+    {
+       $pid            = base64_decode(getUserField('PI')); 
+       //$data['PI']     = getUserField('PI');
+       $message        = new Message();
+       $message->save();
+       return createPage(SICCESS_MSG_TEMPLATE,$data);
+      //header ('Location: project_manager.php?cmd=success&PI='.  base64_encode($pid));
+       
+    }
+    
     function commentPage()
     {
-       $pid    = base64_decode(getUserField('PI')); 
+       $pid        = base64_decode(getUserField('PI')); 
+       $data['PI'] = getUserField('PI');
         
        return  createPage(PROJECT_COMMENT_TEMPLATE, $data); 
        
@@ -506,7 +519,10 @@ class projectManagerApp extends DefaultApplication
         $data->PI             = getUserField('PI');
         $data->project_status = $project->getAllStatus();
         
-        //dumpVar($data->project_status);
+        $message              = new Message(null,$pid);
+        $data->project_msg    = $message->loadMessageByProject();
+        
+        //dumpVar($data->project_msg);
         //dumpVar($_SESSION);
 
         return createPage(PROJECT_BASIC_TEMPLATE, $data);

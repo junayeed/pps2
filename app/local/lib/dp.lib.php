@@ -37,6 +37,21 @@
         }
         return $data;
     } 
+    
+    function saveAttachment($file)
+    {
+        if($file['size'] > 0)
+        {
+            $_FILES['document'] = $file;
+            
+            $thisDoc = new DocumentEntity();
+            $doc_id  = $thisDoc->addDocument();
+            
+            return $doc_id;
+        }
+        
+        return;
+    }
    
     function getAgencyList()
     {

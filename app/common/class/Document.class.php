@@ -358,7 +358,7 @@ class DocumentEntity extends Entity
       return $doc_id;
 
     }
-    return false;
+    return 0;
   }
 
   /**
@@ -471,7 +471,7 @@ class DocumentEntity extends Entity
       }
       else
       {    
-         $save_as  =  $this->doc_dir . '/' . $remote_filename[0].'/'.$remote_filename[1]. '/' .$doc_id.'.'.$fileExt;
+         $save_as  =  $this->doc_dir . '/' . $remote_filename[0].'/'.$remote_filename[1]. '/' .$fileName[0].'_'.$doc_id.'.'.$fileExt;
       }    
       
       $returnValue['doc_dir'] = $save_as;

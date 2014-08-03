@@ -188,12 +188,14 @@
    
    //Local Class names
    define('PROJECT_CLASS',                LOCAL_CLASS_DIR . '/Project.class.php');
+   define('MESSAGE_CLASS',                LOCAL_CLASS_DIR . '/Message.class.php');
 
    // Load required classes
    require_once(ENTITY_CLASS);
    require_once(APPLICATION_CLASS);
    require_once(APPLICATION_MESSAGE_CLASS);
    require_once(PROJECT_CLASS);
+   require_once(MESSAGE_CLASS);
    //
    // Application Specific Configuration Loader
    //

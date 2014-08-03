@@ -72,6 +72,7 @@
   define('USER_GROUP_TBL',                   DB_NAME . '.user_group');
   define('PROJECT_TBL',                      DB_NAME . '.projects');
   define('PROJECT_STATUE_TBL',               DB_NAME . '.project_status');
+  define('PROJECT_MESSAGE_TBL',              DB_NAME . '.project_messages');
   define('PROJECT_PART_B_TBL',               DB_NAME . '.projects_part_b');
   define('PROJECT_MINISTRY_TBL',             DB_NAME . '.project_ministries');
   define('PROJECT_AGENCY_TBL',               DB_NAME . '.project_agencies');

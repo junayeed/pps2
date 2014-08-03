@@ -17,7 +17,7 @@
 <div class="row-fluid">
 
 
-<form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}">
+<form class="form-horizontal" name="commentsForm" id="validation-form" method="post" action="{$SCRIPT_NAME}" enctype="multipart/form-data">
 	
     <div class="control-group">
         <label class="control-label" for="title">Title</label>
@@ -36,16 +36,17 @@
     <div class="control-group">
         <label class="control-label" for="project_type">Attachment</label>
         <div class="controls">
-            <input  type="file" id="id-input-file-1" />
+            <input  type="file" name="document" id="id-input-file-1" />
         </div>
     </div>
 
     <div class="form-actions">
-        <button class="btn btn-info" type="submit"><i class="icon-ok"></i> Create Project</button>
+        <button class="btn btn-info" type="submit"><i class="icon-ok"></i> Save</button>
         &nbsp; &nbsp; &nbsp;
         <button class="btn" type="reset"><i class="icon-undo"></i> Reset</button>
     </div>
-    <input type="hidden" name="cmd" value="save">
+    <input type="hidden" name="cmd" value="saveComment">
+    <input type="hidden" name="PI" value="{$PI}">
 </form>
 	   
 		
@@ -191,5 +192,6 @@
 	
 })
 
-                    {/literal}
-                </script>    
+
+   {/literal}
+</script>    
