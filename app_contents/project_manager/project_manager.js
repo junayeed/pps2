@@ -130,7 +130,7 @@ function populateComponentDetails(economic_code_id, economic_subcode_id, economi
     populateEconomicSubCodeList(elemID, economic_code_id);
     
     $('#sub_code_'+elemID).val(economic_subcode_id);
-    $('#code_desc_'+elemID).val(economic_subcode_name);
+    $('#code_desc_'+elemID).val(economic_subcode_name.replace(/#%/g,'\n'));
     $('#unit_'+elemID).val(unit);
     $('#unit_cost_'+elemID).val((unit_cost*1).toMoney(2));
     $('#qty_'+elemID).val(qty);

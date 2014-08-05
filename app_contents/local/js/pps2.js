@@ -23,7 +23,7 @@ function populateProcurementPlanDetails(package_no, procurement_desc, procuremen
     var elemID = ROW_ID-1; 
 
     $('#package_no_'+elemID).val(package_no);
-    $('#procurement_desc_'+elemID).val(procurement_desc);
+    $('#procurement_desc_'+elemID).val(procurement_desc.replace(/#%/g,'\n')); 
     $('#procurement_unit_'+elemID).val(procurement_unit);
     $('#procurement_qty_'+elemID).val(procurement_qty);
     $('#procurement_method_'+elemID).val(procurement_method);

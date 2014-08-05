@@ -182,7 +182,7 @@
                 
                 $data['economic_code_id']          = $_REQUEST['economic_code_' . $id];
                 $data['economic_subcode_id']       = $_REQUEST['sub_code_' . $id];
-	        $data['economic_subcode_name']     = $_REQUEST['code_desc_' . $id];
+	        $data['economic_subcode_name']     = preg_replace( "/\r\n/", "#%", $_REQUEST['code_desc_' . $id]);
 	        $data['unit']                      = $_REQUEST['unit_' . $id]         ? $_REQUEST['unit_' . $id]         : '';
 	        $data['unit_cost']                 = $_REQUEST['unit_cost_' . $id]    ? $_REQUEST['unit_cost_' . $id]    : 0.0;
 	        $data['qty']                       = $_REQUEST['qty_' . $id]          ? $_REQUEST['qty_' . $id]          : 0;
@@ -356,6 +356,10 @@
         
         if ( !empty($result) )
         {
+            foreach($result as $key=>$item)
+            {
+                $result[$key]->procurement_desc = preg_replace( "/\r\n/", "#%", $item->procurement_desc ); 
+            }    
             return $result;
         }
     }
