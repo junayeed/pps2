@@ -74,7 +74,7 @@
             <li><a data-toggle="tab" href="#location"><i class="green icon-home bigger-110"></i>Locations (7-8)</a></li>
             <li><a data-toggle="tab" href="#costsummary"><i class="green icon-home bigger-110"></i>Component Wise Cost (9)</a></li>
             <li><a data-toggle="tab" href="#logframe"><i class="green icon-home bigger-110"></i>Log frame (10)</a></li>
-            <li><a data-toggle="tab" href="#annexures"><i class="green icon-home bigger-110"></i> Annexures (II - VI)</a></li>
+            <li><a data-toggle="tab" href="#annexures"><i class="green icon-home bigger-110"></i> Annexures (II - IV)</a></li>
             
         </ul>
         <div class="tab-content">
@@ -212,8 +212,9 @@
                 
                 <div class="control-group">
                     <label class="control-label" for="mode_of_financing">6.0 Mode of financing</label><br>
-                    <label class="" for="year_wise_allocation">6.1 Mode of financing with source (in lakh Taka)</label>
+                    
                     <div class="span11">
+                        <label class="" for="year_wise_allocation">6.1 Mode of financing with source (in lakh Taka)</label>
                         <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -365,11 +366,11 @@
 
                                 <tbody>
                                         
-                                        {foreach from=$year_wise_gob_ownfund item=item}
+                                        {foreach from=$year_wise_gob_ownfund key=key item=item}
                                         <tr> 
                                                 <td>{$item->financial_year}</td>
-                                                <td>{$item->gob_total|number_format:2:'.':''}<br>({$item->gob_fe_total|number_format:2:'.':''})</td>
-                                                <td>{$item->own_fund_total|number_format:2:'.':''}<br>({$item->own_fund_fe_total|number_format:2:'.':''})</td>
+                                                <td>{$item->gob_total+$year_wise_gob_ownfundCon[$key]->gob_total|number_format:2:'.':''}<br>({$item->gob_fe_total+$year_wise_gob_ownfundCon[$key]->gob_fe_total|number_format:2:'.':''})</td>
+                                                <td>{$item->own_fund_total+$year_wise_gob_ownfundCon[$key]->own_fund_total|number_format:2:'.':''}<br>({$item->own_fund_fe_total+$year_wise_gob_ownfundCon[$key]->own_fund_fe_total|number_format:2:'.':''})</td>
                                         </tr>
                                         {/foreach}
                                 </tbody>
@@ -601,7 +602,7 @@
                                                 <td><textarea name="goal_summary">{$logframe->goal_summary}</textarea></td>
                                                 <td><textarea name="goal_ovi">{$logframe->goal_ovi}</textarea></td>
                                                 <td><textarea name="goal_mov">{$logframe->goal_mov}</textarea></td>
-                                                <td><textarea name="goal_ai">{$logframe->goal_ai}</textarea></td>
+                                                <td>&nbsp;<!--textarea name="goal_ai" disabled>{$logframe->goal_ai}</textarea--></td>
                                         </tr>
                                         <tr> 
                                                 <td>Objective/Purpose</td>

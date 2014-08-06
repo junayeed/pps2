@@ -285,6 +285,8 @@ class projectManagerApp extends DefaultApplication
         $data->modefinancing          = $project->loadModeOfFinancing();
         $data->logframe               = $project->loadLogFrame();
         $data->year_wise_gob_ownfund  = $project->loadYearWiseGobOwnfundTotal();
+        
+        $data->year_wise_gob_ownfundCon  = $project->loadYearWiseGobOwnfundTotalFromContigency();
        
         $result = getProjectWiseEconomicCodeList($pid);
         

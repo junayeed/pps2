@@ -9,7 +9,7 @@ var INNER_DELIM      = '$$';
 
 objs['in_attachments']  = { pref:"l", last:0 , h:["File"], w:[120]};
 objs['table_footer']    = { pref:"l", last:0 , h:["File"], w:[120]};
-
+alert('Junayeed');
 
 /**
  * Load the default data from array when the user
@@ -134,9 +134,6 @@ function calculateIRR()
       
       npv = discountTotalBenefit - discountTotalCost;
       bcr = discountTotalBenefit / discountTotalCost;   
-      
-      
-     
       
       if(npv < 0) 
       {
@@ -380,13 +377,15 @@ function calculateNPVBCR()
    npv = doRound( (totDiscountBenefit - totDiscountCost), 2);
    bcr = doRound( (totDiscountBenefit / totDiscountCost), 2);
    
-   alert("NPV ::: " + npv + " BCR ::: " + bcr);
+   alert("NPV ::: " + npv + " BCR ::: " + bcr + '\n' + $(this).parent().attr('name') );
    
    $('#npv').get(0).value = npv;
    $('#bcr').get(0).value = bcr;
-   alert(parent.getElementById('financial_npv'))
-   parent.getElementById('financial_npv').value = npv;
-   parent.getElementById('financial_bcr').value = bcr;
+   
+   //alert(window.parent.getElementById('financial_npv'))
+   //parent.getElementById('financial_npv').value = npv;
+   //parent.getElementById('financial_bcr').value = bcr;
+   $(parent).find("#financial_npv").val('Harun got here');
    
    showRecommendation();
 }
@@ -404,13 +403,13 @@ function showRecommendation()
       
    //$("#recommendation").dialog();   
    $( "#recommendation" ).dialog(
-   																{ buttons: 
-   																					{ "Ok": function() { $(this).dialog("close"); } } 
-   																},
-   																{closeOnEscape: true},
-   																{ title: 'System Recommendation' },
-   																{ position: 'center' }
-   															);
+            { buttons: 
+                { "Ok": function() { $(this).dialog("close"); } } 
+            },
+            {closeOnEscape: true},
+            { title: 'System Recommendation' },
+            { position: 'center' }
+    );
 }
 
 function showInfo(infoName)
@@ -429,13 +428,13 @@ function showInfo(infoName)
    }
    
    $( "#info" ).dialog(
-   										   { buttons: 
-   										   					{ "Ok": function() { $(this).dialog("close"); } } 
-   										   },
-   										   {closeOnEscape: true},
-   										   { title: 'Info' },
-   										   { position: 'center' }
-   										);	
+       { buttons: 
+         { "Ok": function() { $(this).dialog("close"); } } 
+       },
+       {closeOnEscape: true},
+       { title: 'Info' },
+       { position: 'center' }
+    );	
 }
 
 function calculateTotalPrice(idCounter)

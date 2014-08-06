@@ -36,10 +36,21 @@ class Project
     {
         $info['table']  = PROJECT_YEAR_WISE_GOB_OWNFUND;
         $info['debug']  = false;
-        $info['where']  = "pid = $this->id";
+        $info['where']  = "pid = $this->id ORDER BY year_serial";
         
         $result = select($info);
         return $result;
+    }    
+    
+    public function loadYearWiseGobOwnfundTotalFromContigency()
+    {
+        $info['table']  = PROJECT_ANNEX_V_CON_DETAILS_TBL;
+         $info['debug']  = false;
+        $info['fields']  = array('sum(gob) AS gob_total, sum(gob_fe) AS gob_fe_total,sum(own_fund) AS own_fund_total,sum(own_fund_fe) AS own_fund_fe_total');
+        $info['where']   = "pid = $this->id  GROUP BY year_serial ORDER BY year_serial";
+        $result = select($info);
+        return $result;
+       
     }        
     
     public function loadBasicInfo()
