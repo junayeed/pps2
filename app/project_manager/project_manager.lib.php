@@ -59,10 +59,10 @@
                 
                 $data['name_of_the_post'] = $_REQUEST['name_of_the_post_'. $id]  ? $_REQUEST['name_of_the_post_'.$id]    : '' ;
                 $data['qty']              = $_REQUEST['qty_' . $id]              ? $_REQUEST['qty_'.$id] : 0.0;
-                $data['qualification']    = $_REQUEST['qualification_' . $id]    ? $_REQUEST['qualification_'.$id] : '';
+                $data['qualification']    = $_REQUEST['qualification_' . $id]    ? preg_replace( "/\r\n/", "#%", $_REQUEST['qualification_' . $id]) : '';
                 $data['amount']           = $_REQUEST['amount_' . $id]           ? $_REQUEST['amount_'.$id] : 0.0;
-                $data['responsibility']   = $_REQUEST['responsibility_' . $id]   ? $_REQUEST['responsibility_'.$id] : '';
-                $data['attachment']       = $_REQUEST['attachment_' . $id]       ? $_REQUEST['attachment_'.$id] : '';
+                $data['responsibility']   = $_REQUEST['responsibility_' . $id]   ? preg_replace( "/\r\n/", "#%", $_REQUEST['responsibility_' . $id]) : '';
+                $data['attachment']       = saveAttachment($_FILES['attachment_'. $id],$data['pid']);;
                 
                 $info['data'] = $data;
                 
@@ -374,6 +374,13 @@
         
         if ( !empty($result) )
         {
+            foreach($result as $key=>$item)
+            {
+                if($item->attachment)
+                {
+                    $result[$key]->file_location = getFileLocation($item->attachment,$pid);
+                }    
+            }    
             return $result;
         }
     }

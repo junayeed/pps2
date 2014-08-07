@@ -37,7 +37,7 @@ class Message
         $data['pid']         = base64_decode(getUserField('PI')); 
         $data['title']       = getUserField('title');
         $data['msg']         = getUserField('msg');
-        $data['doc_id']      = saveAttachment($_FILES['document']);
+        $data['doc_id']      = saveAttachment($_FILES['document'],$data['pid']);
         $data['msg_from']    = $_SESSION['user_type'];
         $data['msg_from_id'] = $_SESSION['uid'];
         

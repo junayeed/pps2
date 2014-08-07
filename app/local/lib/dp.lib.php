@@ -38,19 +38,39 @@
         return $data;
     } 
     
-    function saveAttachment($file)
+    function saveAttachment($file,$pid)
     {
+        
         if($file['size'] > 0)
         {
             $_FILES['document'] = $file;
             
+            
+            
             $thisDoc = new DocumentEntity();
-            $doc_id  = $thisDoc->addDocument();
+            $doc_id  = $thisDoc->addDocument(null,$pid);
             
             return $doc_id;
         }
         
         return;
+    }
+    
+    function getFileLocation($file_id = 0,$pid)
+    {
+        if ($file_id == 0)
+        {
+            return ;
+        }
+        
+        //$uid = getFromSession('uid'); 
+        
+        $thisDoc  = new DocumentEntity($file_id);
+        $fileName = $thisDoc->getRemoteFileName();
+
+        $fileLocation = REL_DOCUMENT_DIR.'/'.$pid.'/'.$fileName;
+        
+        return $fileLocation;
     }
    
     function getAgencyList()

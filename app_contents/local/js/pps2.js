@@ -16,6 +16,11 @@ function isNumberKey(evt)
    return true;
 } 
 
+function stringScapeCharacter(str)
+{
+    return str.replace(/#%/g,'\n');
+}
+
 function populateProcurementPlanDetails(package_no, procurement_desc, procurement_unit, procurement_qty, procurement_method, procurement_type,
                                         approv_auth, fund_src, estd_cost, tender_invitation, contract_sign, contract_completion, proc_plan_id, 
                                         procument_category)
@@ -39,17 +44,27 @@ function populateProcurementPlanDetails(package_no, procurement_desc, procuremen
     
     calculateProcurementTotal(procument_category);
 }
-function populateManagementDetails(name_of_the_post, qty,qualification, amount, responsibility, attachment,id)
+function populateManagementDetails(name_of_the_post, qty,qualification, amount, responsibility, attachment,id,file_location)
 {
     var elemID = ROW_ID-1; 
-
+    var url = 'http://'+document.domain;
+    //alert(attachment)
     $('#name_of_the_post_'+elemID).val(name_of_the_post);
     $('#qty_'+elemID).val(qty);
-    $('#qualification_'+elemID).val(qualification);
+    $('#qualification_'+elemID).val(stringScapeCharacter(qualification));
     $('#amount_'+elemID).val(amount);
-    $('#responsibility_'+elemID).val(responsibility);
-    $('#attachment_'+elemID).val(attachment);
+    $('#responsibility_'+elemID).val(stringScapeCharacter(responsibility));
+    
+    if(attachment)
+    {
+        //$('#file_location_'+elemID).val(file_location);
+        var filename = file_location.replace(/^.*[\\\/]/, '')
+        $('#file_location_'+elemID).attr('href',file_location);
+        $('#file_location_'+elemID).text(filename);
+    }
+    //alert(id)
     $('#management_id_'+elemID).val(id);
+   
     
      
 }
@@ -111,12 +126,12 @@ function addNewProjectManagementRow()
 {
     
     var td_sr_no             = '<td>'+ROW_ID+'</td>';
-    var td_name_of_post      = '<td><input type="text" name="name_of_the_post_'+ROW_ID+'" id="name_of_the_post_'+ROW_ID+'" value="" class="span10" required /></td>';
-    var td_qty               = '<td><input type="text" name="qty_'+ROW_ID+'" id="qty_'+ROW_ID+'" class="span12" required /></td>';  
+    var td_name_of_post      = '<td><input type="text" name="name_of_the_post_'+ROW_ID+'" id="name_of_the_post_'+ROW_ID+'" value="" class="span12" required /></td>';
+    var td_qty               = '<td><input type="text" name="qty_'+ROW_ID+'" id="qty_'+ROW_ID+'" class="span12" onkeypress="return isNumberKey(event);"  required /></td>';  
     var td_qualification     = '<td><textarea name="qualification_'+ROW_ID+'" id="qualification_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';
-    var td_amount            = '<td><input type="text" name="amount_'+ROW_ID+'" id="amount_'+ROW_ID+'" value="" class="span10" onkeypress="return isNumberKey(event);" required/></td>';
+    var td_amount            = '<td><input type="text" name="amount_'+ROW_ID+'" id="amount_'+ROW_ID+'" value="" class="span12" onkeypress="return isNumberKey(event);" required/></td>';
     var td_responsibility    = '<td><textarea name="responsibility_'+ROW_ID+'" id="responsibility_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';
-    var td_attachment        = '<td><input type="text" name="attachment_'+ROW_ID+'" id="attachment_'+ROW_ID+'" value="" class="span11" /></td>';
+    var td_attachment        = '<td><input type="file" name="attachment_'+ROW_ID+'" id="attachment_'+ROW_ID+'" class="span12 file_ace" /><a id="file_location_'+ROW_ID+'"></a></td>';
     var td_action            = '<td id="td_action_'+ROW_ID+'">\n\
                                        <a href="javascript: void(0);" \n\
                                           onClick="deleteManagementRow('+ROW_ID+');">\n\

@@ -57,7 +57,7 @@
         <!-- PAGE CONTENT BEGINS HERE -->
            
             <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
-            <form class="form-horizontal" id="procure_plan_goods_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_goods_form"> 
+            <form class="form-horizontal" id="procure_plan_goods_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_goods_form" enctype="multipart/form-data"> 
                 <div id="basicinfo" class="tab-pane in active">
                     <div id="export_to_container">
                         Export To: 
@@ -75,12 +75,12 @@
                                     <tr>
                                         <th>S/No.</th>
                                         <th class="span12">Name of the post</th>
-                                        <th class="span4">Quantity</th>
+                                        <th class="span2">Quantity</th>
                                         <th class="span12">Qualification</th>
-                                        <th class="span5">Scale/Amount</th>
+                                        <th class="span3">Scale/Amount</th>
                                         <th class="span12">Responsibility</th>
-                                        <th class="span3">Attachment</th>
-                                        <th class="span3"></th>
+                                        <th class="span8">Attachment</th>
+                                        <th class="span1"></th>
                                     </tr>
                                 </thead>
                                 <tbody id="management_content">
@@ -128,7 +128,7 @@
     <!--[if lt IE 9]>
         <script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
     <![endif]-->
-
+    <script src="/app_contents/standard/template/assets/js/jquery-migrate-1.0.0.js"></script> 
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
@@ -138,13 +138,7 @@
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/daterangepicker.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.knob.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.autosize-min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
-
+    
     <!-- ace scripts -->
     <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
     <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
@@ -154,7 +148,7 @@
       {foreach from=$management_list item=item}
             addNewProjectManagementRow();
             populateManagementDetails("{$item->name_of_the_post}", "{$item->qty}", "{$item->qualification}", "{$item->amount}", 
-                                           "{$item->responsibility}", "{$item->attachment}","{$item->id}");
+                                           "{$item->responsibility}", "{$item->attachment}","{$item->id}","{$item->file_location}");
         {/foreach}
             
       {if $basicInfo->current_holder eq $smarty.session.uid}
@@ -166,6 +160,20 @@
         {/if} 
 
         {literal}
+        
+                 $('.file_ace').ace_file_input({
+				no_file:'No File ...',
+				btn_choose:'Choose',
+				btn_change:'Change',
+				droppable:false,
+				onchange:null,
+				thumbnail:false //| true | large
+				//whitelist:'gif|png|jpg|jpeg'
+				//blacklist:'exe|php'
+				//onchange:''
+				//
+			});
+                        
             function lockProject()
             {
                 $("#page-content :input").attr("disabled", true);   
