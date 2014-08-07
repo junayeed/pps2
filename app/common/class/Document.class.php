@@ -30,7 +30,8 @@ class DocumentEntity extends Entity
     }
     else
     {
-       $this->doc_dir = DOCUMENT_ROOT .'/documents';       
+       $this->doc_dir = DOCUMENT_ROOT .'/documents';    
+       $this->is_user_defined_path = false;   
     }
         
         
@@ -314,12 +315,12 @@ class DocumentEntity extends Entity
   * @return returns false if failed, else new document ID.
   *
   */
-  function addDocument($attributes  =  null)
+  function addDocument($attributes  =  null,$pid)
   {
     if(!$attributes)
       $attributes  =  $this->getAttributes();
 
-    
+   
     //uncomment these lines to have class get user input direct from browser
     //if(!count($attributes))
     //  $attributes  =  getUserDataSet($this->entity_table);
@@ -339,7 +340,7 @@ class DocumentEntity extends Entity
       $doc_id  =  $ret['newid'];
       
       // Now upload the document file to disk
-      $uploaded  =  $this->uploadDocument($doc_id);
+      $uploaded  =  $this->uploadDocument($doc_id,$pid);
 
       if($uploaded)
       {
@@ -434,7 +435,7 @@ class DocumentEntity extends Entity
   * @return returns array of uploaded file attributes or false if upload fails
   *
   */
-  function uploadDocument($doc_id = null)
+  function uploadDocument($doc_id = null,$pid)
   {
   	
   	$returnValue['remote_filename']  =  $this->convertFilename($_FILES['document']['name']);
@@ -442,17 +443,15 @@ class DocumentEntity extends Entity
   	
     if ($_FILES['document']['error']  == 0)
     {
-      if($this->is_user_defined_path)
+       
+      if($this->is_user_defined_path )
       {
       	exec('mkdir -p ' . $this->doc_dir);
       }
       else
       {    
-         if(!file_exists($this->doc_dir . '/' . $remote_filename[0]))
-            mkdir($this->doc_dir . '/' . $remote_filename[0]);
-           
-         if(!file_exists($this->doc_dir . '/' . $remote_filename[0] . '/' . $remote_filename[1]))
-            mkdir($this->doc_dir . '/' . $remote_filename[0] . '/' . $remote_filename[1]);
+        if(!file_exists($this->doc_dir . '/' . $pid))
+        mkdir($this->doc_dir . '/' . $pid);
       }
          
       $returnValue['local_filename']   =  $_FILES['document']['name'];  
@@ -471,7 +470,8 @@ class DocumentEntity extends Entity
       }
       else
       {    
-         $save_as  =  $this->doc_dir . '/' . $remote_filename[0].'/'.$remote_filename[1]. '/' .$fileName[0].'_'.$doc_id.'.'.$fileExt;
+         $save_as  =  $this->doc_dir . '/'. $pid.'/'.$fileName[0].'_'.$doc_id.'.'.$fileExt;
+         $returnValue['remote_filename'] = $fileName[0].'_'.$doc_id.'.'.$fileExt;
       }    
       
       $returnValue['doc_dir'] = $save_as;

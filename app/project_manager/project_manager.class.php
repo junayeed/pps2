@@ -40,14 +40,14 @@ class projectManagerApp extends DefaultApplication
            case 'saveAnnexIIIc'      : $screen = $this->saveProcurementPlan($cmd);     break;
            case 'deleteprocplan'     : $screen = $this->deleteProcurementPlan();       break;
            case 'annexV'             : $screen = $this->showAnnexV();                  break;
-           case 'annexIV'            : $screen = $this->showAnnexIV();                  break;
+           case 'annexIV'            : $screen = $this->showAnnexIV();                 break;
            case 'saveAnnexV'         : $screen = $this->saveAnnexV();                  break;
-           case 'deletecomponent'    : $screen = $this->deleteComponent();                  break;
+           case 'deletecomponent'    : $screen = $this->deleteComponent();             break;
            case 'deleteyear'         : $screen = $this->deleteYear();                  break;
            case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
-           case 'forwardProject'     : $screen = $this->forwardProject();               break;
-           case 'commentPage'        : $screen = $this->commentPage();                  break;
-           case 'saveComment'        : $screen = $this->saveComment();                  break;
+           case 'forwardProject'     : $screen = $this->forwardProject();              break;
+           case 'commentPage'        : $screen = $this->commentPage();                 break;
+           case 'saveComment'        : $screen = $this->saveComment();                 break;
            default                   : $screen = $this->showEditor($msg);
       }
 
@@ -370,10 +370,11 @@ class projectManagerApp extends DefaultApplication
         $project               = new Project($pid);
         $data->basicInfo       = $project->basicInfo;
         
-        $data->PI                       =  $PI;
-        $data->management_list          = getManagementList($pid);
-       
-                
+        $data->PI              =  $PI;
+        $data->management_list = getManagementList($pid);
+        
+        //dumpVar($data->management_list);
+           
         return createPage(PROJECT_MANAGEMENT_TEMPLATE, $data);
     }
     
