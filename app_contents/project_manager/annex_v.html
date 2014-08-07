@@ -70,32 +70,32 @@
                                     </thead>
                                     <tbody id="Revenue_Component_economic_code_content">
                                         <tr>
-                                            <td colspan="4" style="height: 29px !important;">Revenue Component</td>
+                                            <td colspan="4" style="height: 29px !important;">(a) Revenue Component</td>
                                         </tr>
                                     </tbody>
                                     <tbody id="Capital_Component_economic_code_content">
                                         <tr>
                                             <td colspan="4">
-                                                (a) Revenue Component Sub Total<br><br>
+                                                Revenue Component Sub Total<br><br>
                                                 <a href="javascript:void(0);" onClick="addNewComponent('Revenue Component',1);">Add Revenue Component</a>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4" style="height: 29px !important;">Capital Component</td>
+                                            <td colspan="4" style="height: 29px !important;">(b) Capital Component</td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <td colspan="4">
-                                                (b) Capital Component Sub Total<br><br>
+                                                Capital Component Sub Total<br><br>
                                                 <a href="javascript:void(0);" onClick="addNewComponent('Capital Component',1);">Add Capital Component</a>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4">Physical Contingency</td>
+                                            <td colspan="4">(c) Physical Contingency</td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4">Price Contingency</td>
+                                            <td colspan="4">(d) Price Contingency</td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -141,7 +141,7 @@
                                             <td><input type="text" class="span12" name="price_contigency_total" id="price_contigency_total" readonly></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3">Grand Total: </td>
+                                            <td colspan="3">Grand Total (a+b+c+d): </td>
                                             <td><input type="text" class="span12 bold" name="grand_total" id="grand_total" readonly></td>
                                         </tr>
                                     </tfoot>
@@ -149,21 +149,25 @@
                             </div>
                             <div id="total_cost_breakdown_container">
                                 <i class="icon-exchange" id="toggle_total_cost_breakdown"></i>
+                                <i class="right font10">(in lakh Taka)</i>
                                 <table id="total_cost_breakdown_tbl" class="table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
                                         <tr>
-                                            <th class="span3" rowspan="3">GoB (FE)</th>
-                                            <th class="span3" colspan="3">Project Aid</th>
-                                            <th class="span3" rowspan="3">Own Fund (FE)</th>
-                                            <th class="span3" rowspan="3">Other (FE)</th>
+                                            <th class="span3 center" colspan="6">Project Total</th>
                                         </tr>
                                         <tr>
-                                            <th class="span3" colspan="2">RPA</th>
-                                            <th class="span3" rowspan="2">DPA</th>
+                                            <th class="span3 center" rowspan="3">GoB<br />(FE)</th>
+                                            <th class="span3 center" colspan="3">Project Aid</th>
+                                            <th class="span3 center" rowspan="3">Own Fund <br />(FE)</th>
+                                            <th class="span3 center" rowspan="3">Other <br />(FE)</th>
                                         </tr>
                                         <tr>
-                                            <th class="span3">Through GoB</th>
-                                            <th class="span3">Special Account*</th>
+                                            <th class="span3 center" colspan="2">RPA</th>
+                                            <th class="span3 center" rowspan="2">DPA</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="span3 center">Through GoB</th>
+                                            <th class="span3 center">Special Account*</th>
                                         </tr>
                                     </thead>
                                     <tbody id="Revenue_Component_total_cost_breakdown_content">
@@ -296,6 +300,7 @@
                             
                         </div>  
                         <!--<a href="javascript:void(0);" onClick="addNewComponent('Capital_Component');">Add Component</a>-->
+                        <span>* DOSA, CONTASA, SAFE, Imprest etc</span><br />
                         <a id="addyear" href="javascript:void(0);" onClick="addNewYear(1);">Add Year</a>
                         <div class="form-actions2">
                             <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>

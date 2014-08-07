@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-07-20 06:41:02
+<?php /* Smarty version Smarty-3.1.17, created on 2014-08-06 11:53:09
          compiled from "E:\xampp\htdocs\pps2\app_contents\standard\user_home\agency_home.html" */ ?>
 <?php /*%%SmartyHeaderCode:1674453cb485ee95388-43014692%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'ef83cca3084817f55a28ff98d69a840e6060904a' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\standard\\user_home\\agency_home.html',
-      1 => 1402898388,
+      1 => 1407318463,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.17',
+  'unifunc' => 'content_53cb485f068235_64453088',
   'variables' => 
   array (
     'USER_HEADER' => 0,
@@ -22,8 +24,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'contents' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_53cb485f068235_64453088',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_53cb485f068235_64453088')) {function content_53cb485f068235_64453088($_smarty_tpl) {?><html>
 <head>
@@ -90,9 +90,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                         <?php echo $_smarty_tpl->tpl_vars['contents']->value;?>
 
                         
-                        <div id="footer" style="text-align: right">
-                            <p>Copyright &copy; 2014, IDE Project. All Rights Reserved.</p>
+                        <div class="footer">
+                                <div class="container">
+                                        <p>Copyright &copy; 2014, IDE Project. All Rights Reserved.</p>
+                                </div>
                         </div>
+                        
          	   
         </div> 
         

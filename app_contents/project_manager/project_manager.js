@@ -330,26 +330,27 @@ function addNewYear(fromAddButton)
 {
     var component_details_breakdown_div = '<div class="total_cost_breakdown_container" id="total_cost_breakdown_container_'+YEAR_COUNT+'">\n\
                                                <i class="icon-exchange" id="toggle_total_cost_breakdown" onClick="toggleFiscalYear('+YEAR_COUNT+');"></i> \n\
+                                               <i class="right font10">(in lakh Taka)</i> \n\
                                                <table id="total_cost_breakdown_tbl_'+YEAR_COUNT+'" class="table table-striped table-bordered table-hover table_bug_report">\n\
                                                    <thead>\n\
                                                        <tr>\n\
-                                                           <th colspan="7">Fiscal Year '+YEAR_COUNT+': <input type="text" name="financial_year_'+YEAR_COUNT+'" id="financial_year_'+YEAR_COUNT+'" required>\n\
+                                                           <th colspan="7" class="center">Fiscal Year '+YEAR_COUNT+': <input type="text" name="financial_year_'+YEAR_COUNT+'" id="financial_year_'+YEAR_COUNT+'" required>\n\
                                                            <img src="/app_contents/common/images/cross.png" onClick="deleteYear();" class="delete_year_icon" id="year_delete_'+YEAR_COUNT+'" style="display: none;"></th>\n\
                                                        </tr>\n\
                                                        <tr>\n\
-                                                           <th class="span3" rowspan="3">GoB (FE)</th>\n\
-                                                           <th class="span3" colspan="3">Project Aid</th>\n\
-                                                           <th class="span3" rowspan="3">Own Fund (FE)</th>\n\
-                                                           <th class="span3" rowspan="3">Other (FE)</th>\n\
-                                                           <th class="span3" rowspan="3">Total</th>\n\
+                                                           <th class="span3 center" rowspan="3">GoB<br />(FE)</th>\n\
+                                                           <th class="span3 center" colspan="3">Project Aid</th>\n\
+                                                           <th class="span3 center" rowspan="3">Own Fund <br />(FE)</th>\n\
+                                                           <th class="span3 center" rowspan="3">Other <br />(FE)</th>\n\
+                                                           <th class="span3 center" rowspan="3">Total</th>\n\
                                                        </tr>\n\
                                                        <tr>\n\
-                                                           <th class="span3" colspan="2">RPA</th>\n\
-                                                           <th class="span3" rowspan="2">DPA</th>\n\
+                                                           <th class="span3 center" colspan="2">RPA</th>\n\
+                                                           <th class="span3 center" rowspan="2">DPA</th>\n\
                                                        </tr>\n\
                                                        <tr>\n\
-                                                           <th class="span3">Through GoB</th>\n\
-                                                           <th class="span3">Special Account*</th>\n\
+                                                           <th class="span3 center">Through GoB</th>\n\
+                                                           <th class="span3 center">Special Account*</th>\n\
                                                        </tr>\n\
                                                    </thead>\n\
                                                    <tbody id="Revenue_Component_total_cost_breakdown_content_'+YEAR_COUNT+'">\n\

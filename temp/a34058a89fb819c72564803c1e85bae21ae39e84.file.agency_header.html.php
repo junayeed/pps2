@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-07-20 06:41:03
+<?php /* Smarty version Smarty-3.1.17, created on 2014-08-06 11:53:09
          compiled from "E:\xampp\htdocs\pps2\app_contents\standard\user_home\agency_header.html" */ ?>
 <?php /*%%SmartyHeaderCode:1472153cb485f094ba0-91994801%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'a34058a89fb819c72564803c1e85bae21ae39e84' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\standard\\user_home\\agency_header.html',
-      1 => 1405748608,
+      1 => 1407318463,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.17',
+  'unifunc' => 'content_53cb485f117dc5_29059889',
   'variables' => 
   array (
     'USER_FIRST' => 0,
@@ -22,8 +24,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'USER_TYPE' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_53cb485f117dc5_29059889',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_53cb485f117dc5_29059889')) {function content_53cb485f117dc5_29059889($_smarty_tpl) {?>
             <div class="navbar navbar-inverse">
@@ -31,7 +31,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		   <div class="container-fluid">
 
 
-			  <a class="brand" href="#"><small><i class="icon-globe"></i> Project Planning System (PPS)</small> </a>
+			  <a class="brand" href="/"><small><i class="icon-globe"></i> Project Planning System (PPS)</small> </a>
 			  <ul class="nav ace-nav pull-right">
 					<li class="green">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">

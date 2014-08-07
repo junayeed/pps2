@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-07-20 06:41:58
+<?php /* Smarty version Smarty-3.1.17, created on 2014-08-06 11:53:09
          compiled from "E:\xampp\htdocs\pps2\app_contents\standard\user_home\agency_dashboard.html" */ ?>
 <?php /*%%SmartyHeaderCode:1576553cb4896c94707-62050962%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'e75ce27f5c56a7f42f94c021fe21c7169ec62411' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\standard\\user_home\\agency_dashboard.html',
-      1 => 1405748608,
+      1 => 1407318464,
       2 => 'file',
     ),
   ),
@@ -15,11 +15,19 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
-  'has_nocache_code' => false,
   'version' => 'Smarty-3.1.17',
   'unifunc' => 'content_53cb4896d53788_84111665',
+  'variables' => 
+  array (
+    'total_project' => 0,
+    'project_list' => 0,
+    'key' => 0,
+    'item' => 0,
+  ),
+  'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_53cb4896d53788_84111665')) {function content_53cb4896d53788_84111665($_smarty_tpl) {?><div id="main-content" class="clearfix">
+<?php if ($_valid && !is_callable('content_53cb4896d53788_84111665')) {function content_53cb4896d53788_84111665($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/ext/smarty3/libs/plugins\\modifier.date_format.php';
+?><div id="main-content" class="clearfix">
 					
     <div id="breadcrumbs">
         <ul class="breadcrumb">
@@ -29,10 +37,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
         <div id="nav-search">
             <form class="form-search">
-                <span class="input-icon">
-                    <input autocomplete="off" id="nav-search-input" type="text" class="input-small search-query" placeholder="Search ..." />
-                    <i id="nav-search-icon" class="icon-search"></i>
-                </span>
+               
             </form>
         </div><!--#nav-search-->
     </div><!--#breadcrumbs-->
@@ -46,42 +51,38 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 	<div class="infobox infobox-green">
 		<div class="infobox-icon"><i class="icon-comments"></i></div>
 		<div class="infobox-data">
-			<span class="infobox-data-number">32</span>
+			<span class="infobox-data-number"><?php echo (($tmp = @$_smarty_tpl->tpl_vars['total_project']->value->agency_total)===null||$tmp==='' ? 0 : $tmp);?>
+</span>
 			<span class="infobox-content">Projects in Agency</span>
 		</div>
-		<div class="stat stat-success">8%</div>
+		
 	</div>
 
 
 	<div class="infobox infobox-blue">
 		<div class="infobox-icon"><i class="icon-twitter"></i></div>
 		<div class="infobox-data">
-			<span class="infobox-data-number">11</span>
+			<span class="infobox-data-number"><?php echo (($tmp = @$_smarty_tpl->tpl_vars['total_project']->value->ministry_total)===null||$tmp==='' ? 0 : $tmp);?>
+</span>
 			<span class="infobox-content">Projects in Ministry</span>
 		</div>
-		<div class="badge badge-success">+32%</div>
 	</div>
-
-
-
-
 
 	<div class="infobox infobox-pink">
 		<div class="infobox-icon"><i class="icon-shopping-cart"></i></div>
 		<div class="infobox-data">
-			<span class="infobox-data-number">8</span>
+			<span class="infobox-data-number"><?php echo (($tmp = @$_smarty_tpl->tpl_vars['total_project']->value->commission_total)===null||$tmp==='' ? 0 : $tmp);?>
+</span>
 			<span class="infobox-content">Project in Commission</span>
 		</div>
-		<div class="stat stat-important">4%</div>
 	</div>
-
-
 
 	<div class="infobox infobox-red">
 		<div class="infobox-icon"><i class="icon-beaker"></i></div>
 		<div class="infobox-data">
-			<span class="infobox-data-number">7</span>
-			<span class="infobox-content">Draft Projects</span>
+			<span class="infobox-data-number"><?php echo (($tmp = @$_smarty_tpl->tpl_vars['total_project']->value->approved_total)===null||$tmp==='' ? 0 : $tmp);?>
+</span>
+			<span class="infobox-content">Approved Projects</span>
 		</div>
 	</div>
     </div>    
@@ -98,8 +99,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                     </h4>
                     <div class="widget-toolbar no-border">
                         <ul class="nav nav-tabs" id="myTab2">
-                            <li class="active"><a data-toggle="tab" href="#myproject">My Projects</a></li>
-                            <li><a data-toggle="tab" href="#agency_project">BINA's Projects</a></li>
+                            <li class="active"><a data-toggle="tab" href="#agency_project">Agency Projects</a></li>
+                            <li><a data-toggle="tab" href="#myproject">My Projects</a></li>
                             <li><a data-toggle="tab" href="#draft_project1">Draft Projects</a></li>
                         </ul>
                     </div>
@@ -107,59 +108,130 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                 <div class="widget-body">
                     <div class="widget-main">
                         <div class="tab-content padding-4">
-                            <div id="myproject" class="tab-pane in active">
+                            <div id="agency_project" class="tab-pane in active">
                                 <div class="slim-scroll" data-height="100">
-                                    <b>Projects created by me</b>
+                                    
                                     <div class="widget-main no-padding">
                                         <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-                                            <thead>
+                                            <thead>                                               
                                                 <tr>
                                                     <th>Sl</th>
                                                     <th><i></i>Project Title</th>
-                                                    <th class="hidden-480">Date</th>
+                                                    <th class="hidden-480">Create Date</th>
                                                     <th class="hidden-480">Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="">Alex</td>
-                                                    <td><a href="#">alex@email.com</a></td>
-                                                    <td class="hidden-480"><span class="label label-warning">Pending</span></td>
-                                                    <td class="hidden-480"><span class="label label-warning">Pending</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="">Alex</td>
-                                                    <td><a href="#">alex@email.com</a></td>
-                                                    <td class="hidden-480"><span class="label label-success arrowed-in arrowed-in-right">Approved</span></td>
-                                                    <td class="hidden-480"><span class="label label-success arrowed-in arrowed-in-right">Approved</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="">Alex</td>
-                                                    <td><a href="#">alex@email.com</a></td>
-                                                    <td class="hidden-480"><span class="label label-important arrowed">Pending</span></td>
-                                                    <td class="hidden-480"><span class="label label-important arrowed">Pending</span></td>
-                                                </tr>
+                                                <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+ $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->tpl_vars['project_list']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value) {
+$_smarty_tpl->tpl_vars['item']->_loop = true;
+ $_smarty_tpl->tpl_vars['key']->value = $_smarty_tpl->tpl_vars['item']->key;
+?>
+                                                    <tr>
+                                                        <td><?php echo $_smarty_tpl->tpl_vars['key']->value+1;?>
+</td>
+                                                        <td><a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI=<?php echo base64_encode($_smarty_tpl->tpl_vars['item']->value->id);?>
+"><?php echo $_smarty_tpl->tpl_vars['item']->value->project_title_en;?>
+</a></td>
+                                                        <td class="hidden-480"><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['item']->value->create_date,"%e %B, %Y");?>
+</td>
+                                                        <td class="hidden-480">
+                                                            <span class="label <?php if ($_smarty_tpl->tpl_vars['item']->value->status=='Draff') {?>label-info arrowed-right arrowed-in <?php } elseif ($_smarty_tpl->tpl_vars['item']->value->status=='Approved') {?> label-success arrowed-in arrowed-in-right <?php } else { ?> label-important arrowed<?php }?>"><?php echo $_smarty_tpl->tpl_vars['item']->value->status;?>
+</span>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
 				  
-                            <div id="agency_project" class="tab-pane">
+                            <div id="myproject" class="tab-pane">
                                 <div class="slim-scroll" data-height="100">
-                                    <b>TAB # 2</b>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
+                                    
+                                    <div class="widget-main no-padding">
+                                        <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                                            <thead>                                               
+                                                <tr>
+                                                    <th>Sl</th>
+                                                    <th><i></i>Project Title</th>
+                                                    <th class="hidden-480">Create Date</th>
+                                                    <th class="hidden-480">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+ $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->tpl_vars['project_list']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value) {
+$_smarty_tpl->tpl_vars['item']->_loop = true;
+ $_smarty_tpl->tpl_vars['key']->value = $_smarty_tpl->tpl_vars['item']->key;
+?>
+                                                <?php if ($_smarty_tpl->tpl_vars['item']->value->current_holder==$_SESSION['uid']) {?>
+                                                    <tr>
+                                                        <td><?php echo $_smarty_tpl->tpl_vars['key']->value+1;?>
+</td>
+                                                        <td><a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI=<?php echo base64_encode($_smarty_tpl->tpl_vars['item']->value->id);?>
+"><?php echo $_smarty_tpl->tpl_vars['item']->value->project_title_en;?>
+</a></td>
+                                                        <td class="hidden-480"><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['item']->value->create_date,"%e %B, %Y");?>
+</td>
+                                                        <td class="hidden-480">
+                                                             <span class="label <?php if ($_smarty_tpl->tpl_vars['item']->value->status=='Draff') {?>label-info arrowed-right arrowed-in <?php } elseif ($_smarty_tpl->tpl_vars['item']->value->status=='Approved') {?> label-success arrowed-in arrowed-in-right <?php } else { ?> label-important arrowed<?php }?>"><?php echo $_smarty_tpl->tpl_vars['item']->value->status;?>
+</span>
+                                                        </td>
+                                                    </tr>
+                                                <?php }?>    
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
 				  
 				  <div id="draft_project1" class="tab-pane">
 					<div class="slim-scroll" data-height="100">
-						<b>TAB # 3</b>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
+						
+						<div class="widget-main no-padding">
+                                                    <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                                                        <thead>                                               
+                                                            <tr>
+                                                                <th>Sl</th>
+                                                                <th><i></i>Project Title</th>
+                                                                <th class="hidden-480">Create Date</th>
+                                                                <th class="hidden-480">Status</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+ $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
+ $_from = $_smarty_tpl->tpl_vars['project_list']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value) {
+$_smarty_tpl->tpl_vars['item']->_loop = true;
+ $_smarty_tpl->tpl_vars['key']->value = $_smarty_tpl->tpl_vars['item']->key;
+?>
+                                                            <?php if ($_smarty_tpl->tpl_vars['item']->value->status=='Draff') {?>
+                                                                <tr>
+                                                                    <td><?php echo $_smarty_tpl->tpl_vars['key']->value+1;?>
+</td>
+                                                                    <td><a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI=<?php echo base64_encode($_smarty_tpl->tpl_vars['item']->value->id);?>
+"><?php echo $_smarty_tpl->tpl_vars['item']->value->project_title_en;?>
+</a></td>
+                                                                    <td class="hidden-480"><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['item']->value->create_date,"%e %B, %Y");?>
+</td>
+                                                                    <td class="hidden-480">
+                                                                        <span class="label <?php if ($_smarty_tpl->tpl_vars['item']->value->status=='Draff') {?>label-info arrowed-right arrowed-in <?php } elseif ($_smarty_tpl->tpl_vars['item']->value->status=='Approved') {?> label-success arrowed-in arrowed-in-right <?php } else { ?> label-important arrowed<?php }?>"><?php echo $_smarty_tpl->tpl_vars['item']->value->status;?>
+</span>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php }?>    
+                                                            <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
 					</div>
 				  </div>
 			   </div>
@@ -284,10 +356,10 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
             }
         },
         title: {
-            text: 'Chart rotation demo'
+            text: 'Total Cost Brackdown'
         },
         subtitle: {
-            text: 'Test options by dragging the sliders below'
+            text: 'Cost brackdown of total approved project'
         },
         plotOptions: {
             column: {
@@ -295,7 +367,7 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
             }
         },
         series: [{
-            data: [29.9, 71.5, 106.4, 129.2, 144.0]
+            data: [229.96, 714.52, 106.4, 229.2, 144.0]
         }]
     });
     

@@ -2926,7 +2926,7 @@ CREATE TABLE IF NOT EXISTS `project_messages` (
   `title` varchar(256) NOT NULL,
   `msg` text NOT NULL,
   `doc_id` int(11) NOT NULL,
-  `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `msg_from` varchar(100) NOT NULL,
   `msg_from_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
