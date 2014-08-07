@@ -9,7 +9,7 @@ var INNER_DELIM      = '$$';
 
 objs['in_attachments']  = { pref:"l", last:0 , h:["File"], w:[120]};
 objs['table_footer']    = { pref:"l", last:0 , h:["File"], w:[120]};
-alert('Junayeed');
+
 
 /**
  * Load the default data from array when the user
@@ -146,6 +146,17 @@ function calculateIRR()
    
    irr =  last_discount_rate  + last_npv * (k - last_discount_rate)/ (last_npv - npv);
    $('#irr').get(0).value = doRound(irr, 2);
+   
+   var type = document.getElementById('analysis_type').value;
+   if(type=='financial')
+   {  
+     parent.document.getElementById('financial_irr').value = irr;
+   }
+   else
+   {
+     parent.document.getElementById('economic_irr').value = irr;  
+   }    
+   
 }
 
 /**
@@ -377,15 +388,22 @@ function calculateNPVBCR()
    npv = doRound( (totDiscountBenefit - totDiscountCost), 2);
    bcr = doRound( (totDiscountBenefit / totDiscountCost), 2);
    
-   alert("NPV ::: " + npv + " BCR ::: " + bcr + '\n' + $(this).parent().attr('name') );
+   //alert("NPV ::: " + npv + " BCR ::: " + bcr + '\n' + $(this).parent().attr('name') );
    
    $('#npv').get(0).value = npv;
    $('#bcr').get(0).value = bcr;
    
-   //alert(window.parent.getElementById('financial_npv'))
-   //parent.getElementById('financial_npv').value = npv;
-   //parent.getElementById('financial_bcr').value = bcr;
-   $(parent).find("#financial_npv").val('Harun got here');
+   var type = document.getElementById('analysis_type').value;
+   if(type=='financial')
+   {    
+      parent.document.getElementById('financial_npv').value = npv;
+      parent.document.getElementById('financial_bcr').value = bcr;
+   }
+   else
+   {    
+     parent.document.getElementById('economic_npv').value = npv;
+     parent.document.getElementById('economic_bcr').value = bcr;
+   }
    
    showRecommendation();
 }
