@@ -25,6 +25,17 @@ class Message
         $info['where']  = "pid = $this->pid";
         
         $result = select($info);
+        
+        if($result)
+        {
+            foreach ($result AS $key=>$item)
+            {
+                if($item->doc_id)
+                {
+                    $result[$key]->file_location = getFileLocation($item->doc_id,$this->pid);
+                }    
+            }    
+        }    
         return $result;
     }  
     

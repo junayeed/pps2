@@ -18,8 +18,6 @@
     
 </div><!--#breadcrumbs-->
 
-
-
 <div id="page-content" class="clearfix">
     
     <div class="page-header position-relative">
@@ -173,22 +171,22 @@
         
         <div class="dropdown dropdown-preview">
                 <ul class="dropdown-menu">
-                    <li><a href="{$SCRIPT_NAME}?cmd=anaexI&PI={$PI}">Annexure - I: Location wise cost breakdown</a> </li>
-                    <li><a href="{$SCRIPT_NAME}?cmd=annexII&PI={$PI}">Annexure - II: Project Management Setup</a> </li>
+                    <li><a href="{$SCRIPT_NAME}?cmd=anaexI&PI={$PI}">Annexure- I: Location wise cost breakdown</a> </li>
+                    <li><a href="{$SCRIPT_NAME}?cmd=annexII&PI={$PI}">Annexure- II: Project Management Setup</a> </li>
                     <li><a href="{$SCRIPT_NAME}?cmd=annexII&PI={$PI}">&nbsp;</a> </li>
                 </ul>
         </div>
         
         <div class="dropdown dropdown-preview">
                 <ul class="dropdown-menu">
-                    <li><a href="{$SCRIPT_NAME}?cmd=annexIIIa&PI={$PI}">Annexure - III (a): GOODS</a> </li>
-                    <li><a href="{$SCRIPT_NAME}?cmd=annexIIIb&PI={$PI}">Annexure - III (b): WORKS</a> </li>
-                    <li><a href="{$SCRIPT_NAME}?cmd=annexIIIc&PI={$PI}">Annexure - III (c): SERVICES</a> </li>
+                    <li><a href="{$SCRIPT_NAME}?cmd=annexIIIa&PI={$PI}">Annexure- III (a): GOODS</a> </li>
+                    <li><a href="{$SCRIPT_NAME}?cmd=annexIIIb&PI={$PI}">Annexure- III (b): WORKS</a> </li>
+                    <li><a href="{$SCRIPT_NAME}?cmd=annexIIIc&PI={$PI}">Annexure- III (c): SERVICES</a> </li>
                 </ul>
         </div>
         <div class="dropdown dropdown-preview">
                 <ul class="dropdown-menu">
-                    <li><a href="{$SCRIPT_NAME}?cmd=annexIV&PI={$PI}">Annexure- IV: Year wise Financial and Physical Target plan</a> </li>
+                    <li><a href="{$SCRIPT_NAME}?cmd=annexIV&PI={$PI}">Annexure- IV: Year wise Financial & Physical Target plan</a> </li>
                     <li><a href="{$SCRIPT_NAME}?cmd=annexV&PI={$PI}">Annexure- V: Detailed annual phasing of cost</a> </li>
                     <li><a href="{$SCRIPT_NAME}?cmd=annexV&PI={$PI}">Annexure- VI: Amortization Schedule</a> </li>
                 </ul>
@@ -239,7 +237,7 @@
                                                         <td>{$key+1}</td>
                                                         <td>{$item->title}</td>
                                                         <td>{$item->msg}</td>
-                                                        <td>{$item->doc_id}</td>
+                                                        <td><a href="{$item->file_location}">{$item->file_location|basename}</a></td>
                                                         <td>
                                                            {$item->create_date|date_format}
                                                         </td>

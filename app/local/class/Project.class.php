@@ -136,6 +136,28 @@ class Project
         return $result;
     }
     
+    public function loadAttachments()
+    {
+        $info['table'] = PROJECT_ATTACHMENT_TBL;
+        $info['debug'] = false;
+        $info['where'] = "pid = $this->id";
+        
+        $result =   select($info);    
+        
+        return $result;
+    }
+    
+    public function saveAttachments()
+    {
+        $info['table'] = PROJECT_ATTACHMENT_TBL;
+        $info['debug'] = false;
+        $info['where'] = "pid = $this->id";
+        
+        $result =   select($info);    
+        
+        return $result;
+    }
+    
     public function loadDevPartners()
     {
         $info['table'] = PROJECT_DEV_PARTNER_TBL;
