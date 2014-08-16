@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-07-20 06:41:02
+<?php /* Smarty version Smarty-3.1.17, created on 2014-08-14 10:44:49
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\project_manager_partA.html" */ ?>
 <?php /*%%SmartyHeaderCode:2778753cb485e5c8f43-78521423%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '8a8b9ea253aac412170507c719cc76c5eceb0c21' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\project_manager_partA.html',
-      1 => 1405830862,
+      1 => 1407318463,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.17',
+  'unifunc' => 'content_53cb485ec2edf0_50359276',
   'variables' => 
   array (
     'SCRIPT_NAME' => 0,
@@ -29,11 +31,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'modefinancing' => 0,
     'year_wise_gob_ownfund' => 0,
     'item' => 0,
+    'key' => 0,
+    'year_wise_gob_ownfundCon' => 0,
     'divisionList' => 0,
     'districtList' => 0,
     'upazilaList' => 0,
     'component_list' => 0,
-    'key' => 0,
     'vItem' => 0,
     'percentage_of_project' => 0,
     'comp_sub_total_list' => 0,
@@ -41,12 +44,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'conKey' => 0,
     'conItem' => 0,
     'con_percentage_of_project' => 0,
+    'logframe' => 0,
     'SYSTEM_COMMON_JAVASCRIPT_DIR' => 0,
     'REL_TEMPLATE_DIR' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_53cb485ec2edf0_50359276',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_53cb485ec2edf0_50359276')) {function content_53cb485ec2edf0_50359276($_smarty_tpl) {?><?php if (!is_callable('smarty_function_html_options')) include 'E:/xampp/htdocs/pps2/ext/smarty3/libs/plugins\\function.html_options.php';
 if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/ext/smarty3/libs/plugins\\modifier.date_format.php';
@@ -59,32 +61,16 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
 		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
-                <script type="text/javascript" src="/ext/ckeditor/ckeditor.js"></script>
-                <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
                 
                 <style>
                     
                     #map_canvas {
-                      width: 1100px;
+                      width: 100%;
                       height: 400px;
                     }
                     
                 </style>
                   <script src="https://maps.googleapis.com/maps/api/js"></script>
-                  <script>
-                      
-                    function initialize() {
-                      var map_canvas = document.getElementById('map_canvas');
-                      var map_options = {
-                        center: new google.maps.LatLng(23.709921, 90.407143),
-                        zoom: 8,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                      }
-                      var map = new google.maps.Map(map_canvas, map_options)
-                    }
-                    google.maps.event.addDomListener(window, 'load', initialize);
-                    
-                  </script>
 
 	</head>
 
@@ -111,7 +97,7 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
           <a class="btn btn-small btn-primary" href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=ProjectHome&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
 ">Project Main Page</a>
-          <button class="btn btn-small btn-primary">Forward To Ministry</button>
+          
         </div>  
     </div><!--/page-header-->
 
@@ -142,16 +128,17 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
 </form>    
     <div class="tabbable">
         <ul class="nav nav-tabs" id="myTab">
-            <li class="active"><a data-toggle="tab" href="#basicinfo"><i class="green icon-home bigger-110"></i> Objectives & Cost</a></li>
-            <li><a data-toggle="tab" href="#location"><i class="green icon-home bigger-110"></i> Locations</a></li>
-            <li><a data-toggle="tab" href="#costsummary"><i class="green icon-home bigger-110"></i> Component wise cost summary</a></li>
-            <li><a data-toggle="tab" href="#logframe"><i class="green icon-home bigger-110"></i> Log frame</a></li>
-            <li><a data-toggle="tab" href="#annexures"><i class="green icon-home bigger-110"></i> Annexures</a></li>
+            <li class="active"><a data-toggle="tab" href="#basicinfo"><i class="green icon-home bigger-110"></i>Objectives & Cost (2-6)</a></li>
+            <li><a data-toggle="tab" href="#location"><i class="green icon-home bigger-110"></i>Locations (7-8)</a></li>
+            <li><a data-toggle="tab" href="#costsummary"><i class="green icon-home bigger-110"></i>Component Wise Cost (9)</a></li>
+            <li><a data-toggle="tab" href="#logframe"><i class="green icon-home bigger-110"></i>Log frame (10)</a></li>
+            <li><a data-toggle="tab" href="#annexures"><i class="green icon-home bigger-110"></i> Annexures (II - IV)</a></li>
             
         </ul>
         <div class="tab-content">
             <!-- #basicinfo strats here-->  
             <div id="basicinfo" class="tab-pane in active">
+                
             <form class="form-horizontal" id="validation-form"  method="post" action="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 "> 
                 <input type="hidden" name="PI" value="<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
@@ -243,46 +230,46 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="project_cost">5.1 Estimated Cost of the project(in Lakh Taka)</label>
+                    <label class="control-label" for="project_cost">5.1 Estimated Cost of the project (in Lakh Taka)</label>
                     <div class="controls"><br><br>
-                        <table id="table_bug_report" class="table table-striped table-bordered table-hover span5">
+                        <table id="table_bug_report" class="table table-striped table-bordered table-hover span4">
                             <tr>
-                                <td class="span6">Total: </td>
-                                <td class="span6"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->total_cost;?>
-</td>
+                                <td class="span6" style="text-align:right;padding-right:5px"><b>Total: </b></td>
+                                <td class="span6" style="text-align:right;padding-right:5px"><b><?php echo number_format($_smarty_tpl->tpl_vars['basicInfo']->value->total_cost,2,'.',',');?>
+</b></td>
                             </tr>
                             <tr>
-                                <td>GoB (FE): </td>
-                                <td>
-                                    <label id="lbl_project_gob_cost"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->gob_cost;?>
+                                <td style="text-align:right;padding-right:5px">GoB (FE): </td>
+                                <td style="text-align:right;padding-right:5px">
+                                    <label id="lbl_project_gob_cost"><?php echo number_format($_smarty_tpl->tpl_vars['basicInfo']->value->gob_cost,2,'.',',');?>
 </label> 
-                                    <label id="lbl_project_gob_fe_cost">(<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->gob_fe_cost;?>
+                                    <label id="lbl_project_gob_fe_cost">(<?php echo number_format($_smarty_tpl->tpl_vars['basicInfo']->value->gob_fe_cost,2,'.',',');?>
 )</label>
                                 </td>
                             </tr>
                             <tr>
-                                <td>PA (RPA): </td>
-                                <td>
-                                    <label id="lbl_pa"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_through_gob_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_spc_acnt_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_dpa_cost;?>
+                                <td style="text-align:right;padding-right:5px">PA (RPA): </td>
+                                <td style="text-align:right;padding-right:5px">
+                                    <label id="lbl_pa"><?php echo number_format(($_smarty_tpl->tpl_vars['basicInfo']->value->pa_through_gob_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_spc_acnt_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_dpa_cost),2,'.',',');?>
 </label>
-                                    <label id="lbl_rpa">(<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->pa_through_gob_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_spc_acnt_cost;?>
+                                    <label id="lbl_rpa">(<?php echo number_format(($_smarty_tpl->tpl_vars['basicInfo']->value->pa_through_gob_cost+$_smarty_tpl->tpl_vars['basicInfo']->value->pa_spc_acnt_cost),2,'.',',');?>
 )</label></td>
                             </tr>
                             <tr>
-                                <td>Own Fund (FE): </td>
-                                <td>
-                                    <label id="lbl_project_own_fund"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->own_fund_cost;?>
+                                <td style="text-align:right;padding-right:5px">Own Fund (FE): </td>
+                                <td style="text-align:right;padding-right:5px">
+                                    <label id="lbl_project_own_fund"><?php echo number_format($_smarty_tpl->tpl_vars['basicInfo']->value->own_fund_cost,2,'.',',');?>
 </label> 
-                                    <label id="lbl_project_own_fund_fe">(<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->own_fund_fe_cost;?>
+                                    <label id="lbl_project_own_fund_fe">(<?php echo number_format($_smarty_tpl->tpl_vars['basicInfo']->value->own_fund_fe_cost,2,'.',',');?>
 )</label>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Others (FE): </td>
-                                <td>
-                                    <label id="lbl_other_cost"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->other_cost;?>
+                                <td style="text-align:right;padding-right:5px">Others (FE): </td>
+                                <td style="text-align:right;padding-right:5px">
+                                    <label id="lbl_other_cost"><?php echo number_format($_smarty_tpl->tpl_vars['basicInfo']->value->other_cost,2,'.',',');?>
 </label> 
-                                    <label id="lbl_other_fe_cost">(<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->other_fe_cost;?>
+                                    <label id="lbl_other_fe_cost">(<?php echo number_format($_smarty_tpl->tpl_vars['basicInfo']->value->other_fe_cost,2,'.',',');?>
 )</label></td>
                             </tr>
                         </table>
@@ -313,8 +300,9 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
                 
                 <div class="control-group">
                     <label class="control-label" for="mode_of_financing">6.0 Mode of financing</label><br>
-                    <label class="" for="year_wise_allocation">6.1 Year wise allocation of GOB Fund and Own Fund</label>
+                    
                     <div class="span11">
+                        <label class="" for="year_wise_allocation">6.1 Mode of financing with source (in lakh Taka)</label>
                         <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -490,7 +478,7 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
 		</div>
                 
                 <div class="control-group">
-			<label class="" for="year_wise_allocation">6.2 Year wise allocation of GOB Fund and Own Fund</label>
+			<label class="" for="year_wise_allocation">6.2 Year wise allocation of GOB Fund and Own Fund (in lakh Taka)</label>
 			<div class="span11">
                             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                                 <thead>
@@ -504,18 +492,20 @@ if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/e
                                 <tbody>
                                         
                                         <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+ $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
  $_from = $_smarty_tpl->tpl_vars['year_wise_gob_ownfund']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value) {
 $_smarty_tpl->tpl_vars['item']->_loop = true;
+ $_smarty_tpl->tpl_vars['key']->value = $_smarty_tpl->tpl_vars['item']->key;
 ?>
                                         <tr> 
                                                 <td><?php echo $_smarty_tpl->tpl_vars['item']->value->financial_year;?>
 </td>
-                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['item']->value->gob_total,2,'.','');?>
-<br>(<?php echo number_format($_smarty_tpl->tpl_vars['item']->value->gob_fe_total,2,'.','');?>
+                                                <td><?php echo $_smarty_tpl->tpl_vars['item']->value->gob_total+number_format($_smarty_tpl->tpl_vars['year_wise_gob_ownfundCon']->value[$_smarty_tpl->tpl_vars['key']->value]->gob_total,2,'.','');?>
+<br>(<?php echo $_smarty_tpl->tpl_vars['item']->value->gob_fe_total+number_format($_smarty_tpl->tpl_vars['year_wise_gob_ownfundCon']->value[$_smarty_tpl->tpl_vars['key']->value]->gob_fe_total,2,'.','');?>
 )</td>
-                                                <td><?php echo number_format($_smarty_tpl->tpl_vars['item']->value->own_fund_total,2,'.','');?>
-<br>(<?php echo number_format($_smarty_tpl->tpl_vars['item']->value->own_fund_fe_total,2,'.','');?>
+                                                <td><?php echo $_smarty_tpl->tpl_vars['item']->value->own_fund_total+number_format($_smarty_tpl->tpl_vars['year_wise_gob_ownfundCon']->value[$_smarty_tpl->tpl_vars['key']->value]->own_fund_total,2,'.','');?>
+<br>(<?php echo $_smarty_tpl->tpl_vars['item']->value->own_fund_fe_total+number_format($_smarty_tpl->tpl_vars['year_wise_gob_ownfundCon']->value[$_smarty_tpl->tpl_vars['key']->value]->own_fund_fe_total,2,'.','');?>
 )</td>
                                         </tr>
                                         <?php } ?>
@@ -588,7 +578,8 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                    <div class="span12"> 
                         <div id="annex-iv-container">
                             <div>
-                                <i class="icon-blank">9.0 Component Wise Estimated Cost Summary: </i>
+                                <p>9.0 Component Wise Estimated Cost Summary (amount in lakh Taka): </p>
+                                
                                 <table id="economic_code_tbl11" class="annex-iv-table table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
                                         <tr>
@@ -603,6 +594,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                                             <th class="span4">Own Fund<br>(FE)</th>
                                             <th class="span4">Other<br>(FE)</th>
                                             <th class="span4">% of Total Project Cost</th>
+                                            <th class="span4">Major Item?</th>
                                         </tr>
                                         <tr>
                                             <th class="span1" colspan="2">RPA</th> <!--Project Aid-->
@@ -610,6 +602,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                                             <th class="span12">&nbsp;</th>
                                             <th class="span12">&nbsp;</th>
                                             <th class="span12">&nbsp;</th>
+                                             <th class="span12">&nbsp;</th>
                                         </tr>
                                         <tr>
                                             <th class="span1">&nbsp;</th>  <!--Economic Code-->
@@ -625,6 +618,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                                             <th class="span12">&nbsp;</th>
                                             <th class="span12">&nbsp;</th>
                                             <th class="span12">&nbsp;</th>
+                                             <th class="span12">&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody id="economic_code_content">
@@ -636,7 +630,7 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
  $_smarty_tpl->tpl_vars['key']->value = $_smarty_tpl->tpl_vars['item']->key;
 ?>
                                             <tr>
-                                                <td colspan="13"><?php if ($_smarty_tpl->tpl_vars['key']->value=="Revenue Component") {?>(a)<?php } elseif ($_smarty_tpl->tpl_vars['key']->value=="Capital Component") {?>(b)<?php }?> <?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+                                                <td colspan="14"><?php if ($_smarty_tpl->tpl_vars['key']->value=="Revenue Component") {?>(a)<?php } elseif ($_smarty_tpl->tpl_vars['key']->value=="Capital Component") {?>(b)<?php }?> <?php echo $_smarty_tpl->tpl_vars['key']->value;?>
 <td>
                                             </tr>
                                             <?php  $_smarty_tpl->tpl_vars['vItem'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['vItem']->_loop = false;
@@ -676,6 +670,14 @@ $_smarty_tpl->tpl_vars['vItem']->_loop = true;
 )</td>
                                                 <td><?php $_smarty_tpl->tpl_vars["percentage_of_project"] = new Smarty_variable($_smarty_tpl->tpl_vars['vItem']->value->total_cost/$_smarty_tpl->tpl_vars['basicInfo']->value->total_cost*100, null, 0);?><?php echo number_format($_smarty_tpl->tpl_vars['percentage_of_project']->value,2,'.','');?>
 %</td>
+                                                <td align="center">
+                                                    <div class="span12">
+                                                        <label style="text-align:center"><input name="major_item_<?php echo $_smarty_tpl->tpl_vars['item']->value->id;?>
+" <?php if ($_smarty_tpl->tpl_vars['vItem']->value->major_item=='Yes') {?>checked <?php }?> id="major_item_<?php echo $_smarty_tpl->tpl_vars['vItem']->value->id;?>
+" class="ace-switch ace-switch-5" type="checkbox" onchange="updateMajorItems(<?php echo $_smarty_tpl->tpl_vars['vItem']->value->id;?>
+,this)" /><span class="lbl"></span></label>
+					            </div>
+                                                </td>
                                             </tr>
                                             <?php } ?>
                                             <tr>
@@ -699,6 +701,7 @@ $_smarty_tpl->tpl_vars['vItem']->_loop = true;
                                                 <td><?php echo number_format($_smarty_tpl->tpl_vars['comp_sub_total_list']->value[$_smarty_tpl->tpl_vars['key']->value]->sub_total_other,2,'.','');?>
 <br>(<?php echo number_format($_smarty_tpl->tpl_vars['comp_sub_total_list']->value[$_smarty_tpl->tpl_vars['key']->value]->sub_total_other_fe,2,'.','');?>
 )</td>
+                                                <td>&nbsp;</td>
                                                 <td>&nbsp;</td>
                                             </tr>
                                         <?php } ?>
@@ -736,6 +739,7 @@ $_smarty_tpl->tpl_vars['conItem']->_loop = true;
 )</td>
                                             <td><?php $_smarty_tpl->tpl_vars["con_percentage_of_project"] = new Smarty_variable($_smarty_tpl->tpl_vars['conItem']->value->total_cost/$_smarty_tpl->tpl_vars['basicInfo']->value->total_cost*100, null, 0);?><?php echo number_format($_smarty_tpl->tpl_vars['con_percentage_of_project']->value,2,'.','');?>
 %</td>
+                                            <td>&nbsp;</td>
                                         </tr>
                                         <?php } ?>
                                         <tr>
@@ -758,6 +762,7 @@ $_smarty_tpl->tpl_vars['conItem']->_loop = true;
 <br>(<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->other_fe_cost;?>
 )</td>
                                             <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -775,8 +780,27 @@ $_smarty_tpl->tpl_vars['conItem']->_loop = true;
             
             <!-- #logframe starts here-->
             <div id="logframe" class="tab-pane">
+                <form class="form-horizontal" id="validation-form-logframe"  method="post" action="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+"> 
                 <div class="control-group">
-			<label class="" for="locframe"></label>
+			<label class="control-label" for="date_of_completion">Planned date for project completion :</label>
+                            <div class="controls">
+                                <div class="input-append date">
+                                    <input class="span10" id="date_of_completion" name="date_of_completion"  <?php if ($_smarty_tpl->tpl_vars['basicInfo']->value->date_of_completion=='0000-00-00') {?> value=''<?php } else { ?>value="<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->date_of_completion;?>
+" <?php }?> type="text" data-date-format="yyyy-mm-dd" readonly/>
+                                    <span class="add-on"><i class="icon-calendar"></i></span>
+                                </div>
+                            </div>    
+                         
+                         <label class="control-label" for="date_of_completion">Date of this summary preparation:</label>
+                            <div class="controls">
+                                <div class="input-append date">
+                                    <input class="span10 date-picker" id="date_of_logframe_summary_preparation" name="date_of_logframe_summary_preparation"  <?php if ($_smarty_tpl->tpl_vars['basicInfo']->value->date_of_logframe_summary_preparation=='0000-00-00') {?> value=''<?php } else { ?>value="<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->date_of_logframe_summary_preparation;?>
+" <?php }?> type="text" data-date-format="yyyy-mm-dd" required/>
+                                    <span class="add-on"><i class="icon-calendar"></i></span>
+                                </div>
+                            </div>    
+                         <br>
 			<div class="">
                             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                                 <thead>
@@ -792,61 +816,95 @@ $_smarty_tpl->tpl_vars['conItem']->_loop = true;
                                 <tbody>
                                         <tr> 
                                                 <td>Goal</td>
-                                                <td><textarea name="goal_summary"></textarea></td>
-                                                <td><textarea name="goal_ovi"></textarea></td>
-                                                <td><textarea name="goal_mov"></textarea></td>
-                                                <td><textarea name="goal_ia"></textarea></td>
+                                                <td><textarea name="goal_summary"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->goal_summary;?>
+</textarea></td>
+                                                <td><textarea name="goal_ovi"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->goal_ovi;?>
+</textarea></td>
+                                                <td><textarea name="goal_mov"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->goal_mov;?>
+</textarea></td>
+                                                <td>&nbsp;<!--textarea name="goal_ai" disabled><?php echo $_smarty_tpl->tpl_vars['logframe']->value->goal_ai;?>
+</textarea--></td>
                                         </tr>
                                         <tr> 
                                                 <td>Objective/Purpose</td>
-                                                <td><textarea name="objective_summary"></textarea></td>
-                                                <td><textarea name="objective_ovi"></textarea></td>
-                                                <td><textarea name="objective_mov"></textarea></td>
-                                                <td><textarea name="objective_ia"></textarea></td>
+                                                <td><textarea name="objective_summary"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->objective_summary;?>
+</textarea></td>
+                                                <td><textarea name="objective_ovi"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->objective_ovi;?>
+</textarea></td>
+                                                <td><textarea name="objective_mov"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->objective_mov;?>
+</textarea></td>
+                                                <td><textarea name="objective_ai"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->objective_ai;?>
+</textarea></td>
                                         </tr>
                                         <tr> 
                                                 <td>Output</td>
-                                                <td><textarea name="output_summary"></textarea></td>
-                                                <td><textarea name="output_ovi"></textarea></td>
-                                                <td><textarea name="output_mov"></textarea></td>
-                                                <td><textarea name="output_ia"></textarea></td>
+                                                <td><textarea name="output_summary"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->output_summary;?>
+</textarea></td>
+                                                <td><textarea name="output_ovi"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->output_ovi;?>
+</textarea></td>
+                                                <td><textarea name="output_mov"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->output_mov;?>
+</textarea></td>
+                                                <td><textarea name="output_ai"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->output_ai;?>
+</textarea></td>
                                         </tr>
                                         <tr> 
                                                 <td>Input</td>
-                                                <td><textarea name="input_summary"></textarea></td>
-                                                <td><textarea name="input_ovi"></textarea></td>
-                                                <td><textarea name="input_mov"></textarea></td>
-                                                <td><textarea name="input_ia"></textarea></td>
+                                                <td><textarea name="input_summary"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->input_summary;?>
+</textarea></td>
+                                                <td><textarea name="input_ovi"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->input_ovi;?>
+</textarea></td>
+                                                <td><textarea name="input_mov"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->input_mov;?>
+</textarea></td>
+                                                <td><textarea name="input_ai"><?php echo $_smarty_tpl->tpl_vars['logframe']->value->input_ai;?>
+</textarea></td>
                                         </tr>
                                 </tbody>
                             </table>
 			</div>
 		</div>
+                <div class="form-actions2">
+                    <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                    <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['logframe']->value->id;?>
+" name="log_frame_id"/>
+                    <input type="hidden" name="PI" value="<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
+"/> 
+                    <input type="hidden" value="saveLogFrame" name="cmd"/>
+	       </div>
+               </form>     
+                
             </div>
             <!-- #logframe ends here-->
             
             <!-- #annexures starts here-->
             <div id="annexures" class="tab-pane">
-                 <div class="control-group">
-                    <label class="control-label" for="project_management">Project Management</label>
-                    <div class="controls"><br><br>
-                        <label for="project_setup">Project Management Setup : Annexure-II</label>
-                        <label  for="implementation_arrangement">Implementation Arrangement :</label>
-                        <label for="procurement_plan">Procurement Plan :Annexure-III(A) , Annexure III(B), Annexure III(C)</label>
-                    </div>
+            <form class="form-horizontal" id="validation-form-logframe"  method="post" action="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
+">    
+                <div class="widget-main">
+
+                        <dl id="dt-list-1">
+                                <dt>11.0 Project Management</dt>
+                                <dd>11.1 Project Management Setup : Annexure-II</dd>
+                                <dd>11.2 Implementation Arrangement :</dd>
+                                <dd><textarea class="ckeditor" name="implementation_arrangement" id="implementation_arrangement"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->implementation_arrangement;?>
+</textarea><br></dd>
+                                <dd>11.3 Attach Procurement Plan: Annexure-III(A) , Annexure III(B), Annexure III(C)</dd>
+                        </dl>
+                        <dl id="dt-list-1">
+                                <dt>12.0 Year wise financial and physical target plan: Annexure-IV</dt>
+                        </dl>
+                        <dl id="dt-list-1">
+                                <dt>13.0 After completion, whether the project needs to be transferred to revenue budget.</dt>
+                                <dd><textarea class="ckeditor" name="after_completion" id="after_completion"><?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->after_completion;?>
+</textarea></dd>
+                        </dl>
                 </div>
-                <div class="control-group">
-                    <label class="control-label" for="year_wise_financial_physical_target_plan">Year wise financial and physical target plan</label>
-                    <div class="controls"><br><br>
-                        <label for="annexure_4">Annexure-IV</label>
-                    </div> 
-                </div>
-                <div class="control-group">
-                    <label class="" for="completion">After completion, whether the project needs to be transferred to revenue budget.</label>
-                    <div class="">
-                        <textarea class="ckeditor" name="completion" id="completion"> </textarea>
-                    </div> 
-                </div>
+                <div class="form-actions2">
+                    <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                    <input type="hidden" name="PI" value="<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
+"/> 
+                    <input type="hidden" value="saveProjectInfo" name="cmd"/>
+	       </div>
+            </form>   
             </div>
             <!-- #annexures ends here-->
         </div>
@@ -933,7 +991,10 @@ $_smarty_tpl->tpl_vars['conItem']->_loop = true;
                 <script language="JavaScript" src="<?php echo $_smarty_tpl->tpl_vars['SYSTEM_COMMON_JAVASCRIPT_DIR']->value;?>
 /common.js"></script>
                 <script language="JavaScript" src="<?php echo $_smarty_tpl->tpl_vars['REL_TEMPLATE_DIR']->value;?>
-/part_a.js"></script>           
+/part_a.js"></script>        
+                <script type="text/javascript" src="/ext/ckeditor/ckeditor.js"></script>
+                <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
+                
                 
                 <script>
                    
@@ -1013,12 +1074,23 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
                     $(".divisions").val(divisions);
                     $(".districts").val(districts);
                     $(".upzilas").val(upzilas);
-                    
+                   
                     //$(".ministries").chosen().trigger("chosen:updated");
+                    //alert('<?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->status;?>
+')
+                    
+                    <?php if ($_smarty_tpl->tpl_vars['basicInfo']->value->current_holder==$_SESSION['uid']) {?>
+                        <?php if ($_smarty_tpl->tpl_vars['basicInfo']->value->status!='Draff'&&$_smarty_tpl->tpl_vars['basicInfo']->value->status!='Returned from Ministry') {?>   
+                             lockProject();
+                        <?php }?>
+                    <?php } else { ?>
+                        lockProject();
+                    <?php }?> 
                     
                     
                     
-                       
+                    
+                      
                         $(function() {
 			$('#id-disable-check').on('click', function() {
 				var inp = $('#form-input-readonly').get(0);
@@ -1388,6 +1460,38 @@ function loadUpzilla()
 }
 
 
+
+function initialize() {
+  var map_canvas = document.getElementById('map_canvas');
+  var map_options = {
+    center: new google.maps.LatLng(23.709921, 90.407143),
+    zoom: 8,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+  var map = new google.maps.Map(map_canvas, map_options)
+  
+   var center = map.getCenter();
+    google.maps.event.trigger(map, 'resize');
+    map.setCenter(center); 
+    
+}
+
+function lockProject()
+{
+   $("#validation-form :input").attr("disabled", true);
+   $("#validation-form-location :input").attr("disabled", true);
+   $("#validation-form-logframe :input").attr("disabled", true);   
+   $("#costsummary :input").attr("disabled", true);   
+   $("#annexures :input").attr("disabled", true);   
+   $('.form-actions2').hide();
+}
+
+
+    
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
 //ajaj
 var project_total_gob           = <?php echo $_smarty_tpl->tpl_vars['basicInfo']->value->gob_cost;?>
 ;
@@ -1410,6 +1514,7 @@ var project_total_other_fe      = <?php echo $_smarty_tpl->tpl_vars['basicInfo']
 
 calculateModeOfFinanceGrandTotal();
 // getAgencyList()
+
 
 </script> 
 

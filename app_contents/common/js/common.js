@@ -9,7 +9,7 @@
 **************************************************************/
 var DEFAULT_HIGHLIGHT_COLOR     = '#ff0000';
 var DEFAULT_RESET_COLOR         = '#2A002A';
-var DEFAULT_BORDER_RESET_COLOR  = '#65BCDA';
+var DEFAULT_BORDER_RESET_COLOR  = '#d5d5d5';
 
 // Global array required for storing
 // required fields information for
@@ -121,12 +121,11 @@ function resetTableColumn(id, resetColor)
 function resetColumn(id, resetColor)
 {
    if (!resetColor)
-       resetColor = DEFAULT_RESET_COLOR;
+       resetColor = DEFAULT_BORDER_RESET_COLOR;
 
    // get the object
-   thisElementObj                 = document.getElementById(id);
-
-   thisElementObj.style.borderColor  = DEFAULT_BORDER_RESET_COLOR;
+   thisElementObj                    = document.getElementById(id);
+   thisElementObj.style.borderColor  = resetColor;
    
 }
 

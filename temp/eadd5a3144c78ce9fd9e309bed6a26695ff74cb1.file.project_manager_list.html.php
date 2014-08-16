@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-07-20 06:42:03
+<?php /* Smarty version Smarty-3.1.17, created on 2014-08-13 07:15:32
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\project_manager_list.html" */ ?>
 <?php /*%%SmartyHeaderCode:2033253cb489b2e1df7-68572670%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'eadd5a3144c78ce9fd9e309bed6a26695ff74cb1' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\project_manager_list.html',
-      1 => 1405748608,
+      1 => 1407318464,
       2 => 'file',
     ),
   ),
@@ -15,18 +15,20 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.17',
+  'unifunc' => 'content_53cb489b483f72_86950785',
   'variables' => 
   array (
     'SCRIPT_NAME' => 0,
     'project_title' => 0,
     'list' => 0,
+    'key' => 0,
     'item' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.17',
-  'unifunc' => 'content_53cb489b483f72_86950785',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_53cb489b483f72_86950785')) {function content_53cb489b483f72_86950785($_smarty_tpl) {?><div id="main-content" class="clearfix">
+<?php if ($_valid && !is_callable('content_53cb489b483f72_86950785')) {function content_53cb489b483f72_86950785($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'E:/xampp/htdocs/pps2/ext/smarty3/libs/plugins\\modifier.date_format.php';
+?><div id="main-content" class="clearfix">
     	<head>
 		
 		
@@ -102,20 +104,20 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		</div>
     
                 <div class="control-group">
-			 <h4 class="smaller lighter blue">
-                            <i class="icon-th-large"></i>
-                            Project(s)
-                        </h4>
-			<div class="">
+			<div class="widget-main no-padding">
                             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-                                <thead>
-                                        <tr>
-                                                <th>Project Name</th>
-                                                <th>Total Cost</th>
-                                                <th>Status</th>
-                                        </tr>
+                                <thead>                                               
+                                    <tr>
+                                        <th>Sl</th>
+                                        <th class="span10">Project Title</th>
+                                        <?php if ($_SESSION['user_type']!='Agency') {?>
+                                        <th class="span10">Name of the Agency</th>
+                                        <?php }?>
+                                        <th class="hidden-480">Create Date</th>
+                                        <th style="text-align: right;">Total Cost (In Lac)</th>
+                                        <th style="text-align: center;" class="hidden-480">Status</th>
+                                    </tr>
                                 </thead>
-
                                 <tbody>
                                     <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
  $_smarty_tpl->tpl_vars['key'] = new Smarty_Variable;
@@ -124,20 +126,31 @@ foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars
 $_smarty_tpl->tpl_vars['item']->_loop = true;
  $_smarty_tpl->tpl_vars['key']->value = $_smarty_tpl->tpl_vars['item']->key;
 ?>
-                                        <tr> 
-                                            <td><a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
-?cmd=ProjectHome&PI=<?php echo base64_encode($_smarty_tpl->tpl_vars['item']->value->id);?>
+                                        <tr>
+                                            <td><?php echo $_smarty_tpl->tpl_vars['key']->value+1;?>
+</td>
+                                            <td><a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI=<?php echo base64_encode($_smarty_tpl->tpl_vars['item']->value->id);?>
 "><?php echo $_smarty_tpl->tpl_vars['item']->value->project_title_en;?>
 </a></td>
-                                                <td><?php echo $_smarty_tpl->tpl_vars['item']->value->total_cost;?>
+                                            <?php if ($_SESSION['user_type']!='Agency') {?>
+                                            <td class="span10"><?php echo $_smarty_tpl->tpl_vars['item']->value->agency_name;?>
 </td>
-                                                <td><?php echo $_smarty_tpl->tpl_vars['item']->value->status;?>
+                                            <?php }?>
+                                            <td  class="span3 hidden-480"><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['item']->value->create_date,"%e %B, %Y");?>
 </td>
+                                            <td class="span3" style="text-align: right ;padding-right: 5px;">
+                                                <b class="blue" ><?php echo number_format($_smarty_tpl->tpl_vars['item']->value->total_cost,2,'.',',');?>
+</b>
+				            </td>
+                                            <td class="hidden-480" style="text-align: center;">
+                                                <span class="label <?php if ($_smarty_tpl->tpl_vars['item']->value->status=='Draff') {?>label-info arrowed-right arrowed-in <?php } elseif ($_smarty_tpl->tpl_vars['item']->value->status=='Approved') {?> label-success arrowed-in arrowed-in-right <?php } else { ?> label-important arrowed<?php }?>"><?php echo $_smarty_tpl->tpl_vars['item']->value->status;?>
+</span>
+                                            </td>
                                         </tr>
-                                    <?php } ?>    
+                                    <?php } ?>
                                 </tbody>
                             </table>
-			</div>
+                        </div>
 		</div>
     
     

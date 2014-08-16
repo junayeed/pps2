@@ -46,16 +46,21 @@
             <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
             <form class="form-horizontal" id="procure_plan_services_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_services_form"> 
                 <div class="control-group">
-                    <div id="export_to_container">
-                        Export To: 
-                        <select name="report_type" id="report_type" class="span6" onchange="createAnnexVReport();">
-                            <option value=""></option>
-                            <option value="pdf">pdf</option>
-                            <option value="excel">excel</option>
-                            <option value="word">word</option>
-                        </select>
-                    </div>
+                    
                     <div class="span12"> 
+                        <div class="form-actions2">
+                            <a id="addyear" href="javascript:void(0);" onClick="addNewYear(1);">Add Year</a>
+                            <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                            <div id="export_to_container">
+                                Export To: 
+                                <select name="report_type" id="report_type" class="span6" onchange="createAnnexVReport();">
+                                    <option value=""></option>
+                                    <option value="pdf">pdf</option>
+                                    <option value="excel">excel</option>
+                                    <option value="word">word</option>
+                                </select>
+                            </div>
+                        </div>
                         <div id="annex-container">
                             <div id="economic_code_container">
                                 <i class="icon-blank"></i>
@@ -69,6 +74,12 @@
                                         </tr>
                                     </thead>
                                     <tbody id="Revenue_Component_economic_code_content">
+                                        <tr>
+                                            <td class="H29 CENTER">&nbsp;</td>
+                                            <td class="H29 CENTER">1</td>
+                                            <td class="H29 CENTER">2</td>
+                                            <td class="H29 CENTER">3</td>
+                                        </tr>
                                         <tr>
                                             <td colspan="4" style="height: 29px !important;">(a) Revenue Component</td>
                                         </tr>
@@ -85,7 +96,7 @@
                                         </tr>
                                     </tbody>
                                     <tfoot>
-                                        <tr>
+                                        <tr style="background-color: #FFFFFF;">
                                             <td colspan="4">
                                                 Capital Component Sub Total<br><br>
                                                 <a href="javascript:void(0);" onClick="addNewComponent('Capital Component',1);">Add Capital Component</a>
@@ -113,6 +124,12 @@
                                     </thead>
                                     <tbody id="Revenue_Component_total_cost_content">
                                         <tr>
+                                            <td class="H29 CENTER">4</td>
+                                            <td class="H29 CENTER">5</td>
+                                            <td class="H29 CENTER">6</td>
+                                            <td class="H29 CENTER">7</td>
+                                        </tr>
+                                        <tr>
                                             <td colspan="4" style="height: 29px !important;">&nbsp;</td>
                                         </tr>
                                     </tbody>
@@ -126,7 +143,7 @@
                                         </tr>
                                     </tbody>
                                     <tfoot>
-                                        <tr>
+                                        <tr style="background-color: #FFFFFF;">
                                             <td colspan="3">&nbsp;</td>
                                             <td><input type="text" id="Capital_Component_sub_total_total_cost" name="Capital_Component_sub_total_total_cost" class="span12 bold" readonly ></td>
                                         </tr>
@@ -166,11 +183,19 @@
                                             <th class="span3 center" rowspan="2">DPA</th>
                                         </tr>
                                         <tr>
-                                            <th class="span3 center">Through GoB</th>
-                                            <th class="span3 center">Special Account*</th>
+                                            <th class="span3 center">Through<br />GoB</th>
+                                            <th class="span3 center">Special<br />Account*</th>
                                         </tr>
                                     </thead>
                                     <tbody id="Revenue_Component_total_cost_breakdown_content">
+                                        <tr>
+                                            <td class="H29 CENTER">8</td>
+                                            <td class="H29 CENTER">9</td>
+                                            <td class="H29 CENTER">10</td>
+                                            <td class="H29 CENTER">11</td>
+                                            <td class="H29 CENTER">12</td>
+                                            <td class="H29 CENTER">13</td>
+                                        </tr>
                                         <tr>
                                             <td colspan="6">&nbsp;</td>
                                         </tr>
@@ -205,7 +230,7 @@
                                     </tbody>
                                     <tfoot>
                                         <!-- FOR CAPITAL COMPONENT SUB TOTAL STARTS-->
-                                        <tr>
+                                        <tr  style="background-color: #FFFFFF;">
                                             <td>
                                                 <input type="text" id="Capital_Component_sub_total_gob" name="Capital_Component_sub_total_gob" class="span12 bold" readonly >
                                                 <input type="text" id="Capital_Component_sub_total_gob_fe" name="Capital_Component_sub_total_gob_fe" class="span12 bold" readonly >
@@ -301,9 +326,19 @@
                         </div>  
                         <!--<a href="javascript:void(0);" onClick="addNewComponent('Capital_Component');">Add Component</a>-->
                         <span>* DOSA, CONTASA, SAFE, Imprest etc</span><br />
-                        <a id="addyear" href="javascript:void(0);" onClick="addNewYear(1);">Add Year</a>
+                        
                         <div class="form-actions2">
+                            <a id="addyear" href="javascript:void(0);" onClick="addNewYear(1);">Add Year</a>
                             <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                            <div id="export_to_container">
+                                Export To: 
+                                <select name="report_type" id="report_type" class="span6" onchange="createAnnexVReport();">
+                                    <option value=""></option>
+                                    <option value="pdf">pdf</option>
+                                    <option value="excel">excel</option>
+                                    <option value="word">word</option>
+                                </select>
+                            </div>
                             <input type="hidden" value="saveAnnexV" name="cmd"/>
                             <input type="hidden" id="PI" name="PI" value="{$PI}"/>
                             <input type="hidden" id="total_year_in_annexv" name="total_year_in_annexv" value=""/>
@@ -410,6 +445,8 @@
         {/foreach}
         
         var component_count = 0;
+        var total_years; 
+        
         {foreach from=$component_list item=item}
             
             addNewComponent("{$item->component_type}",0);
@@ -417,26 +454,33 @@
                                      "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
                                      "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}");
-           var total_years = "{$item->total_year}";    
+           total_years = "{$item->total_year}";    
            component_count++;
         {/foreach}
             
-        //populate years
-        for(var i = 0; i<total_years;i++)
-        {
-            addNewYear(0);
-        }
+        // if data is there load the years 
+        if ( total_years )
+        {ldelim}
+            //populate years
+            for(var i = 0; i<total_years;i++)
+            {ldelim}
+                addNewYear(0);
+            {rdelim}
+        {rdelim}
+        else
+        {ldelim}
+            addNewYear();
+        {rdelim}
+        
         var count=1;
         var year_count=1;
         var cp_count =1;
         {foreach from=$annx_v_component_details item=item}
             //alert("Year: "+"{$item->year_serial}"+"\nCount = " + count);
             addYearWiseNewComponentDetailsRow("{$item->component_type}", "{$item->year_serial}", count);
-            populateAnnexComponentDetails("{$item->gob}", "{$item->gob_fe}", 
-                                     "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
-                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->year_serial}", "{$item->id}","{$item->financial_year}", 
-                                     count, "{$item->total}");
-            
+            populateAnnexComponentDetails("{$item->gob}", "{$item->gob_fe}", "{$item->rpa_through_gob}", "{$item->rpa_special_account}", 
+                                          "{$item->dpa}", "{$item->own_fund}", "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", 
+                                          "{$item->year_serial}", "{$item->id}","{$item->financial_year}", count, "{$item->total}");
             
             if( year_count%total_years==0 ) count++;
             

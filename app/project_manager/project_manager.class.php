@@ -479,13 +479,13 @@ class projectManagerApp extends DefaultApplication
         $data['econimonic_code_list']                  = getEconomicCodeList();
         $data['econimonic_subcode_list']               = getEconomicSubCodeList();
         $data['component_list']                        = getComponentList($pid);
-        $data['annx_v_component_details']              = getAnnexVComponentDetails($pid);
+        $data['annx_v_component_details']              = getAnnexVComponentDetails($pid); //ajaj
         $data['annex_v_contingency_list']              = getContingencyList($pid);
         $data['annex_v_contingency_details']           = getAnnexVContingencyDetails($pid);
         $data['annex_v_category_sub_total']            = getProjectWiseComponentSubTotal($pid);
         $data['annex_v_category_year_wise_sub_total']  = getProjectCategoryYearWiseComponentSubTotal($pid);
         
-        //dumpvar($data);
+        //dumpvar($data['annx_v_component_details']);
         if($report_type)
         $this->annexVExportTo($pid, $report_type);
         
@@ -635,14 +635,14 @@ class projectManagerApp extends DefaultApplication
             MakePDFDoc($screen, $procurement_category);
         }
     }
-    
+    //ajaj
     function annexVExportTo($pid, $report_type)
     {
         $economic_code_list          = getProjectWiseEconomicCodeList($pid);
         $contingency_list            = getContingencyList($pid);
         $economic_code_details_list  = getAnnexVComponentDetails($pid);
         $contingency_details_list    = getAnnexVContingencyDetails($pid);
-        
+
         // arrange the economic code list according to the component type
         // NOTE: economic code and contingency list are under same name that is "component_list"
         foreach($economic_code_list as $value)

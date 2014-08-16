@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.17, created on 2014-08-06 11:53:21
+<?php /* Smarty version Smarty-3.1.17, created on 2014-08-13 07:15:43
          compiled from "E:\xampp\htdocs\pps2\app_contents\project_manager\project_manager_home.html" */ ?>
 <?php /*%%SmartyHeaderCode:1802353cb48724c4375-96332476%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '11724fafcaa82bbdd4b7f0b378188a2e61c0fc29' => 
     array (
       0 => 'E:\\xampp\\htdocs\\pps2\\app_contents\\project_manager\\project_manager_home.html',
-      1 => 1407318463,
+      1 => 1407731773,
       2 => 'file',
     ),
   ),
@@ -54,8 +54,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
     
 </div><!--#breadcrumbs-->
-
-
 
 <div id="page-content" class="clearfix">
     
@@ -235,10 +233,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=anaexI&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
-">Annexure - I: Location wise cost breakdown</a> </li>
+">Annexure- I: Location wise cost breakdown</a> </li>
                     <li><a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=annexII&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
-">Annexure - II: Project Management Setup</a> </li>
+">Annexure- II: Project Management Setup</a> </li>
                     <li><a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=annexII&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
 ">&nbsp;</a> </li>
@@ -249,20 +247,20 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=annexIIIa&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
-">Annexure - III (a): GOODS</a> </li>
+">Annexure- III (a): GOODS</a> </li>
                     <li><a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=annexIIIb&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
-">Annexure - III (b): WORKS</a> </li>
+">Annexure- III (b): WORKS</a> </li>
                     <li><a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=annexIIIc&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
-">Annexure - III (c): SERVICES</a> </li>
+">Annexure- III (c): SERVICES</a> </li>
                 </ul>
         </div>
         <div class="dropdown dropdown-preview">
                 <ul class="dropdown-menu">
                     <li><a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=annexIV&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
-">Annexure- IV: Year wise Financial and Physical Target plan</a> </li>
+">Annexure- IV: Year wise Financial & Physical Target plan</a> </li>
                     <li><a href="<?php echo $_smarty_tpl->tpl_vars['SCRIPT_NAME']->value;?>
 ?cmd=annexV&PI=<?php echo $_smarty_tpl->tpl_vars['PI']->value;?>
 ">Annexure- V: Detailed annual phasing of cost</a> </li>
@@ -327,8 +325,9 @@ $_smarty_tpl->tpl_vars['item']->_loop = true;
 </td>
                                                         <td><?php echo $_smarty_tpl->tpl_vars['item']->value->msg;?>
 </td>
-                                                        <td><?php echo $_smarty_tpl->tpl_vars['item']->value->doc_id;?>
-</td>
+                                                        <td><a href="<?php echo $_smarty_tpl->tpl_vars['item']->value->file_location;?>
+"><?php echo basename($_smarty_tpl->tpl_vars['item']->value->file_location);?>
+</a></td>
                                                         <td>
                                                            <?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['item']->value->create_date);?>
 
