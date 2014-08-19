@@ -44,7 +44,7 @@ function populateProcurementPlanDetails(package_no, procurement_desc, procuremen
     
     calculateProcurementTotal(procument_category);
 }
-function populateManagementDetails(name_of_the_post, qty,qualification, amount, responsibility, attachment,id,file_location)
+function populateManagementDetails(name_of_the_post, qty,qualification, amount, responsibility, type,id)
 {
     var elemID = ROW_ID-1; 
     var url = 'http://'+document.domain;
@@ -55,15 +55,9 @@ function populateManagementDetails(name_of_the_post, qty,qualification, amount, 
     $('#amount_'+elemID).val(amount);
     $('#responsibility_'+elemID).val(stringScapeCharacter(responsibility));
     
-    if(attachment)
-    {
-        //$('#file_location_'+elemID).val(file_location);
-        var filename = file_location.replace(/^.*[\\\/]/, '')
-        $('#file_location_'+elemID).attr('href',file_location);
-        $('#file_location_'+elemID).text(filename);
-    }
-    //alert(id)
+   
     $('#management_id_'+elemID).val(id);
+    $('#type_'+elemID).val(type);
    
     
      
@@ -122,7 +116,7 @@ function addNewProcuremtPlanRow(targetID, procurementCategory)
     ROW_ID++;
 }
 
-function addNewProjectManagementRow()
+function addNewProjectManagementRow(table_id)
 {
     
     var td_sr_no             = '<td>'+ROW_ID+'</td>';
@@ -131,18 +125,18 @@ function addNewProjectManagementRow()
     var td_qualification     = '<td><textarea name="qualification_'+ROW_ID+'" id="qualification_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';
     var td_amount            = '<td><input type="text" name="amount_'+ROW_ID+'" id="amount_'+ROW_ID+'" value="" class="span12" onkeypress="return isNumberKey(event);" required/></td>';
     var td_responsibility    = '<td><textarea name="responsibility_'+ROW_ID+'" id="responsibility_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';
-    var td_attachment        = '<td><input type="file" name="attachment_'+ROW_ID+'" id="attachment_'+ROW_ID+'" class="span12 file_ace" /><a id="file_location_'+ROW_ID+'"></a></td>';
     var td_action            = '<td id="td_action_'+ROW_ID+'">\n\
                                        <a href="javascript: void(0);" \n\
-                                          onClick="deleteManagementRow('+ROW_ID+');">\n\
+                                          onClick="deleteManagementRow('+table_id+','+ROW_ID+');">\n\
                                            <img src="/app_contents/common/images/cross2.png">\n\
                                        </a>\n\
                                    </td>';
     var hidden_field    = '<input type="hidden" id="management_id_'+ROW_ID+'" name="management_id_'+ROW_ID+'" value="" >\n';
-    
+    var hidden_field1    = '<input type="hidden" id="type_'+ROW_ID+'" name="type_'+ROW_ID+'" value="'+table_id+'" >\n';
+    //alert(hidden_field1)
     // if the procurement category is GOODS
    $('<tr id="tr_'+ROW_ID+'">'+ td_sr_no+td_name_of_post+td_qty+td_qualification+td_amount+td_responsibility+
-                             td_attachment+td_action+hidden_field+'</tr>').appendTo("#management_content");
+                             td_action+hidden_field+hidden_field1+'</tr>').appendTo("#management_content_"+table_id);
   
         
     rowIDArray.push(ROW_ID);
@@ -163,7 +157,7 @@ function calculateProcurementTotal(procurementCategory)
     $('#'+procurementCategory+'_total').val(procurement_total.toMoney(2));
 }
 
-function deleteManagementRow(elemID)
+function deleteManagementRow(table_id,elemID)
 {
      var domainname     = window.location.hostname;
      var management_id  = $('#management_id_'+elemID).val();
@@ -179,9 +173,9 @@ function deleteManagementRow(elemID)
                 {
                     if(responseText=='1')
                     {
-                       $('#management_content').find('#tr_' + elemID).fadeOut(50,function() 
+                       $('#management_content_'+table_id).find('#tr_' + elemID).fadeOut(50,function() 
                         {
-                            $('#management_content > #tr_' + elemID).remove();
+                            $('#management_content_'+table_id+' > #tr_' + elemID).remove();
                         });
 
                         var index = rowIDArray.indexOf(elemID);
@@ -197,9 +191,9 @@ function deleteManagementRow(elemID)
     
         if(!management_id)
         {    
-           $('#management_content').find('#tr_' + elemID).fadeOut(50,function() 
+           $('#management_content_'+table_id).find('#tr_' + elemID).fadeOut(50,function() 
             {
-                $('#management_content > #tr_' + elemID).remove();
+                $('#management_content_'+table_id+' > #tr_' + elemID).remove();
             });
 
             var index = rowIDArray.indexOf(elemID);
