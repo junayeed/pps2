@@ -658,11 +658,15 @@ function addYearWiseNewComponentDetailsRow(com_type, year, elemID)
 
 function checkFEValue(yearID, elemID, elemName)
 {
-    if ( $('#'+elemName+'fe_'+yearID+'_'+elemID).val() > $('#'+elemName+yearID+'_'+elemID).val())
+    var val_fe = $('#'+elemName+'fe_'+yearID+'_'+elemID).val()*1;
+    var val    = $('#'+elemName+yearID+'_'+elemID).val()*1;
+    
+    if ( val_fe > val )
     {
         highlightColumn(elemName+yearID+'_'+elemID);
         highlightColumn(elemName+'fe_'+yearID+'_'+elemID);
         alert('FE value is greater than original value.');
+        setTimeout(function(){ $('#'+elemName+'fe_'+yearID+'_'+elemID).focus(); $('#'+elemName+'fe_'+yearID+'_'+elemID).select();}, 0);
         FE_VALUE_ERROR = true;
     }
     else
