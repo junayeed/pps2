@@ -34,6 +34,7 @@
    define('PROJECT_ANNEX_V_TEMPLATE',                     TEMPLATE_DIR . '/annex_v.html');
    define('PROJECT_ANNEX_IV_TEMPLATE',                    TEMPLATE_DIR . '/annex_iv.html');
    define('PROJECT_COMMENT_TEMPLATE',                     TEMPLATE_DIR . '/comment.html');
+   define('PROJECT_ATTACHMENT_TEMPLATE',                     TEMPLATE_DIR . '/attachment.html');
    define('SICCESS_MSG_TEMPLATE',                         TEMPLATE_DIR . '/success_msg.html');
    
 

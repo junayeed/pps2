@@ -62,7 +62,7 @@
                 $data['qualification']    = $_REQUEST['qualification_' . $id]    ? preg_replace( "/\r\n/", "#%", $_REQUEST['qualification_' . $id]) : '';
                 $data['amount']           = $_REQUEST['amount_' . $id]           ? $_REQUEST['amount_'.$id] : 0.0;
                 $data['responsibility']   = $_REQUEST['responsibility_' . $id]   ? preg_replace( "/\r\n/", "#%", $_REQUEST['responsibility_' . $id]) : '';
-                $data['attachment']       = saveAttachment($_FILES['attachment_'. $id],$data['pid']);;
+                $data['type']             = $_REQUEST['type_' . $id];
                 
                 $info['data'] = $data;
                 

@@ -69,8 +69,9 @@
                         </select>
                     </div>
                     <div class="control-group">
-                        <div class="span12">
-                            <table id="management_content_tbl" class="table table-striped table-bordered table-hover table_bug_report">
+                         <label>1) Personnels to be deputed to project from existing setup</label>
+                        <div class="span11">
+                            <table id="management_content_tbl_1" class="table table-striped table-bordered table-hover table_bug_report">
                                 <thead>
                                     <tr>
                                         <th>S/No.</th>
@@ -79,20 +80,122 @@
                                         <th class="span12">Qualification</th>
                                         <th class="span3">Scale/Amount</th>
                                         <th class="span12">Responsibility</th>
-                                        <th class="span8">Attachment</th>
                                         <th class="span1"></th>
                                     </tr>
                                 </thead>
-                                <tbody id="management_content">
+                                <tbody id="management_content_1">
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="2" align="right">Total</td>
-                                        <td ><input type="text" name="total" id="total" value="0.00" class="span12" /></td>
-                                        <td colspan="5" align="right"></td>
+                                        <td colspan="8"><a href="javascript:void(0)" onClick="addNewProjectManagementRow(1);">Add New Row</a></td>
                                     </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                         <label>2) Personnels to be recruited directly for only execution of the project</label>
+                        <div class="span11">
+                            <table id="management_content_tbl_2" class="table table-striped table-bordered table-hover table_bug_report">
+                                <thead>
                                     <tr>
-                                        <td colspan="8"><a href="javascript:void(0)" onClick="addNewProjectManagementRow();">Add New Row</a></td>
+                                        <th>S/No.</th>
+                                        <th class="span12">Name of the post</th>
+                                        <th class="span2">Quantity</th>
+                                        <th class="span12">Qualification</th>
+                                        <th class="span3">Scale/Amount</th>
+                                        <th class="span12">Responsibility</th>
+                                        <th class="span1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="management_content_2">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8"><a href="javascript:void(0)" onClick="addNewProjectManagementRow(2);">Add New Row</a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                         <label>3) Personnels to be recruited by outsourcing. </label>
+                        <div class="span11">
+                            <table id="management_content_tbl_3" class="table table-striped table-bordered table-hover table_bug_report">
+                                <thead>
+                                    <tr>
+                                        <th>S/No.</th>
+                                        <th class="span12">Name of the post</th>
+                                        <th class="span2">Quantity</th>
+                                        <th class="span12">Qualification</th>
+                                        <th class="span3">Scale/Amount</th>
+                                        <th class="span12">Responsibility</th>
+                                        <th class="span1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="management_content_3">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8"><a href="javascript:void(0)" onClick="addNewProjectManagementRow(3);">Add New Row</a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                         <label>4) Personnels to be recruited for execution as well as for operation of the project<br>
+                             &nbsp;&nbsp;&nbsp;&nbsp;(Personnels to be transferred to the revenue budget)
+                         </label>
+                        <div class="span11">
+                            <table id="management_content_tbl_4" class="table table-striped table-bordered table-hover table_bug_report">
+                                <thead>
+                                    <tr>
+                                        <th>S/No.</th>
+                                        <th class="span12">Name of the post</th>
+                                        <th class="span2">Quantity</th>
+                                        <th class="span12">Qualification</th>
+                                        <th class="span3">Scale/Amount</th>
+                                        <th class="span12">Responsibility</th>
+                                        <th class="span1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="management_content_4">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8"><a href="javascript:void(0)" onClick="addNewProjectManagementRow(4);">Add New Row</a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                         <label>5) Personnels to be recruited only for operation of the project<br>
+                             &nbsp;&nbsp;&nbsp;&nbsp;(Personnels to be recruited in revenue budge/if recruited in development budget to be transfered in revenue budget)
+                         </label>
+                        <div class="span11">
+                            <table id="management_content_tbl_5" class="table table-striped table-bordered table-hover table_bug_report">
+                                <thead>
+                                    <tr>
+                                        <th>S/No.</th>
+                                        <th class="span12">Name of the post</th>
+                                        <th class="span2">Quantity</th>
+                                        <th class="span12">Qualification</th>
+                                        <th class="span3">Scale/Amount</th>
+                                        <th class="span12">Responsibility</th>
+                                        <th class="span1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="management_content_5">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8"><a href="javascript:void(0)" onClick="addNewProjectManagementRow(5);">Add New Row</a></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -146,9 +249,9 @@
                 
     <script>
       {foreach from=$management_list item=item}
-            addNewProjectManagementRow();
+            addNewProjectManagementRow("{$item->type}");
             populateManagementDetails("{$item->name_of_the_post}", "{$item->qty}", "{$item->qualification}", "{$item->amount}", 
-                                           "{$item->responsibility}", "{$item->attachment}","{$item->id}","{$item->file_location}");
+                                           "{$item->responsibility}","{$item->type}" ,"{$item->id}");
         {/foreach}
             
       {if $basicInfo->current_holder eq $smarty.session.uid}

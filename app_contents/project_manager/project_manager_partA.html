@@ -70,11 +70,11 @@
 </form>    
     <div class="tabbable">
         <ul class="nav nav-tabs" id="myTab">
-            <li class="active"><a data-toggle="tab" href="#basicinfo"><i class="green icon-home bigger-110"></i>Objectives & Cost (2-6)</a></li>
-            <li><a data-toggle="tab" href="#location"><i class="green icon-home bigger-110"></i>Locations (7-8)</a></li>
-            <li><a data-toggle="tab" href="#costsummary"><i class="green icon-home bigger-110"></i>Component Wise Cost (9)</a></li>
-            <li><a data-toggle="tab" href="#logframe"><i class="green icon-home bigger-110"></i>Log frame (10)</a></li>
-            <li><a data-toggle="tab" href="#annexures"><i class="green icon-home bigger-110"></i> Annexures (II - IV)</a></li>
+            <li class="active"><a data-toggle="tab" href="#basicinfo">Objectives & Cost (2-6)</a></li>
+            <li><a data-toggle="tab" href="#location">Locations (7-8)</a></li>
+            <li><a data-toggle="tab" href="#costsummary">Component Wise Cost (9)</a></li>
+            <li><a data-toggle="tab" href="#logframe">Log frame (10)</a></li>
+            <li><a data-toggle="tab" href="#annexures">Annexures (II - IV)</a></li>
             
         </ul>
         <div class="tab-content">
@@ -214,7 +214,7 @@
                     <label class="control-label" for="mode_of_financing">6.0 Mode of financing</label><br>
                     
                     <div class="span11">
-                        <label class="" for="year_wise_allocation">6.1 Mode of financing with source (in lakh Taka)</label>
+                        <label class="" for="year_wise_allocation">6.1 Mode of financing with source <span class="right">(Amount in Lakh Tk.)<span></label>
                         <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -353,8 +353,9 @@
 		</div>
                 
                 <div class="control-group">
-			<label class="" for="year_wise_allocation">6.2 Year wise allocation of GOB Fund and Own Fund (in lakh Taka)</label>
-			<div class="span11">
+                   	<div class="span11">
+                             <label class="" for="year_wise_allocation">6.2 Year wise allocation of GOB, RPA and Own Fund according to Annexure-V <span class="right">(Amount in Lakh Tk.)<span></label>
+		
                             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                                 <thead>
                                         <tr>
@@ -437,7 +438,8 @@
                    <div class="span12"> 
                         <div id="annex-iv-container">
                             <div>
-                                <p>9.0 Component Wise Estimated Cost Summary (amount in lakh Taka): </p>
+                                <label>9.0 Component Wise Estimated Cost Summary</label>
+                                <label class="right">(Amount in Lakh Tk.)</label>
                                 
                                 <table id="economic_code_tbl11" class="annex-iv-table table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
@@ -584,7 +586,10 @@
                                 </div>
                             </div>    
                          <br>
+                          <label class="" for="date_of_completion">10.0 Log frame:</label>
+                          <br>
 			<div class="">
+                           
                             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                                 <thead>
                                         <tr>

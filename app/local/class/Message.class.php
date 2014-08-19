@@ -57,5 +57,44 @@ class Message
         return $result;
     }
     
+    
+    public function loadAttachmentsByProject()
+    {
+        $info['table']  = PROJECT_ATTACHMENT_TBL;
+        $info['debug']  = false;
+        $info['where']  = "pid = $this->pid";
+        
+        $result = select($info);
+        
+        if($result)
+        {
+            foreach ($result AS $key=>$item)
+            {
+                if($item->doc_id)
+                {
+                    $result[$key]->file_location = getFileLocation($item->doc_id,$this->pid);
+                }    
+            }    
+        }    
+        return $result;
+    }  
+    
+    public function saveAttachment()
+    {
+        $info['table']  = PROJECT_ATTACHMENT_TBL;
+        $info['debug']  = true;
+        //$info['where']  = "pid = $this->pid";
+        
+        $data['pid']         = base64_decode(getUserField('PI')); 
+        $data['title']       = getUserField('title');
+        $data['doc_id']      = saveAttachment($_FILES['document'],$data['pid']);
+        
+        $info['data']   = $data;
+        $result = insert($info);
+        
+        return $result;
+    }
+    
+    
 }//End of Class
 ?>
