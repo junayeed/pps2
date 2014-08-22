@@ -96,7 +96,7 @@
                                         </tr>
                                     </tbody>
                                     <tfoot>
-                                        <tr style="background-color: #FFFFFF;">
+                                        <tr style="background-color: #FFFFFF;"> 
                                             <td colspan="4">
                                                 Capital Component Sub Total<br><br>
                                                 <a href="javascript:void(0);" onClick="addNewComponent('Capital Component',1);">Add Capital Component</a>
@@ -166,7 +166,7 @@
                             </div>
                             <div id="total_cost_breakdown_container">
                                 <i class="icon-exchange" id="toggle_total_cost_breakdown"></i>
-                                <i class="right font10">(in lakh Taka)</i>
+                                <i class="right font10" id="price_unit">(in lakh Taka)</i>
                                 <table id="total_cost_breakdown_tbl" class="table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
                                         <tr>
@@ -183,8 +183,8 @@
                                             <th class="span3 center" rowspan="2">DPA</th>
                                         </tr>
                                         <tr>
-                                            <th class="span3 center">Through<br />GoB</th>
-                                            <th class="span3 center">Special<br />Account*</th>
+                                            <th class="span1 center">Through<br />GoB</th>
+                                            <th class="span1 center">Special<br />Account*</th>
                                         </tr>
                                     </thead>
                                     <tbody id="Revenue_Component_total_cost_breakdown_content">
@@ -405,13 +405,13 @@
         {
             if( $('#total_cost_breakdown_tbl').is(":visible") )
             {
+                $('#price_unit').hide();
                 $('#total_cost_breakdown_tbl').hide("slow", function() {$('#total_cost_breakdown_container').css('width', '15px');});
-                
             }
             else
             {
+                $('#price_unit').show();
                 $('#total_cost_breakdown_tbl').show("slow", function() {$('#total_cost_breakdown_container').css('width', '500px');});
-                
             }
             
         });

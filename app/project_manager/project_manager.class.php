@@ -373,7 +373,7 @@ class projectManagerApp extends DefaultApplication
         $project               = new Project($pid);
         $data->basicInfo     = $project->basicInfo;
         
-        $data->PI                       =  $PI;
+        $data->PI                       = $PI;
         $data->procurement_list         = getProcurementPlanList($pid, 'Goods');
         $data->procurement_method_list  = getProcurementMethodList();
         $data->procurement_type_list    = getProcurementTypeList();
@@ -524,7 +524,7 @@ class projectManagerApp extends DefaultApplication
         $data['econimonic_code_list']        = getEconomicCodeList();
         $data['econimonic_subcode_list']     = getEconomicSubCodeList();
         $data['component_list']              = getComponentList($pid);
-        $data['annx_v_component_details']    = getAnnexVComponentDetails($pid);
+        $data['annex_v_component_details']   = getAnnexVComponentDetails($pid);
         $data['annex_v_contingency_list']    = getContingencyList($pid);
         $data['annex_v_contingency_details'] = getAnnexVContingencyDetails($pid);
         
@@ -631,6 +631,9 @@ class projectManagerApp extends DefaultApplication
     function exportTo($procurement_category, $report_type)
     {
         $pid     = base64_decode(getUserField('PI'));
+        $project = new Project($pid);
+        
+        $data['basicInfo']   = $project->basicInfo;
 
         $info['table']  = PROJECT_PROCUREMENT_PLAN_TBL;
         $info['debug']  = false;
@@ -640,17 +643,20 @@ class projectManagerApp extends DefaultApplication
 
         if ($report_type == 'excel')
         {    
-            MakeExcel($result, strtoupper($procurement_category));
+            //dumpVar($data);
+            $data['proc_plan_list']        = $result;
+            MakeExcel($data, strtoupper($procurement_category));
         }
         else if ($report_type == 'word')
         {
-            MakeWordDoc($result, strtoupper($procurement_category));
+            $data['proc_plan_list']        = $result;
+            MakeWordDoc($data, strtoupper($procurement_category));
         }
         else if ($report_type == 'pdf')
         {
             $data['proc_plan_list']        = $result;
             $data['procurement_category']  = strtoupper($procurement_category);
-
+            
             $screen = createPage(PROC_PLAN_PDF_TEMPLATE, $data);
 
             MakePDFDoc($screen, $procurement_category);
@@ -688,7 +694,7 @@ class projectManagerApp extends DefaultApplication
             $retData['contingency_details'][$value->year_serial][] = $value;
         }
         
-        //dumpVar($retData['component_details']);
+        //dumpVar($retData['contingency_details']);
 
         if ($report_type == 'excel')
         {    

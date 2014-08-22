@@ -89,7 +89,7 @@ class Project
     }        
     public function loadMinistries()
     {
-        $info['table'] = PROJECT_MINISTRY_TBL;
+        $info['table'] = PROJECT_MINISTRY_TBL . ' AS PMT LEFT JOIN ' . MINISTRY_LOOKUP_TBL . ' AS MLT ON (PMT.ministry_id = MLT.id)';
         $info['debug'] = false;
         $info['where'] = "pid = $this->id";
         
@@ -127,7 +127,7 @@ class Project
     
     public function loadAgencies()
     {
-        $info['table'] = PROJECT_AGENCY_TBL;
+        $info['table'] = PROJECT_AGENCY_TBL . ' AS PAT LEFT JOIN ' . AGENCY_LOOKUP_TBL . ' AS ALT ON (PAT.agency_id = ALT.id)';
         $info['debug'] = false;
         $info['where'] = "pid = $this->id";
         

@@ -1,19 +1,9 @@
-var COMPONENT_ROW_ID     = 1;
-var componentRowIDArray  = [];
-var YEAR_COUNT           = 1;
-var distributionArray    = ['gob_', 'rpa_through_gob_', 'rpa_special_account_', 'dpa_', 'own_fund_', 'other_']; 
-
-function createReport(procurement_category)
-{
-    var PI          = $('#PI').val();
-    var report_type = $('#report_type').val();
-    
-    if (report_type)
-    {
-        location.href = 'http://'+document.domain+'/app/project_manager/project_manager.php?cmd=annexIIIa&PI='+PI+
-                    '&report_type='+report_type+'&procurement_category='+procurement_category;
-    }
-}
+var COMPONENT_ROW_ID       = 1;
+var componentRowIDArray    = [];
+var YEAR_COUNT             = 1;
+var distributionArray      = ['gob_', 'rpa_through_gob_', 'rpa_special_account_', 'dpa_', 'own_fund_', 'other_']; 
+var COL_NUMBER             = 9;
+var componentRowTypeArray  = [];
 
 function submittForm()
 {
@@ -123,20 +113,23 @@ function populateAnnexContingencyDetails(year, con_details_id, financial_year, i
 
 function populateAnnexComponentDetails(year, annex_details_id, financial_year, i, total, project_total_cost)
 { 
+    var component_wise_total_cost = $('#total_cost_'+i).val()*1;
     $('#financial_year_'+year).val(financial_year);
     
     $('#financial_amnt_'+year+'_'+i).val(total);
-    $('#percentage_item_'+year+'_'+i).val( ( total/project_total_cost ).toMoney(5));
+    $('#percentage_item_'+year+'_'+i).val( ( total/component_wise_total_cost ).toMoney(5));
     $('#percentage_project_'+year+'_'+i).val( ($('#percentage_item_'+year+'_'+i).val()*$('#weight_'+i).val()).toMoney(5) ) ;
 }
 
-function addNewComponent()
+function addNewComponent(com_type)
 {
+    var component_type     = com_type.replace(' ', '_');
+    
     var td_economic_code   = '<td>' + getEconomicCode("economic_code_"+COMPONENT_ROW_ID, COMPONENT_ROW_ID) + '</td>';
     var td_sub_code        = '<td>' + createEconomicSubCodeDropdown(COMPONENT_ROW_ID, 0) + '</td>';
     var td_code_desc       = '<td><textarea name="code_desc_'+COMPONENT_ROW_ID+'" id="code_desc_'+COMPONENT_ROW_ID+'" class="span12" style="height: 60px;" readonly /></textarea></td>';
     
-    $('<tr id="tr_'+COMPONENT_ROW_ID+'">' + td_economic_code+td_sub_code+td_code_desc+'</tr>').appendTo("#economic_code_tbl > tbody");
+    $('<tr id="tr_'+COMPONENT_ROW_ID+'">' + td_economic_code+td_sub_code+td_code_desc+'</tr>').appendTo("#economic_code_tbl > #" + component_type + "_economic_code_content");
     
     var td_unit        = '<td><input type="text" name="unit_'+COMPONENT_ROW_ID+'"       id="unit_'+COMPONENT_ROW_ID+'"       value="" class="span12" readonly /></td>';
     var td_unit_cost   = '<td><input type="text" name="unit_cost_'+COMPONENT_ROW_ID+'"  id="unit_cost_'+COMPONENT_ROW_ID+'"  value="" class="span12" readonly /></td>';
@@ -144,130 +137,88 @@ function addNewComponent()
     var td_total_cost  = '<td><input type="text" name="total_cost_'+COMPONENT_ROW_ID+'" id="total_cost_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
     var td_weight      = '<td><input type="text" name="weight_'+COMPONENT_ROW_ID+'"     id="weight_'+COMPONENT_ROW_ID+'"     value="" class="span12" readonly /></td>';
     
-    $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_unit + td_unit_cost + td_qty + td_total_cost+ td_weight + '</tr>').appendTo("#total_cost_tbl > tbody");
+    $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_unit + td_unit_cost + td_qty + td_total_cost+ td_weight + '</tr>').appendTo("#total_cost_tbl > #" + component_type + "_total_cost_content");
     
-    var td_total_gob    = '<td><input type="text" name="total_gob_'+COMPONENT_ROW_ID+'"    id="total_gob_'+COMPONENT_ROW_ID+'"    value="" class="span12" readonly /><br>\n\
-                               <input type="text" name="total_gob_fe_'+COMPONENT_ROW_ID+'" id="total_gob_fe_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
-    var td_pa_gob       = '<td><input type="text" name="pa_gob_'+COMPONENT_ROW_ID+'"       id="pa_gob_'+COMPONENT_ROW_ID+'"       value="" class="span9"  readonly /></td>';
-    var td_pa_spc_acnt  = '<td><input type="text" name="pa_spc_acnt_'+COMPONENT_ROW_ID+'"  id="pa_spc_acnt_'+COMPONENT_ROW_ID+'"  value="" class="span9"  readonly /></td>';
-    var td_pa_dpa       = '<td><input type="text" name="pa_dpa_'+COMPONENT_ROW_ID+'"       id="pa_dpa_'+COMPONENT_ROW_ID+'"       value="" class="span12" readonly /></td>';
-    var td_own_fund     = '<td><input type="text" name="own_fund_'+COMPONENT_ROW_ID+'"     id="own_fund_'+COMPONENT_ROW_ID+'"     value="" class="span12" readonly /><br>\n\
-                               <input type="text" name="own_fund_fe_'+COMPONENT_ROW_ID+'"  id="own_fund_fe_'+COMPONENT_ROW_ID+'"  value="" class="span12" readonly /></td>';
-    var td_other        = '<td><input type="text" name="other_'+COMPONENT_ROW_ID+'"        id="other_'+COMPONENT_ROW_ID+'"        value="" class="span12" readonly /><br>\n\
-                               <input type="text" name="other_fe_'+COMPONENT_ROW_ID+'"     id="other_fe_'+COMPONENT_ROW_ID+'"     value="" class="span12" readonly /></td>';
-    
-    var td_hidden      = '<input type="hidden" name="annex_id_'+COMPONENT_ROW_ID+'" id="annex_id_'+COMPONENT_ROW_ID+'" value="" >'
-    $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_total_gob + td_pa_gob + td_pa_spc_acnt + td_pa_dpa + td_own_fund + td_other +td_hidden + '</tr>').appendTo("#total_cost_breakdown_tbl > tbody");
+//    var td_total_gob    = '<td><input type="text" name="total_gob_'+COMPONENT_ROW_ID+'"    id="total_gob_'+COMPONENT_ROW_ID+'"    value="" class="span12" readonly /><br>\n\
+//                               <input type="text" name="total_gob_fe_//'+COMPONENT_ROW_ID+'" id="total_gob_fe_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
+//    var td_pa_gob       = '<td><input type="text" name="pa_gob_'+COMPONENT_ROW_ID+'"       id="pa_gob_'+COMPONENT_ROW_ID+'"       value="" class="span9"  readonly /></td>';
+//    var td_pa_spc_acnt  = '<td><input type="text" name="pa_spc_acnt_'+COMPONENT_ROW_ID+'"  id="pa_spc_acnt_'+COMPONENT_ROW_ID+'"  value="" class="span9"  readonly /></td>';
+//    var td_pa_dpa       = '<td><input type="text" name="pa_dpa_'+COMPONENT_ROW_ID+'"       id="pa_dpa_'+COMPONENT_ROW_ID+'"       value="" class="span12" readonly /></td>';
+//    var td_own_fund     = '<td><input type="text" name="own_fund_'+COMPONENT_ROW_ID+'"     id="own_fund_'+COMPONENT_ROW_ID+'"     value="" class="span12" readonly /><br>\n\
+//                               <input type="text" name="own_fund_fe_//'+COMPONENT_ROW_ID+'"  id="own_fund_fe_'+COMPONENT_ROW_ID+'"  value="" class="span12" readonly /></td>';
+//    var td_other        = '<td><input type="text" name="other_'+COMPONENT_ROW_ID+'"        id="other_'+COMPONENT_ROW_ID+'"        value="" class="span12" readonly /><br>\n\
+//                               <input type="text" name="other_fe_//'+COMPONENT_ROW_ID+'"     id="other_fe_'+COMPONENT_ROW_ID+'"     value="" class="span12" readonly /></td>';
+//    
+//    var td_hidden      = '<input type="hidden" name="annex_id_'+COMPONENT_ROW_ID+'" id="annex_id_'+COMPONENT_ROW_ID+'" value="" >'
+//    $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_total_gob + td_pa_gob + td_pa_spc_acnt + td_pa_dpa + 
+//                                           td_own_fund + 
+//                                           td_other +
+//                                           td_hidden + '</tr>').appendTo("#total_cost_breakdown_tbl_"+year+" > #" + component_type +"_total_cost_breakdown_content_"+year);
     
     $(".chzn-select").chosen();
     componentRowIDArray.push(COMPONENT_ROW_ID);
+    componentRowTypeArray.push(com_type);
     COMPONENT_ROW_ID++;
     
-    adjustComponentRowPerYear(1,COMPONENT_ROW_ID-1);
-}
-
-function deleteComponent(elemID)
-{
-    var annexID = $('#annex_id_'+elemID).val();
-    
-    if (annexID)
-    {
-        if ( doConfirm('The component will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
-        {
-            $.ajax
-            (
-                {
-                    url: 'project_manager.php?cmd=deletecomponent',
-                    data: "annex_id="+annexID,
-                    dataType: 'json',
-                    success: function(responseText)
-                    {
-                    }    
-                }
-            );
-        }
-    }
-    
-    $('#economic_code_tbl > tbody').find('#tr_' + elemID).fadeOut(50,function() 
-    {
-        $('#economic_code_tbl > tbody > #tr_' + elemID).remove();
-    });
-    
-    $('#total_cost_tbl > tbody').find('#tr_' + elemID).fadeOut(50,function() 
-    {
-        $('#total_cost_tbl > tbody > #tr_' + elemID).remove();
-    });
-    
-    $('#total_cost_breakdown_tbl > tbody').find('#tr_' + elemID).fadeOut(50,function() 
-    {
-        $('#total_cost_breakdown_tbl > tbody > #tr_' + elemID).remove();
-    });
-    
-    for(var y=1;y<YEAR_COUNT;y++)
-    {   
-       
-        $('#total_cost_breakdown_tbl_'+y+' > tbody').find('#tr_'+y+'_' + elemID).fadeOut(50,function() 
-        {
-            
-            $('#total_cost_breakdown_tbl_'+y+' > tbody > #tr_'+y+'_'+ elemID).remove();
-        });
-    }
-    
-    var index = componentRowIDArray.indexOf(elemID);
-    if(index!=-1)
-    {
-        componentRowIDArray.splice(index, 1);
-    }
-    
-    calculateAnnexVGrandTotal();
+    adjustComponentRowPerYear(1,COMPONENT_ROW_ID-1, component_type);
 }
 
 function addNewYear()
 {
-    var component_details_breakdown_div = '<div class="total_cost_breakdown_container hieght69 W300" id="total_cost_breakdown_container_'+YEAR_COUNT+'">\n\
+    var component_details_breakdown_div = '<div class="total_cost_breakdown_container  W300" id="total_cost_breakdown_container_'+YEAR_COUNT+'">\n\
                                                <i class="icon-exchange" id="toggle_total_cost_breakdown" onClick="toggleFiscalYear('+YEAR_COUNT+');"></i> \n\
                                                <table id="total_cost_breakdown_tbl_'+YEAR_COUNT+'" class="table table-striped table-bordered table-hover table_bug_report">\n\
                                                    <thead>\n\
                                                        <tr>\n\
-                                                           <th colspan="7">Fiscal Year: <input type="text" name="financial_year_'+YEAR_COUNT+'" id="financial_year_'+YEAR_COUNT+'"></th>\n\
+                                                           <th colspan="7">Fiscal Year '+YEAR_COUNT+': <input type="text" name="financial_year_'+YEAR_COUNT+'" id="financial_year_'+YEAR_COUNT+'" readonly></th>\n\
                                                        </tr>\n\
                                                        <tr>\n\
-                                                           <th class="span3" rowspan="2">Financial Amount</th>\n\
-                                                           <th class="span3" colspan="2">Physical</th>\n\
+                                                           <th class="span1 center" rowspan="2">Financial Amount</th>\n\
+                                                           <th class="span1 center" colspan="2">Physical</th>\n\
                                                        </tr>\n\
                                                        <tr>\n\
-                                                           <th class="span3">% of Item</th>\n\
-                                                           <th class="span3">% of Project</th>\n\
+                                                           <th class="span1 center">% of Item</th>\n\
+                                                           <th class="span1 center">% of Project</th>\n\
                                                        </tr>\n\
                                                    </thead>\n\
-                                                   <tbody id="total_cost_breakdown_content_'+YEAR_COUNT+'"></tbody>\n\
+                                                   <tbody id="Revenue_Component_total_cost_breakdown_content_'+YEAR_COUNT+'">\n\
+                                                       <tr>\n\
+                                                           <td class="H29 CENTER">'+ COL_NUMBER++ +'</td>\n\
+                                                           <td class="H29 CENTER">'+ COL_NUMBER++ +'</td>\n\
+                                                           <td class="H29 CENTER">'+ COL_NUMBER++ +'</td>\n\
+                                                       </tr>\n\
+                                                       <tr><td colspan="7">Reveue Component&nbsp;</td></tr>\n\
+                                                   </tbody>\n\
+                                                   <tbody id="Capital_Component_total_cost_breakdown_content_'+YEAR_COUNT+'">\n\
+                                                       <tr><td colspan="7">Capital Component&nbsp;</td></tr>\n\
+                                                   </tbody>\n\
                                                    <tfoot>\n\
                                                         <tr>\n\
                                                             <td>\n\
-                                                                <input type="text" class="span12" name="physical_financial_amnt_'+YEAR_COUNT+'" id="physical_financial_amnt_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" />\n\
+                                                                <input type="text" class="span10" name="physical_financial_amnt_'+YEAR_COUNT+'" id="physical_financial_amnt_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" />\n\
                                                             </td>\n\
-                                                            <td><input type="text" class="span12" name="physical_percentage_item_'+YEAR_COUNT+'" id="physical_percentage_item_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" ></td>\n\
+                                                            <td><input type="text" class="span10" name="physical_percentage_item_'+YEAR_COUNT+'" id="physical_percentage_item_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" ></td>\n\
                                                             <td>\n\
-                                                                <input type="text" class="span12" name="physical_percentage_project_'+YEAR_COUNT+'" id="physical_percentage_project_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" >\n\
+                                                                <input type="text" class="span10" name="physical_percentage_project_'+YEAR_COUNT+'" id="physical_percentage_project_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePhysicalContingency();" >\n\
                                                             </td>\n\
                                                         </tr><input type="hidden" id="physical_contigency_con_id_'+YEAR_COUNT+'" name="physical_contigency_con_id_'+YEAR_COUNT+'" value="" >\n\
                                                         <tr>\n\
                                                             <td>\n\
-                                                                <input type="text" class="span12" name="price_financial_amnt_'+YEAR_COUNT+'" id="price_financial_amnt_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" >\n\
+                                                                <input type="text" class="span10" name="price_financial_amnt_'+YEAR_COUNT+'" id="price_financial_amnt_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" >\n\
                                                             </td>\n\
-                                                            <td><input type="text" class="span12" name="price_percentage_item_'+YEAR_COUNT+'" id="price_percentage_item_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" ></td>\n\
+                                                            <td><input type="text" class="span10" name="price_percentage_item_'+YEAR_COUNT+'" id="price_percentage_item_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" ></td>\n\
                                                             <td>\n\
-                                                                <input type="text" class="span12" name="price_percentage_project_'+YEAR_COUNT+'" id="price_percentage_project_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" >\n\
+                                                                <input type="text" class="span10" name="price_percentage_project_'+YEAR_COUNT+'" id="price_percentage_project_'+YEAR_COUNT+'" onkeypress="return isNumberKey(event);" onChange="calculatePriceContingency();" >\n\
                                                             </td>\n\
                                                         </tr><input type="hidden" id="price_contigency_con_id_'+YEAR_COUNT+'" name="price_contigency_con_id_'+YEAR_COUNT+'" value="" >\n\
                                                         <tr>\n\
-                                                            <td>\n\
-                                                                <input type="text" class="span12" name="grand_total_gob_'+YEAR_COUNT+'" id="grand_total_gob_'+YEAR_COUNT+'" readonly>\n\
+                                                            <td style="height: 39px !important;">\n\
+                                                                <input type="text" class="span10" name="grand_total_financial_'+YEAR_COUNT+'" id="grand_total_financial_'+YEAR_COUNT+'" readonly>\n\
                                                             </td>\n\
-                                                            <td>\n\
-                                                                <input type="text" class="span12" name="grand_total_through_gob_'+YEAR_COUNT+'" id="grand_total_through_gob_'+YEAR_COUNT+'" readonly>\n\
+                                                            <td style="height: 39px !important;">\n\
+                                                                <input type="text" class="span10" name="grand_total_item_'+YEAR_COUNT+'" id="grand_total_item_'+YEAR_COUNT+'" readonly>\n\
                                                             </td>\n\
-                                                            <td><input type="text" class="span12" name="grand_total_spc_acnt_'+YEAR_COUNT+'" id="grand_total_spc_acnt_'+YEAR_COUNT+'" readonly></td>\n\
+                                                            <td style="height: 39px !important;"><input type="text" class="span10" name="grand_total_project_'+YEAR_COUNT+'" id="grand_total_project_'+YEAR_COUNT+'" readonly></td>\n\
                                                         </tr>\n\
                                                     </tfoot>\n\
                                                 </table>\n\
@@ -283,6 +234,26 @@ function addNewYear()
     YEAR_COUNT++;
     
     adjustComponentRowPerYear(YEAR_COUNT-1,1);
+}
+
+function adjustComponentRowPerYear(thisyear,compnents, com_type)
+{
+    for(var year=thisyear; year<=YEAR_COUNT-1; year++)
+    {
+        for(var i=0; i<componentRowIDArray.length; i++)
+        {
+            // if exists then continue
+            if ( $('#total_cost_breakdown_tbl_'+year+' > tbody').find('#tr_'+year+'_' + componentRowIDArray[i]).length ) //ajaj
+            {
+                continue;
+            }    
+            var component_type = componentRowTypeArray[i].replace(' ', '_');
+            var td_financial_amnt      = '<td style="height: 69px !important;"><input type="text" name="financial_amnt_'+year+'_'+componentRowIDArray[i]+'"      id="financial_amnt_'+year+'_'+componentRowIDArray[i]+'"     value="" class="span10" readonly /></td>';
+            var td_percentage_item     = '<td><input type="text" name="percentage_item_'+year+'_'+componentRowIDArray[i]+'"     id="percentage_item_'+year+'_'+componentRowIDArray[i]+'"    value="" class="span10" readonly /></td>';
+            var td_percentage_project  = '<td><input type="text" name="percentage_project_'+year+'_'+componentRowIDArray[i]+'"  id="percentage_project_'+year+'_'+componentRowIDArray[i]+'" value="" class="span10" readonly /></td>';
+            $('<tr id="tr_'+year+'_'+componentRowIDArray[i]+'">'+ td_financial_amnt + td_percentage_item + td_percentage_project +'</tr>').appendTo("#total_cost_breakdown_tbl_"+year+" > #"+component_type+"_total_cost_breakdown_content_"+year);
+        }
+    }
 }
 
 function calculatePhysicalContingency()
@@ -409,78 +380,6 @@ function toggleFiscalYear(elemID)
     {
         $('#total_cost_breakdown_tbl_'+elemID).show("slow", function() {$('#total_cost_breakdown_container_'+elemID).css('width', '500px');});
     }
-}
-
-function adjustComponentRowPerYear(thisyear,compnents)
-{
-    for(var year=thisyear; year<=YEAR_COUNT-1; year++)
-    {
-        for(var i=0; i<componentRowIDArray.length; i++)
-        {
-            // if exists then continue
-            if ( $('#total_cost_breakdown_tbl_'+year+' > tbody').find('#tr_'+year+'_' + componentRowIDArray[i]).length )
-            {
-                continue;
-            }    
-                
-            var td_financial_amnt      = '<td><input type="text" name="financial_amnt_'+year+'_'+componentRowIDArray[i]+'"      id="financial_amnt_'+year+'_'+componentRowIDArray[i]+'"     value="" class="span12" readonly /></td>';
-            var td_percentage_item     = '<td><input type="text" name="percentage_item_'+year+'_'+componentRowIDArray[i]+'"     id="percentage_item_'+year+'_'+componentRowIDArray[i]+'"    value="" class="span12" readonly /></td>';
-            var td_percentage_project  = '<td><input type="text" name="percentage_project_'+year+'_'+componentRowIDArray[i]+'"  id="percentage_project_'+year+'_'+componentRowIDArray[i]+'" value="" class="span12" readonly /></td>';
-            $('<tr id="tr_'+year+'_'+componentRowIDArray[i]+'">'+ td_financial_amnt + td_percentage_item + td_percentage_project +'</tr>').appendTo("#total_cost_breakdown_tbl_"+year+" > tbody");
-        }
-    }
-    
-    deleteYearIconAdjustment();
-}
-
-function deleteYearIconAdjustment()
-{
-    for (var y=1; y<YEAR_COUNT; y++)
-    {   
-        // define the last year to put the delete sign for year
-        if (y == YEAR_COUNT-1)
-        {
-            // show the delete sign
-            $('#year_delete_'+y).show();
-        }
-        else 
-        {
-            $('#year_delete_'+y).hide();
-        }
-    } 
-}
-
-function deleteYear()
-{
-    var year    = YEAR_COUNT-1;
-    var pid     = $('#PI').val();
-    
-    if ( doConfirm('The component and year details will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
-    {
-        $.ajax
-        (
-            {
-                url: 'project_manager.php?cmd=deleteyear',
-                data: "pid="+pid+"&year_serial="+year,
-                dataType: 'json',
-                success: function(responseText)
-                {
-                }    
-            }
-        );
-    }
-    
-    
-    // remove the div
-    $('#total_cost_breakdown_container_'+year).remove();
-    
-    // decrease the year count value 
-    YEAR_COUNT--;
-    
-    calculateAll();
-    
-    // adjust the delete sign
-    deleteYearIconAdjustment();
 }
 
 function calculateAll()

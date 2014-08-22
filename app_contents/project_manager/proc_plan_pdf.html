@@ -1,6 +1,6 @@
-<table cellspacing="0" style='font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12px;'>
+<table cellspacing="0" width="100%" style='font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12px;'>
     <tr>
-        <td align="right" colspan="12">
+        <td align="right" colspan="4">
         {if $procurement_category eq 'GOODS'}Annex - III (a)
         {else if $procurement_category eq 'WORKS'}Annex - III (b)
         {else if $procurement_category eq 'SERVICES'}Annex - III (c)
@@ -8,27 +8,52 @@
         </td>
     </tr>
     <tr>
-        <td align="right" colspan="12"><font size="1">Ref: PPR, 2008</font></td>
+        <td align="right" colspan="4"><font size="1">Ref: PPR, 2008</font></td>
     </tr>
     <tr>
-        <td colspan="6">Project Name: </td>
-        <td colspan="6" style="padding-bottom: 5px;">&nbsp;</td>
+        <td width="20%">Project Name: </td>
+        <td style="padding-bottom: 5px;" colspan="3">{$basicInfo->project_title_en}</td>
     </tr>
     <tr>
-        <td colspan="6">Ministry/Division: </td>
-        <td colspan="6" style="padding-bottom: 5px;"></td>
+        <td>Ministry/Division: </td>
+        <td style="padding-bottom: 5px;" colspan="3">
+            {foreach from=$basicInfo->ministries key=key item=item}
+                {$item->name}<br />
+            {/foreach}
+        </td>
     </tr>
     <tr>
-        <td colspan="6">Agency: </td>
-        <td colspan="6" style="padding-bottom: 5px;">Total GoB (FE): </td>
+        <td style="padding-bottom: 5px;">Agency: </td>
+        <td style="padding-bottom: 5px;" width="55%" >
+            {foreach from=$basicInfo->agencies key=key item=item}
+                {$item->name}<br />
+            {/foreach}
+        </td>
+        <td style="padding-bottom: 5px;">Total GoB (FE): </td>
+        <td style="padding-bottom: 5px;">{$basicInfo->gob_cost} ({$basicInfo->gob_fe_cost|number_format:2:".":","})</td>
     </tr>
     <tr>
-        <td colspan="6">Procuring Entity Name and Code: </td>
-        <td colspan="6" style="padding-bottom: 5px;">Total PA (RPA): </td>
+        <td style="padding-bottom: 5px;">Procuring Entity Name and Code: </td>
+        <td style="padding-bottom: 5px;">Procuring Entity Name and Code: </td>
+        <td style="padding-bottom: 5px;">Total PA (RPA): </td>
+        <td style="padding-bottom: 5px;">
+            {assign var=totalPA value=$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost}
+            {assign var=totalRPA value=$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost}
+            {$totalPA|number_format:2:".":","} ({$totalRPA|number_format:2:".":","})
+        </td>
     </tr>
     <tr>
-        <td colspan="6">Project/Programme Code: </td>
-        <td colspan="6" style="padding-bottom: 5px;">Others (FE): </td>
+        <td style="padding-bottom: 5px;">Project/Programme Code: </td>
+        <td style="padding-bottom: 5px;">Project/Programme Code: </td>
+        <td style="padding-bottom: 5px;">Others (FE): </td>
+        <td style="padding-bottom: 5px;">
+            {$basicInfo->other_cost} ({$basicInfo->other_fe_cost})
+        </td>
+    </tr>
+</table>
+<table cellspacing="0" style='font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12px;'>
+    <tr>
+        <td align="center" colspan="12" style="padding-bottom: 10px;">&nbsp;</td>
     </tr>
     <tr>
         <td align="center" colspan="12" style="padding-bottom: 10px; font-size: 14px;">Total procurement plan for development project/programme</td>

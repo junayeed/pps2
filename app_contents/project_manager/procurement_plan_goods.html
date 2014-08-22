@@ -6,8 +6,9 @@
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
         <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
-<script type="text/javascript" src="/app_contents/common/js/messages.js"></script>
-<script type="text/javascript" src="/app_contents/common/js/CalendarPopup.js"></script>
+        <script type="text/javascript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/messages.js"></script>
+        <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+        <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/{$SYSTEM_APP_PREFIX}.js"></script>
 
 <script language="JavaScript">
    function thisSelect(inputobj, linkname, format) 
@@ -92,8 +93,8 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="8" align="right">Grand Total</td>
-                                        <td colspan="5"><input type="text" name="Goods_total" id="Goods_total" value="0.00" class="span4" /></td>
+                                        <td colspan="8" align="right" class="bold">Grand Total</td>
+                                        <td colspan="5"><input type="text" name="Goods_total" id="Goods_total" value="0.00" class="span4 bold" /></td>
                                     </tr>
                                     <tr>
                                         <td colspan="13"><a href="javascript:void(0)" onClick="addNewProcuremtPlanRow('goods_tbl', 'Goods');">Add New Row</a></td>

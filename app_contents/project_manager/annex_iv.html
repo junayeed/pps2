@@ -52,9 +52,9 @@
                                 <table id="economic_code_tbl" class="annex-iv-table table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
                                         <tr>
-                                            <th class="span1" rowspan="1">Economic Code</th>
-                                            <th class="span1" rowspan="1">Economic Sub-code</th>
-                                            <th class="span12" rowspan="1">Code description</th>
+                                            <th class="span1 center" rowspan="1">Economic Code</th>
+                                            <th class="span1 center" rowspan="1">Economic Sub-code</th>
+                                            <th class="span12 center" rowspan="1">Code description</th>
                                         </tr>
                                         <tr>
                                             <th class="span1">&nbsp;</th>
@@ -62,14 +62,27 @@
                                             <th class="span12">&nbsp;</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="economic_code_content">
+                                    <tbody id="Revenue_Component_economic_code_content">
+                                        <tr>
+                                            <td class="H29 CENTER">1</td>
+                                            <td class="H29 CENTER">2</td>
+                                            <td class="H29 CENTER">3</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="height: 29px !important;">(a) Revenue Component</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="Capital_Component_economic_code_content">
+                                        <tr>
+                                            <td colspan="4" style="height: 29px !important;">(b) Capital Component</td>
+                                        </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="4">Physical Contingency</td>
+                                            <td colspan="4" style="height: 39px !important;">(c) Physical Contingency</td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4">Price Contingency</td>
+                                            <td colspan="4" style="height: 39px !important;">(d) Price Contingency</td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -82,33 +95,48 @@
                                             <th colspan="5">Total Physical & Financial Target</th>
                                         </tr>    
                                         <tr>
-                                            <th class="span3">Unit</th>
-                                            <th class="span2">Unit Cost</th>
-                                            <th class="span2">Qty</th>
-                                            <th class="span4">Total Cost</th>
-                                            <th class="span4">Weight</th>
+                                            <th class="span3 center">Unit</th>
+                                            <th class="span4 center">Unit Cost</th>
+                                            <th class="span4 center">Qty</th>
+                                            <th class="span4 center">Total Cost</th>
+                                            <th class="span4 center">Weight</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="total_cost_content">
+                                    <tbody id="Revenue_Component_total_cost_content">
+                                        <tr>
+                                            <td class="span3 center H29">4</td>
+                                            <td class="span4 center H29">5</td>
+                                            <td class="span4 center H29">6</td>
+                                            <td class="span4 center H29">7</td>
+                                            <td class="span4 center H29">8</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" style="height: 29px !important;">&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="Capital_Component_total_cost_content">
+                                        <tr>
+                                            <td colspan="5" style="height: 29px !important;">&nbsp;</td>
+                                        </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="2">&nbsp;</td>
-                                            <td><input type="text" class="span12" name="physical_contigency_qty" id="physical_contigency_qty" readonly></td>
-                                            <td><input type="text" class="span12" name="physical_contigency_total" id="physical_contigency_total" readonly></td>
-                                            <td><input type="text" class="span12" name="physical_contigency_weight" id="physical_contigency_weight" readonly></td>
+                                            <td colspan="2" style="height: 39px !important;">&nbsp;</td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="physical_contigency_qty" id="physical_contigency_qty" readonly></td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="physical_contigency_total" id="physical_contigency_total" readonly></td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="physical_contigency_weight" id="physical_contigency_weight" readonly></td>
                                             
                                         </tr>
                                         <tr>
-                                            <td colspan="2">&nbsp;</td>
-                                            <td><input type="text" class="span12" name="price_contigency_qty" id="price_contigency_qty" readonly></td>
-                                            <td><input type="text" class="span12" name="price_contigency_total" id="price_contigency_total" readonly></td>
-                                            <td><input type="text" class="span12" name="price_contigency_weight" id="price_contigency_weight" readonly></td>
+                                            <td colspan="2" style="height: 39px !important;">&nbsp;</td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="price_contigency_qty" id="price_contigency_qty" readonly></td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="price_contigency_total" id="price_contigency_total" readonly></td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="price_contigency_weight" id="price_contigency_weight" readonly></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2">Grand Total: </td>
-                                            <td colspan="2"><input type="text" class="span12" name="grand_total" id="grand_total" readonly></td>
-                                            <td><input type="text" class="span12" name="grand_total_weight" id="grand_total_weight" readonly></td>
+                                            <td colspan="2" style="height: 39px !important;">Grand Total (a+b+c+d): </td>
+                                            <td colspan="2" style="height: 39px !important;"><input type="text" class="span12" name="grand_total" id="grand_total" readonly></td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="grand_total_weight" id="grand_total_weight" readonly></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -220,7 +248,7 @@
         var component_count = 0;
 
         {foreach from=$component_list item=item}
-            addNewComponent();
+            addNewComponent("{$item->component_type}");
             populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}", "{$item->unit}", 
                                      "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
@@ -239,18 +267,24 @@
         {
             addNewYear();
         }
-        var count=1;
-        {foreach from=$annx_v_component_details item=item}
-            populateAnnexComponentDetails("{$item->year_serial}", "{$item->id}","{$item->financial_year}", count, "{$item->total}", "{$project_info->total_cost}");
+        
+        var count      = 1;
+        var year_count = 1;
+        var cp_count   = 1;
+        {foreach from=$annex_v_component_details item=item}
+            populateAnnexComponentDetails("{$item->year_serial}", "{$item->id}","{$item->financial_year}", count, "{$item->total}", "{$project_info->total_cost}", "{$item->component_type}");
             
-            if(count%component_count == 0) count=0;
+            if( year_count%total_years==0 ) count++;
             
-            count++;
+            if(cp_count%total_years==0) cp_count=0;
+            cp_count++;
+            year_count++;
         {/foreach}
         
         
         
-        var count=1;
+        var count      = 1;
+        
         {foreach from=$annex_v_contingency_list item=item}
             
             populateContingency("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}",  

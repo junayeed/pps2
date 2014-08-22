@@ -79,18 +79,13 @@
                 }    
             }    
         }    
-       
-       
     }
+    
     function updateLocationWithCost()
     {
         $info['table'] = PROJECT_LOCATIONS_TBL;
         $info['debug'] = true;
        
-        
-        //$data['pid']   = base64_decode(getUserField('PI'));
-        
-        
         foreach( $_REQUEST as $key => $value)
 	{
             
@@ -107,8 +102,6 @@
                 
             }    
         }    
-       
-       
     }
     
     function updateProcurementPlan()
@@ -158,7 +151,6 @@
                 }
  	    }
         }
-        
     }
     
     function updateAnnexV()
@@ -312,37 +304,36 @@
         
         for($i=0; $i<2; $i++)
         {
-        for($year=1; $year<=$total_year; $year++)
-        {
-            
-            $data['gob']                   = $_REQUEST[$contingency[$i].'gob_' . $year]                  ? $_REQUEST[$contingency[$i].'gob_' . $year]                 : 0.0;
-            $data['gob_fe']                = $_REQUEST[$contingency[$i].'gob_fe_' . $year]               ? $_REQUEST[$contingency[$i].'gob_fe_' . $year]              : 0.0;
-            $data['rpa_through_gob']       = $_REQUEST[$contingency[$i].'pa_through_gob_' . $year]      ? $_REQUEST[$contingency[$i].'pa_through_gob_' . $year]     : 0.0;
-            $data['rpa_special_account']   = $_REQUEST[$contingency[$i].'pa_sp_acnt_'. $year]   ? $_REQUEST[$contingency[$i].'pa_sp_acnt_'. $year] : 0.0;
-            $data['dpa']                   = $_REQUEST[$contingency[$i].'pa_dpa_' . $year]                  ? $_REQUEST[$contingency[$i].'pa_dpa_' . $year]                 : 0.0;
-            $data['own_fund']              = $_REQUEST[$contingency[$i].'own_fund_' . $year]             ? $_REQUEST[$contingency[$i].'own_fund_' . $year]            : 0.0;
-            $data['own_fund_fe']           = $_REQUEST[$contingency[$i].'own_fund_fe_' . $year]          ? $_REQUEST[$contingency[$i].'own_fund_fe_' . $year]         : 0.0;
-            $data['other']                 = $_REQUEST[$contingency[$i].'other_' . $year]                ? $_REQUEST[$contingency[$i].'other_' . $year]               : 0.0;
-            $data['other_fe']              = $_REQUEST[$contingency[$i].'other_fe_' . $year]             ? $_REQUEST[$contingency[$i].'other_fe_' . $year]            : 0.0;
-            $data['total']                 = $_REQUEST[$contingency[$i].'total_' . $year]                ? $_REQUEST[$contingency[$i].'total_' . $year]               : 0.0;
-            $data['con_details_id']        = $_REQUEST[$contingency[$i].'details_id_' . $year];
-            $data['financial_year']        = $_REQUEST[$contingency[$i].'financial_year_' . $year];
-            $data['con_details_id']        = $_REQUEST[$contingency[$i].'con_id_' . $year];
-            $data['year_serial']           = $year;
-            $data['type']                  = $i==0 ? 'Physical' : 'Price';
-            
-            $info['data']  = $data; 
-            
-            if ( !$data['con_details_id'] )
+            for($year=1; $year<=$total_year; $year++)
             {
-                insert($info);
+                $data['gob']                   = $_REQUEST[$contingency[$i].'gob_' . $year]                  ? $_REQUEST[$contingency[$i].'gob_' . $year]                 : 0.0;
+                $data['gob_fe']                = $_REQUEST[$contingency[$i].'gob_fe_' . $year]               ? $_REQUEST[$contingency[$i].'gob_fe_' . $year]              : 0.0;
+                $data['rpa_through_gob']       = $_REQUEST[$contingency[$i].'pa_through_gob_' . $year]      ? $_REQUEST[$contingency[$i].'pa_through_gob_' . $year]     : 0.0;
+                $data['rpa_special_account']   = $_REQUEST[$contingency[$i].'pa_sp_acnt_'. $year]   ? $_REQUEST[$contingency[$i].'pa_sp_acnt_'. $year] : 0.0;
+                $data['dpa']                   = $_REQUEST[$contingency[$i].'pa_dpa_' . $year]                  ? $_REQUEST[$contingency[$i].'pa_dpa_' . $year]                 : 0.0;
+                $data['own_fund']              = $_REQUEST[$contingency[$i].'own_fund_' . $year]             ? $_REQUEST[$contingency[$i].'own_fund_' . $year]            : 0.0;
+                $data['own_fund_fe']           = $_REQUEST[$contingency[$i].'own_fund_fe_' . $year]          ? $_REQUEST[$contingency[$i].'own_fund_fe_' . $year]         : 0.0;
+                $data['other']                 = $_REQUEST[$contingency[$i].'other_' . $year]                ? $_REQUEST[$contingency[$i].'other_' . $year]               : 0.0;
+                $data['other_fe']              = $_REQUEST[$contingency[$i].'other_fe_' . $year]             ? $_REQUEST[$contingency[$i].'other_fe_' . $year]            : 0.0;
+                $data['total']                 = $_REQUEST[$contingency[$i].'total_' . $year]                ? $_REQUEST[$contingency[$i].'total_' . $year]               : 0.0;
+                $data['con_details_id']        = $_REQUEST[$contingency[$i].'details_id_' . $year];
+                $data['financial_year']        = $_REQUEST[$contingency[$i].'financial_year_' . $year];
+                $data['con_details_id']        = $_REQUEST[$contingency[$i].'con_id_' . $year];
+                $data['year_serial']           = $year;
+                $data['type']                  = $i==0 ? 'Physical' : 'Price';
+
+                $info['data']  = $data; 
+
+                if ( !$data['con_details_id'] )
+                {
+                    insert($info);
+                }
+                else
+                {
+                    $info['where']  = 'id = ' . $data['con_details_id'] . ' AND pid = ' . $data['pid'];
+                    update($info);
+                }
             }
-            else
-            {
-                $info['where']  = 'id = ' . $data['con_details_id'] . ' AND pid = ' . $data['pid'];
-                update($info);
-            }
-        }
         }
     }
     
@@ -468,7 +459,7 @@
         $objSheet->setTitle('Proc. Plan - ' . $procurement_category);
         
         $objSheet->getColumnDimension('A')->setWidth('10');
-        $objSheet->getColumnDimension('B')->setWidth('20');
+        $objSheet->getColumnDimension('B')->setWidth('22');
         $objSheet->getColumnDimension('C')->setWidth('8');
         $objSheet->getColumnDimension('D')->setWidth('10');
         $objSheet->getColumnDimension('E')->setWidth('15');
@@ -490,39 +481,67 @@
         $row++;
         $objSheet->mergeCells('A'.$row.':L'.$row);
         $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setBold(true)->setSize(8);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setBold(true)->setSize(9);
         $objSheet->getCell('A'.$row)->setValue('Ref: PPR, 2008');
         $row+=2;
-        $objSheet->mergeCells('A'.$row.':L'.$row);
-        $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(8);
-        $objSheet->getCell('A'.$row)->setValue('Project Name: ' . 'The project name will go here');
+        $objSheet->mergeCells('A'.$row.':B'.$row);
+        $objSheet->getStyle('A'.$row.':B'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $objSheet->getStyle('A'.$row.':B'.$row)->getFont()->setSize(10);
+        $objSheet->getCell('A'.$row)->setValue('Project Name: ');
+        
+        $objSheet->mergeCells('C'.$row.':L'.$row);
+        $objSheet->getStyle('C'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $objSheet->getStyle('C'.$row.':L'.$row)->getFont()->setSize(10);
+        $objSheet->getCell('C'.$row)->setValue($data['basicInfo']->project_title_en);
         $row++;
-        $objSheet->mergeCells('A'.$row.':L'.$row);
-        $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(8);
-        $objSheet->getCell('A'.$row)->setValue('Ministry/Division: ' . 'Ministry/Division name will go here');
+        $objSheet->mergeCells('A'.$row.':B'.$row);
+        $objSheet->getStyle('A'.$row.':B'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(10);
+        $objSheet->getCell('A'.$row)->setValue('Ministry/Division: ');
+        $objSheet->mergeCells('C'.$row.':L'.$row);
+        $objSheet->getStyle('C'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        foreach($data['basicInfo']->ministries as $value)
+        {    
+            $ministries .= "$value->name\n";
+        }
+        $objSheet->getCell('C'.$row)->setValue($ministries);
         $row++;
-        $objSheet->mergeCells('A'.$row.':F'.$row);
-        $objSheet->mergeCells('G'.$row.':L'.$row);
-        $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(8);
-        $objSheet->getCell('A'.$row)->setValue('Agency: ' . 'Agency name will go here');
-        $objSheet->getCell('G'.$row)->setValue('Total GoB (FE): ');
+        $objSheet->mergeCells('A'.$row.':B'.$row);
+        $objSheet->getStyle('A'.$row.':B'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(10);
+        $objSheet->getCell('A'.$row)->setValue('Agency: ');
+        $objSheet->mergeCells('C'.$row.':I'.$row);
+        $objSheet->getStyle('C'.$row.':I'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        foreach($data['basicInfo']->agencies as $value)
+        {
+            $agencies .= "$value->name\n";
+        }
+        $objSheet->getCell('C'.$row)->setValue($agencies);
+        $objSheet->getRowDimension($row)->setRowHeight(-1);
+        $objSheet->getStyle('C'.$row)->getAlignment()->setWrapText(true);
+        
+        $objSheet->mergeCells('J'.$row.':L'.$row);
+        $objSheet->getCell('J'.$row)->setValue('Total GoB (FE): ' . $data['basicInfo']->gob_cost . '(' . $data['basicInfo']->gob_fe_cost . ')');
+        
         $row++;
-        $objSheet->mergeCells('A'.$row.':F'.$row);
-        $objSheet->mergeCells('G'.$row.':L'.$row);
-        $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(8);
+        $objSheet->mergeCells('A'.$row.':B'.$row);
+        $objSheet->getStyle('A'.$row.':B'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(10);
         $objSheet->getCell('A'.$row)->setValue('Procuring Entity Name and Code: ');
-        $objSheet->getCell('G'.$row)->setValue('Total PA (RPA): ');
+        $objSheet->mergeCells('C'.$row.':I'.$row);
+        $objSheet->getStyle('C'.$row.':I'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $objSheet->getCell('C'.$row)->setValue('Procuring Entity');
+        $objSheet->mergeCells('J'.$row.':L'.$row);
+        $objSheet->getCell('J'.$row)->setValue('Total PA (RPA): ' . ($data['basicInfo']->pa_through_gob_cost+$data['basicInfo']->pa_spc_acnt_cost+$data['basicInfo']->pa_dpa_cost) . '(' . ($data['basicInfo']->pa_through_gob_cost+$data['basicInfo']->pa_spc_acnt_cost) . ')');
+
         $row++;
-        $objSheet->mergeCells('A'.$row.':F'.$row);
-        $objSheet->mergeCells('G'.$row.':L'.$row);
+        $objSheet->mergeCells('A'.$row.':B'.$row);
         $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(8);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(10);
         $objSheet->getCell('A'.$row)->setValue('Project/Programme Code: ');
-        $objSheet->getCell('G'.$row)->setValue('Others (FE): ');
+        $objSheet->getCell('C'.$row)->setValue('Project/Programme Code');
+        $objSheet->mergeCells('J'.$row.':L'.$row);
+        $objSheet->getCell('J'.$row)->setValue('Others (FE): ' . $data['basicInfo']->other_cost . '(' . $data['basicInfo']->other_fe_cost . ')');
         $row++;
         $objSheet->mergeCells('A'.$row.':L'.$row);
         $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -549,7 +568,7 @@
         
         $row++;
         // print the data
-        foreach($data as $oKey => $oValue)    
+        foreach($data['proc_plan_list'] as $oKey => $oValue)    
         {
             $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setSize(10);
             $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setWrapText(true);
@@ -589,7 +608,7 @@
         $objSheet->getStyle('A'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT); 
         $objSheet->getStyle('A'.$row.':L'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
   
-        $filename  = 'procurement_plan_' . $procurement_category . '.xls';
+        $filename  = 'procurement_plan_' . $procurement_category . '.xlsx';
         
         header('Content-Disposition: attachment;filename="' . $filename. '"');
         //header('Content-Type: application/pdf');
@@ -930,7 +949,7 @@
         
         
         $details_colum_start_cell_no = 13;
-        $details_colum_start_cell = PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no);  // N = 13as A = 0 as column number
+        $details_colum_start_cell    = PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no);  // N = 13as A = 0 as column number
         
         $content_header_1 = array('A' => "GoB\n(FE)", 'B' => 'Project Aid', 'C' => "Own Fund\n(FE)", 'D' => "Other\n(FE)");
         $content_header_2 = array('A' => "RPA", 'B' => 'DPA');
@@ -991,6 +1010,7 @@
             $row++;
             //print the header_3 after the <financial_year> -- START 
             $cell_position = PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no+1);
+            
             foreach($content_header_3 as $content_header_value_3)
             {
                 //echo_br('Key = ' . $content_header_key_3 . ' Cell Pos = '. $cell_position.$row);
@@ -1002,13 +1022,30 @@
             
             $objSheet->getStyle($details_colum_start_cell.$header_start_cell.':'.PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no+5).$row)->getFont()->setBold(true);
             
-            
-            
             $row+=2;
-            //NOW PRINT THE COMPONENT DETAILS DATA
-            $data_column = $details_colum_start_cell;
+
+            //NOW PRINT THE COMPONENT DETAILS DATA -- START
+            $data_column                       = $details_colum_start_cell;
+            $revenue_component_data_start_row  = $row;
+            $capital_component_flag            = false;
+            
             foreach($comValue as $component_details_val)
             {
+                if ($component_details_val->component_type == 'Revenue Component')
+                {
+                    $revenue_component_data_end_row = $row;
+                }
+                
+                if ($component_details_val->component_type == 'Capital Component')
+                {
+                    if ( !$capital_component_flag )
+                    {
+                        $row += 2;  // for capital component start point increase the row counter
+                        $capital_component_flag = true;
+                    }
+                    $capital_component_data_start_row = $revenue_component_data_end_row + 3;
+                    $capital_component_data_end_row   = $row;
+                }
                 //ajaj
                 $objSheet->getCell($data_column.$row)->setValue($component_details_val->gob . "\n(" . $component_details_val->gob_fe . ")");
                 $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($data_column)).$row)->setValue($component_details_val->rpa_through_gob);
@@ -1016,29 +1053,51 @@
                 $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($data_column)+2).$row)->setValue($component_details_val->dpa);
                 $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($data_column)+3).$row)->setValue($component_details_val->own_fund . "\n(" . $component_details_val->own_fund_fe . ")");
                 $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($data_column)+4).$row)->setValue($component_details_val->other . "\n(" . $component_details_val->other_fe . ")");
+                
+                $objSheet->getStyle($data_column.$row.':'.PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($details_colum_start_cell)+4).($row))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
                 $row++;
             }
             
             $details_colum_start_cell_no +=6;
-            $details_colum_start_cell = PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no);
+            $details_colum_start_cell     = PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no);
         }
-        $row++;
-        /*
-        $objPHPExcel->getActiveSheet()->getStyle('H7:H'.$row)->getNumberFormat()->setFormatCode($currencyFormat);
+        //NOW PRINT THE COMPONENT DETAILS DATA -- END
         
-        // print the grand total
-        $objSheet->mergeCells('A'.$row.':G'.$row);
-        $objSheet->getStyle('A'.$row)->getFont()->setBold(true)->setSize(11);
-        $objSheet->getCell('A'.$row)->setValue('Grand Total'); 
-        $objSheet->getStyle('H'.$row)->getFont()->setBold(true)->setSize(11);
-        $objSheet->getCell('H'.$row)->setValue('=SUM(H7:H'.($row-1).')' ); 
-        $objSheet->getStyle('A'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT); 
-        $objSheet->getStyle('A'.$row.':K'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-        */
+        $row++;
+        
+        // Print the contingency details -- START
+        $details_colum_start_cell_no   = 13;
+        $contingency_colum_start_cell  = PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no);  // N = 13as A = 0 as column number
+        $contingency_row               = $row;
+        
+        foreach($data['contingency_details'] as $oValue)
+        {
+            foreach($oValue as $conValue)
+            {    
+                $objSheet->getCell($contingency_colum_start_cell.$contingency_row)->setValue($conValue->gob . "\n(" . $conValue->gob . ")");
+                $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($contingency_colum_start_cell)).$contingency_row)->setValue($conValue->rpa_through_gob);
+                $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($contingency_colum_start_cell)+1).$contingency_row)->setValue($conValue->rpa_special_account);
+                $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($contingency_colum_start_cell)+2).$contingency_row)->setValue($conValue->dpa);
+                $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($contingency_colum_start_cell)+3).$contingency_row)->setValue($conValue->own_fund . "\n(" . $conValue->own_fund_fe . ")");
+                $objSheet->getCell(PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($contingency_colum_start_cell)+4).$contingency_row)->setValue($conValue->other . "\n(" . $conValue->other_fe . ")");
+                
+                $objSheet->getStyle($contingency_colum_start_cell.$contingency_row.':'.PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($contingency_colum_start_cell)+4).($contingency_row))->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+                $contingency_row += 2;
+            }
+            
+            
+            
+            $details_colum_start_cell_no  +=6;
+            $contingency_colum_start_cell  = PHPExcel_Cell::stringFromColumnIndex($details_colum_start_cell_no);
+            $contingency_row               = $row;
+        }
+        // Print the contingency details -- END
+        
+        $row++;
+        
         $filename  = 'Annex-V' . '.xlsx';
         
         header('Content-Disposition: attachment;filename="' . $filename. '"');
-        //header('Content-Type: application/pdf');
         header('Content-Type: text/plain; charset=utf-8');
         $objWriter->save($_SERVER['DOCUMENT_ROOT'].'/files/'.$filename);
         header ('Location: /files/'.$filename);
