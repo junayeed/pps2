@@ -483,6 +483,13 @@
         $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
         $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setBold(true)->setSize(9);
         $objSheet->getCell('A'.$row)->setValue('Ref: PPR, 2008');
+        
+        $row+=2;
+        $objSheet->mergeCells('A'.$row.':L'.$row);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setBold(true)->setSize(13);
+        $objSheet->getCell('A'.$row)->setValue('Total procurement plan for development project/programme');
+        
         $row+=2;
         $objSheet->mergeCells('A'.$row.':B'.$row);
         $objSheet->getStyle('A'.$row.':B'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
@@ -542,11 +549,6 @@
         $objSheet->getCell('C'.$row)->setValue('Project/Programme Code');
         $objSheet->mergeCells('J'.$row.':L'.$row);
         $objSheet->getCell('J'.$row)->setValue('Others (FE): ' . $data['basicInfo']->other_cost . '(' . $data['basicInfo']->other_fe_cost . ')');
-        $row++;
-        $objSheet->mergeCells('A'.$row.':L'.$row);
-        $objSheet->getStyle('A'.$row.':L'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-        $objSheet->getStyle('A'.$row.':L'.$row)->getFont()->setBold(true)->setSize(13);
-        $objSheet->getCell('A'.$row)->setValue('Total procurement plan for development project/programme');
         
         $row++;
         
@@ -644,7 +646,37 @@
         $section = $PHPWord->createSection(array('orientation'=>'landscape'));
         $section->getSettings()->setMarginLeft(600); 
         $section->getSettings()->setMarginRight(600); 
-
+        
+        // PRINT PROJECT SUMMARY -- START
+        $styleTable = array('borderSize'=>1, 'borderColor'=>'006699', 'cellMargin'=>80);
+        $styleFirstRow = array('borderBottomSize'=>1, 'borderBottomColor'=>'FFFFFF', 'bgColor'=>'F5F5F5');
+        
+        $PHPWord->addTableStyle('headerTableStyle', $styleTable, $styleFirstRow);
+        
+        $headerTable = $section->addTable();
+        
+        $headerTable->addRow(0); // 0 = row height
+        $headerTable->addCell(16000, array('valign'=>'center'))->addText($header, array('bold'=>true), array('align'=>'right'), array('size'=>12), array('spaceAfter' => 0));
+        $headerTable->addRow(0);
+        $headerTable->addCell(16000, array('valign'=>'center'))->addText('Ref: PPR, 2008', array('bold'=>true), array('align'=>'right'), array('size'=>10));
+        $headerTable->addRow(0);
+        $headerTable->addCell(16000, array('valign'=>'center'))->addText('Total procurement plan for development project/programme', array('bold'=>true), array('align'=>'center'), array('size'=>10));
+        
+        $section->addTextBreak(1);
+        $PHPWord->addTableStyle('summaryTableStyle', $styleTable, $styleFirstRow);
+        
+        $summaryTable = $section->addTable();
+        $summaryTable->addRow(0);
+        $summaryTable->addCell(2000, array('valign'=>'center'))->addText('Project Name: ', array('size'=>10));
+        $summaryTable->addCell(8000, array('valign'=>'center'))->addText($data['basicInfo']->project_title_en, array('size'=>10));
+        $summaryTable->addRow(0);
+        $summaryTable->addCell(2000, array('valign'=>'center'))->addText('Ministry/Division: ', array('size'=>10));
+        $summaryTable->addCell(8000, array('valign'=>'center'))->addText($data['basicInfo']->ministries[0]->name, array('size'=>10));
+        $summaryTable->addRow(0);
+        $summaryTable->addCell(2000, array('gridSpan'=>2))->addText('Ministry/Division: ', array('size'=>10));
+        // PRINT PROJECT SUMMARY -- END
+        
+        $section->addTextBreak(2);
         // Define table style arrays
         $styleTable = array('borderSize'=>1, 'borderColor'=>'006699', 'cellMargin'=>80);
         $styleFirstRow = array('borderBottomSize'=>1, 'borderBottomColor'=>'FFFFFF', 'bgColor'=>'F5F5F5');
@@ -654,7 +686,7 @@
         $styleCellBTLR = array('valign'=>'center', 'textDirection'=>PHPWord_Style_Cell::TEXT_DIR_BTLR);
 
         // Define font style for first row
-        $fontStyle = array('bold'=>true, 'align'=>'center');
+        $fontStyle = array('bold'=>true);
 
         // Add table style
         $PHPWord->addTableStyle('myOwnTableStyle', $styleTable, $styleFirstRow);
@@ -668,13 +700,13 @@
         // print the headers -- START
         foreach($headerArray as $key => $value)
         {
-            $table->addCell($key, $styleCell)->addText($value, $fontStyle);
+            $table->addCell($key, $styleCell)->addText($value, array('bold'=>true), array('align'=>'center'));
         }
         // print the headers -- END
         
         $total_estd_cost = 0;
         // Add more rows / cells
-        foreach($data as $oKey => $oValue)
+        foreach($data['proc_plan_list'] as $oKey => $oValue)
         {
             $table->addRow();
             $table->addCell(0)->addText($oValue->package_no);

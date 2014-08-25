@@ -121,6 +121,9 @@ class PHPWord_Style_Cell {
 	 * @var string
 	 */
 	private $_defaultBorderColor;
+        
+        private $_gridSpan;// for the colspan
+        private $_vMerge;// for the rowspan
 	
 	
 	/**
@@ -139,6 +142,8 @@ class PHPWord_Style_Cell {
 		$this->_borderBottomSize = null;
 		$this->_borderBottomColor = null;
 		$this->_defaultBorderColor = '000000';
+                $this->_gridSpan=null;
+                $this->_vMerge=null;
 	}
 	
 	/**
@@ -156,6 +161,27 @@ class PHPWord_Style_Cell {
 			$this->$key = $value;
 		}
 	}
+        //new code start
+        public function setGridSpan($pValue = null)
+        {
+            $this->_gridSpan = $pValue;
+        }
+
+        public function getGridSpan()
+        {
+            return $this->_gridSpan;
+        }
+
+        public function setVMerge($pValue = null)
+        {
+            $this->_vMerge = $pValue;
+        }
+
+        public function getVMerge()
+        {
+            return $this->_vMerge;
+        }
+        //new code end
 	
 	public function getVAlign() {
 		return $this->_valign;

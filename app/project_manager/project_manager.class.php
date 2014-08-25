@@ -640,7 +640,7 @@ class projectManagerApp extends DefaultApplication
         $info['where']  = 'pid = ' . $pid . ' AND procurement_category = ' . q($procurement_category);
 
         $result = select($info);
-
+//dumpVar($data);
         if ($report_type == 'excel')
         {    
             //dumpVar($data);

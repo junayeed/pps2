@@ -117,7 +117,7 @@ function populateAnnexComponentDetails(year, annex_details_id, financial_year, i
     $('#financial_year_'+year).val(financial_year);
     
     $('#financial_amnt_'+year+'_'+i).val(total);
-    $('#percentage_item_'+year+'_'+i).val( ( total/component_wise_total_cost ).toMoney(5));
+    $('#percentage_item_'+year+'_'+i).val( ( total/component_wise_total_cost*100 ).toMoney(2));
     $('#percentage_project_'+year+'_'+i).val( ($('#percentage_item_'+year+'_'+i).val()*$('#weight_'+i).val()).toMoney(5) ) ;
 }
 
