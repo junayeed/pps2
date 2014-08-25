@@ -61,15 +61,8 @@ class Project
 
         $row = select($info);
         
-        if($row)
-        {
-            foreach ($row[0] as $key=>$value)
-            {
-                $thisData->$key = $value ? $value: 0.0;
-            }
-        }    
-        
-        $this->basicInfo                  = $thisData;        
+               
+        $this->basicInfo                  = $row[0];        
         $this->basicInfo->ministries      = $this->loadMinistries();        
         $this->basicInfo->agencies        = $this->loadAgencies();        
         $this->basicInfo->partners        = $this->loadDevPartners();        

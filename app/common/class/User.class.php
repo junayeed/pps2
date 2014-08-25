@@ -365,10 +365,22 @@ class User extends Entity
       {
           return false;
       }
+      
+      
 
       $this->setUserSession($userRecord[0]);
+      $this->setUserSession($this->loadConfiguration());
 
       return true;
+   }
+   
+   function loadConfiguration()
+   {
+       $info['table'] = CONFIGURATION_TBL;
+       $info['debug'] = false;
+       $result = select($info);
+       
+       return $result[0];
    }
 
    /**

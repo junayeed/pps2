@@ -47,6 +47,7 @@
   define('APP_META_TBL',                 DB_NAME . '.app_meta');
   define('APP_PROFILE_TBL',              DB_NAME . '.app_profile');
 
+  define('CONFIGURATION_TBL',            DB_NAME . '.configuration');
   define('COUNTRY_LOOKUP_TBL',           DB_NAME . '.country_lookup');
   define('MINISTRY_LOOKUP_TBL',          DB_NAME . '.ministry_lookup');
   define('DEV_PARTNER_LOOKUP_TBL',       DB_NAME . '.dev_partner_lookup');
