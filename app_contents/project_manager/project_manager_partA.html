@@ -1223,15 +1223,15 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 {/literal}
 //ajaj
-var project_total_gob           = {$basicInfo->gob_cost};
-var project_total_gob_fe        = {$basicInfo->gob_fe_cost};
-var project_total_gob_fe        = {$basicInfo->pa_through_gob_cost};
+var project_total_gob           = {if $basicInfo->gob_cost} {$basicInfo->gob_cost} {else} 0 {/if} ;
+var project_total_gob_fe        = {if $basicInfo->gob_fe_cost} {$basicInfo->gob_fe_cost} {else} 0 {/if} ;
+var project_total_gob_fe        = {if $basicInfo->pa_through_gob_cost} {$basicInfo->pa_through_gob_cost} {else} 0 {/if} ;
 var project_total_pa            = {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost};
 var project_total_rpa           = {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost};
-var project_total_own_fund      = {$basicInfo->own_fund_cost};
-var project_total_own_fund_fe   = {$basicInfo->own_fund_fe_cost};
-var project_total_other         = {$basicInfo->other_cost};
-var project_total_other_fe      = {$basicInfo->other_fe_cost};
+var project_total_own_fund      = {if $basicInfo->own_fund_cost} {$basicInfo->own_fund_cost} {else} 0 {/if} ;
+var project_total_own_fund_fe   = {if $basicInfo->own_fund_fe_cost} {$basicInfo->own_fund_fe_cost} {else} 0 {/if} ;
+var project_total_other         = {if $basicInfo->other_cost} {$basicInfo->other_cost} {else} 0 {/if} ;
+var project_total_other_fe      = {if $basicInfo->other_fe_cost} {$basicInfo->other_fe_cost} {else} 0 {/if} ;
 
 calculateModeOfFinanceGrandTotal();
 // getAgencyList()
