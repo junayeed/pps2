@@ -53,6 +53,43 @@
 			</div>
 		</div>
     
+                <div class="control-group">
+			<label class="control-label" for="project_amount_from">Amount From</label>
+			<div class="controls">
+                            <input class="span2" type="text" id="project_amount_from" value="{$project_amount_form}"  name="project_amount_form" placeholder="0.00">
+                            To
+                             <input class="span2" type="text" id="project_amount_to" value="{$project_amount_form}"  name="project_amount_to" placeholder="0.00">
+			</div>
+		</div>
+    
+                <div class="control-group">
+			<label class="control-label" for="project_location">Location</label>
+			<div class="controls">
+                            <input class="span8" type="text" id="project_location" value="{$project_location}"  name="project_location" placeholder="Ploject Location">
+			</div>
+		</div>
+    
+                <div class="control-group">
+                    <label class="control-label" for="ministries[]">Ministry/Division</label>
+                    <div class="controls">
+                        <select multiple class="chzn-select span6 ministries" id="ministries" onchange="getAgencyList()" name="ministries[]" required data-placeholder="Choose a Ministry/Division...">
+                            <option value=""></option>
+                            {html_options options=$ministryList}
+                        </select>  
+                        <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
+                    </div>
+		</div>
+    
+                <div class="control-group">
+                    <label class="control-label" for="adp_sector">Concerned Sector of ADP</label>
+                    <div class="controls">
+                        <select id="adp_sector" required name="adp_sector" onchange="getSubSector()">
+                            <option value="">Select Sector</option>
+                            {html_options options=$adpSectorList selected=$basicInfo->adp_sector}
+                        </select>    
+                    </div>
+		</div>
+    
                  <div class="control-group">
 			<label class="control-label" for="project_type">Project Type</label>
 			<div class="controls">
@@ -191,3 +228,314 @@
                <!-- ace scripts -->
 		<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
 		<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+  
+                
+                <script>
+                   
+                    //var ministry ="{$basicInfo->ministries}";
+                    var ministries = [];
+                    var agencies   = []; 
+                    var partners   = []; 
+                    
+                    var divisions = [];
+                    var districts   = []; 
+                    var upzilas   = []; 
+                    
+                    ministries.push({$smarty.session.ministry_id})
+                    agencies.push({$smarty.session.agency_id})
+
+                    
+                    {foreach from=$basicInfo->ministries item=item key=key}
+                       ministries.push({$item->ministry_id})
+                    {/foreach}
+                        
+                    {foreach from=$basicInfo->agencies item=item key=key}
+                       agencies.push({$item->agency_id})
+                    {/foreach}   
+                        
+                    {foreach from=$basicInfo->partners item=item key=key}
+                       partners.push({$item->dev_partner_id})
+                    {/foreach}   
+                    
+                    {foreach from=$basicInfo->locations item=item key=key}
+                       {if $item->location_type eq 'Division'}
+                          divisions.push({$item->location_id})
+                       {elseif $item->location_type eq 'District'} 
+                          districts.push({$item->location_id})
+                       {else}
+                          upzilas.push({$item->location_id})
+                       {/if}
+                    {/foreach}   
+                    
+                    
+                    $(".ministries").val(ministries);
+                    $(".agencies").val(agencies);
+                    $(".partners").val(partners);
+                    
+                    $(".divisions").val(divisions);
+                    $(".districts").val(districts);
+                    $(".upzilas").val(upzilas);
+                   
+                    //$(".ministries").chosen().trigger("chosen:updated");
+                    //alert('{$basicInfo->status}')
+                   
+                    {literal}
+                    
+                      
+                        $(function() {
+			$('#id-disable-check').on('click', function() {
+				var inp = $('#form-input-readonly').get(0);
+				if(inp.hasAttribute('disabled')) {
+					inp.setAttribute('readonly' , 'true');
+					inp.removeAttribute('disabled');
+					inp.value="This text field is readonly!";
+				}
+				else {
+					inp.setAttribute('disabled' , 'disabled');
+					inp.removeAttribute('readonly');
+					inp.value="This text field is disabled!";
+				}
+			});
+		
+		
+			$(".chzn-select").chosen(); 
+                        
+			$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+			
+			
+			
+			$('textarea[class*=autosize]').autosize({append: "\n"});
+			$('textarea[class*=limited]').each(function() {
+				var limit = parseInt($(this).attr('data-maxlength')) || 100;
+				$(this).inputlimiter({
+					"limit": limit,
+					remText: '%n character%s remaining...',
+					limitText: 'max allowed : %n.'
+				});
+			});
+			
+			
+			
+			var $tooltip = $("<div class='tooltip right in' style='display:none;'><div class='tooltip-arrow'></div><div class='tooltip-inner'></div></div>").appendTo('body');
+			$( "#slider-range" ).css('height','200px').slider({
+				orientation: "vertical",
+				range: true,
+				min: 0,
+				max: 100,
+				values: [ 17, 67 ],
+				slide: function( event, ui ) {
+					var val = ui.values[$(ui.handle).index()-1]+"";
+					
+					var pos = $(ui.handle).offset();
+					$tooltip.show().children().eq(1).text(val);		
+					$tooltip.css({top:pos.top - 10 , left:pos.left + 18});
+					
+					//$(this).find('a').eq(which).attr('data-original-title' , val).tooltip('show');
+				}
+			});
+			$('#slider-range a').tooltip({placement:'right', trigger:'manual', animation:false}).blur(function(){
+				$tooltip.hide();
+				//$(this).tooltip('hide');
+			});
+			//$('#slider-range a').tooltip({placement:'right', animation:false});
+			
+			
+			
+			$( "#eq > span" ).css({width:'90%', float:'left', margin:'15px'}).each(function() {
+				// read initial values from markup and remove that
+				var value = parseInt( $( this ).text(), 10 );
+				$( this ).empty().slider({
+					value: value,
+					range: "min",
+					animate: true
+					
+				});
+			});
+
+			
+			$('#id-input-file-1 , #id-input-file-2').ace_file_input({
+				no_file:'No File ...',
+				btn_choose:'Choose',
+				btn_change:'Change',
+				droppable:false,
+				onchange:null,
+				thumbnail:false //| true | large
+				//whitelist:'gif|png|jpg|jpeg'
+				//blacklist:'exe|php'
+				//onchange:''
+				//
+			});
+			
+			
+			$('.date-picker').datepicker();
+			
+
+		});
+
+
+		$(function() {
+
+	$('[data-rel=tooltip]').tooltip();
+
+	$(".chzn-select").css('width','150px').chosen({allow_single_deselect:true , no_results_text: "No such state!"})
+	.on('change', function(){
+		$(this).closest('form').validate().element($(this));
+	}); 
+
+
+	var $validation = false;
+	$('#fuelux-wizard').ace_wizard().on('change' , function(e, info){
+		if(info.step == 1 && $validation) {
+			if(!$('#validation-form').valid()) return false;
+		}
+	}).on('finished', function(e) {
+		bootbox.dialog("Thank you! Your information was successfully saved!", [{
+			"label" : "OK",
+			"class" : "btn-small btn-primary",
+			}]
+		);
+	});
+	
+	
+	
+	
+	//documentation : http://docs.jquery.com/Plugins/Validation/validate
+	
+
+	$.mask.definitions['~']='[+-]';
+	$('#phone').mask('(999) 999-9999');
+
+	jQuery.validator.addMethod("phone", function (value, element) {
+		return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+	}, "Enter a valid phone number.");
+	
+	$('#validation-form').validate({
+		errorElement: 'span',
+		errorClass: 'help-inline',
+		focusInvalid: true  ,
+		rules: {
+			
+                       
+                        
+			
+		},
+
+		messages: {
+			email: {
+				required: "Please provide a valid email.",
+				email: "Please provide a valid email."
+			},
+			password: {
+				required: "Please specify a password.",
+				minlength: "Please specify a secure password."
+			},
+			subscription: "Please choose at least one option",
+			gender: "Please choose gender",
+			agree: "Please accept our policy"
+		},
+
+		invalidHandler: function (event, validator) { //display error alert on form submit   
+			$('.alert-error', $('.login-form')).show();
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error').addClass('info');
+			$(e).remove();
+		},
+
+		errorPlacement: function (error, element) {
+			if(element.is(':checkbox') || element.is(':radio')) {
+				var controls = element.closest('.controls');
+				if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+				else error.insertAfter(element.nextAll('.lbl').eq(0));
+			} 
+			else if(element.is('.chzn-select')) {
+				error.insertAfter(element.nextAll('[class*="chzn-container"]').eq(0));
+			}
+			else error.insertAfter(element);
+		},
+
+		submitHandler: function (form) {
+                    form.submit();
+		},
+		invalidHandler: function (form) {
+		}
+	});
+        
+        
+        $('#validation-form-location').validate({
+		errorElement: 'span',
+		errorClass: 'help-inline',
+		focusInvalid: true  ,
+		rules: {
+			
+                        'location_divisions[]': {
+				required: true
+			}
+			
+		},
+
+		invalidHandler: function (event, validator) { //display error alert on form submit   
+			$('.alert-error', $('.login-form')).show();
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error').addClass('info');
+			$(e).remove();
+		},
+
+		errorPlacement: function (error, element) {
+			if(element.is(':checkbox') || element.is(':radio')) {
+				var controls = element.closest('.controls');
+				if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+				else error.insertAfter(element.nextAll('.lbl').eq(0));
+			} 
+			else if(element.is('.chzn-select')) {
+				error.insertAfter(element.nextAll('[class*="chzn-container"]').eq(0));
+			}
+			else error.insertAfter(element);
+		},
+
+		submitHandler: function (form) {
+                    form.submit();
+		},
+		invalidHandler: function (form) {
+		}
+	});
+
+
+	
+})
+
+
+
+{/literal}
+//
+
+
+</script> 
+
+<script>
+    
+//    $(function() {
+//    var table = $("#economic_code_tbl1");
+//
+//    $(window).scroll(function() {
+//        var windowTop = $(window).scrollTop();
+//        if (windowTop > table.offset().top) {
+//            $("thead", table).addClass("Fixed").css("top", windowTop-10);
+//        }
+//        else {
+//            $("thead", table).removeClass("Fixed");
+//        }
+//    });
+//});
+</script>
