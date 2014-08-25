@@ -34,13 +34,6 @@
    define('IMG_WIDTH',                     125);
    define('IMG_HEIGHT',                    150);
    
-   define('PHY_CON_ECONOMIC_CODE',         99999);
-   define('PHY_CON_ECONOMIC_SUB_CODE',     9999901);
-   define('PHY_CON_ECONOMIC_CODE_DESC',    'Physical Contingency');
-   define('PR_CON_ECONOMIC_CODE',          88888);
-   define('PR_CON_ECONOMIC_SUB_CODE',      8888801);
-   define('PR_CON_ECONOMIC_CODE_DESC',     'Price Contingency');
-
    /**#@+
    * Message Constant
    */

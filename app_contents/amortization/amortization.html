@@ -5,38 +5,13 @@
         <script type="text/javascript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/messages.js"></script>
         <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
         <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/{$SYSTEM_APP_PREFIX}.js"></script>
-
-<script language="JavaScript">
-   function thisSelect(inputobj, linkname, format) 
-   {ldelim}
-      var thisDate = new CalendarPopup();
-      alert(inputobj + '\n' + linkname + '\n' + format);
-      thisDate.showNavigationDropdowns();
-      thisDate.select(inputobj,linkname, format);
-   {rdelim}
-   
-   
-  
-</script>
-
-<style>
-   {literal} 
-        .fixed{
-        top:0;
-        position:fixed;
-        width:auto;
-        display:none;
-        border:none;
-  }
-  {/literal}
-</style>
     </head>
 					
     <div id="breadcrumbs">
         <ul class="breadcrumb">
             <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
             <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-            <li class="active">Annexure - III (a): GOODS</li>
+            <li class="active">Annexure - VI: Amortization Schedule</li>
         </ul><!--.breadcrumb-->
         <div id="nav-search">    
         </div><!--#nav-search-->
@@ -44,9 +19,9 @@
 
     <div id="page-content" class="clearfix">
         <div class="page-header position-relative">
-            <h1>Annexure - III (a)<small><i class="icon-double-angle-right"></i>Total Procurement plan for development project/programme</small></h1>
+            <h1>Annexure - VI<small><i class="icon-double-angle-right"></i>Amortization Schedule</small></h1>
             <div id="nav-search">
-                <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
+                <a class="btn btn-small btn-primary" href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
             </div>  
         </div><!--/page-header-->
 
@@ -54,8 +29,38 @@
         <!-- PAGE CONTENT BEGINS HERE -->
            
             <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
-            <form class="form-horizontal" id="procure_plan_goods_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_goods_form"> 
+            <form class="form-horizontal" id="procure_plan_goods_form"  method="post" action="{$SCRIPT_NAME}" name="amortization_schedule_form"> 
                 <div id="basicinfo" class="tab-pane in active">
+                    <div class="control-group">
+                        <label class="control-label span4" for="project_title_en">Name of Project: </label>
+                        <div class="controls">  
+                            <label class="control-label"><b>{$basicInfo->project_title_en}</b></label>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Total Investment: </label>
+                        <div class="controls">  
+                            <label class="control-label"><b>{$basicInfo->total_cost|number_format:2:".":","}</b></label>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Loan Portion: </label>
+                        <div class="controls">  
+                            <label class="control-label" id="loan_gob"><b>{$basicInfo->modefinancing->loan_gob|number_format:2:".":","}</b></label>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Loan Period: </label>
+                        <div class="controls"><input type="text" name="loan_period" id="loan_period" value="{$loan_period}" class="span2" onkeypress="return isNumberKey(event);" onChange="calculate();" /></div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Rate of Interest: </label>
+                        <div class="controls"><input type="text" name="interest_rate" id="interest_rate" value="{$interest_rate}" class="span2" onkeypress="return isNumberKey(event);" onChange="calculate();" /></div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Grace Period: </label>
+                        <div class="controls"><input type="text" name="grace_period" id="grace_period" value="{$grace_period}" class="span2" onkeypress="return isNumberKey(event);" onChange="calculate();" /></div>
+                    </div>
                     <div id="export_to_container">
                         Export To: 
                         <select name="report_type" id="report_type" class="span6" onchange="createReport('Goods');">
@@ -67,35 +72,28 @@
                     </div>
                     <div class="control-group">
                         <div class="span12">
-                            <table id="goods_tbl" class="table table-striped table-bordered table-hover table_bug_report">
+                            <table id="amortization_schedule_tbl" class="table table-striped table-bordered table-hover table_bug_report">
                                 <thead>
                                     <tr>
-                                        <th>Package No.</th>
-                                        <th class="span6">Package as per DPP/TPP</th>
-                                        <th class="span3">Unit</th>
-                                        <th class="span2">Quantity</th>
-                                        <th class="span3">Procurement Method</th>
-                                        <th class="span1">Procurement Type</th>
-                                        <th class="span3">Contract Approving Authority</th>
-                                        <th class="span3">Source of Fund</th>
-                                        <th class="span5">Estd. Cost (In lakh Taka)</th>
-                                        <th class="span3">Invitation for Tender</th>
-                                        <th class="span3">Signing of Contract</th>
-                                        <th class="span3">Completion of Contract</th>
-                                        <th class="span1">&nbsp;</th>
+                                        <th class="span1 center">Year</th>
+                                        <th class="span3 center">Beginning Principal Amount</th>
+                                        <th class="span3 center">Yearly fixed Amount to be paid (Principal)</th>
+                                        <th class="span3 center">Yearly Interest to be paid</th>
+                                        <th class="span3 center">Total Payment (Capital + Interest)</th>
+                                        <th class="span2 center">Ending Balance</th>
                                     </tr>
                                 </thead>
-                                <tbody id="goods_content">
-                                </tbody>
-                                <tfoot>
+                                <tbody id="amortization_schedule"></tbody>
+<!--                                <tfoot>
                                     <tr>
-                                        <td colspan="8" align="right" class="bold">Grand Total</td>
-                                        <td colspan="5"><input type="text" name="Goods_total" id="Goods_total" value="0.00" class="span4 bold" /></td>
+                                        <td class="bold right">Grand Total</td>
+                                        <td><input type="text" name="principal_grand_total" id="begin_bal_grand_total" value="0.00" class="span9 bold right" readonly /></td>
+                                        <td><input type="text" name="principal_grand_total" id="principal_grand_total" value="0.00" class="span9 bold right" readonly /></td>
+                                        <td><input type="text" name="interest_grand_total"  id="interest_grand_total"  value="0.00" class="span9 bold right" readonly /></td>
+                                        <td><input type="text" name="payment_grand_total"   id="payment_grand_total"   value="0.00" class="span9 bold right" readonly /></td>
+                                        <td><input type="text" name="payment_grand_total"   id="end_bal_grand_total"   value="0.00" class="span9 bold right" readonly /></td>
                                     </tr>
-                                    <tr>
-                                        <td colspan="13"><a href="javascript:void(0)" onClick="addNewProcuremtPlanRow('goods_tbl', 'Goods');">Add New Row</a></td>
-                                    </tr>
-                                </tfoot>
+                                </tfoot>-->
                             </table>
                         </div>
                     </div>
@@ -123,27 +121,15 @@
         window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
     </script>
     <script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
-
-    <!-- page specific plugin scripts -->
-		
-    <!--[if lt IE 9]>
-        <script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
-    <![endif]-->
-
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
-       <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
-        
-
     <!-- ace scripts -->
     <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
     <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
     
                 
     <script>
-        //var ministry ="{$basicInfo->ministries}";
-         //addNewProcuremtPlanRow('goods_tbl', 'goods');
-        
         {foreach from=$procurement_list item=item}
             addNewProcuremtPlanRow('goods_tbl', 'Goods');
             populateProcurementPlanDetails("{$item->package_no}", "{$item->procurement_desc}", "{$item->procurement_unit}", "{$item->procurement_qty}", 
@@ -152,27 +138,4 @@
                                            "{$item->id}", "{$item->procurement_category}");
         {/foreach}
         
-       {literal} 
-            $(function() {
-	        $('.date-picker').datepicker();
-            });
-       {/literal} 
-           
-       {if $basicInfo->current_holder eq $smarty.session.uid}
-        {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
-             lockProject();
-        {/if}
-        {else}
-            lockProject();
-        {/if} 
-
-        {literal}
-            function lockProject()
-            {
-                $("#page-content :input").attr("disabled", true);   
-                $('.form-actions2').hide();
-                $("td > a").hide();
-               
-            }
-        {/literal}    
     </script>    

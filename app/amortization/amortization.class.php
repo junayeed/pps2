@@ -4,7 +4,7 @@
  * Project Manager Class
  */
 
-class projectManagerApp extends DefaultApplication
+class amortizationtManagerApp extends DefaultApplication
 {
    /**
    * Constructor
@@ -24,37 +24,10 @@ class projectManagerApp extends DefaultApplication
            case 'saveLocations'      : $screen = $this->saveLocations();               break;
            case 'saveLogFrame'       : $screen = $this->saveLogFrame();                break;
            case 'delete'             : $screen = $this->deleteRecord();                break;
-           case 'list'               : $screen = $this->showList();                    break;
-           case 'partA'              : $screen = $this->showProjectPartA();            break;
-           case 'partB'              : $screen = $this->showProjectPartB();            break;
-           case 'savePartB'          : $screen = $this->saveProjectPartB();            break;
-           case 'anaexI'             : $screen = $this->showProjectLocation();         break;
-           case 'annexII'            : $screen = $this->showAnnexII();                 break;
-           case 'saveAnnexII'        : $screen = $this->saveProjectManagement();       break;
-           case 'saveAnnexI'         : $screen = $this->saveProjectLocationWithCost(); break;
-           case 'annexIIIa'          : $screen = $this->showProcurementPlanGOODS();    break;
-           case 'saveAnnexIIIa'      : $screen = $this->saveProcurementPlan($cmd);     break;
-           case 'annexIIIb'          : $screen = $this->showProcurementPlanWORKS();    break;
-           case 'saveAnnexIIIb'      : $screen = $this->saveProcurementPlan($cmd);     break;
-           case 'annexIIIc'          : $screen = $this->showProcurementPlanSERVICES(); break;
-           case 'saveAnnexIIIc'      : $screen = $this->saveProcurementPlan($cmd);     break;
-           case 'deleteprocplan'     : $screen = $this->deleteProcurementPlan();       break;
-           case 'annexV'             : $screen = $this->showAnnexV();                  break;
-           case 'annexIV'            : $screen = $this->showAnnexIV();                 break;
-           case 'saveAnnexV'         : $screen = $this->saveAnnexV();                  break;
-           case 'deletecomponent'    : $screen = $this->deleteComponent();             break;
-           case 'deleteyear'         : $screen = $this->deleteYear();                  break;
-           case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
-           case 'forwardProject'     : $screen = $this->forwardProject();              break;
-           case 'commentPage'        : $screen = $this->commentPage();                 break;
-           case 'attachment'         : $screen = $this->attachment();                 break;
-           case 'saveAttachment'     : $screen = $this->saveAttachments();                 break;
-           case 'saveComment'        : $screen = $this->saveComment();                 break;
            default                   : $screen = $this->showEditor($msg);
       }
-
      
-     if($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear')
+      if($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear')
       {
          return;
       }
@@ -221,17 +194,22 @@ class projectManagerApp extends DefaultApplication
         }
     }
 
-   /**
-   * Shows User Editor
-   * @param message
-   * @return user editor template
-   */
-   function showEditor($msg)
-   {
-      
-      return createPage(AMORTIZATION_TEMPLATE, $data);
-   }
-   
+    /**
+     * Shows User Editor
+     * @param message
+     * @return user editor template
+     */
+    function showEditor($msg)
+    {
+        $data['PI']           = getUserField('PI');
+        $pid                  = base64_decode($data['PI']);
+        $data                 = new Project($pid);
+        
+        //dumpVar($data);
+
+        return createPage(AMORTIZATION_TEMPLATE, $data);
+    }
+
    function saveObjectiveCost()
    {
        $pid     = base64_decode(getUserField('PI'));
