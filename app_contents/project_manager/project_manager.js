@@ -590,16 +590,16 @@ function toggleFiscalYear(elemID)
 {
     if( $('#total_cost_breakdown_tbl_'+elemID).is(":visible") )
     {
-        $('#price_unit_'+elemID).hide();
         $('#total_cost_breakdown_tbl_'+elemID).hide("100", function() {$('#total_cost_breakdown_container_'+elemID).css('width', '20px');});
+        $('#price_unit_'+elemID).hide();
         //$('#total_cost_breakdown_container_'+elemID).html('Fiscal Year');
-        $('#total_cost_breakdown_container_'+elemID).css('background-color', 'red');
+        //$('#total_cost_breakdown_container_'+elemID).css('background-color', 'red');
     }
     else
     {
-        $('#price_unit_'+elemID).show();
         $('#total_cost_breakdown_tbl_'+elemID).show("100", function() {$('#total_cost_breakdown_container_'+elemID).css('width', '500px');});
-        $('#total_cost_breakdown_container_'+elemID).css('background-color', '');
+        $('#price_unit_'+elemID).show();
+        //$('#total_cost_breakdown_container_'+elemID).css('background-color', '');
     }
 }
 
@@ -1089,8 +1089,6 @@ function calculateComponentTotalGoB_FE(yearID, elemID)
          $('#total_gob_'+componentRowIDArray[elem]).val(total_gob.toMoney(2))
          $('#total_gob_fe_'+componentRowIDArray[elem]).val(total_fe.toMoney(2))
      }
-     
-     
 }
 
 function calculateComponentTotalProjectAid()
