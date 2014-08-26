@@ -329,6 +329,7 @@ class projectManagerApp extends DefaultApplication
         $data->PI                  = getUserField('PI'); 
         
         //dumpVar($data->basicInfo);
+        //dumpVar($_SESSION);
         
         return createPage(PROJECT_PART_A_TEMPLATE, $data);
    }
@@ -546,7 +547,7 @@ class projectManagerApp extends DefaultApplication
         $data->project_msg         = $message->loadMessageByProject();
         $data->project_attachments = $message->loadAttachmentsByProject();
         
-        //dumpVar($data->project_msg);
+        //dumpVar($data);
         //dumpVar($_SESSION);
 
         return createPage(PROJECT_BASIC_TEMPLATE, $data);
