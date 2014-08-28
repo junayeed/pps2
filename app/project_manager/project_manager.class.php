@@ -310,6 +310,7 @@ class projectManagerApp extends DefaultApplication
        
         $result = getProjectWiseEconomicCodeList($pid);
         
+        if($result)
         foreach($result as $value)
         {
             $economicCodeList[$value->component_type][] = $value;
@@ -319,9 +320,12 @@ class projectManagerApp extends DefaultApplication
         
         $result = getProjectWiseContingencyList($pid);
         
-        foreach($result as $value)
-        {
-            $contingencyeList[$value->economic_subcode_name] = $value;
+        if($result)
+        {    
+            foreach($result as $value)
+            {
+                $contingencyeList[$value->economic_subcode_name] = $value;
+            }
         }
         
         $data->contingency_list    = $contingencyeList;
