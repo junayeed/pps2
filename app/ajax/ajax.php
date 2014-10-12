@@ -25,12 +25,12 @@ class ajaxApp extends DefaultApplication
       {
           
            case 'deleteManagement'         : $screen = $this->deleteManagementItem();                  break;
-           case 'updateMajorItems'         : $screen = $this->updateMajorItems();                  break;
-           case 'getAgencyList'            : $screen = $this->getAgencyListByMinistry();                  break;
-           case 'getSubSector'             : $screen = $this->getSubSectorByAdp();                  break;
-           case 'getDistrict'              : $screen = $this->getDistrictListByDivision();                  break;
-           case 'getUpzilla'               : $screen = $this->getUpzillaListByDistrict();                  break;
-           case 'ProjectHome'              : $screen = $this->showProjectHomePage();         break;
+           case 'updateMajorItems'         : $screen = $this->updateMajorItems();                      break;
+           case 'getAgencyList'            : $screen = $this->getAgencyListByMinistry();               break;
+           case 'getSubSector'             : $screen = $this->getSubSectorByAdp();                     break;
+           case 'getDistrict'              : $screen = $this->getDistrictListByDivision();             break;
+           case 'getUpzilla'               : $screen = $this->getUpzillaListByDistrict();              break;
+           case 'ProjectHome'              : $screen = $this->showProjectHomePage();                   break;
            default                         : $screen = $this->showEditor($msg);
       }
 

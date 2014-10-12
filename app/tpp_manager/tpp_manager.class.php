@@ -4,7 +4,7 @@
  * Project Manager Class
  */
 
-class projectManagerApp extends DefaultApplication
+class tppManagerApp extends DefaultApplication
 {
    /**
    * Constructor
@@ -59,7 +59,7 @@ class projectManagerApp extends DefaultApplication
          return;
       }
       
-      if($cmd== 'commentPage' || $cmd == 'attachment')
+      if($cmd== 'commentPage')
       {
           echo  $screen;
       }   

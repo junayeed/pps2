@@ -1,0 +1,1253 @@
+<div id="main-content" class="clearfix">
+<head>
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+
+    <style>
+    {literal}
+        #map_canvas {
+              width: 100%;
+              height: 400px;
+        }
+    {/literal}
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+</head>
+<div id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+        <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+        <li class="active">Part-A</li>
+    </ul><!--.breadcrumb-->
+
+    <div id="nav-search">
+
+    </div><!--#nav-search-->
+</div><!--#breadcrumbs-->
+
+
+
+<div id="page-content" class="clearfix">
+					
+    <div class="page-header position-relative">
+	<h1>Part-A <small><i class="icon-double-angle-right"></i> (Project Summary)</small></h1>
+        <div id="nav-search">
+          <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
+          
+        </div>  
+    </div><!--/page-header-->
+
+
+<div class="row-fluid">
+<!-- PAGE CONTENT BEGINS HERE -->
+
+
+
+<form class="form-horizontal"> 
+
+    
+    <div class="control-group">
+        <label class="control-label" for="project_title_en">1.0 Project Title (English)</label>
+            <div class="controls">  
+                <label class="control-label">: <b>{$basicInfo->project_title_en}</b></label>
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="project_title_bn">Project Title (Bangla)</label>
+            <div class="controls">
+                <label class="control-label">: {$basicInfo->project_title_bn}</label>
+            </div>
+    </div>
+</form>    
+    <div class="tabbable">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a data-toggle="tab" href="#basicinfo">Objectives & Cost (2-6)</a></li>
+            <li><a data-toggle="tab" href="#location">Locations (7-8)</a></li>
+            <li><a data-toggle="tab" href="#costsummary">Component Wise Cost (9)</a></li>
+            <li><a data-toggle="tab" href="#logframe">Log frame (10)</a></li>
+            <li><a data-toggle="tab" href="#annexures">Annexures (II - IV)</a></li>
+            
+        </ul>
+        <div class="tab-content">
+            <!-- #basicinfo strats here-->  
+            <div id="basicinfo" class="tab-pane in active">
+                
+            <form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}"> 
+                <input type="hidden" name="PI" value="{$PI}"/>
+                <div class="control-group">
+                    <label class="control-label" for="ministries[]">2.1 Ministry/Division</label>
+                    <div class="controls">
+                        <select multiple class="chzn-select span6 ministries" id="ministries" onchange="getAgencyList()" name="ministries[]" required data-placeholder="Choose a Ministry/Division...">
+                            <option value=""></option>
+                            {html_options options=$ministryList}
+                        </select>  
+                        <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
+                    </div>
+		</div>
+            
+                <div class="control-group">
+                    <label class="control-label" for="agencies[]">2.2 Implementing Agency</label>
+                    <div class="controls">
+                        <select multiple class="chzn-select span6 agencies" id="agencies" required  name="agencies[]" data-placeholder="Choose a Agencies...">
+                            <option value=""></option>
+                           {html_options options=$agencyList}
+                        </select>  
+                        <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
+                    </div>
+		</div>
+            
+                <div class="control-group">
+                    <label class="control-label" for="adp_sector">2.3 Concerned Sector of ADP</label>
+                    <div class="controls">
+                        <select id="adp_sector" required name="adp_sector" onchange="getSubSector()">
+                            <option value="">Select Sector</option>
+                            {html_options options=$adpSectorList selected=$basicInfo->adp_sector}
+                        </select>    
+                    </div>
+		</div>
+                
+                <div class="control-group">
+                    <label class="control-label" for="adp_sub_sector">Concerned Sub-sector of ADP</label>
+                    <div class="controls">
+                        <select id="adp_sub_sector" required name="adp_sub_sector">
+                            <option value="">Select Sector</option>
+                            {html_options options=$adpSubSectorList selected=$basicInfo->adp_sub_sector}
+                        </select>    
+                    </div>
+		</div>
+            
+                <div class="control-group">
+                    <label class="control-label" for="sector_division">2.4 Concerned Division of Planning Commission</label>
+                    <div class="controls">
+                        <select id="sector_division" required name="sector_division">
+                            <option value="">Select Sector</option>
+                            {html_options options=$sectorDivisionList selected=$basicInfo->sector_division}
+                        </select>    
+                    </div>
+		</div>
+                
+                <div class="control-group">
+                    <label class="control-label" for="partners[]">Development Partners</label>
+                    <div class="controls">
+                        <select multiple class="chzn-select span6 partners" id="partners[]" name="partners[]" data-placeholder="Choose a Development Partners...">
+                        
+                        {html_options options=$partnerList}
+                        </select>  
+                        <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label" for="objectives">3.0 Objectives<br>(Please specify in quantity and/or in percentage and write in bullet form)</label>
+                    <div class="controls" style="margin-left: 289px !important">
+                        <textarea rows="5" class="ckeditor" name="objectives" id="objectives">{$basicInfo->objectives}</textarea>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label" for="project_implementation_period">4.0 Project implementation period: </label>
+                    <div class="controls"><br><br>
+                        <label for="project_implementation_period">i)  Date of commencement: {$basicInfo->date_of_commencement|date_format:"%d/%m/%Y"}</label>
+                        <label  for="project_implementation_period">ii) Date of completion: {$basicInfo->date_of_completion|date_format:"%d/%m/%Y"}</label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="project_cost">5.1 Estimated Cost of the project (in Lakh Taka)</label>
+                    <div class="controls"><br><br>
+                        <table id="table_bug_report" class="table table-striped table-bordered table-hover span4">
+                            <tr>
+                                <td class="span6" style="text-align:right;padding-right:5px"><b>Total: </b></td>
+                                <td class="span6" style="text-align:right;padding-right:5px"><b>{$basicInfo->total_cost|number_format:2:'.':','}</b></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:right;padding-right:5px">GoB (FE): </td>
+                                <td style="text-align:right;padding-right:5px">
+                                    <label id="lbl_project_gob_cost">{$basicInfo->gob_cost|number_format:2:'.':','}</label> 
+                                    <label id="lbl_project_gob_fe_cost">({$basicInfo->gob_fe_cost|number_format:2:'.':','})</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:right;padding-right:5px">PA (RPA): </td>
+                                <td style="text-align:right;padding-right:5px">
+                                    <label id="lbl_pa">{($basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost)|number_format:2:'.':','}</label>
+                                    <label id="lbl_rpa">({($basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost)|number_format:2:'.':','})</label></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:right;padding-right:5px">Own Fund (FE): </td>
+                                <td style="text-align:right;padding-right:5px">
+                                    <label id="lbl_project_own_fund">{$basicInfo->own_fund_cost|number_format:2:'.':','}</label> 
+                                    <label id="lbl_project_own_fund_fe">({$basicInfo->own_fund_fe_cost|number_format:2:'.':','})</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:right;padding-right:5px">Others (FE): </td>
+                                <td style="text-align:right;padding-right:5px">
+                                    <label id="lbl_other_cost">{$basicInfo->other_cost|number_format:2:'.':','}</label> 
+                                    <label id="lbl_other_fe_cost">({$basicInfo->other_fe_cost|number_format:2:'.':','})</label></td>
+                            </tr>
+                        </table>
+<!--                        <label for="project_cost">Total: {$basicInfo->total_cost}</label>
+                        <label for="project_cost">GOB (FE): {$basicInfo->gob_cost} ({$basicInfo->gob_fe_cost})</label>
+                        <label for="project_cost">PA (RPA): {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost} ({$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost})</label>
+                        <label for="project_cost">Own Fund (FE): {$basicInfo->own_fund_cost} ({$basicInfo->own_fund_fe_cost})</label>
+                        <label for="project_cost">Others (FE): {$basicInfo->other_cost} ({$basicInfo->other_fe_cost})</label>-->
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label" for="exchange_rate">5.2 Exchange rate(s) with date (Source Bangladesh Bank): </label>
+                    <div class="controls">
+                        <textarea rows="2" style="width:545px" name="exchange_rate" id="exchange_rate">{$basicInfo->exchange_rate}</textarea>
+                    </div>
+		</div>
+                
+                <div class="control-group">
+                    <label class="control-label" for="mode_of_financing">6.0 Mode of financing</label><br>
+                    
+                    <div class="span11">
+                        <label class="" for="year_wise_allocation">6.1 Mode of financing with source <span class="right">(Amount in Lakh Tk.)<span></label>
+                        <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Mode\Source</th>
+                                    <th>GOB<br>(FE)</th>
+                                    <th>PA<br>(RPA)</th>
+                                    <th> Own Fund<br>(FE)</th>
+                                    <th>Others<br>(Specify)</th>
+                                    <th>PA sources</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr> 
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                </tr>
+                                <tr> 
+                                    <td>Loan/credit</td>
+                                    <td>
+                                        <input class="span8" type="text" id="loan_gob" name="loan_gob" value="{$modefinancing->loan_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GoB" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="loan_gob_fe" name="loan_gob_fe" value="{$modefinancing->loan_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="loan_pa" name="loan_pa" value="{$modefinancing->loan_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="loan_pa_rpa" name="loan_rpa" value="{$modefinancing->loan_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="loan_own_fund" name="loan_own_fund" value="{$modefinancing->loan_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="loan_own_fund_fe" name="loan_own_fund_fe" value="{$modefinancing->loan_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="loan_others" name="loan_others" value="{$modefinancing->loan_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="loan_others_fe" name="loan_others_fe" value="{$modefinancing->loan_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span15" type="text" id="loan_pa_source" name="loan_pa_source" value="{$modefinancing->loan_pa_source}" placeholder="Source of the Amount">
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td>Grant</td>
+                                    <td>
+                                        <input class="span8" type="text" id="grant_gob" name="grant_gob" value="{$modefinancing->grant_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="grant_gob_fe" name="grant_gob_fe" value="{$modefinancing->grant_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="grant_pa" name="grant_pa" value="{$modefinancing->grant_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA"  onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="grant_pa_rpa" name="grant_rpa" value="{$modefinancing->grant_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="grant_own_fund" name="grant_own_fund" value="{$modefinancing->grant_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="grant_own_fund_fe" name="grant_own_fund_fe" value="{$modefinancing->grant_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="grant_others" name="grant_others" value="{$modefinancing->grant_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="grant_others_fe" name="grant_others_fe" value="{$modefinancing->grant_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+
+                                    <td>
+                                        <input class="span15" type="text" id="grant_pa_source" name="grant_pa_source" value="{$modefinancing->grant_pa_source}" placeholder="Source of the Amount">
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td>Equity</td>
+                                    <td>
+                                        <input class="span8" type="text" id="equity_gob" name="equity_gob" value="{$modefinancing->equity_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="equity_gob_fe" name="equity_gob_fe" value="{$modefinancing->equity_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="equity_pa" name="equity_pa" value="{$modefinancing->equity_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="equity_pa_rpa" name="equity_pa_rpa" value="{$modefinancing->equity_pa_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="equity_own_fund" name="equity_own_fund" value="{$modefinancing->equity_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="equity_own_fund_fe" name="equity_own_fund_fe" value="{$modefinancing->equity_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="equity_others" name="equity_others" value="{$modefinancing->equity_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="equity_others_fe" name="equity_others_fe" value="{$modefinancing->equity_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+
+                                    <td>
+                                        <input class="span15" type="text" id="equity_pa_sources" name="equity_pa_sources" value="{$modefinancing->equity_pa_sources}" placeholder="Source of the Amount">
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td>Others(Specify)</td>
+                                    <td>
+                                        <input class="span8" type="text" id="others_gob" name="others_gob" value="{$modefinancing->others_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB"  onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="others_gob_fe" name="others_gob_fe" value="{$modefinancing->others_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="others_pa" name="others_pa" value="{$modefinancing->others_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="others_pa_rpa" name="others_pa_rpa" value="{$modefinancing->others_pa_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="others_own_fund" name="others_own_fund" value="{$modefinancing->others_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="others_own_fund_fe" name="others_own_fund_fe" value="{$modefinancing->others_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="others_others" name="others_others" value="{$modefinancing->others_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
+                                        <input class="span8" type="text" id="others_others_fe" name="others_others_fe" value="{$modefinancing->others_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                    </td>
+
+                                    <td>
+                                        <input class="span15" type="text" id="others_pa_sources" name="others_pa_sources" value="{$modefinancing->others_pa_sources}" placeholder="Source of the Amount">
+                                        <input type="hidden" id="mode_of_finance_id" name="mode_of_finance_id" value="{$modefinancing->id}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Grand Total</td>
+                                    <td>
+                                        <input class="span8" type="text" id="total_gob" name="total_gob" value="" readonly ><br>
+                                        <input class="span8" type="text" id="total_gob_fe" name="total_gob_fe" value="" readonly >
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="total_pa" name="total_pa" value="" readonly ><br>
+                                        <input class="span8" type="text" id="total_rpa" name="total_rpa" value="" readonly >
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="total_own_fund" name="total_own_fund" value="" readonly ><br>
+                                        <input class="span8" type="text" id="total_own_fund_fe" name="total_own_fund_fe" value="" readonly >
+                                    </td>
+                                    <td>
+                                        <input class="span8" type="text" id="total_other" name="total_other" value="" readonly ><br>
+                                        <input class="span8" type="text" id="total_other_fe" name="total_other_fe" value="" readonly >
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+		</div>
+                
+                <div class="control-group">
+                   	<div class="span11">
+                             <label class="" for="year_wise_allocation">6.2 Year wise allocation of GOB, RPA and Own Fund according to Annexure-V <span class="right">(Amount in Lakh Tk.)<span></label>
+		
+                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                        <tr>
+                                                <th>Financial Year</th>
+                                                <th>GOB<br>(FE)</th>
+                                                <th>Own Fund<br>(FE)</th>
+                                        </tr>
+                                </thead>
+
+                                <tbody>
+                                        
+                                        {foreach from=$year_wise_gob_ownfund key=key item=item}
+                                        <tr> 
+                                                <td>{$item->financial_year}</td>
+                                                <td>{$item->gob_total+$year_wise_gob_ownfundCon[$key]->gob_total|number_format:2:'.':''}<br>({$item->gob_fe_total+$year_wise_gob_ownfundCon[$key]->gob_fe_total|number_format:2:'.':''})</td>
+                                                <td>{$item->own_fund_total+$year_wise_gob_ownfundCon[$key]->own_fund_total|number_format:2:'.':''}<br>({$item->own_fund_fe_total+$year_wise_gob_ownfundCon[$key]->own_fund_fe_total|number_format:2:'.':''})</td>
+                                        </tr>
+                                        {/foreach}
+                                </tbody>
+                            </table>
+			</div>
+		</div>
+                
+               <div class="form-actions2">
+		 <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                 <input type="hidden" value="saveObjectiveCost" name="cmd"/>
+	       </div>
+            </form>   
+            </div> 
+            <!-- #basicinfo Ends here -->
+            
+            <!-- #location starts here-->
+            <div id="location" class="tab-pane">
+            <form class="form-horizontal" id="validation-form-location"  method="post" action="{$SCRIPT_NAME}"> 
+                <input type="hidden" name="PI" value="{$PI}"/>    
+                <div class="control-group">
+                    <label class="control-label" for="location_divisions[]">Divisions</label>
+                    <div class="controls">
+                        <select multiple class="chzn-select divisions" id="location_divisions[]" style="width:500px"  name="location_divisions[]" onchange="loadDistrict()" data-placeholder="Choose a Division...">
+                            <option value=""></option>
+                             {html_options options=$divisionList}
+                        </select>  
+                        <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
+                    </div>
+		</div>
+                
+                <div class="control-group">
+                    <label class="control-label" for="location_districts[]">Districts</label>
+                    <div class="controls">
+                        <select multiple class="chzn-select districts" id="location_districts" style="width:500px"   name="location_districts[]" onchange="loadUpzilla()"  data-placeholder="Choose a District..." required>
+                            <option value=""></option>
+                           {html_options options=$districtList}
+                       </select>  
+                        <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
+                    </div>
+		</div>
+                <div class="control-group">
+                    <label class="control-label" for="location_upzilas[]">Upzila/City Corporations</label>
+                    <div class="controls">
+                        <select multiple class="chzn-select upzilas" id="location_upzilas" style="width:500px"  name="location_upzilas[]" data-placeholder="Choose a Upzilla/City Corporations...">
+                            <option value=""></option>
+                           {html_options options=$upazilaList} 
+                        </select>  
+                        <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
+                    </div>
+		</div>
+                 <!--div id="map_canvas"></div-->
+                 <iframe src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d3738865.3076293007!2d89.20079099072714!3d23.774621426113352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!1i0!3e6!4m5!1s0x30adaaed80e18ba7%3A0xf2d28e0c4e1fc6b!2sBangladesh!3m2!1d23.684994!2d90.356331!4m0!5e0!3m2!1sen!2sbd!4v1409038400875" width="100%" height="450" frameborder="0" style="border:0"></iframe>
+
+                <div class="form-actions2">
+		 <button class="btn btn-primary"><i class="icon-save"></i> Save</button>
+                 <input type="hidden" value="saveLocations" name="cmd"/>
+	        </div>
+            </form>   
+            </div>
+            <!-- #location ends here-->
+            
+            <!-- #costsummary starts here-->
+            <div id="costsummary" class="tab-pane">
+                <div class="control-group">
+                   <div class="span12"> 
+                        <div id="annex-iv-container">
+                            <div>
+                                <label>9.0 Component Wise Estimated Cost Summary</label>
+                                <label class="right">(Amount in Lakh Tk.)</label>
+                                
+                                <table id="economic_code_tbl11" class="annex-iv-table table table-striped table-bordered table-hover table_bug_report">
+                                    <thead>
+                                        <tr>
+                                            <th class="span1" rowspan="2">Economic Code</th>
+                                            <th class="span1" rowspan="2">Economic Sub-code</th>
+                                            <th class="span12" rowspan="2">Component description</th>
+                                            <th class="span3" rowspan="2" class="span3">Unit</th>
+                                            <th class="span2" rowspan="2" class="span3">Qty</th>
+                                            <th class="span4" rowspan="2" class="span5">Total Cost<br>Σ(7+8+9+10+11+12)</th>
+                                            <th class="span4" rowspan="2">GoB<br>(FE)</th>
+                                            <th class="span4" colspan="3">Project Aid</th>
+                                            <th class="span4">Own Fund<br>(FE)</th>
+                                            <th class="span4">Other<br>(FE)</th>
+                                            <th class="span4">% of Total Project Cost</th>
+                                            <th class="span4">Major Item?</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="span1" colspan="2">RPA</th> <!--Project Aid-->
+                                            <th class="span12">DPA</th>  <!--DPA-->
+                                            <th class="span12">&nbsp;</th>
+                                            <th class="span12">&nbsp;</th>
+                                            <th class="span12">&nbsp;</th>
+                                             <th class="span12">&nbsp;</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="span1">&nbsp;</th>  <!--Economic Code-->
+                                            <th class="span1">&nbsp;</th>  <!--Economic Sub-code-->
+                                            <th class="span12">&nbsp;</th> <!--Component description-->
+                                            <th class="span1">&nbsp;</th>  <!--Unit-->
+                                            <th class="span1">&nbsp;</th>  <!--Qty-->
+                                            <th class="span12">&nbsp;</th> <!--Total Cost-->
+                                            <th class="span12">&nbsp;</th> <!--Gob (FE)-->
+                                            <th class="span1">Through GoB</th>
+                                            <th class="span1">Special Account **</th>
+                                            <th class="span12">&nbsp;</th>
+                                            <th class="span12">&nbsp;</th>
+                                            <th class="span12">&nbsp;</th>
+                                            <th class="span12">&nbsp;</th>
+                                             <th class="span12">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="economic_code_content">
+                                        {foreach from=$component_list key=key item=item}
+                                            <tr>
+                                                <td colspan="14">{if $key eq "Revenue Component"}(a){else if $key eq "Capital Component"}(b){/if} {$key}<td>
+                                            </tr>
+                                            {foreach from=$item key=iKey item=vItem}
+                                            <tr>
+                                                <td>{$vItem->economic_code}</td>
+                                                <td>{$vItem->economic_subcode}</td>
+                                                <td>{$vItem->economic_subcode_name}</td>
+                                                <td>{if $vItem->unit}{$vItem->unit}{else}-{/if}</td>
+                                                <td>{$vItem->qty}</td>
+                                                <td>{$vItem->total_cost|number_format:2:'.':''}</td>
+                                                <td>{$vItem->gob|number_format:2:'.':''}<br>({$vItem->gob_fe|number_format:2:'.':''})</td>
+                                                <td>{$vItem->rpa_through_gob|number_format:2:'.':''}</td>
+                                                <td>{$vItem->rpa_special_account|number_format:2:'.':''}</td>
+                                                <td>{$vItem->dpa|number_format:2:'.':''}</td>
+                                                <td>{$vItem->own_fund|number_format:2:'.':''}<br>({$vItem->own_fund_fe|number_format:2:'.':''})</td>
+                                                <td>{$vItem->other|number_format:2:'.':''}<br>({$vItem->other_fe|number_format:2:'.':''})</td>
+                                                <td>{assign var="percentage_of_project" value=$vItem->total_cost/$basicInfo->total_cost*100}{$percentage_of_project|number_format:2:'.':''}%</td>
+                                                <td align="center">
+                                                    <div class="span12">
+                                                        <label style="text-align:center"><input name="major_item_{$item->id}" {if $vItem->major_item eq 'Yes'}checked {/if} id="major_item_{$vItem->id}" class="ace-switch ace-switch-5" type="checkbox" onchange="updateMajorItems({$vItem->id},this)" /><span class="lbl"></span></label>
+					            </div>
+                                                </td>
+                                            </tr>
+                                            {/foreach}
+                                            <tr>
+                                                <td colspan="4">Sub Total ({$key})</td>
+                                                <td>&nbsp;</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_total_cost|number_format:2:'.':''}</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_gob|number_format:2:'.':''}<br>({$comp_sub_total_list.$key->sub_total_gob_fe|number_format:2:'.':''})</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_rpa_through_gob|number_format:2:'.':''}</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_rpa_special_account|number_format:2:'.':''}</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_dpa|number_format:2:'.':''}</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_own_fund|number_format:2:'.':''}<br>({$comp_sub_total_list.$key->sub_total_own_fund_fe|number_format:2:'.':''})</td>
+                                                <td>{$comp_sub_total_list.$key->sub_total_other|number_format:2:'.':''}<br>({$comp_sub_total_list.$key->sub_total_other_fe|number_format:2:'.':''})</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                        {/foreach}
+                                    </tbody>
+                                    <tfoot>
+                                        {foreach from=$contingency_list key=conKey item=conItem}
+                                        <tr>
+                                            <td colspan="3">{if $conKey eq "Physical Contingency"}(c){else if $conKey eq "Price Contingency"}(d){/if} {$conItem->economic_subcode_name}</td>
+                                            <td>&nbsp;</td>
+                                            <td>{$conItem->qty}</td>
+                                            <td>{$conItem->total_cost}</td>
+                                            <td>{$conItem->gob}<br>({$conItem->gob_fe})</td>
+                                            <td>{$conItem->rpa_through_gob}</td>
+                                            <td>{$conItem->rpa_special_account}</td>
+                                            <td>{$conItem->dpa}</td>
+                                            <td>{$conItem->own_fund}<br>({$conItem->own_fund_fe})</td>
+                                            <td>{$conItem->other}<br>({$conItem->other_fe})</td>
+                                            <td>{assign var="con_percentage_of_project" value=$conItem->total_cost/$basicInfo->total_cost*100}{$con_percentage_of_project|number_format:2:'.':''}%</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        {/foreach}
+                                        <tr>
+                                            <td colspan="5">Grand Total (a+b+c+d)</td>
+                                            <td>{$basicInfo->total_cost}</td>
+                                            <td>{$basicInfo->gob_cost}<br>({$basicInfo->gob_fe_cost})</td>
+                                            <td>{$basicInfo->pa_through_gob_cost}</td>
+                                            <td>{$basicInfo->pa_spc_acnt_cost}</td>
+                                            <td>{$basicInfo->pa_dpa_cost}</td>
+                                            <td>{$basicInfo->own_fund_cost}<br>({$basicInfo->own_fund_fe_cost})</td>
+                                            <td>{$basicInfo->other_cost}<br>({$basicInfo->other_fe_cost})</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <input type="hidden" value="saveAnnexV" name="cmd"/>
+                        <input type="hidden" id="PI" name="PI" value="{$PI}"/>
+                        <input type="hidden" id="total_year_in_annexv" name="total_year_in_annexv" value=""/>
+                    </div>      
+                </div>
+                
+            </div>
+            <!-- #costsummary ends here-->
+            
+            <!-- #logframe starts here-->
+            <div id="logframe" class="tab-pane">
+                <form class="form-horizontal" id="validation-form-logframe"  method="post" action="{$SCRIPT_NAME}"> 
+                <div class="control-group">
+			<label class="control-label" for="date_of_completion">Planned date for project completion :</label>
+                            <div class="controls">
+                                <div class="input-append date">
+                                    <input class="span10" id="date_of_completion" name="date_of_completion"  {if $basicInfo->date_of_completion eq '0000-00-00'} value=''{else}value="{$basicInfo->date_of_completion}" {/if} type="text" data-date-format="yyyy-mm-dd" readonly/>
+                                    <span class="add-on"><i class="icon-calendar"></i></span>
+                                </div>
+                            </div>    
+                         
+                         <label class="control-label" for="date_of_completion">Date of this summary preparation:</label>
+                            <div class="controls">
+                                <div class="input-append date">
+                                    <input class="span10 date-picker" id="date_of_logframe_summary_preparation" name="date_of_logframe_summary_preparation"  {if $basicInfo->date_of_logframe_summary_preparation eq '0000-00-00'} value=''{else}value="{$basicInfo->date_of_logframe_summary_preparation}" {/if} type="text" data-date-format="yyyy-mm-dd" required/>
+                                    <span class="add-on"><i class="icon-calendar"></i></span>
+                                </div>
+                            </div>    
+                         <br>
+                          <label class="" for="date_of_completion">10.0 Log frame:</label>
+                          <br>
+			<div class="">
+                           
+                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                        <tr>
+                                                <th></th>
+                                                <th>Narrative Summary</th>
+                                                <th>Objectively Verifiable Indecators(OVI))</th>
+                                                <th>Means of Verifications(MOV)</th>
+                                                <th>Important Assumptions(IA)</th>
+                                        </tr>
+                                </thead>
+
+                                <tbody>
+                                        <tr> 
+                                                <td>Goal</td>
+                                                <td><textarea name="goal_summary">{$logframe->goal_summary}</textarea></td>
+                                                <td><textarea name="goal_ovi">{$logframe->goal_ovi}</textarea></td>
+                                                <td><textarea name="goal_mov">{$logframe->goal_mov}</textarea></td>
+                                                <td>&nbsp;<!--textarea name="goal_ai" disabled>{$logframe->goal_ai}</textarea--></td>
+                                        </tr>
+                                        <tr> 
+                                                <td>Objective/Purpose</td>
+                                                <td><textarea name="objective_summary">{$logframe->objective_summary}</textarea></td>
+                                                <td><textarea name="objective_ovi">{$logframe->objective_ovi}</textarea></td>
+                                                <td><textarea name="objective_mov">{$logframe->objective_mov}</textarea></td>
+                                                <td><textarea name="objective_ai">{$logframe->objective_ai}</textarea></td>
+                                        </tr>
+                                        <tr> 
+                                                <td>Output</td>
+                                                <td><textarea name="output_summary">{$logframe->output_summary}</textarea></td>
+                                                <td><textarea name="output_ovi">{$logframe->output_ovi}</textarea></td>
+                                                <td><textarea name="output_mov">{$logframe->output_mov}</textarea></td>
+                                                <td><textarea name="output_ai">{$logframe->output_ai}</textarea></td>
+                                        </tr>
+                                        <tr> 
+                                                <td>Input</td>
+                                                <td><textarea name="input_summary">{$logframe->input_summary}</textarea></td>
+                                                <td><textarea name="input_ovi">{$logframe->input_ovi}</textarea></td>
+                                                <td><textarea name="input_mov">{$logframe->input_mov}</textarea></td>
+                                                <td><textarea name="input_ai">{$logframe->input_ai}</textarea></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+			</div>
+		</div>
+                <div class="form-actions2">
+                    <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                    <input type="hidden" value="{$logframe->id}" name="log_frame_id"/>
+                    <input type="hidden" name="PI" value="{$PI}"/> 
+                    <input type="hidden" value="saveLogFrame" name="cmd"/>
+	       </div>
+               </form>     
+                
+            </div>
+            <!-- #logframe ends here-->
+            
+            <!-- #annexures starts here-->
+            <div id="annexures" class="tab-pane">
+            <form class="form-horizontal" id="validation-form-logframe"  method="post" action="{$SCRIPT_NAME}">    
+                <div class="widget-main">
+
+                        <dl id="dt-list-1">
+                                <dt>11.0 Project Management</dt>
+                                <dd>11.1 Project Management Setup : Annexure-II</dd>
+                                <dd>11.2 Implementation Arrangement :</dd>
+                                <dd><textarea class="ckeditor" name="implementation_arrangement" id="implementation_arrangement">{$basicInfo->implementation_arrangement}</textarea><br></dd>
+                                <dd>11.3 Attach Procurement Plan: Annexure-III(A) , Annexure III(B), Annexure III(C)</dd>
+                        </dl>
+                        <dl id="dt-list-1">
+                                <dt>12.0 Year wise financial and physical target plan: Annexure-IV</dt>
+                        </dl>
+                        <dl id="dt-list-1">
+                                <dt>13.0 After completion, whether the project needs to be transferred to revenue budget.</dt>
+                                <dd><textarea class="ckeditor" name="after_completion" id="after_completion">{$basicInfo->after_completion}</textarea></dd>
+                        </dl>
+                </div>
+                <div class="form-actions2">
+                    <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                    <input type="hidden" name="PI" value="{$PI}"/> 
+                    <input type="hidden" value="saveProjectInfo" name="cmd"/>
+	       </div>
+            </form>   
+            </div>
+            <!-- #annexures ends here-->
+        </div>
+    </div>
+    
+   
+
+
+<!-- PAGE CONTENT ENDS HERE -->
+</div><!--/row-->
+	
+</div><!--/#page-content-->
+
+
+</div><!-- #main-content -->
+
+
+		
+
+
+		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+			<i class="icon-double-angle-up icon-only"></i>
+		</a>
+                        
+                        
+                <!-- basic scripts -->
+		<script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
+		<script type="text/javascript">
+		window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
+		</script>
+		
+		<script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
+
+
+
+		<!-- page specific plugin scripts -->
+		
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
+		<![endif]-->
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.spinner.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-timepicker.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
+                
+                <script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+
+                
+                
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/daterangepicker.min.js"></script>
+
+		
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.knob.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.autosize-min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+                <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
+
+               <!-- ace scripts -->
+		<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
+		<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+                
+                
+                <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+                <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/part_a.js"></script>        
+                <script type="text/javascript" src="/ext/ckeditor/ckeditor.js"></script>
+                <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
+                
+                
+                <script>
+                   
+                    //var ministry ="{$basicInfo->ministries}";
+                    var ministries = [];
+                    var agencies   = []; 
+                    var partners   = []; 
+                    
+                    var divisions = [];
+                    var districts   = []; 
+                    var upzilas   = []; 
+                    
+                    ministries.push({$smarty.session.ministry_id})
+                    agencies.push({$smarty.session.agency_id})
+
+                    
+                    {foreach from=$basicInfo->ministries item=item key=key}
+                       ministries.push({$item->ministry_id})
+                    {/foreach}
+                        
+                    {foreach from=$basicInfo->agencies item=item key=key}
+                       agencies.push({$item->agency_id})
+                    {/foreach}   
+                        
+                    {foreach from=$basicInfo->partners item=item key=key}
+                       partners.push({$item->dev_partner_id})
+                    {/foreach}   
+                    
+                    {foreach from=$basicInfo->locations item=item key=key}
+                       {if $item->location_type eq 'Division'}
+                          divisions.push({$item->location_id})
+                       {elseif $item->location_type eq 'District'} 
+                          districts.push({$item->location_id})
+                       {else}
+                          upzilas.push({$item->location_id})
+                       {/if}
+                    {/foreach}   
+                    
+                    
+                    $(".ministries").val(ministries);
+                    $(".agencies").val(agencies);
+                    $(".partners").val(partners);
+                    
+                    $(".divisions").val(divisions);
+                    $(".districts").val(districts);
+                    $(".upzilas").val(upzilas);
+                   
+                    //$(".ministries").chosen().trigger("chosen:updated");
+                    //alert('{$basicInfo->status}')
+                    
+                    {if $basicInfo->current_holder eq $smarty.session.uid}
+                        {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
+                             lockProject();
+                        {/if}
+                    {else}
+                        lockProject();
+                    {/if} 
+                    
+                    
+                    {literal}
+                    
+                      
+                        $(function() {
+			$('#id-disable-check').on('click', function() {
+				var inp = $('#form-input-readonly').get(0);
+				if(inp.hasAttribute('disabled')) {
+					inp.setAttribute('readonly' , 'true');
+					inp.removeAttribute('disabled');
+					inp.value="This text field is readonly!";
+				}
+				else {
+					inp.setAttribute('disabled' , 'disabled');
+					inp.removeAttribute('readonly');
+					inp.value="This text field is disabled!";
+				}
+			});
+		
+		
+			$(".chzn-select").chosen(); 
+                        
+			$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+			
+			
+			
+			$('textarea[class*=autosize]').autosize({append: "\n"});
+			$('textarea[class*=limited]').each(function() {
+				var limit = parseInt($(this).attr('data-maxlength')) || 100;
+				$(this).inputlimiter({
+					"limit": limit,
+					remText: '%n character%s remaining...',
+					limitText: 'max allowed : %n.'
+				});
+			});
+			
+			
+			
+			var $tooltip = $("<div class='tooltip right in' style='display:none;'><div class='tooltip-arrow'></div><div class='tooltip-inner'></div></div>").appendTo('body');
+			$( "#slider-range" ).css('height','200px').slider({
+				orientation: "vertical",
+				range: true,
+				min: 0,
+				max: 100,
+				values: [ 17, 67 ],
+				slide: function( event, ui ) {
+					var val = ui.values[$(ui.handle).index()-1]+"";
+					
+					var pos = $(ui.handle).offset();
+					$tooltip.show().children().eq(1).text(val);		
+					$tooltip.css({top:pos.top - 10 , left:pos.left + 18});
+					
+					//$(this).find('a').eq(which).attr('data-original-title' , val).tooltip('show');
+				}
+			});
+			$('#slider-range a').tooltip({placement:'right', trigger:'manual', animation:false}).blur(function(){
+				$tooltip.hide();
+				//$(this).tooltip('hide');
+			});
+			//$('#slider-range a').tooltip({placement:'right', animation:false});
+			
+			
+			
+			$( "#eq > span" ).css({width:'90%', float:'left', margin:'15px'}).each(function() {
+				// read initial values from markup and remove that
+				var value = parseInt( $( this ).text(), 10 );
+				$( this ).empty().slider({
+					value: value,
+					range: "min",
+					animate: true
+					
+				});
+			});
+
+			
+			$('#id-input-file-1 , #id-input-file-2').ace_file_input({
+				no_file:'No File ...',
+				btn_choose:'Choose',
+				btn_change:'Change',
+				droppable:false,
+				onchange:null,
+				thumbnail:false //| true | large
+				//whitelist:'gif|png|jpg|jpeg'
+				//blacklist:'exe|php'
+				//onchange:''
+				//
+			});
+			
+			
+			$('.date-picker').datepicker();
+			
+
+		});
+
+
+		$(function() {
+
+	$('[data-rel=tooltip]').tooltip();
+
+	$(".chzn-select").css('width','150px').chosen({allow_single_deselect:true , no_results_text: "No such state!"})
+	.on('change', function(){
+		$(this).closest('form').validate().element($(this));
+	}); 
+
+
+	var $validation = false;
+	$('#fuelux-wizard').ace_wizard().on('change' , function(e, info){
+		if(info.step == 1 && $validation) {
+			if(!$('#validation-form').valid()) return false;
+		}
+	}).on('finished', function(e) {
+		bootbox.dialog("Thank you! Your information was successfully saved!", [{
+			"label" : "OK",
+			"class" : "btn-small btn-primary",
+			}]
+		);
+	});
+	
+	
+	
+	
+	//documentation : http://docs.jquery.com/Plugins/Validation/validate
+	
+
+	$.mask.definitions['~']='[+-]';
+	$('#phone').mask('(999) 999-9999');
+
+	jQuery.validator.addMethod("phone", function (value, element) {
+		return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+	}, "Enter a valid phone number.");
+	
+	$('#validation-form').validate({
+		errorElement: 'span',
+		errorClass: 'help-inline',
+		focusInvalid: true  ,
+		rules: {
+			
+                       
+                        
+			
+		},
+
+		messages: {
+			email: {
+				required: "Please provide a valid email.",
+				email: "Please provide a valid email."
+			},
+			password: {
+				required: "Please specify a password.",
+				minlength: "Please specify a secure password."
+			},
+			subscription: "Please choose at least one option",
+			gender: "Please choose gender",
+			agree: "Please accept our policy"
+		},
+
+		invalidHandler: function (event, validator) { //display error alert on form submit   
+			$('.alert-error', $('.login-form')).show();
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error').addClass('info');
+			$(e).remove();
+		},
+
+		errorPlacement: function (error, element) {
+			if(element.is(':checkbox') || element.is(':radio')) {
+				var controls = element.closest('.controls');
+				if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+				else error.insertAfter(element.nextAll('.lbl').eq(0));
+			} 
+			else if(element.is('.chzn-select')) {
+				error.insertAfter(element.nextAll('[class*="chzn-container"]').eq(0));
+			}
+			else error.insertAfter(element);
+		},
+
+		submitHandler: function (form) {
+                    form.submit();
+		},
+		invalidHandler: function (form) {
+		}
+	});
+        
+        
+        $('#validation-form-location').validate({
+		errorElement: 'span',
+		errorClass: 'help-inline',
+		focusInvalid: true  ,
+		rules: {
+			
+                        'location_divisions[]': {
+				required: true
+			}
+			
+		},
+
+		invalidHandler: function (event, validator) { //display error alert on form submit   
+			$('.alert-error', $('.login-form')).show();
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error').addClass('info');
+			$(e).remove();
+		},
+
+		errorPlacement: function (error, element) {
+			if(element.is(':checkbox') || element.is(':radio')) {
+				var controls = element.closest('.controls');
+				if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+				else error.insertAfter(element.nextAll('.lbl').eq(0));
+			} 
+			else if(element.is('.chzn-select')) {
+				error.insertAfter(element.nextAll('[class*="chzn-container"]').eq(0));
+			}
+			else error.insertAfter(element);
+		},
+
+		submitHandler: function (form) {
+                    form.submit();
+		},
+		invalidHandler: function (form) {
+		}
+	});
+
+
+	
+})
+
+
+function getAgencyList()
+{
+    var ministries  = $('#ministries').val();
+    
+    var domainname = window.location.hostname;
+   
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getAgencyList',                    //the script to call to get data          
+            data: "ministries="+ministries,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            dataType: 'json',                                         //data format      
+            success: function(responseText)                           //on recieve of reply
+            {
+                if(responseText!=null)
+                {
+                   
+                    
+                    $('#agencies').empty(); //remove all child nodes
+                    $('#agencies').append(responseText);
+                    $('#agencies').trigger("liszt:updated");
+                    
+                } 
+                else
+                {
+                     $('#agencies').empty(); 
+                     $('#agencies').trigger("liszt:updated");
+                }
+            }
+        } 
+    );  
+    
+    
+}
+
+function getSubSector()
+{
+    var adp_sector  = $('#adp_sector').val();
+    
+    var domainname = window.location.hostname;
+   
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getSubSector',                    //the script to call to get data          
+            data: "adp_sector="+adp_sector,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            dataType: 'json',                                         //data format      
+            success: function(responseText)                           //on recieve of reply
+            {
+                if(responseText!=null)
+                {
+                   
+                    
+                    $('#adp_sub_sector').empty(); //remove all child nodes
+                    $('#adp_sub_sector').append(responseText);
+                    $('#adp_sub_sector').trigger("liszt:updated");
+                    
+                } 
+                else
+                {
+                     $('#agencies').empty(); 
+                     $('#agencies').trigger("liszt:updated");
+                }
+            }
+        } 
+    );  
+    
+    
+}
+
+function loadDistrict()
+{
+    
+    var divisions  = $('.divisions').val();
+    var domainname = window.location.hostname;
+   
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getDistrict',                    //the script to call to get data          
+            data: "divisions="+divisions,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            dataType: 'json',                                         //data format      
+            success: function(responseText)                           //on recieve of reply
+            {
+                if(responseText!=null)
+                {
+                   
+                   
+                    $('#location_districts').empty(); //remove all child nodes
+                    $('#location_districts').append(responseText);
+                    $('#location_districts').trigger("liszt:updated");
+                } 
+                else
+                {
+                     $('#location_districts').empty(); 
+                     $('#location_districts').trigger("liszt:updated");
+                }
+            }
+        } 
+    );  
+}
+
+function loadUpzilla()
+{
+    
+    var districts  = $('.districts').val();
+    var domainname = window.location.hostname;
+   
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getUpzilla',                    //the script to call to get data          
+            data: "districts="+districts,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
+            dataType: 'json',                                         //data format      
+            success: function(responseText)                           //on recieve of reply
+            {
+                if(responseText!=null)
+                {
+                   
+                   
+                    $('#location_upzilas').empty(); //remove all child nodes
+                    $('#location_upzilas').append(responseText);
+                    $('#location_upzilas').trigger("liszt:updated");
+                } 
+                else
+                {
+                     $('#location_upzilas').empty(); 
+                     $('#location_upzilas').trigger("liszt:updated");
+                }
+            }
+        } 
+    );  
+}
+
+
+
+function initialize() {
+  var map_canvas = document.getElementById('map_canvas');
+  var map_options = {
+    center: new google.maps.LatLng(23.709921, 90.407143),
+    zoom: 8,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+  var map = new google.maps.Map(map_canvas, map_options)
+  
+   var center = map.getCenter();
+    google.maps.event.trigger(map, 'resize');
+    map.setCenter(center); 
+    
+}
+
+function lockProject()
+{
+   $("#validation-form :input").attr("disabled", true);
+   $("#validation-form-location :input").attr("disabled", true);
+   $("#validation-form-logframe :input").attr("disabled", true);   
+   $("#costsummary :input").attr("disabled", true);   
+   $("#annexures :input").attr("disabled", true);   
+   $('.form-actions2').hide();
+}
+
+
+    
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+{/literal}
+//ajaj
+var project_total_gob           = {if $basicInfo->gob_cost} {$basicInfo->gob_cost} {else} 0 {/if} ;
+var project_total_gob_fe        = {if $basicInfo->gob_fe_cost} {$basicInfo->gob_fe_cost} {else} 0 {/if} ;
+var project_total_gob_fe        = {if $basicInfo->pa_through_gob_cost} {$basicInfo->pa_through_gob_cost} {else} 0 {/if} ;
+var project_total_pa            = {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost};
+var project_total_rpa           = {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost};
+var project_total_own_fund      = {if $basicInfo->own_fund_cost} {$basicInfo->own_fund_cost} {else} 0 {/if} ;
+var project_total_own_fund_fe   = {if $basicInfo->own_fund_fe_cost} {$basicInfo->own_fund_fe_cost} {else} 0 {/if} ;
+var project_total_other         = {if $basicInfo->other_cost} {$basicInfo->other_cost} {else} 0 {/if} ;
+var project_total_other_fe      = {if $basicInfo->other_fe_cost} {$basicInfo->other_fe_cost} {else} 0 {/if} ;
+
+calculateModeOfFinanceGrandTotal();
+// getAgencyList()
+
+
+</script> 
+
+<script>
+    
+//    $(function() {
+//    var table = $("#economic_code_tbl1");
+//
+//    $(window).scroll(function() {
+//        var windowTop = $(window).scrollTop();
+//        if (windowTop > table.offset().top) {
+//            $("thead", table).addClass("Fixed").css("top", windowTop-10);
+//        }
+//        else {
+//            $("thead", table).removeClass("Fixed");
+//        }
+//    });
+//});
+</script>

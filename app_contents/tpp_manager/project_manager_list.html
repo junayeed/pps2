@@ -1,0 +1,541 @@
+<div id="main-content" class="clearfix">
+    	<head>
+		
+		
+		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
+		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/colorpicker.css" />
+                
+                
+
+	</head>
+
+					
+    <div id="breadcrumbs">
+            <ul class="breadcrumb">
+                    <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+                    <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+                    <li class="active">List</li>
+            </ul><!--.breadcrumb-->
+
+            <div id="nav-search">
+                    <form class="form-search">
+                                    <span class="input-icon">
+                                            <input autocomplete="off" id="nav-search-input" type="text" class="input-small search-query" placeholder="Search ..." />
+                                            <i id="nav-search-icon" class="icon-search"></i>
+                                    </span>
+                    </form>
+            </div><!--#nav-search-->
+    </div><!--#breadcrumbs-->
+
+
+
+<div id="page-content" class="clearfix">
+					
+    <div class="page-header position-relative">
+	<h1>Project List<small><i class="icon-double-angle-right"></i> (Search)</small></h1>
+    </div><!--/page-header-->
+
+						
+
+<div class="row-fluid">
+<!-- PAGE CONTENT BEGINS HERE -->
+
+<form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}">
+	
+		<div class="control-group">
+			<label class="control-label" for="project_title">Project Title</label>
+			<div class="controls">
+                            <input class="span8" type="text" id="project_title" value="{$project_title}"  name="project_title" placeholder="Project Title">
+			</div>
+		</div>
+    
+                <div class="control-group">
+			<label class="control-label" for="project_amount_from">Amount From</label>
+			<div class="controls">
+                            <input class="span2" type="text" id="project_amount_from" value="{$project_amount_form}"  name="project_amount_form" placeholder="0.00">
+                            To
+                             <input class="span2" type="text" id="project_amount_to" value="{$project_amount_form}"  name="project_amount_to" placeholder="0.00">
+			</div>
+		</div>
+    
+                <div class="control-group">
+			<label class="control-label" for="project_location">Location</label>
+			<div class="controls">
+                            <input class="span8" type="text" id="project_location" value="{$project_location}"  name="project_location" placeholder="Ploject Location">
+			</div>
+		</div>
+    
+                <div class="control-group">
+                    <label class="control-label" for="ministries[]">Ministry/Division</label>
+                    <div class="controls">
+                        <select multiple class="chzn-select span6 ministries" id="ministries" onchange="getAgencyList()" name="ministries[]" required data-placeholder="Choose a Ministry/Division...">
+                            <option value=""></option>
+                            {html_options options=$ministryList}
+                        </select>  
+                        <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
+                    </div>
+		</div>
+    
+                <div class="control-group">
+                    <label class="control-label" for="adp_sector">Concerned Sector of ADP</label>
+                    <div class="controls">
+                        <select id="adp_sector" required name="adp_sector" onchange="getSubSector()">
+                            <option value="">Select Sector</option>
+                            {html_options options=$adpSectorList selected=$basicInfo->adp_sector}
+                        </select>    
+                    </div>
+		</div>
+    
+                 <div class="control-group">
+			<label class="control-label" for="project_type">Project Type</label>
+			<div class="controls">
+                                <select id="project_type" name="project_type">
+				    <option value="">Select Type</option>
+				    <option value='DPP'>DPP</option>
+                                    <option value='TPP'>TPP</option>
+                                </select>    
+                        </div>
+		</div>             
+                
+    	
+		<div class="form-actions2">
+			<button class="btn btn-small btn-primary" type="submit"><i class="icon-ok"></i> Search</button>
+			&nbsp; &nbsp; &nbsp;
+			<button class="btn btn-small btn-primary" type="reset"><i class="icon-undo"></i> Reset</button>
+		</div>
+    
+                <div class="control-group">
+			<div class="widget-main no-padding">
+                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                                <thead>                                               
+                                    <tr>
+                                        <th>Sl</th>
+                                        <th class="span10">Project Title</th>
+                                        {if $smarty.session.user_type neq 'Agency'}
+                                        <th class="span10">Name of the Agency</th>
+                                        {/if}
+                                        <th class="hidden-480">Create Date</th>
+                                        <th style="text-align: right;">Total Cost (In Lac)</th>
+                                        <th style="text-align: center;" class="hidden-480">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {foreach from=$list key=key item=item}
+                                        <tr>
+                                            <td>{$key+1}</td>
+                                            <td><a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}">{$item->project_title_en}</a></td>
+                                            {if $smarty.session.user_type neq 'Agency'}
+                                            <td class="span10">{$item->agency_name}</td>
+                                            {/if}
+                                            <td  class="span3 hidden-480">{$item->create_date|date_format:"%e %B, %Y"}</td>
+                                            <td class="span3" style="text-align: right ;padding-right: 5px;">
+                                                <b class="blue" >{$item->total_cost|number_format:2:'.':','}</b>
+				            </td>
+                                            <td class="hidden-480" style="text-align: center;">
+                                                <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>
+                                            </td>
+                                        </tr>
+                                    {/foreach}
+                                </tbody>
+                            </table>
+                        </div>
+		</div>
+    
+    
+                <input type="hidden" name="cmd" value="list">
+		
+	
+	 </form>
+	   
+		
+		
+
+
+<!-- PAGE CONTENT ENDS HERE -->
+</div><!--/row-->
+	
+</div><!--/#page-content-->
+
+
+</div><!-- #main-content -->
+
+
+		
+
+
+		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+			<i class="icon-double-angle-up icon-only"></i>
+		</a>
+                        
+                        
+                <!-- basic scripts -->
+		<script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
+		<script type="text/javascript">
+		window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
+		</script>
+		
+		<script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
+
+
+
+		<!-- page specific plugin scripts -->
+		
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
+		<![endif]-->
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.spinner.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-timepicker.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
+                
+                <script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+
+                
+                
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/daterangepicker.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-colorpicker.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.knob.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.autosize-min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+
+               <!-- ace scripts -->
+		<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
+		<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+  
+                
+                <script>
+                   
+                    //var ministry ="{$basicInfo->ministries}";
+                    var ministries = [];
+                    var agencies   = []; 
+                    var partners   = []; 
+                    
+                    var divisions = [];
+                    var districts   = []; 
+                    var upzilas   = []; 
+                    
+                    ministries.push({$smarty.session.ministry_id})
+                    agencies.push({$smarty.session.agency_id})
+
+                    
+                    {foreach from=$basicInfo->ministries item=item key=key}
+                       ministries.push({$item->ministry_id})
+                    {/foreach}
+                        
+                    {foreach from=$basicInfo->agencies item=item key=key}
+                       agencies.push({$item->agency_id})
+                    {/foreach}   
+                        
+                    {foreach from=$basicInfo->partners item=item key=key}
+                       partners.push({$item->dev_partner_id})
+                    {/foreach}   
+                    
+                    {foreach from=$basicInfo->locations item=item key=key}
+                       {if $item->location_type eq 'Division'}
+                          divisions.push({$item->location_id})
+                       {elseif $item->location_type eq 'District'} 
+                          districts.push({$item->location_id})
+                       {else}
+                          upzilas.push({$item->location_id})
+                       {/if}
+                    {/foreach}   
+                    
+                    
+                    $(".ministries").val(ministries);
+                    $(".agencies").val(agencies);
+                    $(".partners").val(partners);
+                    
+                    $(".divisions").val(divisions);
+                    $(".districts").val(districts);
+                    $(".upzilas").val(upzilas);
+                   
+                    //$(".ministries").chosen().trigger("chosen:updated");
+                    //alert('{$basicInfo->status}')
+                   
+                    {literal}
+                    
+                      
+                        $(function() {
+			$('#id-disable-check').on('click', function() {
+				var inp = $('#form-input-readonly').get(0);
+				if(inp.hasAttribute('disabled')) {
+					inp.setAttribute('readonly' , 'true');
+					inp.removeAttribute('disabled');
+					inp.value="This text field is readonly!";
+				}
+				else {
+					inp.setAttribute('disabled' , 'disabled');
+					inp.removeAttribute('readonly');
+					inp.value="This text field is disabled!";
+				}
+			});
+		
+		
+			$(".chzn-select").chosen(); 
+                        
+			$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+			
+			
+			
+			$('textarea[class*=autosize]').autosize({append: "\n"});
+			$('textarea[class*=limited]').each(function() {
+				var limit = parseInt($(this).attr('data-maxlength')) || 100;
+				$(this).inputlimiter({
+					"limit": limit,
+					remText: '%n character%s remaining...',
+					limitText: 'max allowed : %n.'
+				});
+			});
+			
+			
+			
+			var $tooltip = $("<div class='tooltip right in' style='display:none;'><div class='tooltip-arrow'></div><div class='tooltip-inner'></div></div>").appendTo('body');
+			$( "#slider-range" ).css('height','200px').slider({
+				orientation: "vertical",
+				range: true,
+				min: 0,
+				max: 100,
+				values: [ 17, 67 ],
+				slide: function( event, ui ) {
+					var val = ui.values[$(ui.handle).index()-1]+"";
+					
+					var pos = $(ui.handle).offset();
+					$tooltip.show().children().eq(1).text(val);		
+					$tooltip.css({top:pos.top - 10 , left:pos.left + 18});
+					
+					//$(this).find('a').eq(which).attr('data-original-title' , val).tooltip('show');
+				}
+			});
+			$('#slider-range a').tooltip({placement:'right', trigger:'manual', animation:false}).blur(function(){
+				$tooltip.hide();
+				//$(this).tooltip('hide');
+			});
+			//$('#slider-range a').tooltip({placement:'right', animation:false});
+			
+			
+			
+			$( "#eq > span" ).css({width:'90%', float:'left', margin:'15px'}).each(function() {
+				// read initial values from markup and remove that
+				var value = parseInt( $( this ).text(), 10 );
+				$( this ).empty().slider({
+					value: value,
+					range: "min",
+					animate: true
+					
+				});
+			});
+
+			
+			$('#id-input-file-1 , #id-input-file-2').ace_file_input({
+				no_file:'No File ...',
+				btn_choose:'Choose',
+				btn_change:'Change',
+				droppable:false,
+				onchange:null,
+				thumbnail:false //| true | large
+				//whitelist:'gif|png|jpg|jpeg'
+				//blacklist:'exe|php'
+				//onchange:''
+				//
+			});
+			
+			
+			$('.date-picker').datepicker();
+			
+
+		});
+
+
+		$(function() {
+
+	$('[data-rel=tooltip]').tooltip();
+
+	$(".chzn-select").css('width','150px').chosen({allow_single_deselect:true , no_results_text: "No such state!"})
+	.on('change', function(){
+		$(this).closest('form').validate().element($(this));
+	}); 
+
+
+	var $validation = false;
+	$('#fuelux-wizard').ace_wizard().on('change' , function(e, info){
+		if(info.step == 1 && $validation) {
+			if(!$('#validation-form').valid()) return false;
+		}
+	}).on('finished', function(e) {
+		bootbox.dialog("Thank you! Your information was successfully saved!", [{
+			"label" : "OK",
+			"class" : "btn-small btn-primary",
+			}]
+		);
+	});
+	
+	
+	
+	
+	//documentation : http://docs.jquery.com/Plugins/Validation/validate
+	
+
+	$.mask.definitions['~']='[+-]';
+	$('#phone').mask('(999) 999-9999');
+
+	jQuery.validator.addMethod("phone", function (value, element) {
+		return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+	}, "Enter a valid phone number.");
+	
+	$('#validation-form').validate({
+		errorElement: 'span',
+		errorClass: 'help-inline',
+		focusInvalid: true  ,
+		rules: {
+			
+                       
+                        
+			
+		},
+
+		messages: {
+			email: {
+				required: "Please provide a valid email.",
+				email: "Please provide a valid email."
+			},
+			password: {
+				required: "Please specify a password.",
+				minlength: "Please specify a secure password."
+			},
+			subscription: "Please choose at least one option",
+			gender: "Please choose gender",
+			agree: "Please accept our policy"
+		},
+
+		invalidHandler: function (event, validator) { //display error alert on form submit   
+			$('.alert-error', $('.login-form')).show();
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error').addClass('info');
+			$(e).remove();
+		},
+
+		errorPlacement: function (error, element) {
+			if(element.is(':checkbox') || element.is(':radio')) {
+				var controls = element.closest('.controls');
+				if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+				else error.insertAfter(element.nextAll('.lbl').eq(0));
+			} 
+			else if(element.is('.chzn-select')) {
+				error.insertAfter(element.nextAll('[class*="chzn-container"]').eq(0));
+			}
+			else error.insertAfter(element);
+		},
+
+		submitHandler: function (form) {
+                    form.submit();
+		},
+		invalidHandler: function (form) {
+		}
+	});
+        
+        
+        $('#validation-form-location').validate({
+		errorElement: 'span',
+		errorClass: 'help-inline',
+		focusInvalid: true  ,
+		rules: {
+			
+                        'location_divisions[]': {
+				required: true
+			}
+			
+		},
+
+		invalidHandler: function (event, validator) { //display error alert on form submit   
+			$('.alert-error', $('.login-form')).show();
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error').addClass('info');
+			$(e).remove();
+		},
+
+		errorPlacement: function (error, element) {
+			if(element.is(':checkbox') || element.is(':radio')) {
+				var controls = element.closest('.controls');
+				if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+				else error.insertAfter(element.nextAll('.lbl').eq(0));
+			} 
+			else if(element.is('.chzn-select')) {
+				error.insertAfter(element.nextAll('[class*="chzn-container"]').eq(0));
+			}
+			else error.insertAfter(element);
+		},
+
+		submitHandler: function (form) {
+                    form.submit();
+		},
+		invalidHandler: function (form) {
+		}
+	});
+
+
+	
+})
+
+
+
+{/literal}
+//
+
+
+</script> 
+
+<script>
+    
+//    $(function() {
+//    var table = $("#economic_code_tbl1");
+//
+//    $(window).scroll(function() {
+//        var windowTop = $(window).scrollTop();
+//        if (windowTop > table.offset().top) {
+//            $("thead", table).addClass("Fixed").css("top", windowTop-10);
+//        }
+//        else {
+//            $("thead", table).removeClass("Fixed");
+//        }
+//    });
+//});
+</script>

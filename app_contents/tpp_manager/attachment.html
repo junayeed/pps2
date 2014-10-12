@@ -1,32 +1,18 @@
 <div id="main-content" class="clearfix">
 <head>
-    
-    <!-- basic styles -->
-    <link href="/app_contents/standard/template/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/app_contents/standard/template/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-
-    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/font-awesome.min.css" />
-    <!--[if IE 7]>
-      <link rel="stylesheet" href="/app_contents/standard/template/assets/css/font-awesome-ie7.min.css" />
-    <![endif]-->
-
-
-    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/ace.min.css" />
-    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/ace-responsive.min.css" />
-    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/ace-skins.min.css" />
-    <!--[if lt IE 9]>
-      <link rel="stylesheet" href="/app_contents/standard/template/assets/css/ace-ie.min.css" />
-    <![endif]-->
-                
     <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
-    
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/colorpicker.css" />
 </head>
 
 
 <div id="page-content" class="clearfix">
 					
     <div class="page-header position-relative">
-	<h1>Comments<small><i class="icon-double-angle-right"></i> (DPP/TPP)</small></h1>
+	<h1>Attachment(s)<small><i class="icon-double-angle-right"></i> (DPP/TPP)</small></h1>
     </div><!--/page-header-->
 <div class="row-fluid">
 
@@ -39,17 +25,11 @@
             <input class="span5" type="text" id="title"  name="title" placeholder="Title" required>
         </div>
     </div>
-            
-    <div class="control-group">
-        <label class="control-label" for="msg">Msg</label>
-        <div class="controls">
-            <textarea rows="10" cols="50" class="span5" id="msg" name="msg" placeholder="Massage"></textarea>
-        </div>
-    </div>
+   
             
     <div class="control-group">
         <label class="control-label" for="project_type">Attachment</label>
-        <div class="controls">
+        <div class="controls span4">
             <input  type="file" name="document" id="id-input-file-1" />
         </div>
     </div>
@@ -59,7 +39,7 @@
         &nbsp; &nbsp; &nbsp;
         <button class="btn" type="reset"><i class="icon-undo"></i> Reset</button>
     </div>
-    <input type="hidden" name="cmd" value="saveComment">
+    <input type="hidden" name="cmd" value="saveAttachment">
     <input type="hidden" name="PI" value="{$PI}">
 </form>
 	   

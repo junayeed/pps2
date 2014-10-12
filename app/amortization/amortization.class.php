@@ -201,9 +201,10 @@ class amortizationtManagerApp extends DefaultApplication
      */
     function showEditor($msg)
     {
-        $data['PI']           = getUserField('PI');
-        $pid                  = base64_decode($data['PI']);
-        $data                 = new Project($pid);
+       
+        $pid          = base64_decode(getUserField('PI'));
+        $data         = new Project($pid);
+        $data->PI     = getUserField('PI');
         
         //dumpVar($data);
 
