@@ -573,7 +573,14 @@ class projectManagerApp extends DefaultApplication
        
        if($newid)
        { 
-           header ('Location: project_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
+           if($_REQUEST['project_type'] =='TPP')
+           {
+               header ('Location: /app/tpp_manager/tpp_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
+           }
+           else
+           {
+               header ('Location: project_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
+           }   
        }
        else
        {
@@ -586,6 +593,7 @@ class projectManagerApp extends DefaultApplication
        $pid     = base64_decode(getUserField('PI'));
        $project = new Project($pid);
        $project->saveBasicInfo();
+       
        
        header ('Location: project_manager.php?cmd=partA&PI='.  base64_encode($pid));
        

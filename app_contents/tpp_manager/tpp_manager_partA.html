@@ -33,7 +33,7 @@
 <div id="page-content" class="clearfix">
 					
     <div class="page-header position-relative">
-	<h1>Part-A <small><i class="icon-double-angle-right"></i> (Project Summary)</small></h1>
+	<h1>Part-A <small><i class="icon-double-angle-right"></i>TPP (Project Summary)</small></h1>
         <div id="nav-search">
           <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
           
@@ -50,26 +50,26 @@
 
     
     <div class="control-group">
-        <label class="control-label" for="project_title_en">1.0 Project Title (English)</label>
+        <label class="control-label"  for="project_title_en">1.0 Project Title (English)</label>
             <div class="controls">  
-                <label class="control-label">: <b>{$basicInfo->project_title_en}</b></label>
+                <label class="control-label" style="width:80% !important">: <b>{$basicInfo->project_title_en}</b></label>
             </div>
     </div>
 
     <div class="control-group">
         <label class="control-label" for="project_title_bn">Project Title (Bangla)</label>
             <div class="controls">
-                <label class="control-label">: {$basicInfo->project_title_bn}</label>
+                <label class="control-label" style="width:80% !important">: {$basicInfo->project_title_bn}</label>
             </div>
     </div>
 </form>    
     <div class="tabbable">
         <ul class="nav nav-tabs" id="myTab">
-            <li class="active"><a data-toggle="tab" href="#basicinfo">Objectives & Cost (2-6)</a></li>
-            <li><a data-toggle="tab" href="#location">Locations (7-8)</a></li>
+            <li class="active"><a data-toggle="tab" href="#basicinfo">Objectives & Cost (2-8)</a></li>
             <li><a data-toggle="tab" href="#costsummary">Component Wise Cost (9)</a></li>
-            <li><a data-toggle="tab" href="#logframe">Log frame (10)</a></li>
-            <li><a data-toggle="tab" href="#annexures">Annexures (II - IV)</a></li>
+            <li><a data-toggle="tab" href="#location">Year Cost Summary (10-11)</a></li>
+            <li><a data-toggle="tab" href="#logframe">Log frame (12)</a></li>
+            <li><a data-toggle="tab" href="#annexures">Financing and expectation (13-14)</a></li>
             
         </ul>
         <div class="tab-content">
@@ -79,7 +79,7 @@
             <form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}"> 
                 <input type="hidden" name="PI" value="{$PI}"/>
                 <div class="control-group">
-                    <label class="control-label" for="ministries[]">2.1 Ministry/Division</label>
+                    <label class="control-label" for="ministries[]">2.1 Sponsoring Ministry/Division</label>
                     <div class="controls">
                         <select multiple class="chzn-select span6 ministries" id="ministries" onchange="getAgencyList()" name="ministries[]" required data-placeholder="Choose a Ministry/Division...">
                             <option value=""></option>
@@ -142,21 +142,30 @@
                 </div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="objectives">3.0 Objectives<br>(Please specify in quantity and/or in percentage and write in bullet form)</label>
-                    <div class="controls" style="margin-left: 289px !important">
-                        <textarea rows="5" class="ckeditor" name="objectives" id="objectives">{$basicInfo->objectives}</textarea>
-                    </div>
-                </div>
-                
-                <div class="control-group">
-                    <label class="control-label" for="project_implementation_period">4.0 Project implementation period: </label>
+                    <label class="control-label" for="project_implementation_period">3.0 Project implementation period: </label>
                     <div class="controls"><br><br>
                         <label for="project_implementation_period">i)  Date of commencement: {$basicInfo->date_of_commencement|date_format:"%d/%m/%Y"}</label>
                         <label  for="project_implementation_period">ii) Date of completion: {$basicInfo->date_of_completion|date_format:"%d/%m/%Y"}</label>
                     </div>
                 </div>
+                
                 <div class="control-group">
-                    <label class="control-label" for="project_cost">5.1 Estimated Cost of the project (in Lakh Taka)</label>
+                    <label class="control-label" for="contact_person">4.0 Name and Designation of contact person in the implementing agency</label>
+                    <div class="controls" style="margin-left: 289px !important">
+                        <textarea rows="4" style="width:400px"  name="contact_person" id="contact_person">{$basicInfo->contact_person}</textarea>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label" for="responsible_person">5.0 Name and official address(s) of the officer(s) responsible for the prepration of the TPP</label>
+                    <div class="controls" style="margin-left: 289px !important">
+                        <textarea rows="4" style="width:400px" name="responsible_person" id="responsible_person">{$basicInfo->responsible_person}</textarea>
+                    </div>
+                </div>
+                
+                
+                <div class="control-group">
+                    <label class="control-label" for="project_cost">7.1 Estimated Cost of the project (in Lakh Taka)</label>
                     <div class="controls"><br><br>
                         <table id="table_bug_report" class="table table-striped table-bordered table-hover span4">
                             <tr>
@@ -199,180 +208,126 @@
                 </div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="exchange_rate">5.2 Exchange rate(s) with date (Source Bangladesh Bank): </label>
+                    <label class="control-label" for="exchange_rate">7.2 Exchange rate(s) with date (Source Bangladesh Bank): </label>
                     <div class="controls">
                         <textarea rows="2" style="width:545px" name="exchange_rate" id="exchange_rate">{$basicInfo->exchange_rate}</textarea>
                     </div>
 		</div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="mode_of_financing">6.0 Mode of financing</label><br>
+                    <label class="control-label" for="mode_of_financing">8.0 Cost of financing</label><br>
                     
                     <div class="span11">
-                        <label class="" for="year_wise_allocation">6.1 Mode of financing with source <span class="right">(Amount in Lakh Tk.)<span></label>
+                        <label class="" for="year_wise_allocation"><span class="right">(Amount in Lakh Tk.)<span></label>
                         <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Mode\Source</th>
-                                    <th>GOB<br>(FE)</th>
-                                    <th>PA<br>(RPA)</th>
-                                    <th> Own Fund<br>(FE)</th>
-                                    <th>Others<br>(Specify)</th>
-                                    <th>PA sources</th>
+                                    <th>Source of financing</th>
+                                    <th>In Kind<br>(equivalent amount)</th>
+                                    <th>In cash (Local)</th>
+                                    <th>In cash (FE)</th>
+                                    <th>Total</th>
+                                    
+                                    <th>Mode of financing<br>(Loan/credit/grant etc)</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 <tr> 
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                    <td>5</td>
-                                    <td>6</td>
-                                </tr>
-                                <tr> 
-                                    <td>Loan/credit</td>
+                                    <td>GOB</td>
                                     <td>
-                                        <input class="span8" type="text" id="loan_gob" name="loan_gob" value="{$modefinancing->loan_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GoB" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="loan_gob_fe" name="loan_gob_fe" value="{$modefinancing->loan_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="gob_in_kind" name="gob_in_kind" value="{$modefinancing->gob_in_kind|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="loan_pa" name="loan_pa" value="{$modefinancing->loan_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="loan_pa_rpa" name="loan_rpa" value="{$modefinancing->loan_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="gob_cash_local" name="gob_cash_local" value="{$modefinancing->loan_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="loan_own_fund" name="loan_own_fund" value="{$modefinancing->loan_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="loan_own_fund_fe" name="loan_own_fund_fe" value="{$modefinancing->loan_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="gob_cash_fe" name="gob_cash_fe" value="{$modefinancing->loan_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="loan_others" name="loan_others" value="{$modefinancing->loan_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="loan_others_fe" name="loan_others_fe" value="{$modefinancing->loan_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="gob_total" name="gob_total" value="{$modefinancing->loan_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
                                     <td>
-                                        <input class="span15" type="text" id="loan_pa_source" name="loan_pa_source" value="{$modefinancing->loan_pa_source}" placeholder="Source of the Amount">
+                                        <input class="span15" type="text" id="gob_mode_of_finance" name="gob_mode_of_finance" value="{$modefinancing->loan_pa_source}" placeholder="Source of the Amount">
                                     </td>
                                 </tr>
                                 <tr> 
-                                    <td>Grant</td>
+                                    <td>Development Partner(s)</td>
                                     <td>
-                                        <input class="span8" type="text" id="grant_gob" name="grant_gob" value="{$modefinancing->grant_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="grant_gob_fe" name="grant_gob_fe" value="{$modefinancing->grant_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="dp_in_kind_1" name="dp_in_kind_1" value="{$modefinancing->gob_in_kind|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="grant_pa" name="grant_pa" value="{$modefinancing->grant_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA"  onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="grant_pa_rpa" name="grant_rpa" value="{$modefinancing->grant_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="dp_cash_local_1" name="dp_cash_local_1" value="{$modefinancing->loan_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="grant_own_fund" name="grant_own_fund" value="{$modefinancing->grant_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="grant_own_fund_fe" name="grant_own_fund_fe" value="{$modefinancing->grant_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="dp_cash_fe_1" name="dp_cash_fe_1" value="{$modefinancing->loan_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="grant_others" name="grant_others" value="{$modefinancing->grant_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="grant_others_fe" name="grant_others_fe" value="{$modefinancing->grant_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="dp_total_1" name="dp_total_1" value="{$modefinancing->loan_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
-
                                     <td>
-                                        <input class="span15" type="text" id="grant_pa_source" name="grant_pa_source" value="{$modefinancing->grant_pa_source}" placeholder="Source of the Amount">
+                                        <input class="span15" type="text" id="dp_mode_of_finance_1" name="dp_mode_of_finance_1" value="{$modefinancing->loan_pa_source}" placeholder="Source of the Amount">
                                     </td>
                                 </tr>
                                 <tr> 
-                                    <td>Equity</td>
+                                    <td>Own Fund</td>
                                     <td>
-                                        <input class="span8" type="text" id="equity_gob" name="equity_gob" value="{$modefinancing->equity_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="equity_gob_fe" name="equity_gob_fe" value="{$modefinancing->equity_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="own_in_kind" name="own_in_kind" value="{$modefinancing->gob_in_kind|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="equity_pa" name="equity_pa" value="{$modefinancing->equity_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="equity_pa_rpa" name="equity_pa_rpa" value="{$modefinancing->equity_pa_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="own_cash_local" name="own_cash_local" value="{$modefinancing->loan_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="equity_own_fund" name="equity_own_fund" value="{$modefinancing->equity_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="equity_own_fund_fe" name="equity_own_fund_fe" value="{$modefinancing->equity_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="own_cash_fe" name="own_cash_fe" value="{$modefinancing->loan_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="equity_others" name="equity_others" value="{$modefinancing->equity_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="equity_others_fe" name="equity_others_fe" value="{$modefinancing->equity_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="own_total" name="own_total" value="{$modefinancing->loan_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
-
                                     <td>
-                                        <input class="span15" type="text" id="equity_pa_sources" name="equity_pa_sources" value="{$modefinancing->equity_pa_sources}" placeholder="Source of the Amount">
+                                        <input class="span15" type="text" id="own_mode_of_finance" name="own_mode_of_finance" value="{$modefinancing->loan_pa_source}" placeholder="Source of the Amount">
                                     </td>
                                 </tr>
                                 <tr> 
-                                    <td>Others(Specify)</td>
+                                    <td>Other (specify)</td>
                                     <td>
-                                        <input class="span8" type="text" id="others_gob" name="others_gob" value="{$modefinancing->others_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB"  onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="others_gob_fe" name="others_gob_fe" value="{$modefinancing->others_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="other_in_kind" name="other_in_kind" value="{$modefinancing->gob_in_kind|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="others_pa" name="others_pa" value="{$modefinancing->others_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="others_pa_rpa" name="others_pa_rpa" value="{$modefinancing->others_pa_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="other_cash_local" name="other_cash_local" value="{$modefinancing->loan_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="others_own_fund" name="others_own_fund" value="{$modefinancing->others_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="others_own_fund_fe" name="others_own_fund_fe" value="{$modefinancing->others_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="other_cash_fe" name="other_cash_fe" value="{$modefinancing->loan_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="others_others" name="others_others" value="{$modefinancing->others_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="others_others_fe" name="others_others_fe" value="{$modefinancing->others_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="other_total" name="other_total" value="{$modefinancing->loan_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
-
                                     <td>
-                                        <input class="span15" type="text" id="others_pa_sources" name="others_pa_sources" value="{$modefinancing->others_pa_sources}" placeholder="Source of the Amount">
-                                        <input type="hidden" id="mode_of_finance_id" name="mode_of_finance_id" value="{$modefinancing->id}" />
+                                        <input class="span15" type="text" id="other_mode_of_finance" name="other_mode_of_finance" value="{$modefinancing->loan_pa_source}" placeholder="Source of the Amount">
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Grand Total</td>
+                                <tr> 
+                                    <td>Grand total</td>
                                     <td>
-                                        <input class="span8" type="text" id="total_gob" name="total_gob" value="" readonly ><br>
-                                        <input class="span8" type="text" id="total_gob_fe" name="total_gob_fe" value="" readonly >
+                                        <input class="span8" type="text" id="grand_in_kind" name="grand_in_kind" value="{$modefinancing->gob_in_kind|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="total_pa" name="total_pa" value="" readonly ><br>
-                                        <input class="span8" type="text" id="total_rpa" name="total_rpa" value="" readonly >
+                                        <input class="span8" type="text" id="grand_cash_local" name="grand_cash_local" value="{$modefinancing->loan_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="total_own_fund" name="total_own_fund" value="" readonly ><br>
-                                        <input class="span8" type="text" id="total_own_fund_fe" name="total_own_fund_fe" value="" readonly >
+                                        <input class="span8" type="text" id="grand_cash_fe" name="grand_cash_fe" value="{$modefinancing->loan_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="total_other" name="total_other" value="" readonly ><br>
-                                        <input class="span8" type="text" id="total_other_fe" name="total_other_fe" value="" readonly >
+                                        <input class="span8" type="text" id="grand_total" name="grand_total" value="{$modefinancing->loan_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
                                     </td>
-                                    <td>&nbsp;</td>
+                                    <td>
+                                        <input class="span15" type="text" id="grand_mode_of_finance" name="grand_mode_of_finance" value="{$modefinancing->loan_pa_source}" placeholder="Source of the Amount">
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 		</div>
                 
-                <div class="control-group">
-                   	<div class="span11">
-                             <label class="" for="year_wise_allocation">6.2 Year wise allocation of GOB, RPA and Own Fund according to Annexure-V <span class="right">(Amount in Lakh Tk.)<span></label>
-		
-                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-                                <thead>
-                                        <tr>
-                                                <th>Financial Year</th>
-                                                <th>GOB<br>(FE)</th>
-                                                <th>Own Fund<br>(FE)</th>
-                                        </tr>
-                                </thead>
-
-                                <tbody>
-                                        
-                                        {foreach from=$year_wise_gob_ownfund key=key item=item}
-                                        <tr> 
-                                                <td>{$item->financial_year}</td>
-                                                <td>{$item->gob_total+$year_wise_gob_ownfundCon[$key]->gob_total|number_format:2:'.':''}<br>({$item->gob_fe_total+$year_wise_gob_ownfundCon[$key]->gob_fe_total|number_format:2:'.':''})</td>
-                                                <td>{$item->own_fund_total+$year_wise_gob_ownfundCon[$key]->own_fund_total|number_format:2:'.':''}<br>({$item->own_fund_fe_total+$year_wise_gob_ownfundCon[$key]->own_fund_fe_total|number_format:2:'.':''})</td>
-                                        </tr>
-                                        {/foreach}
-                                </tbody>
-                            </table>
-			</div>
-		</div>
                 
                <div class="form-actions2">
 		 <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
@@ -382,51 +337,7 @@
             </div> 
             <!-- #basicinfo Ends here -->
             
-            <!-- #location starts here-->
-            <div id="location" class="tab-pane">
-            <form class="form-horizontal" id="validation-form-location"  method="post" action="{$SCRIPT_NAME}"> 
-                <input type="hidden" name="PI" value="{$PI}"/>    
-                <div class="control-group">
-                    <label class="control-label" for="location_divisions[]">Divisions</label>
-                    <div class="controls">
-                        <select multiple class="chzn-select divisions" id="location_divisions[]" style="width:500px"  name="location_divisions[]" onchange="loadDistrict()" data-placeholder="Choose a Division...">
-                            <option value=""></option>
-                             {html_options options=$divisionList}
-                        </select>  
-                        <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
-                    </div>
-		</div>
-                
-                <div class="control-group">
-                    <label class="control-label" for="location_districts[]">Districts</label>
-                    <div class="controls">
-                        <select multiple class="chzn-select districts" id="location_districts" style="width:500px"   name="location_districts[]" onchange="loadUpzilla()"  data-placeholder="Choose a District..." required>
-                            <option value=""></option>
-                           {html_options options=$districtList}
-                       </select>  
-                        <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
-                    </div>
-		</div>
-                <div class="control-group">
-                    <label class="control-label" for="location_upzilas[]">Upzila/City Corporations</label>
-                    <div class="controls">
-                        <select multiple class="chzn-select upzilas" id="location_upzilas" style="width:500px"  name="location_upzilas[]" data-placeholder="Choose a Upzilla/City Corporations...">
-                            <option value=""></option>
-                           {html_options options=$upazilaList} 
-                        </select>  
-                        <span class="help-button ace-popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
-                    </div>
-		</div>
-                 <!--div id="map_canvas"></div-->
-                 <iframe src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d3738865.3076293007!2d89.20079099072714!3d23.774621426113352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!1i0!3e6!4m5!1s0x30adaaed80e18ba7%3A0xf2d28e0c4e1fc6b!2sBangladesh!3m2!1d23.684994!2d90.356331!4m0!5e0!3m2!1sen!2sbd!4v1409038400875" width="100%" height="450" frameborder="0" style="border:0"></iframe>
-
-                <div class="form-actions2">
-		 <button class="btn btn-primary"><i class="icon-save"></i> Save</button>
-                 <input type="hidden" value="saveLocations" name="cmd"/>
-	        </div>
-            </form>   
-            </div>
-            <!-- #location ends here-->
+            
             
             <!-- #costsummary starts here-->
             <div id="costsummary" class="tab-pane">
@@ -562,27 +473,67 @@
             </div>
             <!-- #costsummary ends here-->
             
+            
+            <!-- #location starts here-->
+            <div id="location" class="tab-pane">
+            <form class="form-horizontal" id="validation-form-location"  method="post" action="{$SCRIPT_NAME}"> 
+                <input type="hidden" name="PI" value="{$PI}"/>    
+                
+                <div class="control-group">
+                   	<div class="span11">
+                             <label class="" for="year_wise_allocation">10.0 Year-wise estimated cost summary:<span class="right">(Amount in Lakh Tk.)<span></label>
+		
+                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                        <tr>
+                                                <th>Financial Year</th>
+                                                <th>GOB<br>(FE)</th>
+                                                <th>Own Fund<br>(FE)</th>
+                                        </tr>
+                                </thead>
+
+                                <tbody>
+                                        
+                                        {foreach from=$year_wise_gob_ownfund key=key item=item}
+                                        <tr> 
+                                                <td>{$item->financial_year}</td>
+                                                <td>{$item->gob_total+$year_wise_gob_ownfundCon[$key]->gob_total|number_format:2:'.':''}<br>({$item->gob_fe_total+$year_wise_gob_ownfundCon[$key]->gob_fe_total|number_format:2:'.':''})</td>
+                                                <td>{$item->own_fund_total+$year_wise_gob_ownfundCon[$key]->own_fund_total|number_format:2:'.':''}<br>({$item->own_fund_fe_total+$year_wise_gob_ownfundCon[$key]->own_fund_fe_total|number_format:2:'.':''})</td>
+                                        </tr>
+                                        {/foreach}
+                                </tbody>
+                            </table>
+			</div>
+		</div>
+                
+                <div class="control-group">
+                    <label class="" for="lessons_learnt_successful_project">11.1 Indicate which issues lead to make project successful</label>
+                    <div class="">
+                        <textarea class="ckeditor" name="lessons_learnt_successful_project" id="lessons_learnt_successful_project">{$partB->lessons_learnt_successful_project}</textarea>
+                    </div> 
+                </div>
+                
+                <div class="control-group">
+                    <label class="" for="lessons_learnt_not_work_well">11.2 Indicate which issues did not work well</label>
+                    <div class="">
+                        <textarea class="ckeditor" name="lessons_learnt_not_work_well" id="lessons_learnt_not_work_well">{$partB->lessons_learnt_not_work_well}</textarea>
+                    </div> 
+                </div>
+                
+                <div class="form-actions2">
+		 <button class="btn btn-primary"><i class="icon-save"></i> Save</button>
+                 <input type="hidden" value="saveLocations" name="cmd"/>
+	        </div>
+            </form>   
+            </div>
+            <!-- #location ends here-->
+            
             <!-- #logframe starts here-->
             <div id="logframe" class="tab-pane">
                 <form class="form-horizontal" id="validation-form-logframe"  method="post" action="{$SCRIPT_NAME}"> 
                 <div class="control-group">
-			<label class="control-label" for="date_of_completion">Planned date for project completion :</label>
-                            <div class="controls">
-                                <div class="input-append date">
-                                    <input class="span10" id="date_of_completion" name="date_of_completion"  {if $basicInfo->date_of_completion eq '0000-00-00'} value=''{else}value="{$basicInfo->date_of_completion}" {/if} type="text" data-date-format="yyyy-mm-dd" readonly/>
-                                    <span class="add-on"><i class="icon-calendar"></i></span>
-                                </div>
-                            </div>    
-                         
-                         <label class="control-label" for="date_of_completion">Date of this summary preparation:</label>
-                            <div class="controls">
-                                <div class="input-append date">
-                                    <input class="span10 date-picker" id="date_of_logframe_summary_preparation" name="date_of_logframe_summary_preparation"  {if $basicInfo->date_of_logframe_summary_preparation eq '0000-00-00'} value=''{else}value="{$basicInfo->date_of_logframe_summary_preparation}" {/if} type="text" data-date-format="yyyy-mm-dd" required/>
-                                    <span class="add-on"><i class="icon-calendar"></i></span>
-                                </div>
-                            </div>    
-                         <br>
-                          <label class="" for="date_of_completion">10.0 Log frame:</label>
+		
+                          <label class="" for="date_of_completion">12.0 Log frame:</label>
                           <br>
 			<div class="">
                            
@@ -647,17 +598,15 @@
                 <div class="widget-main">
 
                         <dl id="dt-list-1">
-                                <dt>11.0 Project Management</dt>
-                                <dd>11.1 Project Management Setup : Annexure-II</dd>
-                                <dd>11.2 Implementation Arrangement :</dd>
+                                <dt>13.0 Financing after the completion of the Technical Assistant Project:</dt>
+                                <dd>13.1 Required amount (in Lakh Taka) :<br><input type="text" name="finance_amount" id="finance_amount" class="span3"></dd>
+                                <dd>13.2 Source of financing :<br><input type="text" name="source_amount" id="source_amount" class="span5"></dd>
+                                <dd>13.3 Mode of financing (Loan/grant/development/revenue budget, etc :</dd>
                                 <dd><textarea class="ckeditor" name="implementation_arrangement" id="implementation_arrangement">{$basicInfo->implementation_arrangement}</textarea><br></dd>
-                                <dd>11.3 Attach Procurement Plan: Annexure-III(A) , Annexure III(B), Annexure III(C)</dd>
                         </dl>
+                        
                         <dl id="dt-list-1">
-                                <dt>12.0 Year wise financial and physical target plan: Annexure-IV</dt>
-                        </dl>
-                        <dl id="dt-list-1">
-                                <dt>13.0 After completion, whether the project needs to be transferred to revenue budget.</dt>
+                                <dt>14.0 Desire expectation after completion of the project.</dt>
                                 <dd><textarea class="ckeditor" name="after_completion" id="after_completion">{$basicInfo->after_completion}</textarea></dd>
                         </dl>
                 </div>

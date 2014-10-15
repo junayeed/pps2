@@ -20,10 +20,10 @@
    /**#@+
    * Template Constant
    */
-   define('PROJECT_BASIC_TEMPLATE',                       TEMPLATE_DIR . '/project_manager_home.html');
+   define('PROJECT_BASIC_TEMPLATE',                       TEMPLATE_DIR . '/tpp_manager_home.html');
    define('PROJECT_CREATE_TEMPLATE',                      TEMPLATE_DIR . '/project_manager.html');
-   define('PROJECT_PART_A_TEMPLATE',                      TEMPLATE_DIR . '/project_manager_partA.html');
-   define('PROJECT_PART_B_TEMPLATE',                      TEMPLATE_DIR . '/project_manager_partB.html');
+   define('TPP_PART_A_TEMPLATE',                          TEMPLATE_DIR . '/tpp_manager_partA.html');
+   define('TPP_PART_B_TEMPLATE',                      TEMPLATE_DIR . '/tpp_manager_partB.html');
    define('PROJECT_LIST_TEMPLATE',                        TEMPLATE_DIR . '/project_manager_list.html');
    define('PROJECT_ANNEX_I_LOCATION_TEMPLATE',            TEMPLATE_DIR . '/location_manager.html');
    define('PROJECT_MANAGEMENT_TEMPLATE',                  TEMPLATE_DIR . '/project_management.html');

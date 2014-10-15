@@ -79,7 +79,7 @@ class tppManagerApp extends DefaultApplication
        $message        = new Message();
        $message->save();
        return createPage(SICCESS_MSG_TEMPLATE,$data);
-      //header ('Location: project_manager.php?cmd=success&PI='.  base64_encode($pid));
+      //header ('Location: tpp_manager.php?cmd=success&PI='.  base64_encode($pid));
        
     }
     function saveAttachments()
@@ -89,7 +89,7 @@ class tppManagerApp extends DefaultApplication
        $message        = new Message();
        $message->saveAttachment();
        return createPage(SICCESS_MSG_TEMPLATE,$data);
-      //header ('Location: project_manager.php?cmd=success&PI='.  base64_encode($pid));
+      //header ('Location: tpp_manager.php?cmd=success&PI='.  base64_encode($pid));
        
     }
     
@@ -129,7 +129,7 @@ class tppManagerApp extends DefaultApplication
         {
             
         }    
-        header ('Location: project_manager.php?cmd=ProjectHome&PI='.  base64_encode($pid));
+        header ('Location: tpp_manager.php?cmd=ProjectHome&PI='.  base64_encode($pid));
         
        
     }
@@ -240,7 +240,7 @@ class tppManagerApp extends DefaultApplication
    function saveObjectiveCost()
    {
        $pid     = base64_decode(getUserField('PI'));
-       $project = new Project($pid);
+       $project = new TPP($pid);
        
        //dumpVar($_REQUEST);
        //die;
@@ -251,18 +251,18 @@ class tppManagerApp extends DefaultApplication
        $project->saveDevPartners(getUserField('partners'));
        $project->saveModeOfFinancing();
        
-       header ('Location: project_manager.php?cmd=partA&PI='.  base64_encode($pid));
+       header ('Location: tpp_manager.php?cmd=partA&PI='.  base64_encode($pid));
    }
    function saveProjectPartB()
    {
        $pid     = base64_decode(getUserField('PI'));
-       $project = new Project($pid);
+       $project = new TPP($pid);
        
        $project->savePartB();
        $project->savePartBMajorItems();
        
        
-       header ('Location: project_manager.php?cmd=partB&PI='.  base64_encode($pid));
+       header ('Location: tpp_manager.php?cmd=partB&PI='.  base64_encode($pid));
    }
    
    
@@ -271,12 +271,12 @@ class tppManagerApp extends DefaultApplication
        $pid     = base64_decode(getUserField('PI'));
        //dumpVar($_REQUEST);
        //die;
-       $project = new Project($pid);
+       $project = new TPP($pid);
        $project->saveLocations(getUserField('location_divisions'),'Division');
        $project->saveLocations(getUserField('location_districts'),'District');
        $project->saveLocations(getUserField('location_upzilas'),'Upzila');
        
-       header ('Location: project_manager.php?cmd=partA&PI='.  base64_encode($pid));
+       header ('Location: tpp_manager.php?cmd=partA&PI='.  base64_encode($pid));
    }
    
    function saveLogFrame()
@@ -284,18 +284,18 @@ class tppManagerApp extends DefaultApplication
        $pid     = base64_decode(getUserField('PI'));
        //dumpVar($_REQUEST);
        //die;
-       $project = new Project($pid);
+       $project = new TPP($pid);
        
        $project->saveBasicInfo();
        $project->saveLogFrame();
        
-       header ('Location: project_manager.php?cmd=partA&PI='.  base64_encode($pid));
+       header ('Location: tpp_manager.php?cmd=partA&PI='.  base64_encode($pid));
    }
            
     function showProjectPartA()
     {
         $pid     = base64_decode(getUserField('PI'));
-        $project = new Project($pid);
+        $project = new TPP($pid);
 
         $data                         = $project;
         $data->ministryList           = getMinistryList();
@@ -340,13 +340,13 @@ class tppManagerApp extends DefaultApplication
         //dumpVar($data->basicInfo);
         //dumpVar($_SESSION);
         
-        return createPage(PROJECT_PART_A_TEMPLATE, $data);
+        return createPage(TPP_PART_A_TEMPLATE, $data);
    }
    
     function showProjectPartB()
     {
         $pid          = base64_decode(getUserField('PI'));
-        $project      = new Project($pid);  
+        $project      = new TPP($pid);  
         $data         = $project;
         $data->PI     = getUserField('PI'); 
         $data->partB  = $project->loadPartB();
@@ -354,14 +354,14 @@ class tppManagerApp extends DefaultApplication
         $data->major_items  = $project->loadMajorItems();
         //dumpVar($data->major_items);
         
-        return createPage(PROJECT_PART_B_TEMPLATE, $data);
+        return createPage(TPP_PART_B_TEMPLATE, $data);
     }
    
     function showProjectLocation()
     {
         $PI              = getUserField('PI');    
         $pid             = base64_decode($PI);
-        $project         = new Project($pid);
+        $project         = new TPP($pid);
         
         $data->basicInfo   = $project->basicInfo;
         $data->location    = $project->basicInfo->locations;
@@ -380,7 +380,7 @@ class tppManagerApp extends DefaultApplication
         $report_type           = getUserField('report_type');
         $procurement_category  = getUserField('procurement_category');
         
-        $project               = new Project($pid);
+        $project               = new TPP($pid);
         $data->basicInfo     = $project->basicInfo;
         
         $data->PI                       = $PI;
@@ -397,7 +397,7 @@ class tppManagerApp extends DefaultApplication
         $PI                    = getUserField('PI');    
         $pid                   = base64_decode($PI);
         
-        $project               = new Project($pid);
+        $project               = new TPP($pid);
         $data->basicInfo       = $project->basicInfo;
         
         $data->PI              =  $PI;
@@ -416,7 +416,7 @@ class tppManagerApp extends DefaultApplication
         $report_type           = getUserField('report_type');
         $procurement_category  = getUserField('procurement_category');
         
-        $project               = new Project($pid);
+        $project               = new TPP($pid);
         $data->basicInfo       = $project->basicInfo;
         
         $data->PI                       =  $PI;
@@ -436,7 +436,7 @@ class tppManagerApp extends DefaultApplication
         $report_type           = getUserField('report_type');
         $procurement_category  = getUserField('procurement_category');
         
-        $project               = new Project($pid);
+        $project               = new TPP($pid);
         $data->basicInfo       = $project->basicInfo;
         
         $data->PI                       =  $PI;
@@ -457,15 +457,15 @@ class tppManagerApp extends DefaultApplication
         
         if ($cmd == 'saveAnnexIIIa')
         {
-            header ('Location: project_manager.php?cmd=annexIIIa&PI='.  base64_encode($pid));
+            header ('Location: tpp_manager.php?cmd=annexIIIa&PI='.  base64_encode($pid));
         }
         else if ($cmd == 'saveAnnexIIIb')
         {
-            header ('Location: project_manager.php?cmd=annexIIIb&PI='.  base64_encode($pid));
+            header ('Location: tpp_manager.php?cmd=annexIIIb&PI='.  base64_encode($pid));
         }
         else if ($cmd == 'saveAnnexIIIc')
         {
-            header ('Location: project_manager.php?cmd=annexIIIc&PI='.  base64_encode($pid));
+            header ('Location: tpp_manager.php?cmd=annexIIIc&PI='.  base64_encode($pid));
         }
     }
     
@@ -474,7 +474,7 @@ class tppManagerApp extends DefaultApplication
         $pid       = base64_decode(getUserField('PI'));
         
         updateLocationWithCost();
-        header ('Location: project_manager.php?cmd=anaexI&PI='.  base64_encode($pid));
+        header ('Location: tpp_manager.php?cmd=anaexI&PI='.  base64_encode($pid));
     }
     
     function saveProjectManagement()
@@ -482,7 +482,7 @@ class tppManagerApp extends DefaultApplication
         $pid       = base64_decode(getUserField('PI'));
         
         updateProjectManagement();
-        header ('Location: project_manager.php?cmd=annexII&PI='.  base64_encode($pid));
+        header ('Location: tpp_manager.php?cmd=annexII&PI='.  base64_encode($pid));
     }
             
     function saveAnnexV()
@@ -492,7 +492,7 @@ class tppManagerApp extends DefaultApplication
         updateAnnexVContingency();
         //updateProjectTotalCost($pid);
 
-        header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid));
+        header ('Location: tpp_manager.php?cmd=annexV&PI='.  base64_encode($pid));
         //return $this->showAnnexV();
     }
     
@@ -502,7 +502,7 @@ class tppManagerApp extends DefaultApplication
         $pid                   = base64_decode($PI);
         $report_type           = getUserField('report_type');
         
-        $project               = new Project($pid);
+        $project               = new TPP($pid);
         $data['basicInfo']     = $project->basicInfo;
                 
         $data['PI']                                    = $PI;
@@ -527,7 +527,7 @@ class tppManagerApp extends DefaultApplication
         $PI                                  = getUserField('PI');    
         $pid                                 = base64_decode($PI);
         $data['PI']                          = $PI;
-        $project                             = new Project($pid);
+        $project                             = new TPP($pid);
         
         $data['project_info']                = $project->basicInfo;
         //dumpVar($data);
@@ -546,7 +546,7 @@ class tppManagerApp extends DefaultApplication
     function showProjectHomePage()
     {
         $pid     = base64_decode(getUserField('PI'));
-        $project = new Project($pid);
+        $project = new TPP($pid);
 
         $data                 = $project;
         $data->PI             = getUserField('PI');
@@ -568,12 +568,12 @@ class tppManagerApp extends DefaultApplication
    */
    function saveRecord()
    {
-       $project = new Project();
+       $project = new TPP();
        $newid   = $project->saveBasicInfo();
        
        if($newid)
        { 
-           header ('Location: project_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
+           header ('Location: tpp_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
        }
        else
        {
@@ -584,10 +584,10 @@ class tppManagerApp extends DefaultApplication
    function saveProjectInfo()
    {
        $pid     = base64_decode(getUserField('PI'));
-       $project = new Project($pid);
+       $project = new TPP($pid);
        $project->saveBasicInfo();
        
-       header ('Location: project_manager.php?cmd=partA&PI='.  base64_encode($pid));
+       header ('Location: tpp_manager.php?cmd=partA&PI='.  base64_encode($pid));
        
    }
 
@@ -641,7 +641,7 @@ class tppManagerApp extends DefaultApplication
     function exportTo($procurement_category, $report_type)
     {
         $pid     = base64_decode(getUserField('PI'));
-        $project = new Project($pid);
+        $project = new TPP($pid);
         
         $data['basicInfo']   = $project->basicInfo;
 

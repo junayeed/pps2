@@ -1,0 +1,272 @@
+<div id="main-content" class="clearfix">
+    <head>
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+         <!-- Add fancyBox main JS and CSS files -->
+    
+         <link rel="stylesheet" type="text/css" href="/ext/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+    
+        
+    </head>
+					
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+                <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+                <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+                <li class="active">Project Part-B</li>
+        </ul><!--.breadcrumb-->
+
+        <div id="nav-search">
+                <form class="form-search">
+
+                </form>
+        </div><!--#nav-search-->
+    </div><!--#breadcrumbs-->
+
+
+
+<div id="page-content" class="clearfix">
+					
+    <div class="page-header position-relative">
+	<h1>Part-B <small><i class="icon-double-angle-right"></i> (Project Details)</small></h1>
+        <div id="nav-search">
+            <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
+        </div>  
+    </div><!--/page-header-->
+
+		
+
+<form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}" name="validation-form">
+    <input type="hidden" name="PI" value="{$PI}"/>
+    <input type="hidden" name="part_b_id" value="{$partB->id}"/>
+    <div class="tabbable">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a data-toggle="tab" href="#background">Project Details (15-21)</a></li>
+           
+            
+        </ul>
+        <div class="tab-content">
+            <!-- #basicinfo strats here-->  
+            <div id="background" class="tab-pane in active">
+            
+                <div class="control-group">
+                    <label class="" for="situation_analysis">15.0 Situation Analysis:<br><strong>Note:</strong>To the greatest extent possible, 
+                        link to the country situation and analyze the context. State the problem to be addressed usually in terms of needs for capacity
+                        development, and provide a reference to the relevant policy documents.<p>Explain the national institutional and legal framework
+                            and the intended beneficiaries.</p><p>Provide a reference to the findings of relevant recent reviews or evaluations. If the
+                            situation analysis has been explained elsewhere in the document narrative section, there is no need to reproduce the text. 
+                            Simply refer to the section.</p></label>
+                    <div class="">
+                        <textarea class="ckeditor" name="situation_analysis" id="situation_analysis">{$partB->situation_analysis}</textarea>
+                    </div> 
+                </div>
+                
+                <dl id="dt-list-1">
+                                <dt>16.0 Objectives:</dt>
+                                <dd>16.1 Overall :</dd>
+                                <dd><textarea class="ckeditor" name="objectives_overall" id="objectives_overall">{$basicInfo->objectives_overall}</textarea><br></dd>
+                                <dd>16.2 Specific :</dd>
+                                <dd><textarea class="ckeditor" name="objectives_specific" id="objectives_specific">{$basicInfo->objectives_specific}</textarea><br></dd>
+                        </dl>
+                
+                 <div class="control-group">
+                    <label class="" for="mission_vision">17.1 Mission/Vision of the Implementing Agency/Sponsoring Ministry</label>
+                    <div class="">
+                        <textarea class="ckeditor" name="mission_vision" id="mission_vision">{$partB->mission_vision}</textarea>
+                    </div> 
+                </div>
+                
+                <div class="control-group">
+                    <label class="" for="contribute_mission">17.2 How does the project contribute in achieving the mission/vision of the Implementing Agency/Sponsoring 
+                        Ministry<br><strong>Note: </strong>Link to the GoB plan documents such as Perspective Plan, Five Year Plan, MDGs and development partner's country
+                        programme priorities which should outline the national strategy including the national commitment to achieving the outcome and the development
+                        partner's niche in supporting the strategy.</label>
+                    <div class="">
+                        <textarea class="ckeditor" name="contribute_mission" id="background_objectaives">{$partB->contribute_mission}</textarea>
+                    </div> 
+                </div>
+                
+                <div class="control-group">
+                    <label class="" for="roles_tpr">18.0 The roles of Tripartite Project Review (TPR), Project Steering Committee (PSC), 
+                        Project Implementation Committee (PIS), Evaluation Committee/Mid-term Evaluation Committee and the Technical Advisory 
+                        Group need to be detailed out.<p>Other elements in this section include collaborative arrangements with related projects
+                            (if any), prior obligations and prerequisites, a brief description/summary of the inputs to be provided by all partners, 
+                            and audit arrangements. Justify whether the most cost-effective method has been selected in case of projects whose benefits 
+                            are difficult to quantify.<p>Whether implementation by private sector/local govt. or NGO was considered? Describe how will 
+                            they be involved? Fund disbursement and financial reporting mechanism are to be spelt out in this section.<p>Any additional
+                            agreements, such as cost sharing agreements. Letter of Agreement (LOA) with the implementing partners, and project 
+                            cooperation agreements signed with NGOs (where the NGO is designated as teh "implementing partner") should be included 
+                            as Annexure and to be referred in this section.</p></label>
+                    <div class="">
+                        <textarea class="ckeditor" name="roles_tpr" id="background_outcomes">{$partB->roles_tpr}</textarea>
+                    </div> 
+                </div>
+                
+                <div class="control-group">
+                    <label class="" for="expected_output">19.0 Expected output and outcome:<br><strong>Note:</strong>Link proposed input of the 
+                        project with resulted output/outcome. Output/outcome may be in terms of trained manpower, knowledge/skill-gained 
+                        counter-part personnel, recommended procedure/process for institutional development, feasibility report etc.</label>
+                    <div class="">
+                        <textarea class="ckeditor" name="expected_output" id="expected_output">{$partB->expected_output}</textarea>
+                    </div> 
+                </div>
+                
+                <div class="control-group">
+                    <label class="" for="evaluation_reporting">20.0 Monitoring, Evaluation, and Reporting:<br><strong>Note:</strong>Describe briefly 
+                        how the key principles for monitoring, measurement and evaluatin will be applied for the project or outcome. Describe reporting 
+                        requirements, including the periodec reporting to the funding agencies. Result-oriented monitoring indicators are to be set as
+                        the basic tool to assess the progress and the effectiveness of the programme.</label>
+                    <div class="">
+                        <textarea class="ckeditor" name="evaluation_reporting" id="evaluation_reporting">{$partB->evaluation_reporting}</textarea>
+                    </div> 
+                </div>
+                
+                <div class="control-group">
+                    <label class="" for="legal_context">21.0 Legal Context:<br><strong>Note:</strong>Standard test for the Development Partner.</label>
+                    <div class="">
+                        <textarea class="ckeditor" name="legal_context" id="legal_context">{$partB->legal_context}</textarea>
+                    </div> 
+                </div>
+                
+                <div class="control-group">
+                    <label class="" for="background_sex"><strong>Annexure:</strong><br>
+                        1. Year-wise breakdown of component wise estimated cost as per Annex-1<br>
+                        2. Terms of Reference of Consultants as per Annex-II<br>
+                        3. Qualifications, Experience and Responsibilities of Consultants as per Annex-III<br>
+                        4. Implementation/Work schedule as per Annex-IV<br>
+                        5. Task and qualification of Counterpart Personnel as per Annex-V<br>
+                        6. Task and qualification of Support Staff to be recruited out of GOB fund as per Annex-VI<br>
+                        7. Task and qualification of Support Staff to be recruited out of DP's fund as per Annex-VI<br>
+                        8. Letter of Agreement with Implementing Agencies/Development Partners as per Annex-VII<br>
+                        9. Procurement plan for entire project period as per Annex-VIII
+                    </label>
+                     
+                </div>
+                
+                <div class="form-actions2">
+		 <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                 <input type="hidden" value="savePartB" name="cmd"/>
+	       </div>
+            </div> 
+            <!-- #background Ends here -->
+        </div>
+    </div>
+</form>
+
+<!-- PAGE CONTENT ENDS HERE -->
+</div><!--/row-->
+	
+</div><!--/#page-content-->
+
+
+</div><!-- #main-content -->
+
+
+		
+
+
+
+<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+        <i class="icon-double-angle-up icon-only"></i>
+</a>
+
+
+<!-- basic scripts -->
+<script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
+<script type="text/javascript">
+window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
+</script>
+
+<script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
+
+
+
+<!-- page specific plugin scripts -->
+
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
+<![endif]-->
+ <script src="/app_contents/standard/template/assets/js/jquery-migrate-1.0.0.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
+
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.spinner.js"></script>
+
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
+
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-timepicker.min.js"></script>
+
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
+
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
+
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
+
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/daterangepicker.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.knob.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.autosize-min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
+<!-- ace scripts -->
+<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
+<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+
+<script type="text/javascript" src="/ext/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/app_contents/project_manager/part_b.js"></script>
+
+<script type="text/javascript" src="/ext/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="/ext/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+
+<script>
+    $('.date-picker').datepicker();
+    
+    {if $basicInfo->current_holder eq $smarty.session.uid}
+        {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
+             lockProject();
+        {/if}
+    {else}
+        lockProject();
+    {/if} 
+        
+    {literal}
+    
+        $("#various1,#various2").fancybox({
+				'width'				: '75%',
+				'height'			: '100%',
+				'autoScale'			: false,
+				'transitionIn'		        : 'none',
+				'transitionOut'		        : 'none',
+				'type'				: 'iframe'
+			});
+                        
+                        
+        $('#id-input-file-1 , #id-input-file-2').ace_file_input({
+				no_file:'No File ...',
+				btn_choose:'Choose',
+				btn_change:'Change',
+				droppable:false,
+				onchange:null,
+				thumbnail:false //| true | large
+				//whitelist:'gif|png|jpg|jpeg'
+				//blacklist:'exe|php'
+				//onchange:''
+				//
+			});                
+                        
+        function lockProject()
+        {
+            $("#page-content :input").attr("disabled", true);   
+            $('.form-actions2').hide();
+        }
+    {/literal}
+</script>
