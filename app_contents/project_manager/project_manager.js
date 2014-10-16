@@ -706,7 +706,8 @@ function deleteYear()
 {
     var year    = YEAR_COUNT-1;
     var pid     = $('#PI').val();
-    
+    var loc_href = location.href;
+    //alert(location.href)
     if ( doConfirm('The component and year details will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
     {
         $.ajax
@@ -717,9 +718,12 @@ function deleteYear()
                 dataType: 'json',
                 success: function(responseText)
                 {
+                    
+                   
                 }    
             }
         );
+            
             
         // remove the div
         $('#total_cost_breakdown_container_'+year).remove();
@@ -735,8 +739,10 @@ function deleteYear()
         calculateAll();
     
         // adjust the delete sign
-        deleteYearIconAdjustment();    
+        deleteYearIconAdjustment(); 
+        location.href = loc_href;
     }
+    
     
     
 }

@@ -92,6 +92,13 @@
   define('PROJECT_MAJOR_ITEM_COM_COST_TBL',  DB_NAME . '.project_major_items_comparative_cost');
   
   
+  
+  //TPP
+  define('TPP_COST_FINANCING_TBL',  DB_NAME . '.tpp_cost_financing');
+  
+  
+  
+  
   // VIEWS
   define('PROJECT_YEAR_WISE_GOB_OWNFUND',                   DB_NAME . '.year_wise_gob_ownfund');
   define('PROJECT_SUB_TOTAL_VIEW',                          DB_NAME . '.view_project_wise_component_sub_total');

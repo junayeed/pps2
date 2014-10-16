@@ -28,10 +28,10 @@ class tppManagerApp extends DefaultApplication
            case 'partA'              : $screen = $this->showProjectPartA();            break;
            case 'partB'              : $screen = $this->showProjectPartB();            break;
            case 'savePartB'          : $screen = $this->saveProjectPartB();            break;
-           case 'anaexI'             : $screen = $this->showProjectLocation();         break;
+           //case 'anaexI'             : $screen = $this->showProjectLocation();         break;
            case 'annexII'            : $screen = $this->showAnnexII();                 break;
            case 'saveAnnexII'        : $screen = $this->saveProjectManagement();       break;
-           case 'saveAnnexI'         : $screen = $this->saveProjectLocationWithCost(); break;
+           //case 'saveAnnexI'         : $screen = $this->saveProjectLocationWithCost(); break;
            case 'annexIIIa'          : $screen = $this->showProcurementPlanGOODS();    break;
            case 'saveAnnexIIIa'      : $screen = $this->saveProcurementPlan($cmd);     break;
            case 'annexIIIb'          : $screen = $this->showProcurementPlanWORKS();    break;
@@ -39,9 +39,9 @@ class tppManagerApp extends DefaultApplication
            case 'annexIIIc'          : $screen = $this->showProcurementPlanSERVICES(); break;
            case 'saveAnnexIIIc'      : $screen = $this->saveProcurementPlan($cmd);     break;
            case 'deleteprocplan'     : $screen = $this->deleteProcurementPlan();       break;
-           case 'annexV'             : $screen = $this->showAnnexV();                  break;
+           case 'annexI'             : $screen = $this->showTPPAnnexI();                  break;
            case 'annexIV'            : $screen = $this->showAnnexIV();                 break;
-           case 'saveAnnexV'         : $screen = $this->saveAnnexV();                  break;
+           case 'saveAnnexI'         : $screen = $this->saveTPPAnnexI();                  break;
            case 'deletecomponent'    : $screen = $this->deleteComponent();             break;
            case 'deleteyear'         : $screen = $this->deleteYear();                  break;
            case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
@@ -485,18 +485,18 @@ class tppManagerApp extends DefaultApplication
         header ('Location: tpp_manager.php?cmd=annexII&PI='.  base64_encode($pid));
     }
             
-    function saveAnnexV()
+    function saveTPPAnnexI()
     {
         $pid       = base64_decode(getUserField('PI'));
         updateAnnexV();
         updateAnnexVContingency();
         //updateProjectTotalCost($pid);
 
-        header ('Location: tpp_manager.php?cmd=annexV&PI='.  base64_encode($pid));
+        header ('Location: tpp_manager.php?cmd=annexI&PI='.  base64_encode($pid));
         //return $this->showAnnexV();
     }
     
-    function showAnnexV()
+    function showTPPAnnexI()
     {
         $PI                    = getUserField('PI');    
         $pid                   = base64_decode($PI);
@@ -519,7 +519,7 @@ class tppManagerApp extends DefaultApplication
         if($report_type)
         $this->annexVExportTo($pid, $report_type);
         
-        return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);
+        return createPage(TPP_ANNEX_I_TEMPLATE, $data);
     }
     
     function showAnnexIV()

@@ -1,6 +1,6 @@
 <?php
     /**
-     * File: Project.class.php
+     * File: TPP.class.php
      */
 
 class TPP
@@ -179,7 +179,7 @@ class TPP
     
     public function loadModeOfFinancing()
     {
-        $info['table'] = PROJECT_MODE_FINANCING_TBL;
+        $info['table'] = TPP_COST_FINANCING_TBL;
         $info['debug'] = false;
         $info['where'] = "pid = $this->id";
         
@@ -340,16 +340,16 @@ class TPP
     }
     public function saveModeOfFinancing()
     {
-        $info['table'] = PROJECT_MODE_FINANCING_TBL;
-        $info['data']  = getUserDataSet(PROJECT_MODE_FINANCING_TBL);
+        $info['table'] = TPP_COST_FINANCING_TBL;
+        $info['data']  = getUserDataSet(TPP_COST_FINANCING_TBL);
         $info['data']['pid']  = $this->id;
         $info['debug'] = false;
         
         
-        $mode_of_finance_id  = getUserField('mode_of_finance_id');
+        $cost_of_finance_id  = getUserField('cost_of_finance_id');
         
         
-        if($mode_of_finance_id)
+        if($cost_of_finance_id)
         {
             $info['where'] = "pid = $this->id";
             update($info);

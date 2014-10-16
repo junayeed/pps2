@@ -35,25 +35,36 @@ function submittForm()
 
 function calculateModeOfFinanceGrandTotal()
 {
-    var total_gob         = $('#loan_gob').val()*1+$('#grant_gob').val()*1+$('#equity_gob').val()*1+$('#others_gob').val()*1; 
-    var total_gob_fe      = $('#loan_gob_fe').val()*1+$('#grant_gob_fe').val()*1+$('#equity_gob_fe').val()*1+$('#others_gob_fe').val()*1; 
-    var total_pa          = $('#loan_pa').val()*1+$('#grant_pa').val()*1+$('#equity_pa').val()*1+$('#others_pa').val()*1; 
-    var total_rpa         = $('#loan_pa_rpa').val()*1+$('#grant_pa_rpa').val()*1+$('#equity_pa_rpa').val()*1+$('#others_pa_rpa').val()*1;  
-    var total_own_fund    = $('#loan_own_fund').val()*1+$('#grant_own_fund').val()*1+$('#equity_own_fund').val()*1+$('#others_own_fund').val()*1;  
-    var total_own_fund_fe = $('#loan_own_fund_fe').val()*1+$('#grant_own_fund_fe').val()*1+$('#equity_own_fund_fe').val()*1+$('#others_own_fund_fe').val()*1; 
-    var total_other       = $('#loan_others').val()*1+$('#grant_others').val()*1+$('#equity_others').val()*1+$('#others_others').val()*1; 
-    var total_other_fe    = $('#loan_others_fe').val()*1+$('#grant_others_fe').val()*1+$('#equity_others_fe').val()*1+$('#others_others_fe').val()*1; 
+    var total_gob             = $('#gob_inkind').val()*1+$('#gob_incash_local').val()*1+$('#gob_incash_fe').val()*1; 
     
-    $('#total_gob').val(total_gob.toMoney(2));
-    $('#total_gob_fe').val(total_gob_fe.toMoney(2));
-    $('#total_pa').val(total_pa.toMoney(2));
-    $('#total_rpa').val(total_rpa.toMoney(2));
-    $('#total_own_fund').val(total_own_fund.toMoney(2));
-    $('#total_own_fund_fe').val(total_own_fund_fe.toMoney(2));
-    $('#total_other').val(total_other.toMoney(2));
-    $('#total_other_fe').val(total_other_fe.toMoney(2));
+    var total_partner         = $('#partner_inkind').val()*1+$('#partner_incash_local').val()*1+$('#partner_incash_fe').val()*1;
     
-    validateModeOfFinanceCostWithProjectCost();
+    var total_ownfund         = $('#ownfund_inkind').val()*1+$('#ownfund_incash_local').val()*1+$('#ownfund_incash_fe').val()*1;
+    
+    var total_other           = $('#other_inkind').val()*1+$('#other_incash_local').val()*1+$('#other_incash_fe').val()*1;
+    
+    var grand_total_total     = $('#grant_total_inkind').val()*1+$('#grant_total_incash_local').val()*1+$('#grant_total_incash_fe').val()*1;
+    
+    var total_inkind          = $('#gob_inkind').val()*1+$('#partner_inkind').val()*1+$('#ownfund_inkind').val()*1+$('#other_inkind').val()*1;
+    
+    var total_incash_local    = $('#gob_incash_local').val()*1+$('#partner_incash_local').val()*1+$('#ownfund_incash_local').val()*1+$('#other_incash_local').val()*1;
+    
+    var total_incash_fe       = $('#gob_incash_fe').val()*1+$('#partner_incash_fe').val()*1+$('#ownfund_incash_fe').val()*1+$('#other_incash_fe').val()*1;
+    
+    var grant_total_total     = total_inkind + total_incash_local + total_incash_fe;
+    
+//    alert(grant_total_total)
+    $('#gob_total').val(total_gob.toMoney(2));
+    $('#partner_total').val(total_partner.toMoney(2));
+    $('#ownfund_total').val(total_ownfund.toMoney(2));
+    $('#other_total').val(total_other.toMoney(2));
+    $('#grant_total_total').val(grand_total_total.toMoney(2));
+    $('#grant_total_inkind').val(total_inkind.toMoney(2));
+    $('#grant_total_incash_local').val(total_incash_local.toMoney(2));
+    $('#grant_total_incash_fe').val(total_incash_fe.toMoney(2));
+    $('#grant_total_total').val(grant_total_total.toMoney(2));
+    
+    //validateModeOfFinanceCostWithProjectCost();
 }
 
 function validateModeOfFinanceCostWithProjectCost()
