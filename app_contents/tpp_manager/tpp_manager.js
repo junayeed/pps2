@@ -706,6 +706,7 @@ function deleteYear()
 {
     var year    = YEAR_COUNT-1;
     var pid     = $('#PI').val();
+    var loc_href = location.href;
     
     if ( doConfirm('The component and year details will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
     {
@@ -735,7 +736,8 @@ function deleteYear()
         calculateAll();
     
         // adjust the delete sign
-        deleteYearIconAdjustment();    
+        deleteYearIconAdjustment();  
+        location.href = loc_href;
     }
     
     
