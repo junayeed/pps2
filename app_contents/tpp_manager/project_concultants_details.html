@@ -1,0 +1,185 @@
+<div id="main-content" class="clearfix">
+    <head>
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+        <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
+        <script type="text/javascript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/messages.js"></script>
+        <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+        <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/{$SYSTEM_APP_PREFIX}.js"></script>
+
+<script language="JavaScript">
+   function thisSelect(inputobj, linkname, format) 
+   {ldelim}
+      var thisDate = new CalendarPopup();
+      alert(inputobj + '\n' + linkname + '\n' + format);
+      thisDate.showNavigationDropdowns();
+      thisDate.select(inputobj,linkname, format);
+   {rdelim}
+   
+   
+  
+</script>
+
+<style>
+   {literal} 
+        .fixed{
+        top:0;
+        position:fixed;
+        width:auto;
+        display:none;
+        border:none;
+  }
+  {/literal}
+</style>
+    </head>
+					
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li class="active">Annexure - III : Qualifications, Experience and Responsibilities of Consultants</li>
+        </ul><!--.breadcrumb-->
+        <div id="nav-search">    
+        </div><!--#nav-search-->
+    </div><!--#breadcrumbs-->
+
+    <div id="page-content" class="clearfix">
+        <div class="page-header position-relative">
+            <h1>Annexure - III <small><i class="icon-double-angle-right"></i> Qualifications, Experience and Responsibilities of Consultants</small></h1>
+            <div id="nav-search">
+                <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
+            </div>  
+        </div><!--/page-header-->
+
+        <div class="row-fluid">
+        <!-- PAGE CONTENT BEGINS HERE -->
+           
+            <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
+            <form class="form-horizontal" id="project_consultants_form"  method="post" action="{$SCRIPT_NAME}" name="project_consultants_form"> 
+                <div id="basicinfo" class="tab-pane in active">
+                    <div id="export_to_container">
+                        Export To: 
+                        <select name="report_type" id="report_type" class="span6" onchange="createReport('Goods');">
+                            <option value=""></option>
+                            <option value="pdf">pdf</option>
+                            <option value="excel">excel</option>
+                            <option value="word">word</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <div class="span12">
+                            <table id="consultants_tbl" class="table table-striped table-bordered table-hover table_bug_report">
+                                <thead>
+                                    <tr>
+                                        <th class="span3">Consultants</th>
+                                        <th class="span4">Educational Qualification</th>
+                                        <th class="span4">Experience</th>
+                                        <th class="span4">Responsibilities</th>
+                                        <th class="span1">&nbsp;</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="CENTER">1</td>
+                                        <td class="CENTER">2</td>
+                                        <td class="CENTER">3</td>
+                                        <td class="CENTER">4</td>
+                                        <td class="CENTER">5</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="project_consultants">
+                                    
+                                    {foreach from=$concultant_details item=item key=key}
+                                        
+                                        <tr>
+                                            <td><input type="text" name="concultant_name_{$key+1}" id="concultant_name_{$key+1}" value="{$item->concultant_name}" class="span12" required /></td>
+                                            <td><textarea name="education_{$key+1}" id="education_{$key+1}" class="span12" style="resize: vertical;" required>{$item->education}</textarea></td>
+                                            <td><textarea name="experience_{$key+1}" id="experience_{$key+1}" class="span12" style="resize: vertical;" required>{$item->experience}</textarea></td>
+                                            <td><textarea name="responsibility_{$key+1}" id="responsibility_{$key+1}" class="span12" style="resize: vertical;" required>{$item->responsibility}</textarea></td>
+                                            <td id="td_action_{$key+1}">
+                                                <a href="javascript: void(0);" 
+                                                   onClick="deleteConcultantRow({$key+1});">
+                                                    <img src="/app_contents/common/images/cross2.png">
+                                                </a>
+                                                <input type="hidden" name="concultant_id_{$key+1}" id="concultant_id_{$key+1}" value="{$item->id}">
+                                            </td>
+                                        </tr>
+                                        <script>
+                                            rowIDArray.push(ROW_ID);
+                                            ROW_ID++;
+                                        </script>    
+                                    {/foreach}
+                                </tbody>
+                                <tfoot>
+                                    
+                                    <tr>
+                                        <td colspan="5"><a href="javascript:addConcultant();">Add New Row</a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions2">
+                        <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                        <input type="hidden" value="saveAnnexIII" name="cmd"/>
+                        <input type="hidden" id="PI" name="PI" value="{$PI}"/>
+                    </div>
+                </div>
+            </form>   
+            <!-- #basicinfo Ends here -->
+        </div>
+    </div>
+<!-- PAGE CONTENT ENDS HERE -->
+</div><!--/row-->
+	
+<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+    <i class="icon-double-angle-up icon-only"></i>
+</a>
+
+<!-- basic scripts -->
+    <script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
+    </script>
+    <script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
+
+    <!-- page specific plugin scripts -->
+		
+    <!--[if lt IE 9]>
+        <script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+   
+
+    <!-- ace scripts -->
+    <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
+    <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+    
+                
+    <script>
+       
+           
+       {if $basicInfo->current_holder eq $smarty.session.uid}
+        {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
+             lockProject();
+        {/if}
+        {else}
+            lockProject();
+        {/if} 
+
+        {literal}
+            function lockProject()
+            {
+                $("#page-content :input").attr("disabled", true);   
+                $('.form-actions2').hide();
+                $("td > a").hide();
+               
+            }
+        {/literal}    
+    </script>    

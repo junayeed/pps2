@@ -592,4 +592,18 @@
    }
    
    
+   function string_trip_header($string,$limit)
+   {
+       if (strlen($string) > $limit) {
+
+            // truncate string
+            $stringCut = substr($string, 0, $limit);
+
+            // make sure it ends in a word so assassinate doesn't become ass...
+            $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'... '; 
+        }
+        return $string;
+   }
+   
+   
 ?>

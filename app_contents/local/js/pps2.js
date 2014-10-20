@@ -116,6 +116,142 @@ function addNewProcuremtPlanRow(targetID, procurementCategory)
     ROW_ID++;
 }
 
+function addConcultant()
+{
+    var td_concultant_name      = '<td><input type="text" name="concultant_name_'+ROW_ID+'" id="concultant_name_'+ROW_ID+'" value="" class="span12" required /></td>';
+    var td_education            = '<td><textarea name="education_'+ROW_ID+'" id="education_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';  
+    var td_experience           = '<td><textarea name="experience_'+ROW_ID+'" id="experience_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';  
+    var td_responsibility       = '<td><textarea name="responsibility_'+ROW_ID+'" id="responsibility_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';  
+    var td_action               = '<td id="td_action_'+ROW_ID+'">\n\
+                                       <a href="javascript: void(0);" \n\
+                                          onClick="deleteConcultantRow('+ROW_ID+');">\n\
+                                           <img src="/app_contents/common/images/cross2.png">\n\
+                                       </a>\n\
+                                   </td>';
+    var hidden_field    = '<input type="hidden" id="concultant_id_'+ROW_ID+'" name="concultant_id_'+ROW_ID+'" value="" >';
+    
+    $('<tr id="tr_'+ROW_ID+'">'+ td_concultant_name+td_education+td_experience+td_responsibility+td_action+hidden_field+'</tr>').appendTo("#project_consultants");
+    rowIDArray.push(ROW_ID);
+    ROW_ID++;    
+}
+
+
+function addCounterPerson()
+{
+    //alert(1)
+    var td_concultant_name      = '<td><input type="text" name="designation_'+ROW_ID+'" id="designation_'+ROW_ID+'" value="" class="span12" required /></td>';
+    var td_education            = '<td><textarea name="education_'+ROW_ID+'" id="education_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';  
+    var td_experience           = '<td><textarea name="experience_'+ROW_ID+'" id="experience_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';  
+    var td_responsibility       = '<td><textarea name="task_to_performed_'+ROW_ID+'" id="task_to_performed_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';  
+    var td_action               = '<td id="td_action_'+ROW_ID+'">\n\
+                                       <a href="javascript: void(0);" \n\
+                                          onClick="deleteCounterPersonRow('+ROW_ID+');">\n\
+                                           <img src="/app_contents/common/images/cross2.png">\n\
+                                       </a>\n\
+                                   </td>';
+    var hidden_field    = '<input type="hidden" id="counter_person_id'+ROW_ID+'" name="counter_person_id'+ROW_ID+'" value="" >';
+    
+    $('<tr id="tr_'+ROW_ID+'">'+ td_concultant_name+td_education+td_experience+td_responsibility+td_action+hidden_field+'</tr>').appendTo("#counterpart_details");
+    rowIDArray.push(ROW_ID);
+    ROW_ID++;    
+}
+
+function deleteCounterPersonRow(elemID)
+{
+     var domainname        = window.location.hostname;
+     var counter_person_id  = $('#concultant_id_'+elemID).val();
+     if ( confirm('The record will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
+    { 
+        $.ajax
+        (
+            {                                      
+                url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=deleteCounterPerson',                          
+                data: "counter_person_id="+counter_person_id,                              
+                dataType: 'json',                                         //data format      
+                success: function(responseText)                           //on recieve of reply
+                {
+                    if(responseText=='1')
+                    {
+                       $('#counterpart_details').find('#tr_' + elemID).fadeOut(50,function() 
+                        {
+                            $('#counterpart_details > #tr_' + elemID).remove();
+                        });
+
+                        var index = rowIDArray.indexOf(elemID);
+                        if(index!=-1)
+                        {
+                            rowIDArray.splice(index, 1);
+                        }
+
+                    } 
+                }
+            } 
+        );  
+    
+        if(!counter_person_id)
+        {    
+           $('#counterpart_details').find('#tr_' + elemID).fadeOut(50,function() 
+            {
+                $('#counterpart_details > #tr_' + elemID).remove();
+            });
+
+            var index = rowIDArray.indexOf(elemID);
+            if(index!=-1)
+            {
+                rowIDArray.splice(index, 1);
+            }
+        }
+    }
+}
+
+function deleteConcultantRow(elemID)
+{
+     var domainname     = window.location.hostname;
+     var concultant_id  = $('#concultant_id_'+elemID).val();
+     if ( confirm('The record will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
+    { 
+        $.ajax
+        (
+            {                                      
+                url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=deleteConcultant',                          
+                data: "concultant_id="+concultant_id,                              
+                dataType: 'json',                                         //data format      
+                success: function(responseText)                           //on recieve of reply
+                {
+                    if(responseText=='1')
+                    {
+                       $('#project_consultants').find('#tr_' + elemID).fadeOut(50,function() 
+                        {
+                            $('#project_consultants > #tr_' + elemID).remove();
+                        });
+
+                        var index = rowIDArray.indexOf(elemID);
+                        if(index!=-1)
+                        {
+                            rowIDArray.splice(index, 1);
+                        }
+
+                    } 
+                }
+            } 
+        );  
+    
+        if(!concultant_id)
+        {    
+           $('#project_consultants').find('#tr_' + elemID).fadeOut(50,function() 
+            {
+                $('#project_consultants > #tr_' + elemID).remove();
+            });
+
+            var index = rowIDArray.indexOf(elemID);
+            if(index!=-1)
+            {
+                rowIDArray.splice(index, 1);
+            }
+        }
+    }
+}
+
 function addNewProjectManagementRow(table_id)
 {
     
@@ -142,6 +278,8 @@ function addNewProjectManagementRow(table_id)
     rowIDArray.push(ROW_ID);
     ROW_ID++;
 }
+
+
 
 function calculateProcurementTotal(procurementCategory)
 {

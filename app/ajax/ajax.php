@@ -25,6 +25,8 @@ class ajaxApp extends DefaultApplication
       {
           
            case 'deleteManagement'         : $screen = $this->deleteManagementItem();                  break;
+           case 'deleteConcultant'         : $screen = $this->deleteConcultantItem();                  break;
+           case 'deleteCounterPerson'      : $screen = $this->deleteCounterPerson();                   break;
            case 'updateMajorItems'         : $screen = $this->updateMajorItems();                      break;
            case 'getAgencyList'            : $screen = $this->getAgencyListByMinistry();               break;
            case 'getSubSector'             : $screen = $this->getSubSectorByAdp();                     break;
@@ -125,6 +127,39 @@ class ajaxApp extends DefaultApplication
         echo json_encode($option);
         die;
     } 
+    
+    
+   function deleteConcultantItem()
+    {
+        $consultant_id  = getUserField('concultant_id');
+        
+        $info['table']  = TPP_CONCULTANT_DETAILS_TBL;
+        $info['where']  = " id =$consultant_id";
+        $info['debug']  = false;
+
+        $result = delete($info);
+                
+        if($result) echo json_encode('1');
+        else        json_encode('');
+        die;
+    } 
+    
+   function deleteCounterPerson()
+    {
+        $counter_person_id  = getUserField('counter_person_id');
+        
+        $info['table']  = TPP_COUNTER_PERSON_DETAILS_TBL;
+        $info['where']  = " id =$counter_person_id";
+        $info['debug']  = false;
+
+        $result = delete($info);
+                
+        if($result) echo json_encode('1');
+        else        json_encode('');
+        die;
+    } 
+    
+    
    function deleteManagementItem()
     {
         $management_id     = getUserField('management_id');

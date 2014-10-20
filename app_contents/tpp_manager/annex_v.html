@@ -40,7 +40,7 @@
         <ul class="breadcrumb">
             <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
             <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-            <li class="active">Annexure - III (a): GOODS</li>
+            <li class="active">Annexure - V : Tasks and qualifications of counterpart personnel to be attached with the consultants</li>
         </ul><!--.breadcrumb-->
         <div id="nav-search">    
         </div><!--#nav-search-->
@@ -48,7 +48,7 @@
 
     <div id="page-content" class="clearfix">
         <div class="page-header position-relative">
-            <h1>Annexure - III (a)<small><i class="icon-double-angle-right"></i>Total Procurement plan for development project/programme</small></h1>
+            <h1>Annexure - V <small><i class="icon-double-angle-right"></i> Tasks and qualifications of counterpart personnel to be attached with the consultants</small></h1>
             <div id="nav-search">
                 <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
             </div>  
@@ -58,7 +58,7 @@
         <!-- PAGE CONTENT BEGINS HERE -->
            
             <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
-            <form class="form-horizontal" id="procure_plan_goods_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_goods_form"> 
+            <form class="form-horizontal" id="counterpart_details_form"  method="post" action="{$SCRIPT_NAME}" name="counterpart_details_form"> 
                 <div id="basicinfo" class="tab-pane in active">
                     <div id="export_to_container">
                         Export To: 
@@ -71,33 +71,50 @@
                     </div>
                     <div class="control-group">
                         <div class="span12">
-                            <table id="goods_tbl" class="table table-striped table-bordered table-hover table_bug_report">
+                            <table id="consultants_tb2" class="table table-striped table-bordered table-hover table_bug_report">
                                 <thead>
                                     <tr>
-                                        <th>Package No.</th>
-                                        <th class="span6">Description of Procurement<br>Package as per DPP/TPP</th>
-                                        <th class="span3">Unit</th>
-                                        <th class="span2">Quantity</th>
-                                        <th class="span3">Procurement Method</th>
-                                        <th class="span1">Procurement Type</th>
-                                        <th class="span3">Contract Approving Authority</th>
-                                        <th class="span3">Source of Fund</th>
-                                        <th class="span5">Estd. Cost (In lakh Taka)</th>
-                                        <th class="span3">Invitation for Tender</th>
-                                        <th class="span3">Signing of Contract</th>
-                                        <th class="span3">Completion of Contract</th>
+                                        <th class="span3">Designation</th>
+                                        <th class="span4">Educational Qualifications</th>
+                                        <th class="span4">Experiences</th>
+                                        <th class="span4">Tasks to be Performed</th>
                                         <th class="span1">&nbsp;</th>
                                     </tr>
+                                    <tr>
+                                        <td class="CENTER">1</td>
+                                        <td class="CENTER">2</td>
+                                        <td class="CENTER">3</td>
+                                        <td class="CENTER">4</td>
+                                        <td class="CENTER">5</td>
+                                    </tr>
                                 </thead>
-                                <tbody id="goods_content">
+                                <tbody id="counterpart_details">
+                                    
+                                    {foreach from=$counter_person_details item=item key=key}
+                                        <tr>
+                                            <td><input type="text" name="designation_{$key+1}" id="designation_{$key+1}" value="{$item->designation}" class="span12" required /></td>
+                                            <td><textarea name="education_{$key+1}" id="education_{$key+1}" class="span12" style="resize: vertical;" required>{$item->education}</textarea></td>
+                                            <td><textarea name="experience_{$key+1}" id="experience_{$key+1}" class="span12" style="resize: vertical;" required>{$item->experience}</textarea></td>
+                                            <td><textarea name="task_to_performed_{$key+1}" id="task_to_performed_{$key+1}" class="span12" style="resize: vertical;" required>{$item->task_to_performed}</textarea></td>
+                                            <td id="td_action_{$key+1}">
+                                                <a href="javascript: void(0);" 
+                                                   onClick="deleteCounterPersonRow({$key+1});">
+                                                    <img src="/app_contents/common/images/cross2.png">
+                                                </a>
+                                                <input type="hidden" name="counter_person_id_{$key+1}" id="counter_person_id_{$key+1}" value="{$item->id}">
+                                            </td>
+                                        </tr>
+                                        <script>
+                                            
+                                            rowIDArray.push(ROW_ID);
+                                            ROW_ID++;
+                                        </script>    
+                                    {/foreach}
                                 </tbody>
                                 <tfoot>
+                                    
                                     <tr>
-                                        <td colspan="8" align="right" class="bold">Grand Total</td>
-                                        <td colspan="5"><input type="text" name="Goods_total" id="Goods_total" value="0.00" class="span4 bold" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="13"><a href="javascript:void(0)" onClick="addNewProcuremtPlanRow('goods_tbl', 'Goods');">Add New Row</a></td>
+                                        <td colspan="5"><a href="javascript:addCounterPerson();">Add New Row</a></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -106,7 +123,7 @@
                     
                     <div class="form-actions2">
                         <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
-                        <input type="hidden" value="saveAnnexIIIa" name="cmd"/>
+                        <input type="hidden" value="saveAnnexV" name="cmd"/>
                         <input type="hidden" id="PI" name="PI" value="{$PI}"/>
                     </div>
                 </div>
@@ -122,6 +139,7 @@
 </a>
 
 <!-- basic scripts -->
+    
     <script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
     <script type="text/javascript">
         window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
@@ -136,19 +154,8 @@
 
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-timepicker.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/daterangepicker.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.knob.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.autosize-min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
     
 
     <!-- ace scripts -->
@@ -157,51 +164,7 @@
     
                 
     <script>
-        //var ministry ="{$basicInfo->ministries}";
-        var ministries = [];
-        var agencies   = []; 
-        var partners   = []; 
-        var divisions  = [];
-        var districts  = []; 
-        var upzilas    = []; 
-        var procurement_method = [];
-        var procurement_type = [];
-                    
-        
-        
-        {foreach from=$procurement_method_list item=item key=key}
-            procurement_method.push("{$item}")
-        {/foreach} 
-        
-        {foreach from=$procurement_type_list item=item key=key}
-            procurement_type.push("{$item}")
-        {/foreach} 
-                    
-        $(".ministries").val(ministries);
-        $(".agencies").val(agencies);
-        $(".partners").val(partners);
-
-        $(".divisions").val(divisions);
-        $(".districts").val(districts);
-        $(".upzilas").val(upzilas);
-        $(".alert-success").fadeOut(1000);
-        //$(".ministries").chosen().trigger("chosen:updated");
-        
-        //addNewProcuremtPlanRow('goods_tbl', 'goods');
-        
-        {foreach from=$procurement_list item=item}
-            addNewProcuremtPlanRow('goods_tbl', 'Goods');
-            populateProcurementPlanDetails("{$item->package_no}", "{$item->procurement_desc}", "{$item->procurement_unit}", "{$item->procurement_qty}", 
-                                           "{$item->procurement_method}", "{$item->procurement_type}", "{$item->approv_auth}", "{$item->fund_src}", 
-                                           "{$item->estd_cost}", "{$item->tender_invitation}", "{$item->contract_sign}", "{$item->contract_completion}",
-                                           "{$item->id}", "{$item->procurement_category}");
-        {/foreach}
-        
-       {literal} 
-            $(function() {
-	        $('.date-picker').datepicker();
-            });
-       {/literal} 
+       
            
        {if $basicInfo->current_holder eq $smarty.session.uid}
         {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
