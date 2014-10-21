@@ -33,7 +33,7 @@
 <div id="page-content" class="clearfix">
 					
     <div class="page-header position-relative">
-	<h1>Part-A <small><i class="icon-double-angle-right"></i>TPP (Project Summary)</small></h1>
+	<h1>Part-A <small><i class="icon-double-angle-right"></i> TPP (Project Summary)</small></h1>
         <div id="nav-search">
           <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
           
@@ -50,14 +50,14 @@
 
     
     <div class="control-group">
-        <label class="control-label"  for="project_title_en">1.0 Project Title (English)</label>
+        <label class="control-label"  for="project_title_en"><b>1.0 Project Title (English)</b></label>
             <div class="controls">  
                 <label class="control-label" style="width:80% !important">: <b>{$basicInfo->project_title_en}</b></label>
             </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="project_title_bn">Project Title (Bangla)</label>
+        <label class="control-label" for="project_title_bn"><b>Project Title (Bangla)</b></label>
             <div class="controls">
                 <label class="control-label" style="width:80% !important">: {$basicInfo->project_title_bn}</label>
             </div>
@@ -79,7 +79,7 @@
             <form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}"> 
                 <input type="hidden" name="PI" value="{$PI}"/>
                 <div class="control-group">
-                    <label class="control-label" for="ministries[]">2.1 Sponsoring Ministry/Division</label>
+                    <label class="control-label" for="ministries[]"><b>2.1 Sponsoring Ministry/Division</b></label>
                     <div class="controls">
                         <select multiple class="chzn-select span6 ministries" id="ministries" onchange="getAgencyList()" name="ministries[]" required data-placeholder="Choose a Ministry/Division...">
                             <option value=""></option>
@@ -90,7 +90,7 @@
 		</div>
             
                 <div class="control-group">
-                    <label class="control-label" for="agencies[]">2.2 Implementing Agency</label>
+                    <label class="control-label" for="agencies[]"><b>2.2 Implementing Agency</b></label>
                     <div class="controls">
                         <select multiple class="chzn-select span6 agencies" id="agencies" required  name="agencies[]" data-placeholder="Choose a Agencies...">
                             <option value=""></option>
@@ -101,7 +101,7 @@
 		</div>
             
                 <div class="control-group">
-                    <label class="control-label" for="adp_sector">2.3 Concerned Sector of ADP</label>
+                    <label class="control-label" for="adp_sector"><b>2.3 Concerned Sector of ADP</b></label>
                     <div class="controls">
                         <select id="adp_sector" required name="adp_sector" onchange="getSubSector()">
                             <option value="">Select Sector</option>
@@ -111,7 +111,7 @@
 		</div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="adp_sub_sector">Concerned Sub-sector of ADP</label>
+                    <label class="control-label" for="adp_sub_sector"><b>Concerned Sub-sector of ADP</b></label>
                     <div class="controls">
                         <select id="adp_sub_sector" required name="adp_sub_sector">
                             <option value="">Select Sector</option>
@@ -121,7 +121,7 @@
 		</div>
             
                 <div class="control-group">
-                    <label class="control-label" for="sector_division">2.4 Concerned Division of Planning Commission</label>
+                    <label class="control-label" for="sector_division"><b>2.4 Concerned Division of Planning Commission</b></label>
                     <div class="controls">
                         <select id="sector_division" required name="sector_division">
                             <option value="">Select Sector</option>
@@ -131,7 +131,7 @@
 		</div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="partners[]">Development Partners</label>
+                    <label class="control-label" for="partners[]"><b>Development Partners</b></label>
                     <div class="controls">
                         <select multiple class="chzn-select span6 partners" id="partners[]" name="partners[]" data-placeholder="Choose a Development Partners...">
                         
@@ -142,7 +142,7 @@
                 </div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="project_implementation_period">3.0 Project implementation period: </label>
+                    <label class="control-label" for="project_implementation_period"><b>3.0 Project implementation period: </b></label>
                     <div class="controls"><br><br>
                         <label for="project_implementation_period">i)  Date of commencement: {$basicInfo->date_of_commencement|date_format:"%d/%m/%Y"}</label>
                         <label  for="project_implementation_period">ii) Date of completion: {$basicInfo->date_of_completion|date_format:"%d/%m/%Y"}</label>
@@ -150,14 +150,14 @@
                 </div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="contact_person">4.0 Name and Designation of contact person in the implementing agency</label>
+                    <label class="control-label" for="contact_person"><b>4.0 Name and Designation of contact person in the implementing agency</b></label>
                     <div class="controls" style="margin-left: 289px !important">
                         <textarea rows="4" style="width:400px"  name="contact_person" id="contact_person" required>{$basicInfo->contact_person}</textarea>
                     </div>
                 </div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="responsible_person">5.0 Name and official address(s) of the officer(s) responsible for the prepration of the TPP</label>
+                    <label class="control-label" for="responsible_person"><b>5.0 Name and official address(s) of the officer(s) responsible for the prepration of the TPP</b></label>
                     <div class="controls" style="margin-left: 289px !important">
                         <textarea rows="4" style="width:400px" name="responsible_person" id="responsible_person" required>{$basicInfo->responsible_person}</textarea>
                     </div>
@@ -165,7 +165,7 @@
                 
                 
                 <div class="control-group">
-                    <label class="control-label" for="project_cost">7.1 Estimated Cost of the project (in Lakh Taka)</label>
+                    <label class="control-label" for="project_cost"><b>7.1 Estimated Cost of the project</b> (in Lakh Taka)</label>
                     <div class="controls"><br><br>
                         <table id="table_bug_report" class="table table-striped table-bordered table-hover span4">
                             <tr>
@@ -208,14 +208,14 @@
                 </div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="exchange_rate">7.2 Exchange rate(s) with date (Source Bangladesh Bank): </label>
+                    <label class="control-label" for="exchange_rate"><b>7.2 Exchange rate(s) with date</b> (Source Bangladesh Bank): </label>
                     <div class="controls">
                         <textarea rows="2" style="width:545px" name="exchange_rate" id="exchange_rate">{$basicInfo->exchange_rate}</textarea>
                     </div>
 		</div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="mode_of_financing">8.0 Cost of financing</label><br>
+                    <label class="control-label" for="mode_of_financing"><b>8.0 Cost of financing</b></label><br>
                     
                     <div class="span11">
                         <label class="" for="year_wise_allocation"><span class="right">(Amount in Lakh Tk.)<span></label>
@@ -346,7 +346,7 @@
                    <div class="span12"> 
                         <div id="annex-iv-container">
                             <div>
-                                <label>9.0 Component Wise Estimated Cost Summary</label>
+                                <label><b>9.0 Component Wise Estimated Cost Summary</b></label>
                                 <label class="right">(Amount in Lakh Tk.)</label>
                                 
                                 <table id="economic_code_tbl11" class="annex-iv-table table table-striped table-bordered table-hover table_bug_report">
@@ -363,7 +363,7 @@
                                             <th class="span4">Own Fund<br>(FE)</th>
                                             <th class="span4">Other<br>(FE)</th>
                                             <th class="span4">% of Total Project Cost</th>
-                                            <th class="span4">Major Item?</th>
+                                           
                                         </tr>
                                         <tr>
                                             <th class="span1" colspan="2">RPA</th> <!--Project Aid-->
@@ -371,7 +371,7 @@
                                             <th class="span12">&nbsp;</th>
                                             <th class="span12">&nbsp;</th>
                                             <th class="span12">&nbsp;</th>
-                                             <th class="span12">&nbsp;</th>
+                                             
                                         </tr>
                                         <tr>
                                             <th class="span1">&nbsp;</th>  <!--Economic Code-->
@@ -387,7 +387,7 @@
                                             <th class="span12">&nbsp;</th>
                                             <th class="span12">&nbsp;</th>
                                             <th class="span12">&nbsp;</th>
-                                             <th class="span12">&nbsp;</th>
+                                           
                                         </tr>
                                     </thead>
                                     <tbody id="economic_code_content">
@@ -410,11 +410,7 @@
                                                 <td>{$vItem->own_fund|number_format:2:'.':''}<br>({$vItem->own_fund_fe|number_format:2:'.':''})</td>
                                                 <td>{$vItem->other|number_format:2:'.':''}<br>({$vItem->other_fe|number_format:2:'.':''})</td>
                                                 <td>{assign var="percentage_of_project" value=$vItem->total_cost/$basicInfo->total_cost*100}{$percentage_of_project|number_format:2:'.':''}%</td>
-                                                <td align="center">
-                                                    <div class="span12">
-                                                        <label style="text-align:center"><input name="major_item_{$item->id}" {if $vItem->major_item eq 'Yes'}checked {/if} id="major_item_{$vItem->id}" class="ace-switch ace-switch-5" type="checkbox" onchange="updateMajorItems({$vItem->id},this)" /><span class="lbl"></span></label>
-					            </div>
-                                                </td>
+                                                
                                             </tr>
                                             {/foreach}
                                             <tr>
@@ -428,7 +424,7 @@
                                                 <td>{$comp_sub_total_list.$key->sub_total_own_fund|number_format:2:'.':''}<br>({$comp_sub_total_list.$key->sub_total_own_fund_fe|number_format:2:'.':''})</td>
                                                 <td>{$comp_sub_total_list.$key->sub_total_other|number_format:2:'.':''}<br>({$comp_sub_total_list.$key->sub_total_other_fe|number_format:2:'.':''})</td>
                                                 <td>&nbsp;</td>
-                                                <td>&nbsp;</td>
+                                                
                                             </tr>
                                         {/foreach}
                                     </tbody>
@@ -446,7 +442,7 @@
                                             <td>{$conItem->own_fund}<br>({$conItem->own_fund_fe})</td>
                                             <td>{$conItem->other}<br>({$conItem->other_fe})</td>
                                             <td>{assign var="con_percentage_of_project" value=$conItem->total_cost/$basicInfo->total_cost*100}{$con_percentage_of_project|number_format:2:'.':''}%</td>
-                                            <td>&nbsp;</td>
+                                            
                                         </tr>
                                         {/foreach}
                                         <tr>
@@ -459,7 +455,7 @@
                                             <td>{$basicInfo->own_fund_cost}<br>({$basicInfo->own_fund_fe_cost})</td>
                                             <td>{$basicInfo->other_cost}<br>({$basicInfo->other_fe_cost})</td>
                                             <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
+                                            
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -482,7 +478,7 @@
                 
                 <div class="control-group">
                    	<div class="span11">
-                             <label class="" for="year_wise_allocation">10.0 Year-wise estimated cost summary:<span class="right">(Amount in Lakh Tk.)<span></label>
+                            <label class="" for="year_wise_allocation"><b>10.0 Year-wise estimated cost summary:</b><span class="right">(Amount in Lakh Tk.)<span></label>
 		
                             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                                 <thead>
@@ -490,7 +486,7 @@
                                                 <th class="CENTER">Financial Year</th>
                                                 <th class="CENTER">Total</th>
                                                 <th class="CENTER">GOB<br>(FE)</th>
-                                                <th class="CENTER">Project Aid (PA)<br>RPA</th>
+                                                <th class="CENTER">Project Aid (PA)</th>
                                                 <th class="CENTER">Project Aid (PA)<br>DPA</th>
                                                 <th class="CENTER">Own Fund<br>(FE)</th>
                                                 <th class="CENTER">CD VAT</th>
@@ -509,11 +505,15 @@
 
                                 <tbody>
                                         
-                                        {foreach from=$year_wise_gob_ownfund key=key item=item}
+                                        {foreach from=$year_wise_cost key=key item=item}
                                         <tr> 
                                                 <td>{$item->financial_year}</td>
-                                                <td>{$item->gob_total+$year_wise_gob_ownfundCon[$key]->gob_total|number_format:2:'.':''}<br>({$item->gob_fe_total+$year_wise_gob_ownfundCon[$key]->gob_fe_total|number_format:2:'.':''})</td>
-                                                <td>{$item->own_fund_total+$year_wise_gob_ownfundCon[$key]->own_fund_total|number_format:2:'.':''}<br>({$item->own_fund_fe_total+$year_wise_gob_ownfundCon[$key]->own_fund_fe_total|number_format:2:'.':''})</td>
+                                                <td>{$item->year_total+$year_wise_cost_contigency[$key]->year_total|number_format:2:'.':''}</td>
+                                                <td>{$item->gob_total+$year_wise_cost_contigency[$key]->gob_total|number_format:2:'.':''}<br>({$item->gob_fe_total+$year_wise_cost_contigency[$key]->gob_fe_total|number_format:2:'.':''})</td>
+                                                <td>{$item->rpa_through_gob_total+$item->rpa_special_account_total+$year_wise_cost_contigency[$key]->rpa_through_gob_total+$year_wise_cost_contigency[$key]->rpa_special_account_total|number_format:2:'.':''}</td>
+                                                <td>{$item->dpa_total+$year_wise_cost_contigency[$key]->dpa_total|number_format:2:'.':''}</td>
+                                                <td>{$item->own_fund_total+$year_wise_cost_contigency[$key]->own_fund_total|number_format:2:'.':''}<br>({$item->own_fund_fe_total+$year_wise_cost_contigency[$key]->own_fund_fe_total|number_format:2:'.':''})</td>
+                                                <td>{$CD_VAT[$key]->cv_vat_total}</td>
                                         </tr>
                                         {/foreach}
                                 </tbody>
@@ -522,22 +522,23 @@
 		</div>
                 
                 <div class="control-group">
-                    <label class="" for="lessons_learnt_successful_project">11.1 Indicate which issues lead to make project successful</label>
+                    <label class="" for="lessons_learnt_successful_project"><b>11.1 Indicate which issues lead to make project successful</b></label>
                     <div class="">
-                        <textarea class="ckeditor" name="lessons_learnt_successful_project" id="lessons_learnt_successful_project">{$partB->lessons_learnt_successful_project}</textarea>
+                        <textarea class="ckeditor" name="issue_make_successful" id="issue_make_successful">{$part_a->issue_make_successful}</textarea>
                     </div> 
                 </div>
                 
                 <div class="control-group">
-                    <label class="" for="lessons_learnt_not_work_well">11.2 Indicate which issues did not work well</label>
+                    <label class="" for="lessons_learnt_not_work_well"><b>11.2 Indicate which issues did not work well</b></label>
                     <div class="">
-                        <textarea class="ckeditor" name="lessons_learnt_not_work_well" id="lessons_learnt_not_work_well">{$partB->lessons_learnt_not_work_well}</textarea>
+                        <textarea class="ckeditor" name="issues_not_work_well" id="issues_not_work_well">{$part_a->issues_not_work_well}</textarea>
                     </div> 
                 </div>
                 
                 <div class="form-actions2">
 		 <button class="btn btn-primary"><i class="icon-save"></i> Save</button>
-                 <input type="hidden" value="saveLocations" name="cmd"/>
+                 <input type="hidden" id="part_a_id" name="part_a_id" value="{$part_a->id}"/>
+                 <input type="hidden" value="savePartA" name="cmd"/>
 	        </div>
             </form>   
             </div>
@@ -548,7 +549,7 @@
                 <form class="form-horizontal" id="validation-form-logframe"  method="post" action="{$SCRIPT_NAME}"> 
                 <div class="control-group">
 		
-                          <label class="" for="date_of_completion">12.0 Log frame:</label>
+                    <label class="" for="date_of_completion"><b>12.0 Log frame:</b></label>
                           <br>
 			<div class="">
                            
@@ -614,21 +615,22 @@
 
                         <dl id="dt-list-1">
                                 <dt>13.0 Financing after the completion of the Technical Assistant Project:</dt>
-                                <dd>13.1 Required amount (in Lakh Taka) :<br><input type="text" name="finance_amount" id="finance_amount" class="span3"></dd>
-                                <dd>13.2 Source of financing :<br><input type="text" name="source_amount" id="source_amount" class="span5"></dd>
+                                <dd>13.1 Required amount (in Lakh Taka) : <input type="text" name="amount_after_completion" id="amount_after_completion" value="{$part_a->amount_after_completion}" class="span3"></dd>
+                                <dd>13.2 Source of financing : <input type="text" name="source_of_finance_after" id="source_of_finance_after" value="{$part_a->source_of_finance_after}" class="span5"></dd>
                                 <dd>13.3 Mode of financing (Loan/grant/development/revenue budget, etc :</dd>
-                                <dd><textarea class="ckeditor" name="implementation_arrangement" id="implementation_arrangement">{$basicInfo->implementation_arrangement}</textarea><br></dd>
+                                <dd><textarea class="ckeditor" name="mode_of_financing" id="mode_of_financing">{$part_a->mode_of_financing}</textarea><br></dd>
                         </dl>
                         
                         <dl id="dt-list-1">
                                 <dt>14.0 Desire expectation after completion of the project.</dt>
-                                <dd><textarea class="ckeditor" name="after_completion" id="after_completion">{$basicInfo->after_completion}</textarea></dd>
+                                <dd><textarea class="ckeditor" name="expectation_after_completion" id="expectation_after_completion">{$part_a->expectation_after_completion}</textarea></dd>
                         </dl>
                 </div>
                 <div class="form-actions2">
                     <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                     <input type="hidden" name="PI" value="{$PI}"/> 
-                    <input type="hidden" value="saveProjectInfo" name="cmd"/>
+                     <input type="hidden" id="part_a_id" name="part_a_id" value="{$part_a->id}"/>
+                    <input type="hidden" value="savePartA" name="cmd"/>
 	       </div>
             </form>   
             </div>

@@ -32,6 +32,99 @@ class TPP
         }
     }
     
+    public function getConcultantDetails()
+    {
+        $info['table']  = TPP_CONCULTANT_DETAILS_TBL;
+        $info['debug']  = false;
+        $info['where']  = "pid = $this->id";
+        
+        $result = select($info);
+        return $result;
+        
+    }       
+    public function getCounterPersonDetails()
+    {
+        $info['table']  = TPP_COUNTER_PERSON_DETAILS_TBL;
+        $info['debug']  = false;
+        $info['where']  = "pid = $this->id";
+        
+        $result = select($info);
+        return $result;
+        
+    }       
+    
+    public function saveConcultant()
+    {
+        $info['table'] = TPP_CONCULTANT_DETAILS_TBL;
+        $info['debug'] = false;
+        
+        $data['pid']   = base64_decode(getUserField('PI'));
+        
+        foreach( $_REQUEST as $key => $value)
+	{
+            if( preg_match('/concultant_name_(\d+)/', $key, $matches))
+            {
+                $id = $matches[1];
+                
+                $data['concultant_name']      = $_REQUEST['concultant_name_' . $id];
+                $data['education']            = $_REQUEST['education_' . $id];
+	        $data['experience']           = $_REQUEST['experience_' . $id];
+	        $data['responsibility']       = $_REQUEST['responsibility_' . $id];
+	        $data['concultant_id']        = $_REQUEST['concultant_id_' . $id];
+                
+                $info['data'] = $data;                
+                // if procurement_plan_id is there then update the record
+                // else add a new record in procurement plan table
+                if ( !$data['concultant_id'] ) 
+                {
+                    insert($info);
+                }
+                else
+                {
+                    $info['where'] = 'id = ' . $data['concultant_id'];
+                    update($info);
+                }
+ 	    }
+        }
+    }
+    
+    
+    public function saveCounterPerson()
+    {
+        $info['table'] = TPP_COUNTER_PERSON_DETAILS_TBL;
+        $info['debug'] = false;
+        
+        $data['pid']   = base64_decode(getUserField('PI'));
+        
+        foreach( $_REQUEST as $key => $value)
+	{
+            if( preg_match('/designation_(\d+)/', $key, $matches))
+            {
+                $id = $matches[1];
+                
+                $data['designation']          = $_REQUEST['designation_' . $id];
+                $data['education']            = $_REQUEST['education_' . $id];
+	        $data['experience']           = $_REQUEST['experience_' . $id];
+	        $data['task_to_performed']    = $_REQUEST['task_to_performed_' . $id];
+	        $data['counter_person_id']    = $_REQUEST['counter_person_id_' . $id];
+                
+                $info['data'] = $data;                
+                // if procurement_plan_id is there then update the record
+                // else add a new record in procurement plan table
+                if ( !$data['counter_person_id'] ) 
+                {
+                    insert($info);
+                }
+                else
+                {
+                    $info['where'] = 'id = ' . $data['counter_person_id'];
+                    update($info);
+                }
+ 	    }
+        }
+    }
+    
+    
     public function loadYearWiseGobOwnfundTotal()
     {
         $info['table']  = PROJECT_YEAR_WISE_GOB_OWNFUND;
@@ -46,9 +139,21 @@ class TPP
     {
         $info['table']  = PROJECT_ANNEX_V_CON_DETAILS_TBL;
          $info['debug']  = false;
-        $info['fields']  = array('sum(gob) AS gob_total, sum(gob_fe) AS gob_fe_total,sum(own_fund) AS own_fund_total,sum(own_fund_fe) AS own_fund_fe_total');
+        $info['fields']  = array('sum(gob) AS gob_total, sum(gob_fe) AS gob_fe_total,sum(own_fund) AS own_fund_total,sum(own_fund_fe) AS own_fund_fe_total,sum(rpa_through_gob) AS rpa_through_gob_total,sum(rpa_special_account) AS rpa_special_account_total,sum(dpa) AS dpa_total,sum(total) AS year_total');
         $info['where']   = "pid = $this->id  GROUP BY year_serial ORDER BY year_serial";
         $result = select($info);
+        return $result;
+       
+    }        
+    public function loardCD_VAT()
+    {
+        $info['table']  = PROJECT_ANNEX_V_TBL." AS Anx LEFT JOIN ".PROJECT_ANNEX_V_DETAILS_TBL." AS AnxD ON(Anx.id=AnxD.annex_id)";
+         $info['debug']  = false;
+        $info['fields']  = array('sum(AnxD.total) AS cv_vat_total');
+        $info['where']   = "Anx.pid = $this->id AND Anx.economic_subcode_id IN(45,434) GROUP BY AnxD.year_serial ORDER BY AnxD.year_serial";
+        $result = select($info);
+        
+        
         return $result;
        
     }        
@@ -93,7 +198,18 @@ class TPP
     
     public function loadPartB()
     {
-        $info['table'] = PROJECT_PART_B_TBL;
+        $info['table'] = TPP_PART_B_TBL;
+        $info['debug'] = false;
+        $info['where'] = "pid = $this->id";
+        
+        $result =   select($info);    
+        
+        return $result[0];
+    }
+    
+    public function loadPartA()
+    {
+        $info['table'] = TPP_PART_A_TBL;
         $info['debug'] = false;
         $info['where'] = "pid = $this->id";
         
@@ -234,8 +350,8 @@ class TPP
     
     public function savePartB()
     {
-        $info['table'] = PROJECT_PART_B_TBL;
-        $info['data']  = getUserDataSet(PROJECT_PART_B_TBL);
+        $info['table'] = TPP_PART_B_TBL;
+        $info['data']  = getUserDataSet(TPP_PART_B_TBL);
         $info['data']['pid'] = $this->id;
         $info['debug'] = false;
         
@@ -243,6 +359,34 @@ class TPP
         if($partBId)
         {
             $info['where'] = "id = $partBId";
+            return update($info);
+        }
+        else 
+        {
+            $result = insert($info);
+            
+            if($result['newid'])
+            {
+                //$this->id = $result['newid'];
+                //$this->loadBasicInfo();
+                return $result['newid'];;
+            }    
+            return  0;
+        }
+    }
+    
+    
+    public function savePartAInfo()
+    {
+        $info['table'] = TPP_PART_A_TBL;
+        $info['data']  = getUserDataSet(TPP_PART_A_TBL);
+        $info['data']['pid'] = $this->id;
+        $info['debug'] = false;
+        
+        $partAId   = getUserField('part_a_id');        
+        if($partAId)
+        {
+            $info['where'] = "id = $partAId";
             return update($info);
         }
         else 

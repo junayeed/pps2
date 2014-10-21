@@ -574,10 +574,7 @@
          echo_br("Affected rows $affectedRows" );
 
       }
-      
-      // modified by Junayeed on 20/10/2014 
       return (empty($err) && $affectedRows > 0 ) ? true : false;
-      //return (empty($err) && $affectedRows > 0 ) ? $affectedRows : $affectedRows;
    }
 
    /**

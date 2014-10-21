@@ -1,0 +1,147 @@
+<div id="main-content" class="clearfix">
+    <head>
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+        <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
+<script type="text/javascript" src="/app_contents/common/js/messages.js"></script>
+<script type="text/javascript" src="/app_contents/common/js/CalendarPopup.js"></script>
+
+<script language="JavaScript">
+   function thisSelect(inputobj, linkname, format) 
+   {ldelim}
+      var thisDate = new CalendarPopup();
+      //alert(inputobj + '\n' + linkname + '\n' + format);
+      thisDate.showNavigationDropdowns();
+      thisDate.select(inputobj,linkname, format);
+   {rdelim}
+   
+   
+  
+</script>
+
+<style>
+   {literal} 
+        .fixed{
+        top:0;
+        position:fixed;
+        width:auto;
+        display:none;
+        border:none;
+  }
+  {/literal}
+</style>
+    </head>
+					
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li class="active">Annexure - II : Terms of Reference</li>
+        </ul><!--.breadcrumb-->
+        <div id="nav-search">    
+        </div><!--#nav-search-->
+    </div><!--#breadcrumbs-->
+
+    <div id="page-content" class="clearfix">
+        <div class="page-header position-relative">
+            <h1>Annexure - II <small><i class="icon-double-angle-right"></i>Terms of Reference</small></h1>
+            <div id="nav-search">
+                <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
+            </div>  
+        </div><!--/page-header-->
+
+        <div class="row-fluid">
+        <!-- PAGE CONTENT BEGINS HERE -->
+           
+            <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
+            <form class="form-horizontal" id="frmTor"  method="post" action="{$SCRIPT_NAME}" name="frmTor" enctype="multipart/form-data"> 
+                <div id="basicinfo" class="tab-pane in active">
+                    
+                    <div class="control-group">
+                        <label><p><b>Note:</b>Terms of Reference should explain teh objectives, scope of work, activities, tasks to be performed, 
+                            respective responsibilities of the client and the consultants, and expected results and deliveries. Adequate TOR are 
+                            essential for the understanding of the assignment and its correct execution by the consultants.</p>
+                            <p>Terms of Reference normally contain the following sections:</p>
+                            <lu>
+                               <li>Background of the project</li>
+                               <li>Objectives of the assignments;</li>
+                               <li>Scope of services;</li>
+                               <li>Transfer of knowledge (training), where appropriate;</li>
+                               <li>List of reports, Schedule of deliveries, period of performance;</li>
+                               <li>Data, personnel, facilities and local services to be provided by the client, and</li>
+                               <li>Institutional arrangements</li>
+                            <lu>
+                        </label>
+                        <div class="span11">
+                            <textarea class="ckeditor" name="terms_of_reference" id="terms_of_reference">{$part_a->terms_of_reference}</textarea>
+                        </div>
+                    </div>
+             
+                    <div class="form-actions2">
+                        <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                        <input type="hidden" value="savePartAInfoAnxII" name="cmd"/>
+                        <input type="hidden" id="PI" name="PI" value="{$PI}"/>
+                        <input type="hidden" id="part_a_id" name="part_a_id" value="{$part_a->id}"/>
+                    </div>
+                </div>
+            </form>   
+            <!-- #basicinfo Ends here -->
+        </div>
+    </div>
+<!-- PAGE CONTENT ENDS HERE -->
+</div><!--/row-->
+	
+<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+    <i class="icon-double-angle-up icon-only"></i>
+</a>
+
+<!-- basic scripts -->
+    <script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
+    </script>
+    <script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
+
+    <!-- page specific plugin scripts -->
+		
+    <!--[if lt IE 9]>
+        <script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="/app_contents/standard/template/assets/js/jquery-migrate-1.0.0.js"></script> 
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+    
+    <script type="text/javascript" src="/ext/ckeditor/ckeditor.js"></script>
+    
+    <!-- ace scripts -->
+    <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
+    <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+    
+                
+    <script>
+      
+            
+      {if $basicInfo->current_holder eq $smarty.session.uid}
+        {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
+             lockProject();
+        {/if}
+        {else}
+            lockProject();
+        {/if} 
+
+        {literal}
+        
+              
+                        
+            function lockProject()
+            {
+                $("#page-content :input").attr("disabled", true);   
+                $('.form-actions2').hide();
+                $("td > a").hide();
+               
+            }
+        {/literal}          
+    </script>    

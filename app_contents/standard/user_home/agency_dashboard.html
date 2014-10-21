@@ -83,7 +83,8 @@
                                             <thead>                                               
                                                 <tr>
                                                     <th>Sl</th>
-                                                    <th><i></i>Project Title</th>
+                                                    <th><i></i>Type</th>
+                                                   
                                                     <th class="hidden-480">Create Date</th>
                                                     <th class="hidden-480">Status</th>
                                                 </tr>
@@ -92,14 +93,17 @@
                                                 {foreach from=$project_list key=key item=item}
                                                     <tr>
                                                         <td>{$key+1}</td>
+                                                        
                                                         <td>
                                                            {if $item->project_type eq 'DPP'} 
-                                                             <a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}">{$item->project_title_en}</a>
+                                                             <a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:45}</a>
+                                                             <span class="label label-info label-yellow arrowed-in-right arrowed-in" >{$item->project_type}</label>
                                                            {else}  
-                                                             <a href="/app/tpp_manager/tpp_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}">{$item->project_title_en}</a>
+                                                           <a href="/app/tpp_manager/tpp_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:45}</a>
+                                                             <span class="label label-info label-light arrowed-in-right arrowed-in" >{$item->project_type}</label>
                                                            {/if} 
                                                         </td>
-                                                        <td class="hidden-480">{$item->create_date|date_format:"%e %B, %Y"}</td>
+                                                        <td class="hidden-480">{$item->create_date|date_format:"%d/%m/%Y"}</td>
                                                         <td class="hidden-480">
                                                             <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>
                                                         </td>

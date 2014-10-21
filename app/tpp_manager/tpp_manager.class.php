@@ -27,28 +27,36 @@ class tppManagerApp extends DefaultApplication
            case 'list'               : $screen = $this->showList();                    break;
            case 'partA'              : $screen = $this->showProjectPartA();            break;
            case 'partB'              : $screen = $this->showProjectPartB();            break;
+           case 'savePartA'          : $screen = $this->saveProjectPartA();            break;
            case 'savePartB'          : $screen = $this->saveProjectPartB();            break;
            //case 'anaexI'             : $screen = $this->showProjectLocation();         break;
            case 'annexII'            : $screen = $this->showAnnexII();                 break;
            case 'saveAnnexII'        : $screen = $this->saveProjectManagement();       break;
+           case 'savePartAInfoAnxII' : $screen = $this->savePartAInfoAnxII();          break;
            //case 'saveAnnexI'         : $screen = $this->saveProjectLocationWithCost(); break;
-           case 'annexIIIa'          : $screen = $this->showProcurementPlanGOODS();    break;
-           case 'saveAnnexIIIa'      : $screen = $this->saveProcurementPlan($cmd);     break;
-           case 'annexIIIb'          : $screen = $this->showProcurementPlanWORKS();    break;
-           case 'saveAnnexIIIb'      : $screen = $this->saveProcurementPlan($cmd);     break;
-           case 'annexIIIc'          : $screen = $this->showProcurementPlanSERVICES(); break;
-           case 'saveAnnexIIIc'      : $screen = $this->saveProcurementPlan($cmd);     break;
+           case 'annexIII'           : $screen = $this->showConcultantDetails();       break;
+           case 'saveAnnexIII'       : $screen = $this->saveConcultant();              break;
+          
+           
+           case 'annexVIIIa'         : $screen = $this->showProcurementPlanGOODS();    break;
+           case 'annexVIIIa'         : $screen = $this->showProcurementPlanSERVICES(); break;
+           case 'saveAnnexVIIIa'     : $screen = $this->saveProcurementPlan($cmd);     break;
+           case 'saveAnnexVIIIb'     : $screen = $this->saveProcurementPlan($cmd);     break;
+           
            case 'deleteprocplan'     : $screen = $this->deleteProcurementPlan();       break;
-           case 'annexI'             : $screen = $this->showTPPAnnexI();                  break;
+           case 'annexI'             : $screen = $this->showTPPAnnexI();               break;
            case 'annexIV'            : $screen = $this->showAnnexIV();                 break;
-           case 'saveAnnexI'         : $screen = $this->saveTPPAnnexI();                  break;
+           case 'annexV'             : $screen = $this->showAnnexV();                  break;
+           case 'saveAnnexV'         : $screen = $this->saveCounterPerson();           break;
+           
+           case 'saveAnnexI'         : $screen = $this->saveTPPAnnexI();               break;
            case 'deletecomponent'    : $screen = $this->deleteComponent();             break;
            case 'deleteyear'         : $screen = $this->deleteYear();                  break;
            case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
            case 'forwardProject'     : $screen = $this->forwardProject();              break;
            case 'commentPage'        : $screen = $this->commentPage();                 break;
-           case 'attachment'         : $screen = $this->attachment();                 break;
-           case 'saveAttachment'     : $screen = $this->saveAttachments();                 break;
+           case 'attachment'         : $screen = $this->attachment();                  break;
+           case 'saveAttachment'     : $screen = $this->saveAttachments();             break;
            case 'saveComment'        : $screen = $this->saveComment();                 break;
            default                   : $screen = $this->showEditor($msg);
       }
@@ -93,6 +101,7 @@ class tppManagerApp extends DefaultApplication
        
     }
     
+               
     function commentPage()
     {
        $pid        = base64_decode(getUserField('PI')); 
@@ -225,6 +234,24 @@ class tppManagerApp extends DefaultApplication
             echo json_encode($msg.'###'.$type);
         }
     }
+    
+    
+    function saveProcurementPlan($cmd)
+    {
+        $pid       = base64_decode(getUserField('PI'));
+        
+        updateProcurementPlan();
+        
+        if ($cmd == 'saveAnnexVIIIa')
+        {
+            header ('Location: tpp_manager.php?cmd=annexVIIIa&PI='.  base64_encode($pid));
+        }
+        else if ($cmd == 'saveAnnexVIIIb')
+        {
+            header ('Location: tpp_manager.php?cmd=annexIIIb&PI='.  base64_encode($pid));
+        }
+        
+    }
 
    /**
    * Shows User Editor
@@ -235,6 +262,16 @@ class tppManagerApp extends DefaultApplication
    {
       
       return createPage(PROJECT_CREATE_TEMPLATE, $data);
+   }
+   
+   function savePartAInfoAnxII()
+   {
+        $pid     = base64_decode(getUserField('PI'));
+        $project = new TPP($pid);
+        
+        $project->savePartAInfo();   
+        
+        header ('Location: tpp_manager.php?cmd=annexII&PI='.  base64_encode($pid));
    }
    
    function saveObjectiveCost()
@@ -253,13 +290,24 @@ class tppManagerApp extends DefaultApplication
        
        header ('Location: tpp_manager.php?cmd=partA&PI='.  base64_encode($pid));
    }
+   
+   function saveProjectPartA()
+   {
+       $pid     = base64_decode(getUserField('PI'));
+       $project = new TPP($pid);
+       
+       $project->savePartAInfo();
+       
+       
+       header ('Location: tpp_manager.php?cmd=partA&PI='.  base64_encode($pid));
+   }
    function saveProjectPartB()
    {
        $pid     = base64_decode(getUserField('PI'));
        $project = new TPP($pid);
        
        $project->savePartB();
-       $project->savePartBMajorItems();
+       //$project->savePartBMajorItems();
        
        
        header ('Location: tpp_manager.php?cmd=partB&PI='.  base64_encode($pid));
@@ -309,9 +357,14 @@ class tppManagerApp extends DefaultApplication
         $data->upazilaList            = getUpzilaList();
         $data->modefinancing          = $project->loadModeOfFinancing();
         $data->logframe               = $project->loadLogFrame();
-        $data->year_wise_gob_ownfund  = $project->loadYearWiseGobOwnfundTotal();
+        $data->year_wise_cost         = $project->loadYearWiseGobOwnfundTotal();
+        $data->part_a                 = $project->loadPartA();
         
-        $data->year_wise_gob_ownfundCon  = $project->loadYearWiseGobOwnfundTotalFromContigency();
+        //dumpVar($data->year_wise_cost);
+        
+        $data->year_wise_cost_contigency  = $project->loadYearWiseGobOwnfundTotalFromContigency();
+        //dumpVar($data->year_wise_cost_contigency);
+        $data->CD_VAT                     = $project->loardCD_VAT();
        
         $result = getProjectWiseEconomicCodeList($pid);
         
@@ -373,25 +426,7 @@ class tppManagerApp extends DefaultApplication
         return createPage(PROJECT_ANNEX_I_LOCATION_TEMPLATE, $data);
     }
     
-    function showProcurementPlanGOODS()
-    {
-        $PI                    = getUserField('PI');    
-        $pid                   = base64_decode($PI);
-        $report_type           = getUserField('report_type');
-        $procurement_category  = getUserField('procurement_category');
-        
-        $project               = new TPP($pid);
-        $data->basicInfo     = $project->basicInfo;
-        
-        $data->PI                       = $PI;
-        $data->procurement_list         = getProcurementPlanList($pid, 'Goods');
-        $data->procurement_method_list  = getProcurementMethodList();
-        $data->procurement_type_list    = getProcurementTypeList();
-           
-        $this->exportTo($procurement_category, $report_type);
-        
-        return createPage(PROJECT_PROCUREMENT_PLAN_GOODS_TEMPLATE, $data);
-    }
+    
     function showAnnexII()
     {
         $PI                    = getUserField('PI');    
@@ -399,17 +434,31 @@ class tppManagerApp extends DefaultApplication
         
         $project               = new TPP($pid);
         $data->basicInfo       = $project->basicInfo;
-        
+        $data->part_a          = $project->loadPartA();
         $data->PI              =  $PI;
-        $data->management_list = getManagementList($pid);
-        
-        //dumpVar($data->management_list);
+       
            
-        return createPage(PROJECT_MANAGEMENT_TEMPLATE, $data);
+        return createPage(PROJECT_TOR_TEMPLATE, $data);
     }
     
     
-    function showProcurementPlanWORKS()
+    function showConcultantDetails()
+    {
+        $PI                    = getUserField('PI');    
+        $pid                   = base64_decode($PI);
+            
+        $project               = new TPP($pid);
+        $data->basicInfo       = $project->basicInfo;
+        
+        $data->PI                       =  $PI;
+        $data->concultant_details       = $project->getConcultantDetails();
+        
+        
+        return createPage(PROJECT_CONCULTANT_DETAILS_TEMPLATE, $data);
+    }
+    
+    
+    function showProcurementPlanGOODS()
     {
         $PI                    = getUserField('PI');    
         $pid                   = base64_decode($PI);
@@ -420,13 +469,13 @@ class tppManagerApp extends DefaultApplication
         $data->basicInfo       = $project->basicInfo;
         
         $data->PI                       =  $PI;
-        $data->procurement_list         = getProcurementPlanList($pid, 'Works');
+        $data->procurement_list         = getProcurementPlanList($pid, 'Services');
         $data->procurement_method_list  = getProcurementMethodList();
         $data->procurement_type_list    = getProcurementTypeList();
            
         $this->exportTo($procurement_category, $report_type);
         
-        return createPage(PROJECT_PROCUREMENT_PLAN_WORKS_TEMPLATE, $data);
+        return createPage(PROJECT_PROCUREMENT_PLAN_GOODS_TEMPLATE, $data);
     }
     
     function showProcurementPlanSERVICES()
@@ -449,24 +498,24 @@ class tppManagerApp extends DefaultApplication
         return createPage(PROJECT_PROCUREMENT_PLAN_SERVICES_TEMPLATE, $data);
     }
     
-    function saveProcurementPlan($cmd)
+    function saveConcultant()
     {
         $pid       = base64_decode(getUserField('PI'));
+        $project   = new TPP($pid);
         
-        updateProcurementPlan();
+        $project->saveConcultant();
         
-        if ($cmd == 'saveAnnexIIIa')
-        {
-            header ('Location: tpp_manager.php?cmd=annexIIIa&PI='.  base64_encode($pid));
-        }
-        else if ($cmd == 'saveAnnexIIIb')
-        {
-            header ('Location: tpp_manager.php?cmd=annexIIIb&PI='.  base64_encode($pid));
-        }
-        else if ($cmd == 'saveAnnexIIIc')
-        {
-            header ('Location: tpp_manager.php?cmd=annexIIIc&PI='.  base64_encode($pid));
-        }
+        header ('Location: tpp_manager.php?cmd=annexIII&PI='.  base64_encode($pid));
+    }
+    
+    function saveCounterPerson()
+    {
+        $pid       = base64_decode(getUserField('PI'));
+        $project   = new TPP($pid);
+        
+        $project->saveCounterPerson();
+        
+        header ('Location: tpp_manager.php?cmd=annexV&PI='.  base64_encode($pid));
     }
     
     function saveProjectLocationWithCost()
@@ -541,6 +590,20 @@ class tppManagerApp extends DefaultApplication
         //dumpvar($data['annx_v_component_details']);
         
         return createPage(PROJECT_ANNEX_IV_TEMPLATE, $data);
+    }
+    function showAnnexV()
+    {
+        $PI                                  = getUserField('PI');    
+        $pid                                 = base64_decode($PI);
+        $data['PI']                          = $PI;
+        $project                             = new TPP($pid);
+        
+        $data['basicInfo']                   = $project->basicInfo;
+        $data['counter_person_details']      = $project->getCounterPersonDetails();
+        
+        //dumpvar($data['counter_person_details']);
+        
+        return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);
     }
    
     function showProjectHomePage()

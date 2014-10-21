@@ -1,0 +1,4 @@
+'Draff','	','Rejected','Forwarded to Ministry','Returned from Ministry','Forwarded to Commission','	'
+
+ALTER TABLE `projects` CHANGE `status` `status` ENUM('Draff','Approved','Rejected','Forwarded to Ministry','Returned from Ministry','Forwarded to ') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Draff';
+ALTER TABLE `projects` CHANGE `status` `status` ENUM('Draff','Approved','Rejected','Forwarded to Ministry','Returned from Ministry','Forwarded to Commission','Returned from Commission') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Draff';

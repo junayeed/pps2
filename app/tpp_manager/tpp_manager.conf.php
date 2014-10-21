@@ -26,13 +26,14 @@
    define('TPP_PART_B_TEMPLATE',                          TEMPLATE_DIR . '/tpp_manager_partB.html');
    define('PROJECT_LIST_TEMPLATE',                        TEMPLATE_DIR . '/project_manager_list.html');
    define('PROJECT_ANNEX_I_LOCATION_TEMPLATE',            TEMPLATE_DIR . '/location_manager.html');
-   define('PROJECT_MANAGEMENT_TEMPLATE',                  TEMPLATE_DIR . '/project_management.html');
+   define('PROJECT_TOR_TEMPLATE',                         TEMPLATE_DIR . '/project_tor.html');
+   define('PROJECT_CONCULTANT_DETAILS_TEMPLATE',          TEMPLATE_DIR . '/project_concultants_details.html');
    define('PROJECT_PROCUREMENT_PLAN_GOODS_TEMPLATE',      TEMPLATE_DIR . '/procurement_plan_goods.html');
-   define('PROJECT_PROCUREMENT_PLAN_WORKS_TEMPLATE',      TEMPLATE_DIR . '/procurement_plan_works.html');
    define('PROJECT_PROCUREMENT_PLAN_SERVICES_TEMPLATE',   TEMPLATE_DIR . '/procurement_plan_services.html');
    define('PROC_PLAN_PDF_TEMPLATE',                       TEMPLATE_DIR . '/proc_plan_pdf.html');
    define('TPP_ANNEX_I_TEMPLATE',                         TEMPLATE_DIR . '/annex_i.html');
    define('PROJECT_ANNEX_IV_TEMPLATE',                    TEMPLATE_DIR . '/annex_iv.html');
+   define('PROJECT_ANNEX_V_TEMPLATE',                    TEMPLATE_DIR . '/annex_v.html');
    define('PROJECT_COMMENT_TEMPLATE',                     TEMPLATE_DIR . '/comment.html');
    define('PROJECT_ATTACHMENT_TEMPLATE',                     TEMPLATE_DIR . '/attachment.html');
    define('SICCESS_MSG_TEMPLATE',                         TEMPLATE_DIR . '/success_msg.html');
