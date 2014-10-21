@@ -23,7 +23,7 @@ function stringScapeCharacter(str)
 
 function populateProcurementPlanDetails(package_no, procurement_desc, procurement_unit, procurement_qty, procurement_method, procurement_type,
                                         approv_auth, fund_src, estd_cost, tender_invitation, contract_sign, contract_completion, proc_plan_id, 
-                                        procument_category)
+                                        procument_category, prequal_invitation, eoi_invitation, rfp_issue)
 {
     var elemID = ROW_ID-1; 
 
@@ -41,6 +41,9 @@ function populateProcurementPlanDetails(package_no, procurement_desc, procuremen
     $('#contract_completion_'+elemID).val(contract_completion);
     $('#proc_plan_id_'+elemID).val(proc_plan_id);
     $('#procument_category_'+elemID).val(procument_category);
+    $('#prequal_invitation_'+elemID).val(prequal_invitation);
+    $('#eoi_invitation_'+elemID).val(eoi_invitation);
+    $('#rfp_issue_'+elemID).val(rfp_issue);
     
     calculateProcurementTotal(procument_category);
 }
@@ -58,9 +61,6 @@ function populateManagementDetails(name_of_the_post, qty,qualification, amount, 
    
     $('#management_id_'+elemID).val(id);
     $('#type_'+elemID).val(type);
-   
-    
-     
 }
 
 function addNewProcuremtPlanRow(targetID, procurementCategory)
@@ -79,6 +79,7 @@ function addNewProcuremtPlanRow(targetID, procurementCategory)
     var td_contract_completion  = '<td><input class="span12 date-picker" id="contract_completion_'+ROW_ID+'" name="contract_completion_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_prequal_invitation   = '<td><input class="span12 date-picker" id="prequal_invitation_'+ROW_ID+'" name="prequal_invitation_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_eoi_invitation       = '<td><input class="span12 date-picker" id="eoi_invitation_'+ROW_ID+'" name="eoi_invitation_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
+    var td_rfp_issue            = '<td><input class="span12 date-picker" id="rfp_issue_'+ROW_ID+'" name="rfp_issue_'+ROW_ID+'" type="text" data-date-format="yyyy-mm-dd" /></td>';
     var td_action               = '<td id="td_action_'+ROW_ID+'">\n\
                                        <a href="javascript: void(0);" \n\
                                           onClick="deleteProcurementPlanRow('+ROW_ID+', \''+targetID+'\', \''+procurementCategory+'\');">\n\
@@ -93,21 +94,21 @@ function addNewProcuremtPlanRow(targetID, procurementCategory)
     if ( procurementCategory == 'Goods' )
     {
         var $row = $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
-                                     td_approv_auth+td_fund_src+td_estd_cost+td_eoi_invitation+td_contract_sign+td_contract_completion+
+                                     td_approv_auth+td_fund_src+td_estd_cost+td_tender_invitation+td_contract_sign+td_contract_completion+
                                      td_action+hidden_field+'</tr>').appendTo("#"+targetID+" > tbody");
          $row.find('.date-picker').datepicker();                     
     }
     else if ( procurementCategory == 'Works' )
     {
        var $row = $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
-                                     td_approv_auth+td_fund_src+td_estd_cost+td_prequal_invitation+td_tender_invitation+td_contract_sign+td_contract_completion+
+                                     td_approv_auth+td_fund_src+td_estd_cost+td_eoi_invitation+td_tender_invitation+td_contract_sign+td_contract_completion+
                                      td_action+hidden_field+'</tr>').appendTo("#"+targetID+" > tbody");
          $row.find('.date-picker').datepicker();                     
     } 
     else if ( procurementCategory == 'Services' )
     {
        var $row = $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
-                                     td_approv_auth+td_fund_src+td_estd_cost+td_prequal_invitation+td_tender_invitation+td_contract_sign+td_contract_completion+
+                                     td_approv_auth+td_fund_src+td_estd_cost+td_eoi_invitation+td_rfp_issue+td_contract_sign+td_contract_completion+
                                      td_action+hidden_field+'</tr>').appendTo("#"+targetID+" > tbody");
          $row.find('.date-picker').datepicker();                     
     } 

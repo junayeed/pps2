@@ -48,7 +48,8 @@
 
     <div id="page-content" class="clearfix">
         <div class="page-header position-relative">
-            <h1>Annexure - III (a)<small><i class="icon-double-angle-right"></i>Total Procurement plan for development project/programme {$error}</small></h1>
+            <h1>Annexure - III (a)<small><i class="icon-double-angle-right"></i>Total Procurement plan for development project/programme</small></h1>
+            
             <div id="nav-search">
                 <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
             </div>  
@@ -60,13 +61,21 @@
             <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
             <form class="form-horizontal" id="procure_plan_goods_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_goods_form"> 
                 
+                {if $error eq '1'}
+                <div class="alert alert-block alert-error">
+                    <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+                    <strong><i class="icon-remove"></i> An error occurred while saving the data.</strong>
+                    
+		</div>
+                {/if}
+                {if $error eq '0'}
                 <div class="alert alert-block alert-success">
 			<button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
 			<p>
-			<strong><i class="icon-ok"></i> Well done!</strong>
-			You successfully read this important alert message.
+                            <strong><i class="icon-ok"></i> Data has been saved successfully.</strong>
 			</p>
 		</div>
+                {/if}
                 
                 <div id="basicinfo" class="tab-pane in active">
                     <div class="form-actions2">
@@ -91,18 +100,18 @@
                                 <thead>
                                     <tr>
                                         <th>Package No.</th>
-                                        <th class="span6">Description of Procurement<br>Package as per DPP/TPP</th>
-                                        <th class="span3">Unit</th>
-                                        <th class="span2">Quantity</th>
-                                        <th class="span3">Procurement Method</th>
-                                        <th class="span1">Procurement Type</th>
-                                        <th class="span3">Contract Approving Authority</th>
-                                        <th class="span3">Source of Fund</th>
-                                        <th class="span5">Estd. Cost (In lakh Taka)</th>
-                                        <th class="span3">Invitation for Tender</th>
-                                        <th class="span3">Signing of Contract</th>
-                                        <th class="span3">Completion of Contract</th>
-                                        <th class="span1">&nbsp;</th>
+                                        <th class="span6 center">Description of Procurement<br>Package as per DPP/TPP</th>
+                                        <th class="span3 center">Unit</th>
+                                        <th class="span2 center">Quantity</th>
+                                        <th class="span3 center">Procurement Method</th>
+                                        <th class="span1 center">Procurement Type</th>
+                                        <th class="span3 center">Contract Approving Authority</th>
+                                        <th class="span3 center">Source of Fund</th>
+                                        <th class="span5 center">Estd. Cost (In lakh Taka)</th>
+                                        <th class="span3 center">Invitation for Tender</th>
+                                        <th class="span3 center">Signing of Contract</th>
+                                        <th class="span3 center">Completion of Contract</th>
+                                        <th class="span1 center">&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody id="goods_content">
@@ -131,7 +140,7 @@
                                 <option value=""></option>
                                 <option value="pdf">pdf</option>
                                 <option value="excel">excel</option>
-                                <option value="word">word</option>
+                                <!--<option value="word">word</option>-->
                             </select>
                         </div>
                     </div>
@@ -189,7 +198,7 @@
         var procurement_method = [];
         var procurement_type = [];
                     
-        $(".alert-success").delay(1000).fadeOut(1000);        
+        $(".alert-block").delay(6000).fadeOut(1000);        
         
         {foreach from=$procurement_method_list item=item key=key}
             procurement_method.push("{$item}")
@@ -204,7 +213,7 @@
             populateProcurementPlanDetails("{$item->package_no}", "{$item->procurement_desc}", "{$item->procurement_unit}", "{$item->procurement_qty}", 
                                            "{$item->procurement_method}", "{$item->procurement_type}", "{$item->approv_auth}", "{$item->fund_src}", 
                                            "{$item->estd_cost}", "{$item->tender_invitation}", "{$item->contract_sign}", "{$item->contract_completion}",
-                                           "{$item->id}", "{$item->procurement_category}");
+                                           "{$item->id}", "{$item->procurement_category}", "{$item->prequal_invitation}", "{$item->eoi_invitation}", "{$item->rfp_issue}");
         {/foreach}
         
        {literal} 

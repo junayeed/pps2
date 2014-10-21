@@ -69,12 +69,15 @@
         <td align="center" style="border: 1px solid black;">Estd. Cost (In lakh tk)</td>
         {if $procurement_category eq 'GOODS'}
         <td align="center" style="border: 1px solid black;">Not Used in GOODS</td>
+        <td align="center" style="border: 1px solid black;">Invitation for Tender</td>
         {else if $procurement_category eq 'WORKS'}
         <td align="center" style="border: 1px solid black;">Invitation for Prequal (if applicable)</td>
+        <td align="center" style="border: 1px solid black;">Invitation for Tender</td>
         {else if $procurement_category eq 'SERVICES'}
         <td align="center" style="border: 1px solid black;">EOI Invitation</td>
+        <td align="center" style="border: 1px solid black;">Issue of RFP</td>
         {/if}
-        <td align="center" style="border: 1px solid black;">Invitation for Tender</td>
+        
         <td align="center" style="border: 1px solid black;">Signing of Contract</td>
         <td align="center" style="border: 1px solid black;">Completion of Contract</td>
     </tr>
@@ -91,12 +94,17 @@
         <td style="border: 1px solid black;">{$item->estd_cost|number_format:2:".":","}</td>
         {if $procurement_category eq 'GOODS'}
         <td style="border: 1px solid black;">Not Req.</td>
+        <td style="border: 1px solid black;">{$item->tender_invitation}</td>
+        
         {else if $procurement_category eq 'WORKS'}
         <td align="center" style="border: 1px solid black;">{$item->prequal_invitation}</td>
+        <td style="border: 1px solid black;">{$item->tender_invitation}</td>
+        
         {else if $procurement_category eq 'SERVICES'}
         <td align="center" style="border: 1px solid black;">{$item->eoi_invitation}</td>
+        <td style="border: 1px solid black;">{$item->rfp_issue}</td>
         {/if}
-        <td style="border: 1px solid black;">{$item->tender_invitation}</td>
+        
         <td style="border: 1px solid black;">{$item->contract_sign}</td>
         <td style="border: 1px solid black;">{$item->contract_completion}</td>
         {assign var="total_estd_cost" value=$total_estd_cost+$item->estd_cost}

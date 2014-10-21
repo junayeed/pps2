@@ -43,18 +43,13 @@
     {
         $info['table'] = PROJECT_MANAGEMENT_TBL;
         $info['debug'] = true;
-       
         
         $data['pid']   = base64_decode(getUserField('PI'));
         
-        
-        
         foreach( $_REQUEST as $key => $value)
 	{
-            
-           if( preg_match('/name_of_the_post_(\d+)/', $key, $matches))
+            if( preg_match('/name_of_the_post_(\d+)/', $key, $matches))
             {
-               
                 $id = $matches[1];
                 
                 $data['name_of_the_post'] = $_REQUEST['name_of_the_post_'. $id]  ? $_REQUEST['name_of_the_post_'.$id]    : '' ;
@@ -79,19 +74,19 @@
                 }    
             }    
         }    
+        
+        return 0; // 0 means no error
     }
     
     function updateLocationWithCost()
     {
         $info['table'] = PROJECT_LOCATIONS_TBL;
-        $info['debug'] = true;
+        $info['debug'] = false;
        
         foreach( $_REQUEST as $key => $value)
 	{
-            
-           if( preg_match('/cost_(\d+)/', $key, $matches))
+            if( preg_match('/cost_(\d+)/', $key, $matches))
             {
-               
                 $id = $matches[1];
                 $info['where'] = 'id = ' . $id;
                 $data['location_cost']     = $_REQUEST['cost_' . $id]    ? $_REQUEST['cost_'.$id]    : 0.0 ;
@@ -99,9 +94,9 @@
                 
                 $info['data'] = $data;             
                 update($info);
-                
             }    
-        }    
+        }   
+        return 0;  // 0 means no error
     }
     
     function updateProcurementPlan()
@@ -131,6 +126,7 @@
 	        $data['contract_completion']    = $_REQUEST['contract_completion_' . $id];
 	        $data['prequal_invitation']     = $_REQUEST['prequal_invitation_' . $id];
 	        $data['eoi_invitation']         = $_REQUEST['eoi_invitation_' . $id];
+	        $data['rfp_issue']              = $_REQUEST['rfp_issue_' . $id];
 	        $data['create_date']            = date('Y-m-d');
 	        $data['procurement_plan_id']    = $_REQUEST['proc_plan_id_' . $id];
                 $data['procurement_category']   = $_REQUEST['procument_category_' .$id];
@@ -157,7 +153,6 @@
                 }
  	    }
         }
-        
         return $error;
     }
     
@@ -438,6 +433,7 @@
         else if ($procurement_category == 'SERVICES') 
         {
             $headerArray['I'] = "Invitation for EOI\n(if applicable)";
+            $headerArray['J'] = "Issue of\nRFP";
             $header = 'Annex - III (c)';
         }
         
@@ -592,6 +588,8 @@
             $objSheet->getCell('G'.$row)->setValue($oValue->fund_src);
             $objSheet->getCell('H'.$row)->setValue($oValue->estd_cost);
             $objSheet->getCell('I'.$row)->setValue('Not Req.');
+            $objSheet->getCell('J'.$row)->setValue($oValue->tender_invitation);
+            
             if ($procurement_category == 'WORKS')
             {
                 $objSheet->getCell('I'.$row)->setValue($oValue->prequal_invitation);
@@ -599,8 +597,9 @@
             else if ($procurement_category == 'SERVICES')
             {
                 $objSheet->getCell('I'.$row)->setValue($oValue->eoi_invitation);
+                $objSheet->getCell('J'.$row)->setValue($oValue->rfp_issue);
             }
-            $objSheet->getCell('J'.$row)->setValue($oValue->tender_invitation);
+            
             $objSheet->getCell('K'.$row)->setValue($oValue->contract_sign);
             $objSheet->getCell('L'.$row)->setValue($oValue->contract_completion);
             $objSheet->getStyle('A'.$row.':L'.$row)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);

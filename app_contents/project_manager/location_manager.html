@@ -29,8 +29,36 @@
         <div class="row-fluid">
         <!-- PAGE CONTENT BEGINS HERE -->
             <form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}"> 
+                {if $error eq '1'}
+                <div class="alert alert-block alert-error">
+                    <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+                    <strong><i class="icon-remove"></i> An error occurred while saving the data.</strong>
+                    
+		</div>
+                {/if}
+                {if $error eq '0'}
+                <div class="alert alert-block alert-success">
+                    <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+                    <p>
+                        <strong><i class="icon-ok"></i> Data has been saved successfully.</strong>
+                    </p>
+		</div>
+                {/if}
                 <div id="basicinfo" class="tab-pane in active">
-
+                    <div class="form-actions2">
+                        <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                        <input type="hidden" value="saveAnnexI" name="cmd"/>
+                        
+                        <div id="export_to_container">
+                            Export To: 
+                            <select name="report_type" id="report_type" class="span6" onchange="createReport('Services');">
+                                <option value=""></option>
+                                <option value="pdf">pdf</option>
+                                <option value="excel">excel</option>
+                                <!--<option value="word">word</option>-->
+                            </select>
+                        </div>
+                    </div>
                     <input type="hidden" name="PI" value="{$PI}"/>
                     <div class="control-group">
                         <div class="span11">
@@ -56,6 +84,16 @@
                     <div class="form-actions2">
                         <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                         <input type="hidden" value="saveAnnexI" name="cmd"/>
+                        
+                        <div id="export_to_container">
+                            Export To: 
+                            <select name="report_type" id="report_type" class="span6" onchange="createReport('Services');">
+                                <option value=""></option>
+                                <option value="pdf">pdf</option>
+                                <option value="excel">excel</option>
+                                <!--<option value="word">word</option>-->
+                            </select>
+                        </div>
                     </div>
                 </div>
             </form>   
@@ -143,8 +181,8 @@
         $(".divisions").val(divisions);
         $(".districts").val(districts);
         $(".upzilas").val(upzilas);
-        $(".alert-success").fadeOut(4000);
-        //$(".ministries").chosen().trigger("chosen:updated");
+        
+        $(".alert-block").delay(6000).fadeOut(1000);
         
         {if $basicInfo->current_holder eq $smarty.session.uid}
         {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
