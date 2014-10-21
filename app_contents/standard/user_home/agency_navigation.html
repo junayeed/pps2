@@ -16,5 +16,41 @@
             <li><a href="/app/project_manager/project_manager.php?cmd=list"><i class="icon-double-angle-right"></i> Project List</a></li>
         </ul>
     </li>
+    <li>
+        <a  class="dropdown-toggle active" href="#">
+            <i class="icon-external-link"></i>
+            <span>Reports</span>
+            <b class="arrow icon-angle-down"></b>
+        </a>      
+        <ul class="submenu">
+            <li><a href="/app/project_manager/project_manager.php"><i class="icon-double-angle-right"></i> Create Project</a></li>
+            <li><a href="/app/project_manager/project_manager.php?cmd=list"><i class="icon-double-angle-right"></i> Project List</a></li>
+        </ul>
+    </li>
+    <li>
+        <a  class="dropdown-toggle active" href="#">
+            <i class="icon-bar-chart"></i>
+            <span>Charts</span>
+            <b class="arrow icon-angle-down"></b>
+        </a>      
+        <ul class="submenu">
+            <li><a href="/app/project_manager/project_manager.php"><i class="icon-double-angle-right"></i> Create Project</a></li>
+            <li><a href="/app/project_manager/project_manager.php?cmd=list"><i class="icon-double-angle-right"></i> Project List</a></li>
+        </ul>
+    </li>
+    
+    {if $smarty.session.user_permission eq 'Admin'}
+    <li>
+        <a  class="dropdown-toggle active" href="#">
+            <i class="icon-bar-chart"></i>
+            <span>Administration</span>
+            <b class="arrow icon-angle-down"></b>
+        </a>      
+        <ul class="submenu">
+            <li><a href="/app/project_manager/project_manager.php"><i class="icon-double-angle-right"></i> Create Project</a></li>
+            <li><a href="/app/project_manager/project_manager.php?cmd=list"><i class="icon-double-angle-right"></i> Project List</a></li>
+        </ul>
+    </li>
+    {/if}
                                         
 </ul><!--/.nav-list-->
