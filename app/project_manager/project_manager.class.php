@@ -362,12 +362,27 @@ class projectManagerApp extends DefaultApplication
         
         $data->basicInfo   = $project->basicInfo;
         $data->location    = $project->basicInfo->locations;
-        $data->PI          =  $PI;
+        $data->PI          = $PI;
+        $data->error       = getUserField('error');    
         //dumpVar($data);
         
         $data->location_body = makeLocationView($data->location); 
        
         return createPage(PROJECT_ANNEX_I_LOCATION_TEMPLATE, $data);
+    }
+    
+    function showAnnexII()
+    {
+        $PI                    = getUserField('PI');    
+        $pid                   = base64_decode($PI);
+        
+        $project               = new Project($pid);
+        $data->basicInfo       = $project->basicInfo;
+        $data->PI              =  $PI;
+        $data->management_list = getManagementList($pid);
+        $data->error           = getUserField('error');
+        
+        return createPage(PROJECT_MANAGEMENT_TEMPLATE, $data);
     }
     
     function showProcurementPlanGOODS()
@@ -391,22 +406,6 @@ class projectManagerApp extends DefaultApplication
         
         return createPage(PROJECT_PROCUREMENT_PLAN_GOODS_TEMPLATE, $data);
     }
-    function showAnnexII()
-    {
-        $PI                    = getUserField('PI');    
-        $pid                   = base64_decode($PI);
-        
-        $project               = new Project($pid);
-        $data->basicInfo       = $project->basicInfo;
-        
-        $data->PI              =  $PI;
-        $data->management_list = getManagementList($pid);
-        
-        //dumpVar($data->management_list);
-           
-        return createPage(PROJECT_MANAGEMENT_TEMPLATE, $data);
-    }
-    
     
     function showProcurementPlanWORKS()
     {
@@ -419,9 +418,10 @@ class projectManagerApp extends DefaultApplication
         $data->basicInfo       = $project->basicInfo;
         
         $data->PI                       =  $PI;
-        $data->procurement_list         = getProcurementPlanList($pid, 'Works');
+        $data->procurement_list         = getProcurementPlanList($pid, 'Works');        
         $data->procurement_method_list  = getProcurementMethodList('Goods');
         $data->procurement_type_list    = getProcurementTypeList();
+        $data->error                    = getUserField('error');
            
         $this->exportTo($procurement_category, $report_type);
         
@@ -442,6 +442,7 @@ class projectManagerApp extends DefaultApplication
         $data->procurement_list         = getProcurementPlanList($pid, 'Services');
         $data->procurement_method_list  = getProcurementMethodList('Services');
         $data->procurement_type_list    = getProcurementTypeList();
+        $data->error                    = getUserField('error');
            
         $this->exportTo($procurement_category, $report_type);
         
@@ -472,16 +473,17 @@ class projectManagerApp extends DefaultApplication
     {
         $pid       = base64_decode(getUserField('PI'));
         
-        updateLocationWithCost();
-        header ('Location: project_manager.php?cmd=anaexI&PI='.  base64_encode($pid));
+        $error = updateLocationWithCost();
+        header ('Location: project_manager.php?cmd=anaexI&PI='.  base64_encode($pid) . '&error='.$error);
     }
     
     function saveProjectManagement()
     {
         $pid       = base64_decode(getUserField('PI'));
         
-        updateProjectManagement();
-        header ('Location: project_manager.php?cmd=annexII&PI='.  base64_encode($pid));
+        $error = updateProjectManagement();
+        
+        header ('Location: project_manager.php?cmd=annexII&PI='.  base64_encode($pid) . '&error='.$error);
     }
             
     function saveAnnexV()
@@ -658,10 +660,9 @@ class projectManagerApp extends DefaultApplication
         $info['where']  = 'pid = ' . $pid . ' AND procurement_category = ' . q($procurement_category);
 
         $result = select($info);
-//dumpVar($data);
+
         if ($report_type == 'excel')
         {    
-            //dumpVar($data);
             $data['proc_plan_list']        = $result;
             MakeExcel($data, strtoupper($procurement_category));
         }

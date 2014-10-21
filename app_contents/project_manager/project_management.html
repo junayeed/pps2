@@ -58,15 +58,36 @@
            
             <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
             <form class="form-horizontal" id="procure_plan_goods_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_goods_form" enctype="multipart/form-data"> 
+                {if $error eq '1'}
+                <div class="alert alert-block alert-error">
+                    <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+                    <strong><i class="icon-remove"></i> An error occurred while saving the data.</strong>
+                    
+		</div>
+                {/if}
+                {if $error eq '0'}
+                <div class="alert alert-block alert-success">
+                    <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+                    <p>
+                        <strong><i class="icon-ok"></i> Data has been saved successfully.</strong>
+                    </p>
+		</div>
+                {/if}
                 <div id="basicinfo" class="tab-pane in active">
-                    <div id="export_to_container">
-                        Export To: 
-                        <select name="report_type" id="report_type" class="span6" onchange="createReport('Goods');">
-                            <option value=""></option>
-                            <option value="pdf">pdf</option>
-                            <option value="excel">excel</option>
-                            <option value="word">word</option>
-                        </select>
+                    <div class="form-actions2">
+                        <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                        <input type="hidden" value="saveAnnexII" name="cmd"/>
+                        <input type="hidden" id="PI" name="PI" value="{$PI}"/>
+                        
+                        <div id="export_to_container">
+                            Export To: 
+                            <select name="report_type" id="report_type" class="span6" onchange="createReport('Services');">
+                                <option value=""></option>
+                                <option value="pdf">pdf</option>
+                                <option value="excel">excel</option>
+                                <!--<option value="word">word</option>-->
+                            </select>
+                        </div>
                     </div>
                     <div class="control-group">
                          <label>1) Personnels to be deputed to project from existing setup</label>
@@ -218,6 +239,16 @@
                         <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                         <input type="hidden" value="saveAnnexII" name="cmd"/>
                         <input type="hidden" id="PI" name="PI" value="{$PI}"/>
+                        
+                        <div id="export_to_container">
+                            Export To: 
+                            <select name="report_type" id="report_type" class="span6" onchange="createReport('Services');">
+                                <option value=""></option>
+                                <option value="pdf">pdf</option>
+                                <option value="excel">excel</option>
+                                <!--<option value="word">word</option>-->
+                            </select>
+                        </div>
                     </div>
                 </div>
             </form>   
@@ -296,5 +327,7 @@
                 $("td > a").hide();
                
             }
-        {/literal}          
+        {/literal}  
+
+        $(".alert-block").delay(6000).fadeOut(1000);
     </script>    
