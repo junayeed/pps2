@@ -37,9 +37,12 @@ class tppManagerApp extends DefaultApplication
            case 'annexIII'           : $screen = $this->showConcultantDetails();       break;
            case 'saveAnnexIII'       : $screen = $this->saveConcultant();              break;
           
-           case 'saveAnnexIIIb'      : $screen = $this->saveProcurementPlan($cmd);     break;
-           case 'annexIIIc'          : $screen = $this->showProcurementPlanSERVICES(); break;
-           case 'saveAnnexIIIc'      : $screen = $this->saveProcurementPlan($cmd);     break;
+           
+           case 'annexVIIIa'         : $screen = $this->showProcurementPlanGOODS();    break;
+           case 'annexVIIIa'         : $screen = $this->showProcurementPlanSERVICES(); break;
+           case 'saveAnnexVIIIa'     : $screen = $this->saveProcurementPlan($cmd);     break;
+           case 'saveAnnexVIIIb'     : $screen = $this->saveProcurementPlan($cmd);     break;
+           
            case 'deleteprocplan'     : $screen = $this->deleteProcurementPlan();       break;
            case 'annexI'             : $screen = $this->showTPPAnnexI();               break;
            case 'annexIV'            : $screen = $this->showAnnexIV();                 break;
@@ -230,6 +233,24 @@ class tppManagerApp extends DefaultApplication
             $type = ERROR;
             echo json_encode($msg.'###'.$type);
         }
+    }
+    
+    
+    function saveProcurementPlan($cmd)
+    {
+        $pid       = base64_decode(getUserField('PI'));
+        
+        updateProcurementPlan();
+        
+        if ($cmd == 'saveAnnexVIIIa')
+        {
+            header ('Location: tpp_manager.php?cmd=annexVIIIa&PI='.  base64_encode($pid));
+        }
+        else if ($cmd == 'saveAnnexVIIIb')
+        {
+            header ('Location: tpp_manager.php?cmd=annexIIIb&PI='.  base64_encode($pid));
+        }
+        
     }
 
    /**
@@ -436,6 +457,27 @@ class tppManagerApp extends DefaultApplication
         return createPage(PROJECT_CONCULTANT_DETAILS_TEMPLATE, $data);
     }
     
+    
+    function showProcurementPlanGOODS()
+    {
+        $PI                    = getUserField('PI');    
+        $pid                   = base64_decode($PI);
+        $report_type           = getUserField('report_type');
+        $procurement_category  = getUserField('procurement_category');
+        
+        $project               = new TPP($pid);
+        $data->basicInfo       = $project->basicInfo;
+        
+        $data->PI                       =  $PI;
+        $data->procurement_list         = getProcurementPlanList($pid, 'Services');
+        $data->procurement_method_list  = getProcurementMethodList();
+        $data->procurement_type_list    = getProcurementTypeList();
+           
+        $this->exportTo($procurement_category, $report_type);
+        
+        return createPage(PROJECT_PROCUREMENT_PLAN_GOODS_TEMPLATE, $data);
+    }
+    
     function showProcurementPlanSERVICES()
     {
         $PI                    = getUserField('PI');    
@@ -559,7 +601,7 @@ class tppManagerApp extends DefaultApplication
         $data['basicInfo']                   = $project->basicInfo;
         $data['counter_person_details']      = $project->getCounterPersonDetails();
         
-        dumpvar($data['counter_person_details']);
+        //dumpvar($data['counter_person_details']);
         
         return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);
     }

@@ -58,8 +58,8 @@
    if (PRODUCTION_MODE)
       error_reporting(E_ALL ^ E_NOTICE);
    else
-      error_reporting(E_NONE);
-
+     error_reporting(E_NONE);
+    //error_reporting(E_ALL ^ E_NOTICE);
    /**
    * Setup server information constants
    */

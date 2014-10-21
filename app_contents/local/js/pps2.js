@@ -159,7 +159,7 @@ function addCounterPerson()
 function deleteCounterPersonRow(elemID)
 {
      var domainname        = window.location.hostname;
-     var counter_person_id  = $('#concultant_id_'+elemID).val();
+     var counter_person_id  = $('#counter_person_id_'+elemID).val();
      if ( confirm('The record will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
     { 
         $.ajax

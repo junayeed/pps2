@@ -92,7 +92,7 @@
                                     
                                     {foreach from=$concultant_details item=item key=key}
                                         
-                                        <tr>
+                                        <tr id="tr_{$key+1}">
                                             <td><input type="text" name="concultant_name_{$key+1}" id="concultant_name_{$key+1}" value="{$item->concultant_name}" class="span12" required /></td>
                                             <td><textarea name="education_{$key+1}" id="education_{$key+1}" class="span12" style="resize: vertical;" required>{$item->education}</textarea></td>
                                             <td><textarea name="experience_{$key+1}" id="experience_{$key+1}" class="span12" style="resize: vertical;" required>{$item->experience}</textarea></td>

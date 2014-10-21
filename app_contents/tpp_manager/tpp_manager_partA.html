@@ -50,14 +50,14 @@
 
     
     <div class="control-group">
-        <label class="control-label"  for="project_title_en">1.0 Project Title (English)</label>
+        <label class="control-label"  for="project_title_en"><b>1.0 Project Title (English)</b></label>
             <div class="controls">  
                 <label class="control-label" style="width:80% !important">: <b>{$basicInfo->project_title_en}</b></label>
             </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="project_title_bn">Project Title (Bangla)</label>
+        <label class="control-label" for="project_title_bn"><b>Project Title (Bangla)</b></label>
             <div class="controls">
                 <label class="control-label" style="width:80% !important">: {$basicInfo->project_title_bn}</label>
             </div>
@@ -79,7 +79,7 @@
             <form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}"> 
                 <input type="hidden" name="PI" value="{$PI}"/>
                 <div class="control-group">
-                    <label class="control-label" for="ministries[]">2.1 Sponsoring Ministry/Division</label>
+                    <label class="control-label" for="ministries[]"><b>2.1 Sponsoring Ministry/Division</b></label>
                     <div class="controls">
                         <select multiple class="chzn-select span6 ministries" id="ministries" onchange="getAgencyList()" name="ministries[]" required data-placeholder="Choose a Ministry/Division...">
                             <option value=""></option>
@@ -90,7 +90,7 @@
 		</div>
             
                 <div class="control-group">
-                    <label class="control-label" for="agencies[]">2.2 Implementing Agency</label>
+                    <label class="control-label" for="agencies[]"><b>2.2 Implementing Agency</b></label>
                     <div class="controls">
                         <select multiple class="chzn-select span6 agencies" id="agencies" required  name="agencies[]" data-placeholder="Choose a Agencies...">
                             <option value=""></option>
@@ -101,7 +101,7 @@
 		</div>
             
                 <div class="control-group">
-                    <label class="control-label" for="adp_sector">2.3 Concerned Sector of ADP</label>
+                    <label class="control-label" for="adp_sector"><b>2.3 Concerned Sector of ADP</b></label>
                     <div class="controls">
                         <select id="adp_sector" required name="adp_sector" onchange="getSubSector()">
                             <option value="">Select Sector</option>
@@ -111,7 +111,7 @@
 		</div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="adp_sub_sector">Concerned Sub-sector of ADP</label>
+                    <label class="control-label" for="adp_sub_sector"><b>Concerned Sub-sector of ADP</b></label>
                     <div class="controls">
                         <select id="adp_sub_sector" required name="adp_sub_sector">
                             <option value="">Select Sector</option>
@@ -121,7 +121,7 @@
 		</div>
             
                 <div class="control-group">
-                    <label class="control-label" for="sector_division">2.4 Concerned Division of Planning Commission</label>
+                    <label class="control-label" for="sector_division"><b>2.4 Concerned Division of Planning Commission</b></label>
                     <div class="controls">
                         <select id="sector_division" required name="sector_division">
                             <option value="">Select Sector</option>
@@ -131,7 +131,7 @@
 		</div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="partners[]">Development Partners</label>
+                    <label class="control-label" for="partners[]"><b>Development Partners</b></label>
                     <div class="controls">
                         <select multiple class="chzn-select span6 partners" id="partners[]" name="partners[]" data-placeholder="Choose a Development Partners...">
                         
@@ -142,7 +142,7 @@
                 </div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="project_implementation_period">3.0 Project implementation period: </label>
+                    <label class="control-label" for="project_implementation_period"><b>3.0 Project implementation period: </b></label>
                     <div class="controls"><br><br>
                         <label for="project_implementation_period">i)  Date of commencement: {$basicInfo->date_of_commencement|date_format:"%d/%m/%Y"}</label>
                         <label  for="project_implementation_period">ii) Date of completion: {$basicInfo->date_of_completion|date_format:"%d/%m/%Y"}</label>
@@ -150,14 +150,14 @@
                 </div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="contact_person">4.0 Name and Designation of contact person in the implementing agency</label>
+                    <label class="control-label" for="contact_person"><b>4.0 Name and Designation of contact person in the implementing agency</b></label>
                     <div class="controls" style="margin-left: 289px !important">
                         <textarea rows="4" style="width:400px"  name="contact_person" id="contact_person" required>{$basicInfo->contact_person}</textarea>
                     </div>
                 </div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="responsible_person">5.0 Name and official address(s) of the officer(s) responsible for the prepration of the TPP</label>
+                    <label class="control-label" for="responsible_person"><b>5.0 Name and official address(s) of the officer(s) responsible for the prepration of the TPP</b></label>
                     <div class="controls" style="margin-left: 289px !important">
                         <textarea rows="4" style="width:400px" name="responsible_person" id="responsible_person" required>{$basicInfo->responsible_person}</textarea>
                     </div>
@@ -165,7 +165,7 @@
                 
                 
                 <div class="control-group">
-                    <label class="control-label" for="project_cost">7.1 Estimated Cost of the project (in Lakh Taka)</label>
+                    <label class="control-label" for="project_cost"><b>7.1 Estimated Cost of the project</b> (in Lakh Taka)</label>
                     <div class="controls"><br><br>
                         <table id="table_bug_report" class="table table-striped table-bordered table-hover span4">
                             <tr>
@@ -208,14 +208,14 @@
                 </div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="exchange_rate">7.2 Exchange rate(s) with date (Source Bangladesh Bank): </label>
+                    <label class="control-label" for="exchange_rate"><b>7.2 Exchange rate(s) with date</b> (Source Bangladesh Bank): </label>
                     <div class="controls">
                         <textarea rows="2" style="width:545px" name="exchange_rate" id="exchange_rate">{$basicInfo->exchange_rate}</textarea>
                     </div>
 		</div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="mode_of_financing">8.0 Cost of financing</label><br>
+                    <label class="control-label" for="mode_of_financing"><b>8.0 Cost of financing</b></label><br>
                     
                     <div class="span11">
                         <label class="" for="year_wise_allocation"><span class="right">(Amount in Lakh Tk.)<span></label>
@@ -346,7 +346,7 @@
                    <div class="span12"> 
                         <div id="annex-iv-container">
                             <div>
-                                <label>9.0 Component Wise Estimated Cost Summary</label>
+                                <label><b>9.0 Component Wise Estimated Cost Summary</b></label>
                                 <label class="right">(Amount in Lakh Tk.)</label>
                                 
                                 <table id="economic_code_tbl11" class="annex-iv-table table table-striped table-bordered table-hover table_bug_report">
@@ -478,7 +478,7 @@
                 
                 <div class="control-group">
                    	<div class="span11">
-                             <label class="" for="year_wise_allocation">10.0 Year-wise estimated cost summary:<span class="right">(Amount in Lakh Tk.)<span></label>
+                            <label class="" for="year_wise_allocation"><b>10.0 Year-wise estimated cost summary:</b><span class="right">(Amount in Lakh Tk.)<span></label>
 		
                             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                                 <thead>
@@ -522,14 +522,14 @@
 		</div>
                 
                 <div class="control-group">
-                    <label class="" for="lessons_learnt_successful_project">11.1 Indicate which issues lead to make project successful</label>
+                    <label class="" for="lessons_learnt_successful_project"><b>11.1 Indicate which issues lead to make project successful</b></label>
                     <div class="">
                         <textarea class="ckeditor" name="issue_make_successful" id="issue_make_successful">{$part_a->issue_make_successful}</textarea>
                     </div> 
                 </div>
                 
                 <div class="control-group">
-                    <label class="" for="lessons_learnt_not_work_well">11.2 Indicate which issues did not work well</label>
+                    <label class="" for="lessons_learnt_not_work_well"><b>11.2 Indicate which issues did not work well</b></label>
                     <div class="">
                         <textarea class="ckeditor" name="issues_not_work_well" id="issues_not_work_well">{$part_a->issues_not_work_well}</textarea>
                     </div> 
@@ -549,7 +549,7 @@
                 <form class="form-horizontal" id="validation-form-logframe"  method="post" action="{$SCRIPT_NAME}"> 
                 <div class="control-group">
 		
-                          <label class="" for="date_of_completion">12.0 Log frame:</label>
+                    <label class="" for="date_of_completion"><b>12.0 Log frame:</b></label>
                           <br>
 			<div class="">
                            
