@@ -384,10 +384,11 @@
         }
     }
     
-    function getProcurementMethodList()
+    function getProcurementMethodList($procurement_name)
     {
         $info['table']  = PROC_METHOD_LOOKUP_TBL;
         $info['debug']  = false;
+        $info['where']  = 'procurement_name = ' . q($procurement_name);
         
         $result = select($info);
         

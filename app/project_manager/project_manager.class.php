@@ -383,7 +383,7 @@ class projectManagerApp extends DefaultApplication
         
         $data->PI                       = $PI;
         $data->procurement_list         = getProcurementPlanList($pid, 'Goods');
-        $data->procurement_method_list  = getProcurementMethodList();
+        $data->procurement_method_list  = getProcurementMethodList('Goods');
         $data->procurement_type_list    = getProcurementTypeList();
         $data->error                    = getUserField('error');
            
@@ -420,7 +420,7 @@ class projectManagerApp extends DefaultApplication
         
         $data->PI                       =  $PI;
         $data->procurement_list         = getProcurementPlanList($pid, 'Works');
-        $data->procurement_method_list  = getProcurementMethodList();
+        $data->procurement_method_list  = getProcurementMethodList('Goods');
         $data->procurement_type_list    = getProcurementTypeList();
            
         $this->exportTo($procurement_category, $report_type);
@@ -440,7 +440,7 @@ class projectManagerApp extends DefaultApplication
         
         $data->PI                       =  $PI;
         $data->procurement_list         = getProcurementPlanList($pid, 'Services');
-        $data->procurement_method_list  = getProcurementMethodList();
+        $data->procurement_method_list  = getProcurementMethodList('Services');
         $data->procurement_type_list    = getProcurementTypeList();
            
         $this->exportTo($procurement_category, $report_type);
