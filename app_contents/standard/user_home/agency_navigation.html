@@ -34,21 +34,21 @@
             <b class="arrow icon-angle-down"></b>
         </a>      
         <ul class="submenu">
-            <li><a href="/app/project_manager/project_manager.php"><i class="icon-double-angle-right"></i> Create Project</a></li>
-            <li><a href="/app/project_manager/project_manager.php?cmd=list"><i class="icon-double-angle-right"></i> Project List</a></li>
+            <li><a href="/app/project_manager/project_manager.php"><i class="icon-double-angle-right"></i> Year wise Project</a></li>
+            <li><a href="/app/project_manager/project_manager.php?cmd=list"><i class="icon-double-angle-right"></i> Year wise Fund</a></li>
         </ul>
     </li>
     
     {if $smarty.session.user_permission eq 'Admin'}
     <li>
         <a  class="dropdown-toggle active" href="#">
-            <i class="icon-bar-chart"></i>
+            <i class="icon-credit-card"></i>
             <span>Administration</span>
             <b class="arrow icon-angle-down"></b>
         </a>      
         <ul class="submenu">
-            <li><a href="/app/project_manager/project_manager.php"><i class="icon-double-angle-right"></i> Create Project</a></li>
-            <li><a href="/app/project_manager/project_manager.php?cmd=list"><i class="icon-double-angle-right"></i> Project List</a></li>
+            <li><a href="/app/user_manager/user_manager.php?cmd=list"><i class="icon-double-angle-right"></i> Designation</a></li>
+            <li><a href="/app/user_manager/user_manager.php?cmd=officerlist"><i class="icon-double-angle-right"></i> Officer</a></li>
         </ul>
     </li>
     {/if}

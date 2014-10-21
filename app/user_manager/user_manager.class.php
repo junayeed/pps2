@@ -24,11 +24,12 @@ class userManagerApp extends DefaultApplication
 
       switch ($cmd)
       {
-           case 'edit'   : $screen = $this->showEditor($msg);  break;
-           case 'add'    : $screen = $this->saveRecord();      break;
-           case 'delete' : $screen = $this->deleteRecord();    break;
-           case 'list'   : $screen = $this->showList();        break;
-           default       : $screen = $this->showEditor($msg);
+           case 'edit'              : $screen = $this->showEditor($msg);  break;
+           case 'add'               : $screen = $this->saveRecord();      break;
+           case 'delete'            : $screen = $this->deleteRecord();    break;
+           case 'list'              : $screen = $this->showList();        break;
+           case 'officerlist'       : $screen = $this->officerList();        break;
+           default                  : $screen = $this->showEditor($msg);
       }
 
       // Set the current navigation item
@@ -180,6 +181,33 @@ class userManagerApp extends DefaultApplication
       $data['user_type'] = $type;
 
       return createPage(USER_LIST_TEMPLATE, $data);
+   }
+   
+   function officerList()
+   {
+      $status = getUserField('status');
+      $type   = getUserField('user_type');
+
+      $filterClause = '1';
+
+      if ($status)
+         $filterClause .= " and status = '$status' ";
+      if ($type)
+         $filterClause .= " and user_type = '$type' ";
+
+      $info['table'] = USER_TBL;
+      $info['debug'] = false;
+      $info['where'] = $filterClause . ' Order By username ASC';
+
+      $data['list'] = select($info);
+
+      $data['status_list']    = getEnumFieldValues(USER_TBL, 'status');
+      $data['user_type_list'] = getEnumFieldValues(USER_TBL, 'user_type');
+
+      $data['status']    = $status;
+      $data['user_type'] = $type;
+
+      return createPage(OFFICER_LIST_TEMPLATE, $data);
    }
 }
 ?>
