@@ -213,40 +213,40 @@
                         <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Mode\Source</th>
-                                    <th>GOB<br>(FE)</th>
-                                    <th>PA<br>(RPA)</th>
-                                    <th> Own Fund<br>(FE)</th>
-                                    <th>Others<br>(Specify)</th>
-                                    <th>PA sources</th>
+                                    <th class="span8 CENTER">Mode\Source</th>
+                                    <th class="span8 CENTER">GOB<br>(FE)</th>
+                                    <th class="span8 CENTER">PA<br>(RPA)</th>
+                                    <th class="span8 CENTER">Own Fund<br>(FE)</th>
+                                    <th class="span8 CENTER">Others<br>(Specify)</th>
+                                    <th class="span8 CENTER">PA sources</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr> 
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                    <td>5</td>
-                                    <td>6</td>
+                                    <td class="span8 CENTER">1</td>
+                                    <td class="span8 CENTER">2</td>
+                                    <td class="span8 CENTER">3</td>
+                                    <td class="span8 CENTER">4</td>
+                                    <td class="span8 CENTER">5</td>
+                                    <td class="span8 CENTER">6</td>
                                 </tr>
                                 <tr> 
                                     <td>Loan/credit</td>
                                     <td>
-                                        <input class="span8" type="text" id="loan_gob" name="loan_gob" value="{$modefinancing->loan_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GoB" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="loan_gob_fe" name="loan_gob_fe" value="{$modefinancing->loan_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="loan_gob" name="loan_gob" value="{$modefinancing->loan_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GoB" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="loan_gob_fe" name="loan_gob_fe" value="{$modefinancing->loan_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="loan_pa" name="loan_pa" value="{$modefinancing->loan_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="loan_pa_rpa" name="loan_rpa" value="{$modefinancing->loan_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="loan_pa" name="loan_pa" value="{$modefinancing->loan_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="loan_pa_rpa" name="loan_rpa" value="{$modefinancing->loan_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="loan_own_fund" name="loan_own_fund" value="{$modefinancing->loan_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="loan_own_fund_fe" name="loan_own_fund_fe" value="{$modefinancing->loan_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="loan_own_fund" name="loan_own_fund" value="{$modefinancing->loan_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="loan_own_fund_fe" name="loan_own_fund_fe" value="{$modefinancing->loan_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="loan_others" name="loan_others" value="{$modefinancing->loan_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="loan_others_fe" name="loan_others_fe" value="{$modefinancing->loan_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="loan_others" name="loan_others" value="{$modefinancing->loan_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="loan_others_fe" name="loan_others_fe" value="{$modefinancing->loan_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
                                     <td>
                                         <input class="span15" type="text" id="loan_pa_source" name="loan_pa_source" value="{$modefinancing->loan_pa_source}" placeholder="Source of the Amount">
@@ -255,20 +255,20 @@
                                 <tr> 
                                     <td>Grant</td>
                                     <td>
-                                        <input class="span8" type="text" id="grant_gob" name="grant_gob" value="{$modefinancing->grant_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="grant_gob_fe" name="grant_gob_fe" value="{$modefinancing->grant_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="grant_gob" name="grant_gob" value="{$modefinancing->grant_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="grant_gob_fe" name="grant_gob_fe" value="{$modefinancing->grant_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="grant_pa" name="grant_pa" value="{$modefinancing->grant_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA"  onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="grant_pa_rpa" name="grant_rpa" value="{$modefinancing->grant_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="grant_pa" name="grant_pa" value="{$modefinancing->grant_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA"  onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="grant_pa_rpa" name="grant_rpa" value="{$modefinancing->grant_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="grant_own_fund" name="grant_own_fund" value="{$modefinancing->grant_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="grant_own_fund_fe" name="grant_own_fund_fe" value="{$modefinancing->grant_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="grant_own_fund" name="grant_own_fund" value="{$modefinancing->grant_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="grant_own_fund_fe" name="grant_own_fund_fe" value="{$modefinancing->grant_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="grant_others" name="grant_others" value="{$modefinancing->grant_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="grant_others_fe" name="grant_others_fe" value="{$modefinancing->grant_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="grant_others" name="grant_others" value="{$modefinancing->grant_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="grant_others_fe" name="grant_others_fe" value="{$modefinancing->grant_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
 
                                     <td>
@@ -278,20 +278,20 @@
                                 <tr> 
                                     <td>Equity</td>
                                     <td>
-                                        <input class="span8" type="text" id="equity_gob" name="equity_gob" value="{$modefinancing->equity_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="equity_gob_fe" name="equity_gob_fe" value="{$modefinancing->equity_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="equity_gob" name="equity_gob" value="{$modefinancing->equity_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="equity_gob_fe" name="equity_gob_fe" value="{$modefinancing->equity_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="equity_pa" name="equity_pa" value="{$modefinancing->equity_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="equity_pa_rpa" name="equity_pa_rpa" value="{$modefinancing->equity_pa_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="equity_pa" name="equity_pa" value="{$modefinancing->equity_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="equity_pa_rpa" name="equity_pa_rpa" value="{$modefinancing->equity_pa_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="equity_own_fund" name="equity_own_fund" value="{$modefinancing->equity_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="equity_own_fund_fe" name="equity_own_fund_fe" value="{$modefinancing->equity_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="equity_own_fund" name="equity_own_fund" value="{$modefinancing->equity_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="equity_own_fund_fe" name="equity_own_fund_fe" value="{$modefinancing->equity_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="equity_others" name="equity_others" value="{$modefinancing->equity_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="equity_others_fe" name="equity_others_fe" value="{$modefinancing->equity_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="equity_others" name="equity_others" value="{$modefinancing->equity_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="equity_others_fe" name="equity_others_fe" value="{$modefinancing->equity_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
 
                                     <td>
@@ -301,20 +301,20 @@
                                 <tr> 
                                     <td>Others(Specify)</td>
                                     <td>
-                                        <input class="span8" type="text" id="others_gob" name="others_gob" value="{$modefinancing->others_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB"  onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="others_gob_fe" name="others_gob_fe" value="{$modefinancing->others_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="others_gob" name="others_gob" value="{$modefinancing->others_gob|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="GOB"  onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="others_gob_fe" name="others_gob_fe" value="{$modefinancing->others_gob_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="others_pa" name="others_pa" value="{$modefinancing->others_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="others_pa_rpa" name="others_pa_rpa" value="{$modefinancing->others_pa_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="others_pa" name="others_pa" value="{$modefinancing->others_pa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="PA" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="others_pa_rpa" name="others_pa_rpa" value="{$modefinancing->others_pa_rpa|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="RPA" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="others_own_fund" name="others_own_fund" value="{$modefinancing->others_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="others_own_fund_fe" name="others_own_fund_fe" value="{$modefinancing->others_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="others_own_fund" name="others_own_fund" value="{$modefinancing->others_own_fund|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Own Fund" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="others_own_fund_fe" name="others_own_fund_fe" value="{$modefinancing->others_own_fund_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
                                     <td>
-                                        <input class="span8" type="text" id="others_others" name="others_others" value="{$modefinancing->others_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal();"><br>
-                                        <input class="span8" type="text" id="others_others_fe" name="others_others_fe" value="{$modefinancing->others_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal();">
+                                        <input class="span8" type="text" id="others_others" name="others_others" value="{$modefinancing->others_others|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="Others" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);"><br>
+                                        <input class="span8" type="text" id="others_others_fe" name="others_others_fe" value="{$modefinancing->others_others_fe|number_format:2:'.':''}" onkeypress="return isNumberKey(event);" placeholder="FE" onChange="calculateModeOfFinanceGrandTotal(); checkEmptyOrZero(this);">
                                     </td>
 
                                     <td>
@@ -1197,15 +1197,14 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 {/literal}
 //ajaj
-var project_total_gob           = {if $basicInfo->gob_cost} {$basicInfo->gob_cost} {else} 0 {/if} ;
-var project_total_gob_fe        = {if $basicInfo->gob_fe_cost} {$basicInfo->gob_fe_cost} {else} 0 {/if} ;
-var project_total_gob_fe        = {if $basicInfo->pa_through_gob_cost} {$basicInfo->pa_through_gob_cost} {else} 0 {/if} ;
+var project_total_gob           = {if $basicInfo->gob_cost} {$basicInfo->gob_cost|number_format:2} {else} 0 {/if} ;
+var project_total_gob_fe        = {if $basicInfo->gob_fe_cost} {$basicInfo->gob_fe_cost|number_format:2} {else} 0 {/if} ;
 var project_total_pa            = {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost};
-var project_total_rpa           = {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost};
-var project_total_own_fund      = {if $basicInfo->own_fund_cost} {$basicInfo->own_fund_cost} {else} 0 {/if} ;
-var project_total_own_fund_fe   = {if $basicInfo->own_fund_fe_cost} {$basicInfo->own_fund_fe_cost} {else} 0 {/if} ;
-var project_total_other         = {if $basicInfo->other_cost} {$basicInfo->other_cost} {else} 0 {/if} ;
-var project_total_other_fe      = {if $basicInfo->other_fe_cost} {$basicInfo->other_fe_cost} {else} 0 {/if} ;
+var project_total_rpa           = {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost|number_format:2};
+var project_total_own_fund      = {if $basicInfo->own_fund_cost} {$basicInfo->own_fund_cost|number_format:2} {else} 0 {/if} ;
+var project_total_own_fund_fe   = {if $basicInfo->own_fund_fe_cost} {$basicInfo->own_fund_fe_cost|number_format:2} {else} 0 {/if} ;
+var project_total_other         = {if $basicInfo->other_cost} {$basicInfo->other_cost|number_format:2} {else} 0 {/if} ;
+var project_total_other_fe      = {if $basicInfo->other_fe_cost} {$basicInfo->other_fe_cost|number_format:2} {else} 0 {/if} ;
 
 calculateModeOfFinanceGrandTotal();
 // getAgencyList()

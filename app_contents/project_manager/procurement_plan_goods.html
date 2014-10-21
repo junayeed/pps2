@@ -48,7 +48,7 @@
 
     <div id="page-content" class="clearfix">
         <div class="page-header position-relative">
-            <h1>Annexure - III (a)<small><i class="icon-double-angle-right"></i>Total Procurement plan for development project/programme</small></h1>
+            <h1>Annexure - III (a)<small><i class="icon-double-angle-right"></i>Total Procurement plan for development project/programme {$error}</small></h1>
             <div id="nav-search">
                 <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
             </div>  
@@ -59,16 +59,32 @@
            
             <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
             <form class="form-horizontal" id="procure_plan_goods_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_goods_form"> 
+                
+                <div class="alert alert-block alert-success">
+			<button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+			<p>
+			<strong><i class="icon-ok"></i> Well done!</strong>
+			You successfully read this important alert message.
+			</p>
+		</div>
+                
                 <div id="basicinfo" class="tab-pane in active">
-                    <div id="export_to_container">
-                        Export To: 
-                        <select name="report_type" id="report_type" class="span6" onchange="createReport('Goods');">
-                            <option value=""></option>
-                            <option value="pdf">pdf</option>
-                            <option value="excel">excel</option>
-                            <option value="word">word</option>
-                        </select>
+                    <div class="form-actions2">
+                        <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                        <input type="hidden" value="saveAnnexIIIa" name="cmd"/>
+                        <input type="hidden" id="PI" name="PI" value="{$PI}"/>
+                        
+                        <div id="export_to_container">
+                            Export To: 
+                            <select name="report_type" id="report_type" class="span6" onchange="createReport('Goods');">
+                                <option value=""></option>
+                                <option value="pdf">pdf</option>
+                                <option value="excel">excel</option>
+                                <option value="word">word</option>
+                            </select>
+                        </div>
                     </div>
+                    
                     <div class="control-group">
                         <div class="span12">
                             <table id="goods_tbl" class="table table-striped table-bordered table-hover table_bug_report">
@@ -93,7 +109,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="8" align="right" class="bold">Grand Total</td>
+                                        <td colspan="8" class="bold" style="text-align: right;">Grand Total (BDT): </td>
                                         <td colspan="5"><input type="text" name="Goods_total" id="Goods_total" value="0.00" class="span4 bold" /></td>
                                     </tr>
                                     <tr>
@@ -108,6 +124,16 @@
                         <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                         <input type="hidden" value="saveAnnexIIIa" name="cmd"/>
                         <input type="hidden" id="PI" name="PI" value="{$PI}"/>
+                        
+                        <div id="export_to_container">
+                            Export To: 
+                            <select name="report_type" id="report_type" class="span6" onchange="createReport('Goods');">
+                                <option value=""></option>
+                                <option value="pdf">pdf</option>
+                                <option value="excel">excel</option>
+                                <option value="word">word</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </form>   
@@ -135,20 +161,23 @@
     <![endif]-->
 
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-timepicker.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/daterangepicker.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.knob.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.autosize-min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.spinner.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-timepicker.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/daterangepicker.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.knob.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.autosize-min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
+
     
 
     <!-- ace scripts -->
@@ -157,17 +186,10 @@
     
                 
     <script>
-        //var ministry ="{$basicInfo->ministries}";
-        var ministries = [];
-        var agencies   = []; 
-        var partners   = []; 
-        var divisions  = [];
-        var districts  = []; 
-        var upzilas    = []; 
         var procurement_method = [];
         var procurement_type = [];
                     
-        
+        $(".alert-success").delay(1000).fadeOut(1000);        
         
         {foreach from=$procurement_method_list item=item key=key}
             procurement_method.push("{$item}")
@@ -177,18 +199,6 @@
             procurement_type.push("{$item}")
         {/foreach} 
                     
-        $(".ministries").val(ministries);
-        $(".agencies").val(agencies);
-        $(".partners").val(partners);
-
-        $(".divisions").val(divisions);
-        $(".districts").val(districts);
-        $(".upzilas").val(upzilas);
-        $(".alert-success").fadeOut(1000);
-        //$(".ministries").chosen().trigger("chosen:updated");
-        
-        //addNewProcuremtPlanRow('goods_tbl', 'goods');
-        
         {foreach from=$procurement_list item=item}
             addNewProcuremtPlanRow('goods_tbl', 'Goods');
             populateProcurementPlanDetails("{$item->package_no}", "{$item->procurement_desc}", "{$item->procurement_unit}", "{$item->procurement_qty}", 
@@ -219,5 +229,6 @@
                 $("td > a").hide();
                
             }
-        {/literal}    
+        {/literal}  
+        
     </script>    

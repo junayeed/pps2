@@ -107,9 +107,9 @@
     function updateProcurementPlan()
     {
         $info['table'] = PROJECT_PROCUREMENT_PLAN_TBL;
-        $info['debug'] = false;
-        
+        $info['debug'] = true;
         $data['pid']   = base64_decode(getUserField('PI'));
+        $error         = 0;
         
         foreach( $_REQUEST as $key => $value)
 	{
@@ -142,24 +142,32 @@
                 // else add a new record in procurement plan table
                 if ( !$data['procurement_plan_id'] ) 
                 {
-                    insert($info);
+                    $result = insert($info);
+                    // if result is empty that means some error occurs 
+                    if ( empty($result) )
+                    {
+                        $error = 1; 
+                    }
                 }
                 else
                 {
                     $info['where'] = 'id = ' . $data['procurement_plan_id'];
+                    
                     update($info);
                 }
  	    }
         }
+        
+        return $error;
     }
     
     function updateAnnexV()
     {
         
-        $info['table'] = PROJECT_ANNEX_V_TBL;
-        $info['debug'] = false;
-        $data['pid']   = base64_decode(getUserField('PI'));
-        $cnt = 1;
+        $info['table']  = PROJECT_ANNEX_V_TBL;
+        $info['debug']  = false;
+        $data['pid']    = base64_decode(getUserField('PI'));
+        $cnt            = 1;
         $componentArray = explode(",", $_REQUEST['component_list']);
         
         //dumpvar($componentArray);

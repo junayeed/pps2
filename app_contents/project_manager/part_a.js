@@ -33,6 +33,14 @@ function submittForm()
     return true;
 }
 
+function checkEmptyOrZero(elem)
+{
+    if ( ! $('#'+elem.id).val() || $('#'+elem.id).val() == 0)
+    {
+        $('#'+elem.id).val('0.00');
+    }    
+}
+
 function calculateModeOfFinanceGrandTotal()
 {
     var total_gob         = $('#loan_gob').val()*1+$('#grant_gob').val()*1+$('#equity_gob').val()*1+$('#others_gob').val()*1; 
