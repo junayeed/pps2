@@ -242,9 +242,6 @@ class projectManagerApp extends DefaultApplication
        $pid     = base64_decode(getUserField('PI'));
        $project = new Project($pid);
        
-       //dumpVar($_REQUEST);
-       //die;
-       
        $project->saveBasicInfo();
        $project->saveMinistries(getUserField('ministries'));
        $project->saveAgencies(getUserField('agencies'));
@@ -380,6 +377,7 @@ class projectManagerApp extends DefaultApplication
         $report_type           = getUserField('report_type');
         $procurement_category  = getUserField('procurement_category');
         
+        
         $project               = new Project($pid);
         $data->basicInfo     = $project->basicInfo;
         
@@ -387,6 +385,7 @@ class projectManagerApp extends DefaultApplication
         $data->procurement_list         = getProcurementPlanList($pid, 'Goods');
         $data->procurement_method_list  = getProcurementMethodList();
         $data->procurement_type_list    = getProcurementTypeList();
+        $data->error                    = getUserField('error');
            
         $this->exportTo($procurement_category, $report_type);
         
@@ -453,19 +452,19 @@ class projectManagerApp extends DefaultApplication
     {
         $pid       = base64_decode(getUserField('PI'));
         
-        updateProcurementPlan();
+        $error = updateProcurementPlan();
         
         if ($cmd == 'saveAnnexIIIa')
         {
-            header ('Location: project_manager.php?cmd=annexIIIa&PI='.  base64_encode($pid));
+            header ('Location: project_manager.php?cmd=annexIIIa&PI='.  base64_encode($pid) . '&error=' . $error);
         }
         else if ($cmd == 'saveAnnexIIIb')
         {
-            header ('Location: project_manager.php?cmd=annexIIIb&PI='.  base64_encode($pid));
+            header ('Location: project_manager.php?cmd=annexIIIb&PI='.  base64_encode($pid) . '&error=' . $error);
         }
         else if ($cmd == 'saveAnnexIIIc')
         {
-            header ('Location: project_manager.php?cmd=annexIIIc&PI='.  base64_encode($pid));
+            header ('Location: project_manager.php?cmd=annexIIIc&PI='.  base64_encode($pid) . '&error=' . $error);
         }
     }
     
@@ -488,6 +487,7 @@ class projectManagerApp extends DefaultApplication
     function saveAnnexV()
     {
         $pid       = base64_decode(getUserField('PI'));
+        
         updateAnnexV();
         updateAnnexVContingency();
         //updateProjectTotalCost($pid);

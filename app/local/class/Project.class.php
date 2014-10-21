@@ -340,10 +340,10 @@ class Project
     }
     public function saveModeOfFinancing()
     {
-        $info['table'] = PROJECT_MODE_FINANCING_TBL;
-        $info['data']  = getUserDataSet(PROJECT_MODE_FINANCING_TBL);
+        $info['table']        = PROJECT_MODE_FINANCING_TBL;
+        $info['data']         = getUserDataSet(PROJECT_MODE_FINANCING_TBL);
         $info['data']['pid']  = $this->id;
-        $info['debug'] = false;
+        $info['debug']        = false;
         
         
         $mode_of_finance_id  = getUserField('mode_of_finance_id');
