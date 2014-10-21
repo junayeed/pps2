@@ -76,6 +76,12 @@
                     <td><label class="lbl">Date of completion</label></td>
                     <td><label class="lbl">{$basicInfo->date_of_completion}</label></td>
                 </tr>
+                {if $smarty.session.user_type eq 'Commission' AND $smarty.session.user_permission eq 'Admin'}
+                <tr>
+                    <td><label class="lbl">Assign Desk Office:</label></td>
+                    <td><label class="lbl"><button> Select Officer </button></label></td>
+                </tr>
+                {/if}
               </tbody>  
             </table>    
        

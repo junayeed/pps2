@@ -76,6 +76,12 @@
                     <td><label class="lbl">Date of completion</label></td>
                     <td><label class="lbl">{$basicInfo->date_of_completion}</label></td>
                 </tr>
+                {if $smarty.session.user_type eq 'Commission' AND $smarty.session.user_permission eq 'Admin'}
+                <tr>
+                    <td><label class="lbl">Assign Desk Officer</label></td>
+                    <td><a id="various1" class='btn btn-mini  btn-primary' href="/app/project_manager/project_manager.php?cmd=attachment&PI={$PI}"> <i class="icon-group"></i>Assign Officer </a></td>
+                </tr>
+                {/if}
               </tbody>  
             </table>    
        
