@@ -2294,7 +2294,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `project_title_en` text NOT NULL,
   `project_title_bn` text NOT NULL,
   `project_type` enum('DPP','TPP') NOT NULL,
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_date` TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_of_commencement` date NOT NULL,
   `date_of_completion` date NOT NULL,
   `adp_sector` int(11) NOT NULL,
@@ -2706,7 +2706,7 @@ CREATE TABLE IF NOT EXISTS `project_messages` (
   `title` varchar(256) NOT NULL,
   `msg` text NOT NULL,
   `doc_id` int(11) NOT NULL,
-  `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `msg_from` varchar(100) NOT NULL,
   `msg_from_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
