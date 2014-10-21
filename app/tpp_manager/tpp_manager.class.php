@@ -47,6 +47,8 @@ class tppManagerApp extends DefaultApplication
            case 'annexI'             : $screen = $this->showTPPAnnexI();               break;
            case 'annexIV'            : $screen = $this->showAnnexIV();                 break;
            case 'annexV'             : $screen = $this->showAnnexV();                  break;
+           case 'annexVI'            : $screen = $this->showAnnexVI();                  break;
+           case 'annexVII'           : $screen = $this->showAnnexVII();                  break;
            case 'saveAnnexV'         : $screen = $this->saveCounterPerson();           break;
            
            case 'saveAnnexI'         : $screen = $this->saveTPPAnnexI();               break;
@@ -589,7 +591,7 @@ class tppManagerApp extends DefaultApplication
         
         //dumpvar($data['annx_v_component_details']);
         
-        return createPage(PROJECT_ANNEX_IV_TEMPLATE, $data);
+        return createPage(TPP_ANNEX_IV_TEMPLATE, $data);
     }
     function showAnnexV()
     {
@@ -604,6 +606,34 @@ class tppManagerApp extends DefaultApplication
         //dumpvar($data['counter_person_details']);
         
         return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);
+    }
+    function showAnnexVI()
+    {
+        $PI                                  = getUserField('PI');    
+        $pid                                 = base64_decode($PI);
+        $data['PI']                          = $PI;
+        $project                             = new TPP($pid);
+        
+        $data['basicInfo']                   = $project->basicInfo;
+        $data['counter_person_details']      = $project->getCounterPersonDetails();
+        
+        //dumpvar($data['counter_person_details']);
+        
+        return createPage(PROJECT_ANNEX_VI_TEMPLATE, $data);
+    }
+    function showAnnexVII()
+    {
+        $PI                                  = getUserField('PI');    
+        $pid                                 = base64_decode($PI);
+        $data['PI']                          = $PI;
+        $project                             = new TPP($pid);
+        
+        $data['basicInfo']                   = $project->basicInfo;
+        $data['counter_person_details']      = $project->getCounterPersonDetails();
+        
+        //dumpvar($data['counter_person_details']);
+        
+        return createPage(PROJECT_ANNEX_VII_TEMPLATE, $data);
     }
    
     function showProjectHomePage()

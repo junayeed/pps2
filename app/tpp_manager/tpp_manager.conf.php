@@ -32,10 +32,12 @@
    define('PROJECT_PROCUREMENT_PLAN_SERVICES_TEMPLATE',   TEMPLATE_DIR . '/procurement_plan_services.html');
    define('PROC_PLAN_PDF_TEMPLATE',                       TEMPLATE_DIR . '/proc_plan_pdf.html');
    define('TPP_ANNEX_I_TEMPLATE',                         TEMPLATE_DIR . '/annex_i.html');
-   define('PROJECT_ANNEX_IV_TEMPLATE',                    TEMPLATE_DIR . '/annex_iv.html');
-   define('PROJECT_ANNEX_V_TEMPLATE',                    TEMPLATE_DIR . '/annex_v.html');
+   define('TPP_ANNEX_IV_TEMPLATE',                        TEMPLATE_DIR . '/annex_iv.html');
+   define('PROJECT_ANNEX_V_TEMPLATE',                     TEMPLATE_DIR . '/annex_v.html');
+   define('PROJECT_ANNEX_VI_TEMPLATE',                    TEMPLATE_DIR . '/annex_vi.html');
+   define('PROJECT_ANNEX_VII_TEMPLATE',                   TEMPLATE_DIR . '/annex_vii.html');
    define('PROJECT_COMMENT_TEMPLATE',                     TEMPLATE_DIR . '/comment.html');
-   define('PROJECT_ATTACHMENT_TEMPLATE',                     TEMPLATE_DIR . '/attachment.html');
+   define('PROJECT_ATTACHMENT_TEMPLATE',                  TEMPLATE_DIR . '/attachment.html');
    define('SICCESS_MSG_TEMPLATE',                         TEMPLATE_DIR . '/success_msg.html');
    
 
