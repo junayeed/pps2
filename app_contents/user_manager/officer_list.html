@@ -15,7 +15,7 @@
 					<div id="breadcrumbs">
 						<ul class="breadcrumb">
 							<li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-							<li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+							<li><a href="#">Officer</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
 							<li class="active">List</li>
 						</ul><!--.breadcrumb-->
 
@@ -27,9 +27,9 @@
 <div id="page-content" class="clearfix">
 					
     <div class="page-header position-relative">
-	<h1>User List<small><i class="icon-double-angle-right"></i> (All)</small></h1>
+	<h1>Officer List<small><i class="icon-double-angle-right"></i> (All)</small></h1>
         <div id="nav-search">
-            <a class="btn btn-small btn-primary" href="/app/user_manager/user_manager.php">Create Designation</a>
+            <a class="btn btn-small btn-primary" href="/app/user_manager/user_manager.php?cmd=newOfficer">New Officer</a>
            
         </div><!--#nav-search-->
     </div><!--/page-header-->
@@ -42,9 +42,9 @@
 <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}">
 	
 		<div class="control-group">
-			<label class="control-label" for="username">Username</label>
+			<label class="control-label" for="name">Name</label>
 			<div class="controls">
-				<input class="span4" type="text" id="username" name="username" placeholder="Enter Username">
+				<input class="span4" type="text" id="name" name="name" placeholder="Enter Username">
 			</div>
 		</div>
             
@@ -54,44 +54,7 @@
 				<input class="span4" type="text" id="designation" name="designation" placeholder="Designation">
 			</div>
 		</div>
-                <div class="control-group">
-			<label class="control-label" for="email">Email</label>
-			<div class="controls">
-				<input class="span4" type="text" id="email" name="email" placeholder="Email">
-			</div>
-		</div>   
-                {if $smarty.session.user_type eq 'Super Admin'}
-                <div class="control-group">
-                    <label class="control-label" for="ministry_id">Ministry/Division</label>
-                    <div class="controls">
-                        <select id="ministry_id" name="ministry_id">
-                            <option value="">Select Ministry</option>
-                            {html_options options=$ministryList}
-                        </select>    
-                    </div>
-		</div>
-               
-                <div class="control-group">
-                    <label class="control-label" for="agency_id">Agency</label>
-                    <div class="controls">
-                        <select id="agency_id" name="agency_id">
-                            <option value="">Select Agency</option>
-                            {html_options options=$agencyList}
-                        </select>    
-                    </div>
-		</div>
-               
-    
-                <div class="control-group">
-                    <label class="control-label" for="company_id">Sub Agency/Company</label>
-                    <div class="controls">
-                        <select id="company_id" name="company_id">
-                            <option value="">Select Sub Agency/Company</option>
-                            {html_options options=$adpSectorList}
-                        </select>    
-                    </div>
-		</div>
-                {/if}
+                
     	
 		<div class="form-actions2">
 			<button class="btn btn-small btn-primary" type="submit"><i class="icon-ok"></i> Search</button>
@@ -107,7 +70,7 @@
                             <table id="table_bug_report" class="table table-striped table-bordered table-hover">
                                 <thead>
                                         <tr>
-                                                <th>Username</th>
+                                                <th>Name</th>
                                                 <th>Designation</th>
                                                 <th>Status</th>
                                         </tr>
@@ -117,7 +80,7 @@
                                     {foreach from=$list item=item key=key}
                                         <tr> 
                                             
-                                                <td>{$item->username}</td>
+                                                <td>{$item->name}</td>
                                                 <td>{$item->designation}</td>
                                                 <td>Active</td>
                                         </tr>

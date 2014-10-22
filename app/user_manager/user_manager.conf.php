@@ -20,8 +20,9 @@
    /**#@+
    * Template Constant
    */
-   define('USER_EDITOR_TEMPLATE',          TEMPLATE_DIR . '/user_manager.html');
-   define('USER_LIST_TEMPLATE',            TEMPLATE_DIR . '/user_list.html');
+   define('USER_EDITOR_TEMPLATE',             TEMPLATE_DIR . '/user_manager.html');
+   define('USER_LIST_TEMPLATE',               TEMPLATE_DIR . '/user_list.html');
+   define('OFFICER_LIST_TEMPLATE',            TEMPLATE_DIR . '/officer_list.html');
 
 
    /**#@+
