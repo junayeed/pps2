@@ -2,9 +2,12 @@
     <head>
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery.gritter.css" />
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/font-awesome.min.css" rel="stylesheet">
+
         
         <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
         <script type="text/javascript" src="/app_contents/common/js/messages.js"></script>
@@ -45,6 +48,21 @@
 
             <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
             <form class="form-horizontal" id="procure_plan_services_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_services_form"> 
+                {if $error eq '1'}
+                <div class="alert alert-block alert-error">
+                    <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+                    <strong><i class="icon-remove"></i> An error occurred while saving the data.</strong>
+                    
+		</div>
+                {/if}
+                {if $error eq '0'}
+                <div class="alert alert-block alert-success">
+			<button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+			<p>
+                            <strong><i class="icon-ok"></i> Data has been saved successfully.</strong>
+			</p>
+		</div>
+                {/if}
                 <div class="control-group">
                     
                     <div class="span12"> 
@@ -57,7 +75,7 @@
                                     <option value=""></option>
                                     <option value="pdf">pdf</option>
                                     <option value="excel">excel</option>
-                                    <option value="word">word</option>
+                                    <!--<option value="word">word</option>-->
                                 </select>
                             </div>
                         </div>
@@ -174,17 +192,17 @@
                                         </tr>
                                         <tr>
                                             <th class="span3 center" rowspan="3">GoB<br />(FE)</th>
-                                            <th class="span3 center" colspan="3">Project Aid</th>
+                                            <th class="span1 center" colspan="3">Project Aid</th>
                                             <th class="span3 center" rowspan="3">Own Fund <br />(FE)</th>
                                             <th class="span3 center" rowspan="3">Other <br />(FE)</th>
                                         </tr>
                                         <tr>
-                                            <th class="span3 center" colspan="2">RPA</th>
+                                            <th class="span1 center" colspan="2">RPA</th>
                                             <th class="span3 center" rowspan="2">DPA</th>
                                         </tr>
                                         <tr>
-                                            <th class="span1 center">Through<br />GoB</th>
-                                            <th class="span1 center">Special<br />Account*</th>
+                                            <th class="span2 center">Through<br />GoB</th>
+                                            <th class="span2 center">Special<br />Account*</th>
                                         </tr>
                                     </thead>
                                     <tbody id="Revenue_Component_total_cost_breakdown_content">
@@ -336,7 +354,7 @@
                                     <option value=""></option>
                                     <option value="pdf">pdf</option>
                                     <option value="excel">excel</option>
-                                    <option value="word">word</option>
+                                    <!--<option value="word">word</option>-->
                                 </select>
                             </div>
                             <input type="hidden" value="saveAnnexV" name="cmd"/>
@@ -388,6 +406,7 @@
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.gritter.min.js"></script>
     
     <!-- ace scripts -->
     <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
@@ -551,4 +570,5 @@
             }
         {/literal}
     
+        $(".alert-block").delay(4000).fadeOut(1000);
     </script>    

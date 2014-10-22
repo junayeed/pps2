@@ -30,6 +30,18 @@ function createAnnexVReport()
     }
 }
 
+function createPartAReport()
+{
+    var PI          = $('#PI').val();
+    var report_type = $('#report_type').val();
+    
+    if (report_type)
+    {
+        location.href = 'http://'+document.domain+'/app/project_manager/project_manager.php?cmd=partA&PI='+PI+
+                        '&report_type='+report_type;
+    }
+}
+
 function submittForm()
 {
     //alert(1);
@@ -210,7 +222,7 @@ function addNewComponent(com_type,buttonClick)
     ///alert('ID = ' + COMPONENT_ROW_ID + ' Type = ' + component_type);
     var td_delete_code     = '<td><img src="/app_contents/common/images/cross.png" onClick="deleteComponent('+COMPONENT_ROW_ID+',\''+component_type+'\');" class="delete_year_icon" "></td>';
     var td_economic_code   = '<td>' + getEconomicCode("economic_code_"+COMPONENT_ROW_ID, COMPONENT_ROW_ID, com_type) + '</td>';
-    var td_sub_code        = '<td>' + createEconomicSubCodeDropdown(COMPONENT_ROW_ID, 0) + '</td>';
+    var td_sub_code        = '<td>' + createEconomicSubCodeDropdown(COMPONENT_ROW_ID, 0) + '<br><br><i class="icon-envelope"></i></td>';
     var td_code_desc       = '<td><textarea name="code_desc_'+COMPONENT_ROW_ID+'" id="code_desc_'+COMPONENT_ROW_ID+'" class="span12" style="height: 60px;" /></textarea></td>';
     
     $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_delete_code+ td_economic_code+td_sub_code+td_code_desc+'</tr>').appendTo("#economic_code_tbl > #" + component_type + "_economic_code_content");
@@ -341,18 +353,18 @@ function addNewYear(fromAddButton)
                                                        </tr>\n\
                                                        <tr>\n\
                                                            <th class="span3 center" rowspan="3">GoB<br />(FE)</th>\n\
-                                                           <th class="span3 center" colspan="3">Project Aid</th>\n\
+                                                           <th class="span1 center" colspan="3">Project Aid</th>\n\
                                                            <th class="span3 center" rowspan="3">Own Fund <br />(FE)</th>\n\
                                                            <th class="span3 center" rowspan="3">Other <br />(FE)</th>\n\
                                                            <th class="span3 center" rowspan="3">Total</th>\n\
                                                        </tr>\n\
                                                        <tr>\n\
-                                                           <th class="span3 center" colspan="2">RPA</th>\n\
+                                                           <th class="span1 center" colspan="2">RPA</th>\n\
                                                            <th class="span3 center" rowspan="2">DPA</th>\n\
                                                        </tr>\n\
                                                        <tr>\n\
-                                                           <th class="span1 center">Through<br />GoB</th>\n\
-                                                           <th class="span1 center">Special<br />Account*</th>\n\
+                                                           <th class="span2 center">Through<br />GoB</th>\n\
+                                                           <th class="span2 center">Special<br />Account*</th>\n\
                                                        </tr>\n\
                                                    </thead>\n\
                                                    <tbody id="Revenue_Component_total_cost_breakdown_content_'+YEAR_COUNT+'">\n\
@@ -480,6 +492,21 @@ function addNewYear(fromAddButton)
     if(fromAddButton)
     {
         adjustComponentRowPerYear(YEAR_COUNT-1);
+        
+        $.gritter.add
+        (
+            {
+                title: '  A new year has been added successfully.',  // (string | mandatory) the heading of the notification
+                text: 'Please scroll to the right to view the new year.',  // (string | mandatory) the text inside the notification
+                time: 3000, // hang on the screen for...
+                fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+                fade_out_speed: 1000, // how fast the notices fade out
+                class_name: 'gritter-success'
+            }
+        );
+            
+        $("#gritter-notice-wrapper").css('left',"35%");
+        $("#gritter-notice-wrapper").css('top',"35%");
     }
     
     deleteYearIconAdjustment();

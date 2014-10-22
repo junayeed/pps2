@@ -95,6 +95,7 @@
 .gritter-light .gritter-close {
     background-image: url(../images/gritter-light.png);
     color: #222;
+    float: left;
 }
 .gritter-light .gritter-title {
     text-shadow: none;

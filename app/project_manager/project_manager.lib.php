@@ -211,8 +211,7 @@
                 }
  	    }
         }
-        //echo_br('Dying...........');
-        //die;
+        return 0; // 0 means no error
     }
     
     function updateAnnexVDetails($annex_id,$total_year,$row_id)

@@ -334,10 +334,15 @@ class projectManagerApp extends DefaultApplication
         $data->comp_sub_total_list = getProjectWiseComponentSubTotal($pid);
         $data->PI                  = getUserField('PI'); 
         
-        //dumpVar($data->basicInfo);
-        //dumpVar($_SESSION);
+        if($report_type)
+        $this->partAExportTo($pid, $report_type, $data);
         
         return createPage(PROJECT_PART_A_TEMPLATE, $data);
+   }
+   
+   function partAExportTo($pid, $report_type, $data)
+   {
+       
    }
    
     function showProjectPartB()
@@ -490,11 +495,11 @@ class projectManagerApp extends DefaultApplication
     {
         $pid       = base64_decode(getUserField('PI'));
         
-        updateAnnexV();
+        $error = updateAnnexV();
         updateAnnexVContingency();
         //updateProjectTotalCost($pid);
 
-        header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid));
+        header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid) . '&error='.$error);
         //return $this->showAnnexV();
     }
     
@@ -516,6 +521,7 @@ class projectManagerApp extends DefaultApplication
         $data['annex_v_contingency_details']           = getAnnexVContingencyDetails($pid);
         $data['annex_v_category_sub_total']            = getProjectWiseComponentSubTotal($pid);
         $data['annex_v_category_year_wise_sub_total']  = getProjectCategoryYearWiseComponentSubTotal($pid);
+        $data['error']                                 = getUserField('error');
         
         //dumpvar($data['annx_v_component_details']);
         if($report_type)

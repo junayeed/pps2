@@ -47,7 +47,14 @@
 
 
 <form class="form-horizontal"> 
-
+    <div id="export_to_container">
+        Export To: 
+        <select name="report_type" id="report_type" class="span6" onchange="createReport('Services');">
+            <option value=""></option>
+            <option value="pdf">pdf</option>
+            <option value="word">word</option>
+        </select>
+    </div>
     
     <div class="control-group">
         <label class="control-label" for="project_title_en">1.0 Project Title (English)</label>
