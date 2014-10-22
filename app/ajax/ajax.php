@@ -5,6 +5,7 @@
  */
 // include the main configuration file
    require_once($_SERVER['DOCUMENT_ROOT'] .'/app/common/conf/main.conf.php');
+   require_once($_SERVER['DOCUMENT_ROOT'] .'/app/common/class/Document.class.php');
    require_once(LOCAL_CONFIG_DIR          .'/dp.conf.php');
    require_once(LOCAL_LIB_DIR             .'/dp.lib.php');
   
@@ -33,13 +34,51 @@ class ajaxApp extends DefaultApplication
            case 'getDistrict'              : $screen = $this->getDistrictListByDivision();             break;
            case 'getUpzilla'               : $screen = $this->getUpzillaListByDistrict();              break;
            case 'ProjectHome'              : $screen = $this->showProjectHomePage();                   break;
+           case 'createAnnexVRow'          : $screen = $this->createAnnexVRow();                       break;
+           case 'saveAnnexVAttachment'     : $screen = $this->saveAnnexVAttachment();                  break;
            default                         : $screen = $this->showEditor($msg);
       }
 
-
       return true;
-
-   }
+    }
+    
+    function saveAnnexVAttachment()
+    {
+        $data['pid']       = base64_decode(getUserField('PI'));
+        $annex_id          = getUserField('annex_id');
+        
+        $file = $_FILES['file'];
+        
+        if($file['size'] > 0)
+        {
+            $_FILES['document'] = $file;
+            
+            $thisDoc                = new DocumentEntity();
+            $data['attachment_id']  = $thisDoc->addDocument(null,$data['pid']);
+            
+        }
+        
+        $info['table']  = PROJECT_ANNEX_V_TBL;
+        $info['debug']  = true;
+        $info['data']   = $data;
+        $info['where']  = 'id = ' . $annex_id;
+        
+        update($info);
+        die;
+    }
+    
+    function createAnnexVRow()
+    {
+        $data['pid']    = base64_decode(getUserField('PI')); 
+        $info['table']  = PROJECT_ANNEX_V_TBL;
+        $info['debug']  = false;
+        $info['data']   = $data;
+        
+        $result = insert($info);
+        
+        echo json_encode($result['newid']);
+        die;
+    }
    
     
     function getDistrictListByDivision()

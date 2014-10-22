@@ -238,6 +238,11 @@
        
        if ( !empty ($result) )
        {
+           foreach($result as $key => $value)
+           {
+               $value->attachment_path = getFileLocation($value->attachment_id, $pid);
+           }
+           
            return $result;
        }
    }

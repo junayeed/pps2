@@ -135,7 +135,7 @@ function populateContingency(economic_code_id, economic_subcode_id, economic_sub
 }
 
 function populateComponentDetails(economic_code_id, economic_subcode_id, economic_subcode_name, unit, unit_cost, qty, total_cost, gob, gob_fe, 
-                                  rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe,annex_id)
+                                  rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe,annex_id, attachment_path)
 {
     var elemID = COMPONENT_ROW_ID - 1;
     
@@ -159,7 +159,16 @@ function populateComponentDetails(economic_code_id, economic_subcode_id, economi
     $('#other_'+elemID).val((other*1).toMoney(2));
     $('#other_fe_'+elemID).val((other_fe*1).toMoney(2));
     $('#annex_id_'+elemID).val(annex_id);
+    $('#attachment_'+elemID).attr('href', $('#attachment_'+elemID).attr('href') + '&annex_id='+annex_id);
     
+    if (attachment_path)
+    {
+        $('#view_attachment_'+elemID).attr('href', attachment_path);
+    }
+    else
+    {
+        $('#view_attachment_'+elemID).hide();
+    }    
 }
 
 
@@ -221,8 +230,9 @@ function addNewComponent(com_type,buttonClick)
     var component_type = com_type.replace(' ', '_');
     ///alert('ID = ' + COMPONENT_ROW_ID + ' Type = ' + component_type);
     var td_delete_code     = '<td><img src="/app_contents/common/images/cross.png" onClick="deleteComponent('+COMPONENT_ROW_ID+',\''+component_type+'\');" class="delete_year_icon" "></td>';
-    var td_economic_code   = '<td>' + getEconomicCode("economic_code_"+COMPONENT_ROW_ID, COMPONENT_ROW_ID, com_type) + '</td>';
-    var td_sub_code        = '<td>' + createEconomicSubCodeDropdown(COMPONENT_ROW_ID, 0) + '<br><br><i class="icon-envelope"></i></td>';
+    var td_economic_code   = '<td>' + getEconomicCode("economic_code_"+COMPONENT_ROW_ID, COMPONENT_ROW_ID, com_type) + 
+                             '<a id="attachment_'+COMPONENT_ROW_ID+'" class="annexV_attachment" href="/app/project_manager/project_manager.php?cmd=annexV_attachment&PI='+$('#PI').val()+'"><img src="/app_contents/common/images/attachment_add-16.png"></a> <a id="view_attachment_'+COMPONENT_ROW_ID+'" href="javascript:void(0);"><img src="/app_contents/common/images/document_text_accept-16.png" /></a></td>'; 
+    var td_sub_code        = '<td>' + createEconomicSubCodeDropdown(COMPONENT_ROW_ID, 0) + '</td>';
     var td_code_desc       = '<td><textarea name="code_desc_'+COMPONENT_ROW_ID+'" id="code_desc_'+COMPONENT_ROW_ID+'" class="span12" style="height: 60px;" /></textarea></td>';
     
     $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_delete_code+ td_economic_code+td_sub_code+td_code_desc+'</tr>').appendTo("#economic_code_tbl > #" + component_type + "_economic_code_content");
@@ -247,21 +257,79 @@ function addNewComponent(com_type,buttonClick)
     var td_hidden      = '<input type="hidden" name="annex_id_'+COMPONENT_ROW_ID+'" id="annex_id_'+COMPONENT_ROW_ID+'" value="" >'
     $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_total_gob + td_pa_gob + td_pa_spc_acnt + td_pa_dpa + td_own_fund + td_other +td_hidden + '</tr>').appendTo("#total_cost_breakdown_tbl > #" + component_type + "_total_cost_breakdown_content");
     
-    $(".chzn-select").chosen();
+    //$(".chzn-select").chosen();
     componentRowIDArray.push(COMPONENT_ROW_ID);
     componentRowTypeArray.push(com_type);
     $('#component_list').val(componentRowIDArray);
     COMPONENT_ROW_ID++;
     
-    //adjustComponentRowPerYear(1,COMPONENT_ROW_ID-1, component_type);
-    
-    //alert(COMPONENT_ROW_ID)
-    
     if(buttonClick)   //buttonClick = 1 mean click from the button
-    for(var year=1; year<YEAR_COUNT; year++ )
     {
-        addYearWiseNewComponentDetailsRow(com_type, year, COMPONENT_ROW_ID-1)
+        $('#view_attachment_' + COMPONENT_ROW_ID-1).hide();
+        
+        createComponentRow(COMPONENT_ROW_ID-1);
+    
+        for(var year=1; year<YEAR_COUNT; year++ )
+        {
+            addYearWiseNewComponentDetailsRow(com_type, year, COMPONENT_ROW_ID-1);
+        }
     }
+}
+
+function createComponentRow(row_id)
+{
+    var pid        = $('#PI').val();
+    var domainname = window.location.hostname;
+    
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=createAnnexVRow&PI=' + pid,
+            dataType: 'json',
+            success: function(responseText)
+            {
+                $('#annex_id_'+row_id).val(responseText);
+                $('#attachment_'+row_id).attr("href", $('#attachment_'+row_id).attr("href") + '&annex_id='+responseText);
+                $(".annexV_attachment").fancybox(
+                    {
+                        'width'          : '75%',
+                        'height'	     : '20%',
+                        'autoScale'	     : true,
+                        'transitionIn'   : 'none',
+                        'transitionOut'  : 'none',
+                        'type'   	     : 'iframe'
+                    });
+            }
+        } 
+    );
+}
+
+function saveAttachment()
+{
+    var pid        = $('#PI').val();
+    var annex_id   = $('#annex_id').val();
+    
+    var domainname = window.location.hostname;
+    
+    var file_data = $('#id-input-file-1').prop('files')[0];   
+    var form_data = new FormData();                  
+    form_data.append('file', file_data)
+    //alert(form_data);   
+    
+    $.ajax({
+                url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=saveAnnexVAttachment&PI=' + pid+'&annex_id='+annex_id,
+                dataType: 'text',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,                         
+                type: 'post',
+                success: function(data){
+                    //alert(data); 
+                    parent.jQuery.fancybox.close();
+                }
+     });
+   
 }
 
 function deleteComponent(elemID,component_type)

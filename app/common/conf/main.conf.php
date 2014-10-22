@@ -198,6 +198,7 @@
    require_once(PROJECT_CLASS);
    require_once(TPP_CLASS);
    require_once(MESSAGE_CLASS);
+   //require_once(DOCUMENT_CLASS);
    //
    // Application Specific Configuration Loader
    //

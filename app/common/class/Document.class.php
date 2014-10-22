@@ -320,7 +320,6 @@ class DocumentEntity extends Entity
     if(!$attributes)
       $attributes  =  $this->getAttributes();
 
-   
     //uncomment these lines to have class get user input direct from browser
     //if(!count($attributes))
     //  $attributes  =  getUserDataSet($this->entity_table);

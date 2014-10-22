@@ -47,8 +47,9 @@ class projectManagerApp extends DefaultApplication
            case 'ProjectHome'        : $screen = $this->showProjectHomePage();         break;
            case 'forwardProject'     : $screen = $this->forwardProject();              break;
            case 'commentPage'        : $screen = $this->commentPage();                 break;
-           case 'attachment'         : $screen = $this->attachment();                 break;
-           case 'saveAttachment'     : $screen = $this->saveAttachments();                 break;
+           case 'attachment'         : $screen = $this->attachment();                  break;
+           case 'annexV_attachment'  : $screen = $this->annaexVattachment();           break;
+           case 'saveAttachment'     : $screen = $this->saveAttachments();             break;
            case 'saveComment'        : $screen = $this->saveComment();                 break;
            default                   : $screen = $this->showEditor($msg);
       }
@@ -59,7 +60,7 @@ class projectManagerApp extends DefaultApplication
          return;
       }
       
-      if($cmd== 'commentPage' || $cmd == 'attachment')
+      if($cmd== 'commentPage' || $cmd == 'attachment' || $cmd == 'annexV_attachment')
       {
           echo  $screen;
       }   
@@ -101,12 +102,23 @@ class projectManagerApp extends DefaultApplication
        return  createPage(PROJECT_COMMENT_TEMPLATE, $data); 
        
     }
+    
     function attachment()
     {
        $pid        = base64_decode(getUserField('PI')); 
        $data['PI'] = getUserField('PI');
         
        return  createPage(PROJECT_ATTACHMENT_TEMPLATE, $data); 
+       
+    }
+    
+    function annaexVattachment()
+    {
+       $data['PI']       = getUserField('PI');
+       $data['annex_id'] = getUserField('annex_id');
+        
+       //dumpVar($data);
+       return  createPage(ANNEX_V_ATTACHMENT_TEMPLATE, $data); 
        
     }
    
@@ -523,7 +535,7 @@ class projectManagerApp extends DefaultApplication
         $data['annex_v_category_year_wise_sub_total']  = getProjectCategoryYearWiseComponentSubTotal($pid);
         $data['error']                                 = getUserField('error');
         
-        //dumpvar($data['annx_v_component_details']);
+        //dumpvar($data['component_list']);
         if($report_type)
         $this->annexVExportTo($pid, $report_type);
         
