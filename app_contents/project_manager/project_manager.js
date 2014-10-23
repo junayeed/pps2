@@ -297,6 +297,8 @@ function createComponentRow(row_id)
                         'autoScale'	     : true,
                         'transitionIn'   : 'none',
                         'transitionOut'  : 'none',
+                        'topRation'      : 0,
+                        'top'       : '20px',
                         'type'   	     : 'iframe'
                     });
             }
