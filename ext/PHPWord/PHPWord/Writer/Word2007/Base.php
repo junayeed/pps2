@@ -32,6 +32,13 @@ class PHPWord_Writer_Word2007_Base extends PHPWord_Writer_Word2007_WriterPart {
 		$styleFont = $text->getFontStyle();
 		
 		$SfIsObject = ($styleFont instanceof PHPWord_Style_Font) ? true : false;
+                
+                $strText = htmlspecialchars($text->getText());
+                // create array of newlines
+                $str_tmp=explode("\n",$strText);
+                
+                // cycle through the array and create new paragraph per new line
+                for ($iii = 0; $iii < count($str_tmp); $iii++) {
 		
 		if(!$withoutP) {
 			$objWriter->startElement('w:p');
@@ -50,7 +57,8 @@ class PHPWord_Writer_Word2007_Base extends PHPWord_Writer_Word2007_WriterPart {
 			}
 		}
 		
-		$strText = htmlspecialchars($text->getText());
+		//$strText = htmlspecialchars($text->getText());
+                $strText = $str_tmp[$iii];
 		$strText = PHPWord_Shared_String::ControlCharacterPHP2OOXML($strText);
 		
 		$objWriter->startElement('w:r');
@@ -75,6 +83,7 @@ class PHPWord_Writer_Word2007_Base extends PHPWord_Writer_Word2007_WriterPart {
 		if(!$withoutP) {
 			$objWriter->endElement(); // w:p
 		}
+                }
 	}
 	
 	protected function _writeTextRun(PHPWord_Shared_XMLWriter $objWriter = null, PHPWord_Section_TextRun $textrun) {
@@ -392,7 +401,13 @@ class PHPWord_Writer_Word2007_Base extends PHPWord_Writer_Word2007_WriterPart {
 				for($i=0; $i<$_cRows; $i++) {
 					$row = $_rows[$i];
 					$height = $_heights[$i];
-					
+					//add
+                                        $objWriter->startElement('w:trPr');
+                                        //FIXME:Make this an option on a row or table
+                                         $objWriter->startElement('w:cantSplit');
+                                         $objWriter->endElement();
+                                        $objWriter->endElement();
+                                       //end add
 					$objWriter->startElement('w:tr');
 					
 						if(!is_null($height)) {
@@ -408,7 +423,18 @@ class PHPWord_Writer_Word2007_Base extends PHPWord_Writer_Word2007_WriterPart {
 								
 								$cellStyle = $cell->getStyle();
 								$width = $cell->getWidth();
-								
+                                                                
+                                                                //add 
+                                                                  $gridSpan = $cell->getGridSpan();
+                                                                  //end add
+                                                                  
+                                                                  //add
+                                  if($gridSpan > 1){
+                                      $objWriter->startElement('w:gridSpan');
+                                          $objWriter->writeAttribute('w:val',$gridSpan);
+                                      $objWriter->endElement();
+                                  //end add
+                                  }
 								$objWriter->startElement('w:tcPr');
 									$objWriter->startElement('w:tcW');
 										$objWriter->writeAttribute('w:w', $width);

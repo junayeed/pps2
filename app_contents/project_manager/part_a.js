@@ -3,11 +3,20 @@ var componentRowIDArray  = [];
 var YEAR_COUNT           = 1;
 var distributionArray    = ['gob_', 'rpa_through_gob_', 'rpa_special_account_', 'dpa_', 'own_fund_', 'other_']; 
 
+function createPartAReport()
+{
+    var PI          = $('#PI').val();
+    var report_type = $('#report_type').val();
+    
+    if (report_type)
+    {
+        location.href = 'http://'+document.domain+'/app/project_manager/project_manager.php?cmd=partA&PI='+PI+
+                        '&report_type='+report_type;
+    }
+}
 
 function updateMajorItems(id,thisField)
 {
-    
-    
     var domainname = window.location.hostname;
     var major_item = thisField.checked ? 'Yes':'No' ;
    

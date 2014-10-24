@@ -303,8 +303,9 @@ class projectManagerApp extends DefaultApplication
            
     function showProjectPartA()
     {
-        $pid     = base64_decode(getUserField('PI'));
-        $project = new Project($pid);
+        $pid          = base64_decode(getUserField('PI'));
+        $project      = new Project($pid);
+        $report_type  = getUserField('report_type');
 
         $data                         = $project;
         $data->ministryList           = getMinistryList();
@@ -347,15 +348,29 @@ class projectManagerApp extends DefaultApplication
         $data->PI                  = getUserField('PI'); 
         
         if($report_type)
-        $this->partAExportTo($pid, $report_type, $data);
+        {
+            $this->partAExportTo($pid, $report_type, $data);
+        }
         
         return createPage(PROJECT_PART_A_TEMPLATE, $data);
    }
    
-   function partAExportTo($pid, $report_type, $data)
-   {
-       
-   }
+    function partAExportTo($pid, $report_type, $data)  //ajaj
+    {
+        //dumpVar($data);
+        //dumpVar($data->basicInfo->adp_sub_sector);
+        //dumpVar($data->adpSectorList[$data->basicInfo->adp_sub_sector]); 
+        //die;
+        if ($report_type == 'pdf')
+        {
+            $screen = createPage(PART_A_PDF_TEMPLATE, $data);
+            makePartAPDF($screen);
+        }
+        if ($report_type == 'word')
+        {
+            makePartADoc($data);
+        }
+    }
    
     function showProjectPartB()
     {
@@ -408,10 +423,8 @@ class projectManagerApp extends DefaultApplication
         $pid                   = base64_decode($PI);
         $report_type           = getUserField('report_type');
         $procurement_category  = getUserField('procurement_category');
-        
-        
         $project               = new Project($pid);
-        $data->basicInfo     = $project->basicInfo;
+        $data->basicInfo       = $project->basicInfo;
         
         $data->PI                       = $PI;
         $data->procurement_list         = getProcurementPlanList($pid, 'Goods');
@@ -430,7 +443,6 @@ class projectManagerApp extends DefaultApplication
         $pid                   = base64_decode($PI);
         $report_type           = getUserField('report_type');
         $procurement_category  = getUserField('procurement_category');
-        
         $project               = new Project($pid);
         $data->basicInfo       = $project->basicInfo;
         
@@ -451,7 +463,6 @@ class projectManagerApp extends DefaultApplication
         $pid                   = base64_decode($PI);
         $report_type           = getUserField('report_type');
         $procurement_category  = getUserField('procurement_category');
-        
         $project               = new Project($pid);
         $data->basicInfo       = $project->basicInfo;
         
