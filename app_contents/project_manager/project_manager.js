@@ -30,18 +30,6 @@ function createAnnexVReport()
     }
 }
 
-function createPartAReport()
-{
-    var PI          = $('#PI').val();
-    var report_type = $('#report_type').val();
-    
-    if (report_type)
-    {
-        location.href = 'http://'+document.domain+'/app/project_manager/project_manager.php?cmd=partA&PI='+PI+
-                        '&report_type='+report_type;
-    }
-}
-
 function submittForm()
 {
     //alert(1);

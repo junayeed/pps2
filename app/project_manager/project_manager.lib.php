@@ -758,6 +758,190 @@
         header ('Location: /files/'.$filename);
     }
     
+    function makePartAPDF($screen)
+    {
+        ob_start();
+        $dompdf = new DOMPDF();
+        $dompdf->set_paper(DEFAULT_PDF_PAPER_SIZE, 'portrait');
+        $dompdf->load_html($screen);
+        $dompdf->render();
+        //$dompdf->stream("dompdf_out.pdf", array("Attachment" => false));    
+        $filename     = 'part_A.pdf';
+        $output       = $dompdf->output();
+        $file_to_save = $_SERVER['DOCUMENT_ROOT'].'/files/'.$filename;
+        file_put_contents($file_to_save, $output);
+        
+        header("HTTP/1.1 200 OK");
+        header("Pragma: public");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Cache-Control: private", false);
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment;filename="' . $filename. '"');
+        header('Content-Type: text/plain; charset=utf-8');
+        header("Content-Transfer-Encoding: binary");
+        header ('Location: /files/'.$filename);
+    }
+    
+    function makePartADoc($data)
+    {
+        // New Word Document
+        $PHPWord = new PHPWord();
+
+        // New portrait section
+        $section = $PHPWord->createSection(array('orientation'=>'portrait'));
+        $section->getSettings()->setMarginLeft(1000); 
+        $section->getSettings()->setMarginRight(600); 
+        
+        $styleTable    = array('borderSize' => 0, 'borderColor' => '006699', 'cellMargin' => 80);
+        $styleFirstRow = array('borderBottomSize' => 1, 'borderBottomColor' => 'FFFFFF', 'bgColor' => 'F5F5F5');
+        
+        $PHPWord->addTableStyle('headerTableStyle', $styleTable);
+        
+        $headerTable = $section->addTable('headerTableStyle');  // assign the table style 
+        
+        $headerTable->addRow(0); // 0 = row height
+        $headerTable->addCell(16000, array('valign'=>'center'))->addText("Part - A", array('bold'=>true, 'size'=>13, 'spaceAfter' => 0), array('align'=>'center'));
+        $headerTable->addRow(0);
+        $headerTable->addCell(16000, array('valign'=>'center'))->addText('Project Summary', array('bold'=>true, 'size'=>11, 'underline'=>PHPWord_Style_Font::UNDERLINE_SINGLE), array('align'=>'center'));
+        
+        $section->addTextBreak(1);
+        
+        $contentTableStyle    = array('borderSize' => 1, 'borderColor' => '006699', 'cellMargin' => 80, array('spaceAfter' => 0));
+        $PHPWord->addTableStyle('contentTableStyle', $contentTableStyle);
+        
+        // Define font style for first row
+        $fontStyle = array('size' => 10);
+        //1.0
+        $contentTable = $section->addTable('contentTableStyle');  // assign the table style
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('1.0 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Project Name', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(8000)->addText($data->basicInfo->project_title_en, $fontStyle);
+        //2/1
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('2.1 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Sponsoring Ministry/Division', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        
+        foreach($data->basicInfo->ministries AS $value)
+        {
+            $ministryContent .= $value->name . "\n";
+        }
+        $contentTable->addCell(8000)->addText($ministryContent, $fontStyle);
+        //2.2
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('2.2 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Implementing Agency (ies)', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        
+        foreach($data->basicInfo->agencies AS $value)
+        {
+            $agencyContent .= $value->name . "\n";
+        }
+        $contentTable->addCell(8000)->addText($agencyContent, $fontStyle);
+        //2.3 
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('2.3 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Concerned Sector/Sub-sector of ADP', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(8000)->addText($data->adpSectorList[$data->basicInfo->adp_sector] . '/' . $data->adpSubSectorList[$data->basicInfo->adp_sub_sector], $fontStyle);
+        //2.4 
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('2.4 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Concerned Division of Planning Commission', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(8000)->addText($data->sectorDivisionList[$data->basicInfo->sector_division], $fontStyle);
+        //3.0 
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('3.0 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Objectives and targets of the project (Please specify in quantity and/or in percentage and write in bullet form)', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(8000)->addText($data->basicInfo->objectives, $fontStyle);
+        //4.0 
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('4.0 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Project implementation period', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(8000)->addText('i) Date of commencement: ' . $data->basicInfo->date_of_commencement . "\n" . 
+                                              'ii) Date of completion: ' . $data->basicInfo->date_of_completion, $fontStyle);
+        //5.1 
+        setlocale(LC_MONETARY, 'en_US');
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('5.1 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Estimated Cost of the project (in Lakh Taka)', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $totalPA  = $data->basicInfo->pa_through_gob_cost+$data->basicInfo->pa_spc_acnt_cost+$data->basicInfo->pa_dpa_cost;
+        $totalRPA = $data->basicInfo->pa_through_gob_cost+$data->basicInfo->pa_spc_acnt_cost;
+        
+        $contentTable->addCell(8000)->addText('Total: ' . number_format($data->basicInfo->total_cost, 2, '.', ',') . "\n" . 
+                                              'GoB (FE): ' . number_format($data->basicInfo->gob_cost, 2, '.', ',') . '(' . number_format($data->basicInfo->gob_fe_cost, 2, '.', ',') . ')' . "\n" . 
+                                              'PA (RPA): ' . number_format($totalPA, 2, '.', ',') . '(' . number_format($totalRPA, 2, '.', ',') . ')' . "\n" . 
+                                              'Own Fund (FE): ' . number_format($data->basicInfo->own_fund_cost, 2, '.', ',') . '(' . number_format($data->basicInfo->own_fund_fe_cost, 2, '.', ',') . ')' . "\n" . 
+                                              'Others (FE): ' . number_format($data->basicInfo->other_cost, 2, '.', ',') . '(' . number_format($data->basicInfo->other_fe_cost, 2, '.', ',') . ')'  
+                                              , $fontStyle);
+        
+        //5.2 
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('5.2 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Exchange rate(s) with date (Source Bangladesh Bank)', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(8000)->addText($data->basicInfo->exchange_rate, $fontStyle);
+        
+        //6.0 
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('6.0 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Mode of financing', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(8000)->addText();
+        //6.1 
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('6.1 ', $fontStyle);
+        $contentTable->addCell(10000, null, 4)->addText('Mode of financing with source (Amount in Lakh Tk.): ', $fontStyle);
+        //6.2 
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('6.2 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Year wise allocation of GOB, RPA and Own Fund according to DPP (Amount in Lakh Tk.)', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(8000)->addText();
+        //7.0 
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('7.0 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Location of the Project', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(8000)->addText();
+        //8.0 
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('8.0 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Location wise cost break-down to be attached as per Annexure - I', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(8000)->addText();
+        //9.0 
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('9.0 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Component wise Estimated Cost Summary', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(8000)->addText();
+        //10.0 
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('10.0 ', $fontStyle);
+        $contentTable->addCell(4000)->addText('Log Frame', $fontStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(8000)->addText('Planned date for project completion: ' . $data->basicInfo->date_of_completion . "\n" . 
+                                              'Date of this summary preparation: ' . $data->basicInfo->date_of_logframe_summary_preparation, $fontStyle);
+        
+        
+        // Save File
+        $objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
+        
+        $filename  = 'part_A.doc';
+        
+        header('Content-Disposition: attachment;filename="' . $filename. '"');
+        header('Content-Type: text/plain; charset=utf-8');
+        $objWriter->save($_SERVER['DOCUMENT_ROOT'].'/files/'.$filename);
+        header ('Location: /files/'.$filename);
+    }
+    
     function MakePDFDoc($screen, $procurement_category)
     {
         ob_start();

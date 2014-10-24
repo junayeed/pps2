@@ -318,10 +318,10 @@ class Project
     
     public function saveLogFrame()
     {
-        $info['table'] = PROJECT_LOG_FRAME_TBL;
-        $info['data']  = getUserDataSet(PROJECT_LOG_FRAME_TBL);
+        $info['table']        = PROJECT_LOG_FRAME_TBL;
+        $info['data']         = getUserDataSet(PROJECT_LOG_FRAME_TBL);
         $info['data']['pid']  = $this->id;
-        $info['debug'] = true;
+        $info['debug']        = false;
         
         
         $log_frame_id  = getUserField('log_frame_id');
@@ -340,14 +340,12 @@ class Project
     }
     public function saveModeOfFinancing()
     {
-        $info['table'] = PROJECT_MODE_FINANCING_TBL;
-        $info['data']  = getUserDataSet(PROJECT_MODE_FINANCING_TBL);
+        $info['table']        = PROJECT_MODE_FINANCING_TBL;
+        $info['data']         = getUserDataSet(PROJECT_MODE_FINANCING_TBL);
         $info['data']['pid']  = $this->id;
-        $info['debug'] = false;
-        
+        $info['debug']        = false;
         
         $mode_of_finance_id  = getUserField('mode_of_finance_id');
-        
         
         if($mode_of_finance_id)
         {

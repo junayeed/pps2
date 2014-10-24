@@ -1,0 +1,465 @@
+<table cellspacing="0" width="100%" style='font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12px;' border="0">
+    <tr>
+        <td align="center" colspan="4">PART - A</td>
+    </tr>
+    <tr>
+        <td align="center" colspan="4"><u>Project Summary</u></td>
+    </tr>
+    <tr>
+        <td align="center" colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+        <td width="5%" valign="top">1.0 </td>
+        <td width="40%" valign="top">Project Title </td>
+        <td width="1%" valign="top">: </td>
+        <td width="54%" valign="top">{$basicInfo->project_title_en}</td>
+    </tr>
+    <tr>
+        <td width="5%" valign="top">2.1 </td>
+        <td width="40%" valign="top">Sponsoring Ministry/Division </td>
+        <td width="1%" valign="top"> : </td>
+        <td style="padding-bottom: 5px;"  width="54%">
+            {foreach from=$basicInfo->ministries key=key item=item}
+                {$item->name}<br />
+            {/foreach}
+        </td>
+    </tr>
+    <tr>
+        <td width="5%" valign="top">2.2 </td>
+        <td width="40%" style="padding-bottom: 5px;" valign="top">Implementing Agency (ies) </td>
+        <td width="1%" valign="top">: </td>
+        <td style="padding-bottom: 5px;" width="54%" valign="top">
+            {foreach from=$basicInfo->agencies key=key item=item}
+                {$item->name}<br />
+            {/foreach}
+        </td>
+    </tr>
+    <tr>
+        <td width="5%">2.3 </td>
+        <td width="40%" style="padding-bottom: 5px;">Concerned Sector/Sub-sector of ADP</td>
+        <td width="1%"> : </td>
+        <td width="54%">{$adpSectorList[$basicInfo->adp_sector]}/{$adpSubSectorList[$basicInfo->adp_sub_sector]}</td>
+    </tr>
+    <tr>
+        <td width="5%">2.4 </td>
+        <td width="40%" style="padding-bottom: 5px;">Concerned Division of Planning Commission</td>
+        <td width="1%"> : </td>
+        <td width="54%">{$sectorDivisionList[$basicInfo->sector_division]}</td>
+        <!--<td style="padding-bottom: 5px;">Total GoB (FE): </td>-->
+        <!--<td style="padding-bottom: 5px;">{$basicInfo->gob_cost} ({$basicInfo->gob_fe_cost|number_format:2:".":","})</td>-->
+    </tr>
+    <tr>
+        <td width="5%" valign="top">3.0 </td>
+        <td width="40%" style="padding-bottom: 5px;" valign="top">Objectives and targets of the project (Please specify in quantity and/or in percentage and write in bullet form)</td>
+        <td width="1%" valign="top"> : </td>
+        <td width="54%">{$basicInfo->objectives}</td>
+    </tr>
+    <tr>
+        <td width="5%" valign="top">4.0 </td>
+        <td width="40%" style="padding-bottom: 5px;" valign="top">Project implementation period </td>
+        <td width="1%"> : </td>
+        <td width="54%">i) Date of commencement: {$basicInfo->date_of_commencement}<br>ii) Date of completion: {$basicInfo->date_of_completion}</td>
+    </tr>
+    <tr>
+        <td width="5%" valign="top">5.1 </td>
+        <td width="40%" style="padding-bottom: 5px;" valign="top">Estimated Cost of the project (in Lakh Taka):</td>
+        <td width="1%" valign="top"> : </td>
+        <td width="54%">
+            <table border="0" width="100%" cellspacing="2" cellpadding="2">
+                <tr>
+                    <td width="30%">Total</td>
+                    <td width="1%">: </td>
+                    <td width="65%">{$basicInfo->total_cost|number_format:2:'.':','}</td>
+                </tr>
+                <tr>
+                    <td width="30%">GoB (FE)</td>
+                    <td width="1%">: </td>
+                    <td width="65%" style="padding-bottom: 5px;">
+                        {$basicInfo->gob_cost|number_format:2:".":","}
+                        ({$basicInfo->gob_fe_cost|number_format:2:".":","})
+                    </td>
+                </tr>
+                <tr>
+                    <td width="30%">PA (RPA)</td>
+                    <td width="1%">: </td>
+                    <td width="65%" style="padding-bottom: 5px;">
+                        {assign var=totalPA value=$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost}
+                        {assign var=totalRPA value=$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost}
+                        {$totalPA|number_format:2:".":","} ({$totalRPA|number_format:2:".":","})
+                    </td>
+                </tr>
+                <tr>
+                    <td width="30%">Own Fund (FE)</td>
+                    <td width="1%">: </td>
+                    <td width="65%" style="padding-bottom: 5px;">
+                        {$basicInfo->own_fund_cost|number_format:2:'.':','}
+                        ({$basicInfo->own_fund_fe_cost|number_format:2:'.':','})
+                    </td>
+                </tr>
+                <tr>
+                    <td width="30%">Others (FE)</td>
+                    <td width="1%">: </td>
+                    <td width="65%" style="padding-bottom: 5px;">
+                        {$basicInfo->other_cost|number_format:2:'.':','}
+                        ({$basicInfo->other_fe_cost|number_format:2:'.':','})
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td width="5%" valign="top">5.2 </td>
+        <td width="40%" style="padding-bottom: 5px;" valign="top">Exchange rate(s) with date (Source Bangladesh Bank) </td>
+        <td width="1%"> : </td>
+        <td width="54%">{$basicInfo->exchange_rate}</td>
+    </tr>
+    <tr>
+        <td width="5%" valign="top">6.0 </td>
+        <td width="40%" style="padding-bottom: 5px;" valign="top">Mode of financing </td>
+        <td width="1%"> : </td>
+        <td width="54%">&nbsp;</td>
+    </tr>
+    <tr>
+        <td width="5%" valign="top">6.1 </td>
+        <td colspan="3">Mode of financing with source <span class="right">(Amount in Lakh Tk.)</span></td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <table border="1" cellspacing="0" cellpadding="2" width="100%">
+                <thead>
+                    <tr>
+                        <th>Mode\Source</th>
+                        <th>GOB<br>(FE)</th>
+                        <th>PA<br>(RPA)</th>
+                        <th>Own Fund<br>(FE)</th>
+                        <th>Others<br>(Specify)</th>
+                        <th>PA sources</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr> 
+                        <td align="center">1</td>
+                        <td align="center">2</td>
+                        <td align="center">3</td>
+                        <td align="center">4</td>
+                        <td align="center">5</td>
+                        <td align="center">6</td>
+                    </tr>
+                    <tr> 
+                        <td>Loan/credit</td>
+                        <td align="center">{$modefinancing->loan_gob|number_format:2:'.':''}<br>({$modefinancing->loan_gob_fe|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->loan_pa|number_format:2:'.':''}<br>({$modefinancing->loan_rpa|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->loan_own_fund|number_format:2:'.':''}<br>({$modefinancing->loan_own_fund_fe|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->loan_others|number_format:2:'.':''}<br>({$modefinancing->loan_others_fe|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->loan_pa_source}</td>
+                    </tr>
+                    <tr> 
+                        <td>Grant</td>
+                        <td align="center">{$modefinancing->grant_gob|number_format:2:'.':''}<br>({$modefinancing->grant_gob_fe|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->grant_pa|number_format:2:'.':''}<br>({$modefinancing->grant_rpa|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->grant_own_fund|number_format:2:'.':''}<br>({$modefinancing->grant_own_fund_fe|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->grant_others|number_format:2:'.':''}<br>({$modefinancing->grant_others_fe|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->grant_pa_source}</td>
+                    </tr>
+                    <tr> 
+                        <td>Equity</td>
+                        <td align="center">{$modefinancing->equity_gob|number_format:2:'.':''}<br>({$modefinancing->equity_gob_fe|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->equity_pa|number_format:2:'.':''}<br>({$modefinancing->equity_pa_rpa|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->equity_own_fund|number_format:2:'.':''}<br>({$modefinancing->equity_own_fund_fe|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->equity_others|number_format:2:'.':''}<br>({$modefinancing->equity_others_fe|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->equity_pa_sources}</td>
+                    </tr>
+                    <tr> 
+                        <td>Others(Specify)</td>
+                        <td align="center">{$modefinancing->others_gob|number_format:2:'.':''}<br>({$modefinancing->others_gob_fe|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->others_pa|number_format:2:'.':''}<br>({$modefinancing->others_pa_rpa|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->others_own_fund|number_format:2:'.':''}<br>({$modefinancing->others_own_fund_fe|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->others_others|number_format:2:'.':''}<br>({$modefinancing->others_others_fe|number_format:2:'.':''})</td>
+                        <td align="center">{$modefinancing->others_pa_sources}</td>
+                    </tr>
+                    <tr>
+                        <td>Grand Total</td>
+                        <td align="center">
+                            {assign var=gob_total value=$modefinancing->loan_gob+$modefinancing->grant_gob+$modefinancing->equity_gob+$modefinancing->others_gob}
+                            {$gob_total|number_format:2:'.':''}<br>
+                            {assign var=gob_fe_total value=$modefinancing->loan_gob_fe+$modefinancing->grant_gob_fe+$modefinancing->equity_gob_fe+$modefinancing->others_gob_fe}
+                            {$gob_fe_total|number_format:2:'.':''}
+                        </td>
+                        <td align="center">
+                            {assign var=pa_total value=$modefinancing->loan_pa+$modefinancing->grant_pa+$modefinancing->equity_pa+$modefinancing->others_pa}
+                            {$gob_total|number_format:2:'.':''}<br>
+                            {assign var=rpa_total value=$modefinancing->loan_pa_rpa+$modefinancing->grant_pa_rpa+$modefinancing->equity_pa_rpa+$modefinancing->others_pa_rpa}
+                            {$rpa_total|number_format:2:'.':''}
+                        </td>
+                        <td align="center">
+                            {assign var=own_fund_total value=$modefinancing->loan_own_fund+$modefinancing->grant_own_fund+$modefinancing->equity_own_fund+$modefinancing->others_own_fund}
+                            {$gob_total|number_format:2:'.':''}<br>
+                            {assign var=own_fund_fe_total value=$modefinancing->loan_own_fund_fe+$modefinancing->grant_own_fund_fe+$modefinancing->equity_own_fund_fe+$modefinancing->others_own_fund_fe}
+                            {$gob_fe_total|number_format:2:'.':''}
+                        <td align="center">
+                            {assign var=others_total value=$modefinancing->loan_others+$modefinancing->grant_others+$modefinancing->equity_others+$modefinancing->others_others}
+                            {$gob_total|number_format:2:'.':''}<br>
+                            {assign var=others_fe_total value=$modefinancing->loan_others_fe+$modefinancing->grant_others_fe+$modefinancing->equity_others_fe+$modefinancing->others_others_fe}
+                            {$others_fe_total|number_format:2:'.':''}
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td width="5%" valign="top">6.2 </td>
+        <td style="padding-bottom: 5px;" valign="top" colspan="3">Year wise allocation of GOB, RPA and Own Fund according to DPP (Amount in Lakh Tk.)</td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <table width="100%" cellspacing="0" border="1">
+                <thead>
+                    <tr>
+                        <th>Financial Year</th>
+                        <th>GOB<br>(FE)</th>
+                        <th>Own Fund<br>(FE)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr> 
+                        <td align="center">1</td>
+                        <td align="center">2</td>
+                        <td align="center">3</td>
+                    </tr>
+                    {foreach from=$year_wise_gob_ownfund key=key item=item}
+                    <tr> 
+                            <td align="center">{$item->financial_year}</td>
+                            <td align="center">{$item->gob_total+$year_wise_gob_ownfundCon[$key]->gob_total|number_format:2:'.':''}<br>({$item->gob_fe_total+$year_wise_gob_ownfundCon[$key]->gob_fe_total|number_format:2:'.':''})</td>
+                            <td align="center">{$item->own_fund_total+$year_wise_gob_ownfundCon[$key]->own_fund_total|number_format:2:'.':''}<br>({$item->own_fund_fe_total+$year_wise_gob_ownfundCon[$key]->own_fund_fe_total|number_format:2:'.':''})</td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td width="5%" valign="top">7.0 </td>
+        <td style="padding-bottom: 5px;" valign="top" colspan="3">Location of the project: </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <table>
+                <tr>
+                    <td>Location of the project</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td width="5%" valign="top">8.0 </td>
+        <td style="padding-bottom: 5px;" valign="top" colspan="3">Location wise cost break-down to be attached as per Annexure - I</td>
+    </tr>
+    <tr>
+        <td width="5%" valign="top">9.0 </td>
+        <td style="padding-bottom: 5px;" valign="top" colspan="3">Component wise Estimated Cost Summary:</td>
+    </tr>
+</table>
+
+<table cellspacing="0" width="100%" style='font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12px;' border="1">
+    <thead>
+        <tr>
+            <th rowspan="2">Economic Code</th>
+            <th rowspan="2">Economic Sub-code</th>
+            <th rowspan="2">Component description</th>
+            <th rowspan="2">Unit</th>
+            <th rowspan="2">Qty</th>
+            <th rowspan="2">Total Cost<br>(7+8+9+<br>10+11+12)</th>
+            <th rowspan="2">GoB<br>(FE)</th>
+            <th colspan="3">Project Aid</th>
+            <th>Own Fund<br>(FE)</th>
+            <th>Other<br>(FE)</th>
+            <th>% of Total Project Cost</th>
+        </tr>
+        <tr>
+            <th colspan="2">RPA</th> 
+            <th>DPA</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>Through GoB</th>
+            <th>Special Account **</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        {foreach from=$component_list key=key item=item}
+            <tr>
+                <td colspan="12">{if $key eq "Revenue Component"}(a){else if $key eq "Capital Component"}(b){/if} {$key}<td>
+            </tr>
+            {foreach from=$item key=iKey item=vItem}
+            <tr>
+                <td>{$vItem->economic_code}</td>
+                <td>{$vItem->economic_subcode}</td>
+                <td>{$vItem->economic_subcode_name}</td>
+                <td>{if $vItem->unit}{$vItem->unit}{else}-{/if}</td>
+                <td>{$vItem->qty}</td>
+                <td>{$vItem->total_cost|number_format:2:'.':''}</td>
+                <td>{$vItem->gob|number_format:2:'.':''}<br>({$vItem->gob_fe|number_format:2:'.':''})</td>
+                <td>{$vItem->rpa_through_gob|number_format:2:'.':''}</td>
+                <td>{$vItem->rpa_special_account|number_format:2:'.':''}</td>
+                <td>{$vItem->dpa|number_format:2:'.':''}</td>
+                <td>{$vItem->own_fund|number_format:2:'.':''}<br>({$vItem->own_fund_fe|number_format:2:'.':''})</td>
+                <td>{$vItem->other|number_format:2:'.':''}<br>({$vItem->other_fe|number_format:2:'.':''})</td>
+                <td>{assign var="percentage_of_project" value=$vItem->total_cost/$basicInfo->total_cost*100}{$percentage_of_project|number_format:2:'.':''}%</td>
+            </tr>
+            {/foreach}
+            <tr>
+                <td colspan="4">Sub Total ({$key})</td>
+                <td>&nbsp;</td>
+                <td>{$comp_sub_total_list.$key->sub_total_total_cost|number_format:2:'.':''}</td>
+                <td>{$comp_sub_total_list.$key->sub_total_gob|number_format:2:'.':''}<br>({$comp_sub_total_list.$key->sub_total_gob_fe|number_format:2:'.':''})</td>
+                <td>{$comp_sub_total_list.$key->sub_total_rpa_through_gob|number_format:2:'.':''}</td>
+                <td>{$comp_sub_total_list.$key->sub_total_rpa_special_account|number_format:2:'.':''}</td>
+                <td>{$comp_sub_total_list.$key->sub_total_dpa|number_format:2:'.':''}</td>
+                <td>{$comp_sub_total_list.$key->sub_total_own_fund|number_format:2:'.':''}<br>({$comp_sub_total_list.$key->sub_total_own_fund_fe|number_format:2:'.':''})</td>
+                <td>{$comp_sub_total_list.$key->sub_total_other|number_format:2:'.':''}<br>({$comp_sub_total_list.$key->sub_total_other_fe|number_format:2:'.':''})</td>
+                <td>&nbsp;</td>
+            </tr>
+        {/foreach}
+    </tbody>
+    <tfoot>
+        {foreach from=$contingency_list key=conKey item=conItem}
+        <tr>
+            <td colspan="3">{if $conKey eq "Physical Contingency"}(c){else if $conKey eq "Price Contingency"}(d){/if} {$conItem->economic_subcode_name}</td>
+            <td>&nbsp;</td>
+            <td>{$conItem->qty}</td>
+            <td>{$conItem->total_cost}</td>
+            <td>{$conItem->gob}<br>({$conItem->gob_fe})</td>
+            <td>{$conItem->rpa_through_gob}</td>
+            <td>{$conItem->rpa_special_account}</td>
+            <td>{$conItem->dpa}</td>
+            <td>{$conItem->own_fund}<br>({$conItem->own_fund_fe})</td>
+            <td>{$conItem->other}<br>({$conItem->other_fe})</td>
+            <td>{assign var="con_percentage_of_project" value=$conItem->total_cost/$basicInfo->total_cost*100}{$con_percentage_of_project|number_format:2:'.':''}%</td>
+        </tr>
+        {/foreach}
+        <tr>
+            <td colspan="5">Grand Total (a+b+c+d)</td>
+            <td>{$basicInfo->total_cost|number_format:2:'.':''}</td>
+            <td>{$basicInfo->gob_cost|number_format:2:'.':''}<br>({$basicInfo->gob_fe_cost|number_format:2:'.':''})</td>
+            <td>{$basicInfo->pa_through_gob_cost|number_format:2:'.':''}</td>
+            <td>{$basicInfo->pa_spc_acnt_cost|number_format:2:'.':''}</td>
+            <td>{$basicInfo->pa_dpa_cost|number_format:2:'.':''}</td>
+            <td>{$basicInfo->own_fund_cost|number_format:2:'.':''}<br>({$basicInfo->own_fund_fe_cost|number_format:2:'.':''})</td>
+            <td>{$basicInfo->other_cost|number_format:2:'.':''}<br>({$basicInfo->other_fe_cost|number_format:2:'.':''})</td>
+            <td>&nbsp;</td>
+        </tr>
+    </tfoot>
+</table>
+
+<table cellspacing="0" width="100%" style='font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12px;' border="0">
+    <tr>
+        <td width="5%">10.0 </td>
+        <td colspan="3">Log Frame: </td>
+    </tr>
+    <tr>
+        <td width="5%">&nbsp;</td>
+        <td width="40%">Planned date for project completion </td>
+        <td width="1%">: </td>
+        <td width="54%">{$basicInfo->date_of_completion}</td>
+    </tr>
+    <tr>
+        <td width="5%">&nbsp;</td>
+        <td width="40%">Date of this summary preparation: </td>
+        <td width="1%">: </td>
+        <td width="54%">{$basicInfo->date_of_logframe_summary_preparation}</td>
+    </tr>
+</table>
+<table  cellspacing="0" width="100%" style='font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12px;' border="1">
+    <thead>
+        <tr>
+            <th width="8%"></th>
+            <th width="23%">Narrative Summary</th>
+            <th width="23%">Objectively Verifiable Indecators(OVI)</th>
+            <th width="23%">Means of Verifications(MOV)</th>
+            <th width="23%">Important Assumptions(IA)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr> 
+            <td width="8%" valign="top">Goal</td>
+            <td width="23%" valign="top">{$logframe->goal_summary}</td>
+            <td width="23%" valign="top">{$logframe->goal_ovi}</td>
+            <td width="23%" valign="top">{$logframe->goal_mov}</td>
+            <td width="23%" valign="top">&nbsp;</td>
+        </tr>
+        <tr> 
+            <td width="8%" valign="top">Objective/<br>Purpose</td>
+            <td width="23%" valign="top">{$logframe->objective_summary}</td>
+            <td width="23%" valign="top">{$logframe->objective_ovi}</td>
+            <td width="23%" valign="top">{$logframe->objective_mov}</td>
+            <td width="23%" valign="top">{$logframe->objective_ai}</td>
+        </tr>
+        <tr> 
+            <td width="8%" valign="top">Output</td>
+            <td width="23%" valign="top">{$logframe->output_summary}</td>
+            <td width="23%" valign="top">{$logframe->output_ovi}</td>
+            <td width="23%" valign="top">{$logframe->output_mov}</td>
+            <td width="23%" valign="top">{$logframe->output_ai}</td>
+        </tr>
+        <tr> 
+            <td width="8%" valign="top">Input</td>
+            <td width="23%" valign="top">{$logframe->input_summary}</td>
+            <td width="23%" valign="top">{$logframe->input_ovi}</td>
+            <td width="23%" valign="top">{$logframe->input_mov}</td>
+            <td width="23%" valign="top">{$logframe->input_ai}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table cellspacing="0" width="100%" style='font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12px;' border="0">
+    <tr>
+        <td width="5%">11.0 </td>
+        <td colspan="3">Project Management</td>
+    </tr>
+    <tr>
+        <td width="5%">&nbsp;</td>
+        <td width="40%">11.1 Project Management Setup</td>
+        <td width="1%">: </td>
+        <td width="54%">Annexure-II</td>
+    </tr>
+    <tr>
+        <td width="5%">&nbsp;</td>
+        <td width="40%" valign="top">11.2 Implementation Arrangement </td>
+        <td width="1%" valign="top">: </td>
+        <td width="54%" valign="top">{$basicInfo->implementation_arrangement}</td>
+    </tr>
+    <tr>
+        <td width="5%">&nbsp;</td>
+        <td width="40%">11.3 Attach Procurement Plan </td>
+        <td width="1%">: </td>
+        <td width="54%">Annexure-III(A) , Annexure III(B), Annexure III(C)</td>
+    </tr>
+    <tr>
+        <td width="5%">12.0 </td>
+        <td width="40%">Year wise financial and physical target plan</td>
+        <td width="1%">: </td>
+        <td width="54%">Annexure-IV</td>
+    </tr>
+    <tr>
+        <td width="5%" valign="top">13.0 </td>
+        <td width="40%" valign="top">After completion, whether the project needs to be transferred to revenue budget</td>
+        <td width="1%" valign="top">: </td>
+        <td width="54%" valign="top">{$basicInfo->after_completion}</td>
+    </tr>
+</table>
