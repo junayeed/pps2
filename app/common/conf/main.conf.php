@@ -52,14 +52,14 @@
    */
    define('E_NONE', 0);
    error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 
 
    if (PRODUCTION_MODE)
       error_reporting(E_ALL ^ E_NOTICE);
    else
-     //error_reporting(E_NONE);
-     error_reporting(E_ALL ^ E_NOTICE);
+     error_reporting(E_NONE);
+     //error_reporting(E_ALL ^ E_NOTICE);
    /**
    * Setup server information constants
    */
