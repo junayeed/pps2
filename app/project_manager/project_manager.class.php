@@ -375,6 +375,7 @@ class projectManagerApp extends DefaultApplication
     function showProjectPartB()
     {
         $pid          = base64_decode(getUserField('PI'));
+        $report_type  = getUserField('report_type');
         $project      = new Project($pid);  
         $data         = $project;
         $data->PI     = getUserField('PI'); 
@@ -383,12 +384,35 @@ class projectManagerApp extends DefaultApplication
         $data->major_items  = $project->loadMajorItems();
         //dumpVar($data->major_items);
         
+        if($report_type)
+        {
+            $this->partBExportTo($pid, $report_type, $data);
+        }
+        
         return createPage(PROJECT_PART_B_TEMPLATE, $data);
+    }
+    
+    function partBExportTo($pid, $report_type, $data)  //ajaj
+    {
+        //dumpVar($data);
+        //dumpVar($data->basicInfo->adp_sub_sector);
+        //dumpVar($data->adpSectorList[$data->basicInfo->adp_sub_sector]); 
+        //die;
+        if ($report_type == 'pdf')
+        {
+            $screen = createPage(PART_B_PDF_TEMPLATE, $data);
+            makePartBPDF($screen);
+        }
+        if ($report_type == 'word')
+        {
+            makePartBDoc($data);
+        }
     }
    
     function showProjectLocation()
     {
-        $PI              = getUserField('PI');    
+        $PI              = getUserField('PI'); 
+        $report_type     = getUserField('report_type');
         $pid             = base64_decode($PI);
         $project         = new Project($pid);
         
@@ -399,6 +423,16 @@ class projectManagerApp extends DefaultApplication
         //dumpVar($data);
         
         $data->location_body = makeLocationView($data->location); 
+        
+        if ($report_type == 'pdf')
+        {
+            $screen = createPage(PART_B_PDF_TEMPLATE, $data);
+            makePartBPDF($screen);
+        }
+        if ($report_type == 'word')
+        {
+            makeAnnexIDoc($data);
+        }
        
         return createPage(PROJECT_ANNEX_I_LOCATION_TEMPLATE, $data);
     }

@@ -2,7 +2,6 @@
 
     function makeLocationView($data)
     {
-        
         foreach($data as $value)
         {
             if($value->location_type =='Division') $division[] = $value;
@@ -806,71 +805,71 @@
         
         $section->addTextBreak(1);
         
-        $contentTableStyle    = array('borderSize' => 1, 'borderColor' => '006699', 'cellMargin' => 80, array('spaceAfter' => 0));
+        $contentTableStyle    = array('borderSize' => 0, 'borderColor' => '006699', 'cellMargin' => 80, array('spaceAfter' => 0));
         $PHPWord->addTableStyle('contentTableStyle', $contentTableStyle);
         
         // Define font style for first row
         $fontStyle = array('size' => 10);
+        $pStyle    = array('spaceBefore' => 0, 'spaceAfter' => 0, 'spacing' => 0);
         //1.0
         $contentTable = $section->addTable('contentTableStyle');  // assign the table style
         $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('1.0 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Project Name', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
-        $contentTable->addCell(8000)->addText($data->basicInfo->project_title_en, $fontStyle);
+        $contentTable->addCell(700)->addText('1.0 ', $fontStyle, $pStyle);
+        $contentTable->addCell(4000)->addText('Project Name', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(8000)->addText($data->basicInfo->project_title_en, $fontStyle, $pStyle);
         //2/1
         $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('2.1 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Sponsoring Ministry/Division', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(700)->addText('2.1 ', $fontStyle, $pStyle);
+        $contentTable->addCell(4000)->addText('Sponsoring Ministry/Division', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
         
         foreach($data->basicInfo->ministries AS $value)
         {
             $ministryContent .= $value->name . "\n";
         }
-        $contentTable->addCell(8000)->addText($ministryContent, $fontStyle);
+        $contentTable->addCell(8000)->addText($ministryContent, $fontStyle, $pStyle);
         //2.2
         $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('2.2 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Implementing Agency (ies)', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(700)->addText('2.2 ', $fontStyle, $pStyle);
+        $contentTable->addCell(4000)->addText('Implementing Agency (ies)', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
         
         foreach($data->basicInfo->agencies AS $value)
         {
             $agencyContent .= $value->name . "\n";
         }
-        $contentTable->addCell(8000)->addText($agencyContent, $fontStyle);
+        $contentTable->addCell(8000)->addText($agencyContent, $fontStyle, $pStyle);
         //2.3 
         $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('2.3 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Concerned Sector/Sub-sector of ADP', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
-        $contentTable->addCell(8000)->addText($data->adpSectorList[$data->basicInfo->adp_sector] . '/' . $data->adpSubSectorList[$data->basicInfo->adp_sub_sector], $fontStyle);
+        $contentTable->addCell(700)->addText('2.3 ', $fontStyle, $pStyle);
+        $contentTable->addCell(4000)->addText('Concerned Sector/Sub-sector of ADP', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(8000)->addText($data->adpSectorList[$data->basicInfo->adp_sector] . '/' . $data->adpSubSectorList[$data->basicInfo->adp_sub_sector], $fontStyle, $pStyle);
         //2.4 
         $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('2.4 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Concerned Division of Planning Commission', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
-        $contentTable->addCell(8000)->addText($data->sectorDivisionList[$data->basicInfo->sector_division], $fontStyle);
+        $contentTable->addCell(700)->addText('2.4 ', $fontStyle, $pStyle);
+        $contentTable->addCell(4000)->addText('Concerned Division of Planning Commission', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(8000)->addText($data->sectorDivisionList[$data->basicInfo->sector_division], $fontStyle, $pStyle);
         //3.0 
         $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('3.0 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Objectives and targets of the project (Please specify in quantity and/or in percentage and write in bullet form)', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
-        $contentTable->addCell(8000)->addText($data->basicInfo->objectives, $fontStyle);
+        $contentTable->addCell(700)->addText('3.0 ', $fontStyle, $pStyle);
+        $contentTable->addCell(4000)->addText('Objectives and targets of the project (Please specify in quantity and/or in percentage and write in bullet form)', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(8000)->addText($data->basicInfo->objectives, $fontStyle, $pStyle);
         //4.0 
         $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('4.0 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Project implementation period', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(700)->addText('4.0 ', $fontStyle, $pStyle);
+        $contentTable->addCell(4000)->addText('Project implementation period', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
         $contentTable->addCell(8000)->addText('i) Date of commencement: ' . $data->basicInfo->date_of_commencement . "\n" . 
-                                              'ii) Date of completion: ' . $data->basicInfo->date_of_completion, $fontStyle);
+                                              'ii) Date of completion: ' . $data->basicInfo->date_of_completion, $fontStyle, $pStyle);
         //5.1 
-        setlocale(LC_MONETARY, 'en_US');
         $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('5.1 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Estimated Cost of the project (in Lakh Taka)', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
+        $contentTable->addCell(700)->addText('5.1 ', $fontStyle, $pStyle);
+        $contentTable->addCell(4000)->addText('Estimated Cost of the project (in Lakh Taka)', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
         $totalPA  = $data->basicInfo->pa_through_gob_cost+$data->basicInfo->pa_spc_acnt_cost+$data->basicInfo->pa_dpa_cost;
         $totalRPA = $data->basicInfo->pa_through_gob_cost+$data->basicInfo->pa_spc_acnt_cost;
         
@@ -879,62 +878,306 @@
                                               'PA (RPA): ' . number_format($totalPA, 2, '.', ',') . '(' . number_format($totalRPA, 2, '.', ',') . ')' . "\n" . 
                                               'Own Fund (FE): ' . number_format($data->basicInfo->own_fund_cost, 2, '.', ',') . '(' . number_format($data->basicInfo->own_fund_fe_cost, 2, '.', ',') . ')' . "\n" . 
                                               'Others (FE): ' . number_format($data->basicInfo->other_cost, 2, '.', ',') . '(' . number_format($data->basicInfo->other_fe_cost, 2, '.', ',') . ')'  
-                                              , $fontStyle);
+                                              , $fontStyle, $pStyle);
         
         //5.2 
         $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('5.2 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Exchange rate(s) with date (Source Bangladesh Bank)', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
-        $contentTable->addCell(8000)->addText($data->basicInfo->exchange_rate, $fontStyle);
+        $contentTable->addCell(700)->addText('5.2 ', $fontStyle, $pStyle);
+        $contentTable->addCell(4000)->addText('Exchange rate(s) with date (Source Bangladesh Bank)', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(8000)->addText($data->basicInfo->exchange_rate, $fontStyle, $pStyle);
         
+        $section->addPageBreak();
+        $pCenterStyle    = array('align' => center, 'spaceBefore' => 0, 'spaceAfter' => 0, 'spacing' => 0);  // paragraph style with center alignment
         //6.0 
-        $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('6.0 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Mode of financing', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
-        $contentTable->addCell(8000)->addText();
+        $modeOfFinanceTable = $section->addTable('contentTableStyle');
+        $modeOfFinanceTable->addRow(0);
+        $modeOfFinanceTable->addCell(700)->addText('6.0 ', $fontStyle, $pStyle);
+        $modeOfFinanceTable->addCell(4000)->addText('Mode of financing', $fontStyle, $pStyle);
         //6.1 
-        $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('6.1 ', $fontStyle);
-        $contentTable->addCell(10000, null, 4)->addText('Mode of financing with source (Amount in Lakh Tk.): ', $fontStyle);
+        $modeOfFinanceTable->addRow(0);
+        $modeOfFinanceTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $modeOfFinanceTable->addCell(10000)->addText('6.1 Mode of financing with source (Amount in Lakh Tk.): ', $fontStyle, $pStyle);
+        
+        $section->addTextBreak();
+        $modeOfFinanceDataTable = $section->addTable('contentTableStyle');
+        $modeOfFinanceDataTable->addRow();
+        $modeOfFinanceDataTable->addCell(4000)->addText('Mode\Source', $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText("GoB\n(FE)", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText("PA\n(RPA)", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText("Own Fund\n(FE)", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText("Others\n(FE)", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText("PA Sources", $fontStyle, $pCenterStyle);
+        
+        $modeOfFinanceDataTable->addRow();
+        $modeOfFinanceDataTable->addCell(4000)->addText('1', $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText("2", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText("3", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText("4", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText("5", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText("6", $fontStyle, $pCenterStyle);
+        
+        $modeOfFinanceDataTable->addRow();
+        $modeOfFinanceDataTable->addCell(4000)->addText('Loan/credit', $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->loan_gob, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->loan_gob_fe, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->loan_pa, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->loan_rpa, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->loan_own_fund, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->loan_own_fund_fe, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->loan_others, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->loan_others_fe, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText($data->basicInfo->modefinancing->loan_pa_source, $fontStyle, $pCenterStyle);
+        
+        $modeOfFinanceDataTable->addRow();
+        $modeOfFinanceDataTable->addCell(4000)->addText('Grant', $fontStyle, array('align' => center));
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->grant_gob, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->grant_gob_fe, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->grant_pa, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->grant_rpa, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->grant_own_fund, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->grant_own_fund_fe, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->grant_others, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->grant_others_fe, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText($data->basicInfo->modefinancing->grant_pa_source, $fontStyle, $pCenterStyle);
+
+        $modeOfFinanceDataTable->addRow();
+        $modeOfFinanceDataTable->addCell(4000)->addText('Equity', $fontStyle, array('align' => center));
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->equity_gob, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->equity_gob_fe, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->equity_pa, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->equity_rpa, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->equity_own_fund, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->equity_own_fund_fe, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->equity_others, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->equity_others_fe, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText($data->basicInfo->modefinancing->equity_pa_sources, $fontStyle, $pCenterStyle);
+        
+
+        $modeOfFinanceDataTable->addRow();
+        $modeOfFinanceDataTable->addCell(4000)->addText('Others', $fontStyle, array('align' => center));
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->others_gob, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->others_gob_fe, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->others_pa, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->others_rpa, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->others_own_fund, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->others_own_fund_fe, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($data->basicInfo->modefinancing->others_others, 2, '.', ',') . "\n(" . number_format($data->basicInfo->modefinancing->others_others_fe, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText($data->basicInfo->modefinancing->others_pa_sources, $fontStyle, $pCenterStyle);
+
+        $modeOfFinanceDataTable->addRow();
+        $gob_total         = $data->basicInfo->modefinancing->loan_gob+$data->basicInfo->modefinancing->grant_gob+$data->basicInfo->modefinancing->equity_gob+$data->basicInfo->modefinancing->others_gob;
+        $gob_fe_total      = $data->basicInfo->modefinancing->loan_gob_fe+$data->basicInfo->modefinancing->grant_gob_fe+$data->basicInfo->modefinancing->equity_gob_fe+$data->basicInfo->modefinancing->others_gob_fe;
+        $pa_total          = $data->basicInfo->modefinancing->loan_pa+$data->basicInfo->modefinancing->grant_pa+$data->basicInfo->modefinancing->equity_pa+$data->basicInfo->modefinancing->others_pa;
+        $rpa_total         = $data->basicInfo->modefinancing->loan_pa_rpa+$data->basicInfo->modefinancing->grant_pa_rpa+$data->basicInfo->modefinancing->equity_pa_rpa+$data->basicInfo->modefinancing->others_pa_rpa;
+        $own_fund_total    = $data->basicInfo->modefinancing->loan_own_fund+$data->basicInfo->modefinancing->grant_own_fund+$data->basicInfo->modefinancing->equity_own_fund+$data->basicInfo->modefinancing->others_own_fund;
+        $own_fund_fe_total = $data->basicInfo->modefinancing->loan_own_fund_fe+$data->basicInfo->modefinancing->grant_own_fund_fe+$data->basicInfo->modefinancing->equity_own_fund_fe+$data->basicInfo->modefinancing->others_own_fund_fe;
+        $others_total      = $data->basicInfo->modefinancing->loan_others+$data->basicInfo->modefinancing->grant_others+$data->basicInfo->modefinancing->equity_others+$data->basicInfo->modefinancing->others_others;
+        $others_fe_total   = $data->basicInfo->modefinancing->loan_others_fe+$data->basicInfo->modefinancing->grant_others_fe+$data->basicInfo->modefinancing->equity_others_fe+$data->basicInfo->modefinancing->others_others_fe;
+        
+        $modeOfFinanceDataTable->addCell(4000)->addText('Grand Total', $fontStyle, array('align' => right));
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($gob_total, 2, '.', ',') . "\n(" . number_format($gob_fe_total, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($pa_total, 2, '.', ',') . "\n(" . number_format($rpa_total, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($own_fund_total, 2, '.', ',') . "\n(" . number_format($own_fund_fe_total, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText(number_format($others_total, 2, '.', ',') . "\n(" . number_format($others_fe_total, 2, '.', ',') . ")", $fontStyle, $pCenterStyle);
+        $modeOfFinanceDataTable->addCell(4000)->addText('', $fontStyle, $pCenterStyle);
+        
+        $section->addTextBreak();
         //6.2 
-        $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('6.2 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Year wise allocation of GOB, RPA and Own Fund according to DPP (Amount in Lakh Tk.)', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
-        $contentTable->addCell(8000)->addText();
-        //7.0 
-        $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('7.0 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Location of the Project', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
-        $contentTable->addCell(8000)->addText();
+        $allocationTable = $section->addTable('contentTableStyle');
+        $allocationTable->addRow(0);
+        $allocationTable->addCell(700)->addText('6.2 ', $fontStyle, $pStyle);
+        $allocationTable->addCell(12000)->addText('Year wise allocation of GOB, RPA and Own Fund according to DPP (Amount in Lakh Tk.):', $fontStyle, $pStyle);
+        
+        $section->addTextBreak();
+        $allocationDataTable = $section->addTable('contentTableStyle');
+        $allocationDataTable->addRow();
+        $allocationDataTable->addCell(4000)->addText('Financial Year', array('bold' => true), $pCenterStyle);
+        $allocationDataTable->addCell(4000)->addText("GoB\n(FE)", array('bold' => true), $pCenterStyle);
+        $allocationDataTable->addCell(4000)->addText("Own Fund\n(FE)", array('bold' => true), $pCenterStyle);
+        $allocationDataTable->addRow();
+        $allocationDataTable->addCell(4000)->addText('1', array('bold' => true), $pCenterStyle);
+        $allocationDataTable->addCell(4000)->addText("2", array('bold' => true), $pCenterStyle);
+        $allocationDataTable->addCell(4000)->addText("3", array('bold' => true), $pCenterStyle);
+        
+        foreach ($data->year_wise_gob_ownfund as $key => $value) 
+        {
+            $allocationDataTable->addRow();
+            $gob_total         = $value->gob_total+$data->year_wise_gob_ownfundCon[$key]->gob_total;
+            $gob_fe_total      = $value->gob_fe_total+$data->year_wise_gob_ownfundCon[$key]->gob_fe_total;
+            $own_fund_total    = $value->own_fund_total+$data->year_wise_gob_ownfundCon[$key]->own_fund_total;
+            $own_fund_fe_total = $value->own_fund_fe_total+$data->year_wise_gob_ownfundCon[$key]->own_fund_fe_total;
+            $allocationDataTable->addCell(4000)->addText($value->financial_year, null, $pCenterStyle);
+            $allocationDataTable->addCell(4000)->addText(number_format($gob_total,  2, '.', ',') . "\n(" . number_format($gob_fe_total,  2, '.', ',') . ")", null, $pCenterStyle);
+            $allocationDataTable->addCell(4000)->addText(number_format($own_fund_total,  2, '.', ',') . "\n(" . number_format($own_fund_fe_total,  2, '.', ',') . ")", null, $pCenterStyle);
+        }
+        
+        //7.0
+        $section->addTextBreak();
+        $locationTable = $section->addTable('contentTableStyle');
+        $locationTable->addRow(0);
+        $locationTable->addCell(700)->addText('7.0 ', $fontStyle, $pStyle);
+        $locationTable->addCell(12000)->addText('Location of the Project', $fontStyle, $pStyle);
+        
+        $section->addTextBreak();
+        $locationDataTable = $section->addTable('contentTableStyle');
+        $locationDataTable->addRow();
+        $locationDataTable->addCell(4000)->addText('Division', array('bold' => true), $pCenterStyle);
+        $locationDataTable->addCell(4000)->addText('District', array('bold' => true), $pCenterStyle);
+        $locationDataTable->addCell(4000)->addText('Upzilla/City Coorporation', array('bold' => true), $pCenterStyle);
+        $locationDataTable->addRow();
+        $locationDataTable->addCell(4000)->addText('1', array('bold' => true), $pCenterStyle);
+        $locationDataTable->addCell(4000)->addText('2', array('bold' => true), $pCenterStyle);
+        $locationDataTable->addCell(4000)->addText('3', array('bold' => true), $pCenterStyle);
+        
+        foreach($data->basicInfo->locations as $key => $value)
+        {
+            $locationDataTable->addRow();
+            $locationDataTable->addCell(4000)->addText($value->division_name, null, $pCenterStyle);
+            $locationDataTable->addCell(4000)->addText($value->district_name, null, $pCenterStyle);
+            $locationDataTable->addCell(4000)->addText($value->upzila_name, null, $pCenterStyle);
+        }
         //8.0 
-        $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('8.0 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Location wise cost break-down to be attached as per Annexure - I', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
-        $contentTable->addCell(8000)->addText();
+        $section->addTextBreak();
+        $annexITable = $section->addTable('contentTableStyle');
+        $annexITable->addRow(0);
+        $annexITable->addCell(700)->addText('8.0 ', $fontStyle, $pStyle);
+        $annexITable->addCell(12000)->addText('Location wise cost break-down to be attached as per Annexure - I', null, $pStyle);
         //9.0 
-        $contentTable->addRow(0);
+        /*$contentTable->addRow(0);
         $contentTable->addCell(700)->addText('9.0 ', $fontStyle);
         $contentTable->addCell(4000)->addText('Component wise Estimated Cost Summary', $fontStyle);
         $contentTable->addCell(300)->addText(': ', $fontStyle);
-        $contentTable->addCell(8000)->addText();
+        $contentTable->addCell(8000)->addText();*/
         //10.0 
-        $contentTable->addRow(0);
-        $contentTable->addCell(700)->addText('10.0 ', $fontStyle);
-        $contentTable->addCell(4000)->addText('Log Frame', $fontStyle);
-        $contentTable->addCell(300)->addText(': ', $fontStyle);
-        $contentTable->addCell(8000)->addText('Planned date for project completion: ' . $data->basicInfo->date_of_completion . "\n" . 
-                                              'Date of this summary preparation: ' . $data->basicInfo->date_of_logframe_summary_preparation, $fontStyle);
+        $section->addTextBreak();
+        $logFrameTable = $section->addTable('contentTableStyle');
+        $logFrameTable->addRow(0);
+        $logFrameTable->addCell(700)->addText('10.0 ', $fontStyle, $pStyle);
+        $logFrameTable->addCell(12000)->addText('Log Frame: ', $fontStyle, $pStyle);
+        $logFrameTable->addRow(0);
+        $logFrameTable->addCell(700)->addText(' ', $fontStyle, $pStyle);
+        $logFrameTable->addCell(8000)->addText('Planned date for project completion: ' . $data->basicInfo->date_of_completion . "\n" . 
+                                               'Date of this summary preparation: ' . $data->basicInfo->date_of_logframe_summary_preparation, $fontStyle, $pStyle);
+        
+        $section->addTextBreak();
+        $logFrameDataTable = $section->addTable('contentTableStyle');
+        $logFrameDataTable->addRow();
+        $logFrameDataTable->addCell(2000)->addText('', array('bold' => true), $pStyle);
+        $logFrameDataTable->addCell(4500)->addText('Narrative Summary', array('bold' => true), $pCenterStyle);
+        $logFrameDataTable->addCell(4500)->addText("Objectively Verifiable\nIndecators (OVI)", array('bold' => true), $pCenterStyle);
+        $logFrameDataTable->addCell(4500)->addText("Means of Verifications (MOV)", array('bold' => true), $pCenterStyle);
+        $logFrameDataTable->addCell(4500)->addText("Important Assumptions(IA)", array('bold' => true), $pCenterStyle);
+        $logFrameDataTable->addRow();
+        $logFrameDataTable->addCell(2000)->addText('', array('bold' => true), $pStyle);
+        $logFrameDataTable->addCell(4500)->addText('1', array('bold' => true), $pCenterStyle);
+        $logFrameDataTable->addCell(4500)->addText('2', array('bold' => true), $pCenterStyle);
+        $logFrameDataTable->addCell(4500)->addText('3', array('bold' => true), $pCenterStyle);
+        $logFrameDataTable->addCell(4500)->addText('4', array('bold' => true), $pCenterStyle);
+        $logFrameDataTable->addRow();
+        $logFrameDataTable->addCell(2000)->addText('Goal', array('bold' => true), $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->goal_summary, $fontStyle, $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->goal_ovi, $fontStyle, $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->goal_mov, $fontStyle, $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->goal_ai, $fontStyle, $pStyle);
+        $logFrameDataTable->addRow();
+        $logFrameDataTable->addCell(2000)->addText("Objective/\nPurpose", array('bold' => true), $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->objective_summary, $fontStyle, $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->objective_ovi, $fontStyle, $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->objective_mov, $fontStyle, $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->objective_ai, $fontStyle, $pStyle);
+        $logFrameDataTable->addRow();
+        $logFrameDataTable->addCell(2000)->addText("Output", array('bold' => true), $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->output_summary, $fontStyle, $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->output_ovi, $fontStyle, $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->output_mov, $fontStyle, $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->output_ai, $fontStyle, $pStyle);
+        $logFrameDataTable->addRow();
+        $logFrameDataTable->addCell(2000)->addText("Input", array('bold' => true), $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->input_summary, $fontStyle, $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->input_ovi, $fontStyle, $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->input_mov, $fontStyle, $pStyle);
+        $logFrameDataTable->addCell(4500)->addText($data->logframe->input_ai, $fontStyle, $pStyle);
+        
+        //11.0
+        $section->addTextBreak();
+        $projectMgmtTable = $section->addTable('contentTableStyle');
+        $projectMgmtTable->addRow();
+        $projectMgmtTable->addCell(700)->addText('11.0', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(4000)->addText('Project Management', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(300)->addText(' ', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(8000)->addText(' ', $fontStyle, $pStyle);
+        $projectMgmtTable->addRow();
+        $projectMgmtTable->addCell(700)->addText(' ', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(4000)->addText('11.1 Project Management Setup', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(8000)->addText('Annexure-II', $fontStyle, $pStyle);
+        $projectMgmtTable->addRow();
+        $projectMgmtTable->addCell(700)->addText(' ', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(4000)->addText('11.2 Implementation Arrangement', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(8000)->addText($data->basicInfo->implementation_arrangement, $fontStyle, $pStyle);
+        $projectMgmtTable->addRow();
+        $projectMgmtTable->addCell(700)->addText(' ', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(4000)->addText('11.3 Attach Procurement Plan', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(8000)->addText('Annexure-III(A) , Annexure III(B), Annexure III(C)', $fontStyle, $pStyle);
+        $projectMgmtTable->addRow();
+        $projectMgmtTable->addCell(700)->addText('12.0', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(4000)->addText('Year wise financial and physical target plan', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(8000)->addText('Annexure-IV', $fontStyle, $pStyle);
+        $projectMgmtTable->addRow();
+        $projectMgmtTable->addCell(700)->addText('13.0', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(4000)->addText('After completion, whether the project needs to be transferred to revenue budget', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $projectMgmtTable->addCell(8000)->addText($data->basicInfo->after_completion, $fontStyle, $pStyle);
+        
         
         
         // Save File
         $objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
         
         $filename  = 'part_A.doc';
+        
+        header('Content-Disposition: attachment;filename="' . $filename. '"');
+        header('Content-Type: text/plain; charset=utf-8');
+        $objWriter->save($_SERVER['DOCUMENT_ROOT'].'/files/'.$filename);
+        header ('Location: /files/'.$filename);
+    }
+    
+    function makeAnnexIDoc($data)
+    {
+        // New Word Document
+        $PHPWord = new PHPWord();
+
+        // New portrait section
+        $section = $PHPWord->createSection(array('orientation'=>'portrait'));
+        $section->getSettings()->setMarginLeft(1000); 
+        $section->getSettings()->setMarginRight(600); 
+        
+        $styleTable    = array('borderSize' => 0, 'borderColor' => 'FFFFFF', 'cellMargin' => 80);
+        $pCenterStyle  = array('align' => center, 'spaceBefore' => 0, 'spaceAfter' => 0, 'spacing' => 0);  // paragraph style with center alignment
+        $contentTableStyle    = array('borderSize' => 1, 'borderColor' => '006699', 'cellMargin' => 80);
+        // Define font style for first row
+        $fontStyle = array('size' => 10);
+        $pStyle    = array('spaceBefore' => 0, 'spaceAfter' => 0, 'spacing' => 0);
+        
+        $PHPWord->addTableStyle('headerTableStyle', $styleTable);
+        
+        $headerTable = $section->addTable('headerTableStyle');  // assign the table style 
+        
+        $headerTable->addRow(0); // 0 = row height
+        $headerTable->addCell(16000, array('valign'=>'center'))->addText("Annexure - I", array('bold'=>true, 'size'=>13), array('align'=>'right'));
+        $headerTable->addRow(0);
+        $headerTable->addCell(16000, array('valign'=>'center'))->addText('Location wise cost breakdown', array('bold'=>true, 'size'=>11, 'underline'=>PHPWord_Style_Font::UNDERLINE_SINGLE), array('align'=>'center'));
+        
+        $section->addTextBreak(1);
+        $PHPWord->addTableStyle('contentTableStyle', $contentTableStyle);
+        $contentTable = $section->addTable('contentTableStyle');
+        
+        $contentTable->addRow();
+        $contentTable->addCell(3000)->addText('Division', $fontStyle, $pCenterStyle); //ajaj
+        $contentTable->addCell(3000)->addText('District', $fontStyle, $pCenterStyle);
+        $contentTable->addCell(3000)->addText('Upzila/City Coorporation', $fontStyle, $pCenterStyle);
+        $contentTable->addCell(3000)->addText("Estimated Cost\n(In Lakh Taka)", $fontStyle, $pCenterStyle);
+        $contentTable->addCell(3000)->addText("Comments", $fontStyle, $pCenterStyle);
+        $contentTable->addRow();
+        $contentTable->addCell(3000)->addText('1', array('bold' => true), $pCenterStyle);
+        $contentTable->addCell(3000)->addText('2', array('bold' => true), $pCenterStyle);
+        $contentTable->addCell(3000)->addText('3', array('bold' => true), $pCenterStyle);
+        $contentTable->addCell(3000)->addText("4", array('bold' => true), $pCenterStyle);
+        $contentTable->addCell(3000)->addText("5", array('bold' => true), $pCenterStyle);
+        
+        // Save File
+        $objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
+        
+        $filename  = 'annex_I.doc';
         
         header('Content-Disposition: attachment;filename="' . $filename. '"');
         header('Content-Type: text/plain; charset=utf-8');

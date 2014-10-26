@@ -47,9 +47,10 @@
 
 
 <form class="form-horizontal"> 
+    
     <div id="export_to_container">
         Export To: 
-        <select name="report_type" id="report_type" class="span6" onchange="createPartAReport('Services');">
+        <select name="report_type" id="report_type" class="span6" onchange="createPartAReport();">
             <option value=""></option>
             <option value="pdf">pdf</option>
             <option value="word">word</option>
@@ -57,16 +58,16 @@
     </div>
     
     <div class="control-group">
-        <label class="control-label" for="project_title_en">1.0 Project Title (English)</label>
-            <div class="controls">  
-                <label class="control-label">: <b>{$basicInfo->project_title_en}</b></label>
+        <label class="control-label span12" for="project_title_en">1.0 Project Title (English):</label>
+            <div class="controls span6">  
+                <b>{$basicInfo->project_title_en}</b>
             </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="project_title_bn">Project Title (Bangla)</label>
-            <div class="controls">
-                <label class="control-label">: {$basicInfo->project_title_bn}</label>
+        <label class="control-label span12" for="project_title_bn">Project Title (Bangla):</label>
+            <div class="controls span6">
+                {$basicInfo->project_title_bn}
             </div>
     </div>
 </form>    
@@ -691,9 +692,6 @@
 </div><!-- #main-content -->
 
 
-		
-
-
 		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only"></i>
 		</a>
@@ -1222,7 +1220,7 @@ function lockProject()
 
 
     
-google.maps.event.addDomListener(window, 'load', initialize);
+//google.maps.event.addDomListener(window, 'load', initialize);
 
 
 {/literal}

@@ -803,7 +803,23 @@ function deleteYear()
                 dataType: 'json',
                 success: function(responseText)
                 {
-                    
+                    alert(responseText)
+                     $('#total_cost_breakdown_container_'+year).remove();
+    
+                    // decrease the year count value 
+
+                    YEAR_COUNT--;
+
+                    // decrease col counter value
+                    COL_NUMBER -= 7;
+
+                    $('#total_year_in_annexv').val(year-1);
+                    calculateAll();
+
+                    // adjust the delete sign
+                    deleteYearIconAdjustment(); 
+                    //return ;
+                    location.href = loc_href;
                    
                 }    
             }
@@ -811,21 +827,9 @@ function deleteYear()
             
             
         // remove the div
-        $('#total_cost_breakdown_container_'+year).remove();
-    
-        // decrease the year count value 
+       
         
-        YEAR_COUNT--;
         
-        // decrease col counter value
-        COL_NUMBER -= 7;
-        
-        $('#total_year_in_annexv').val(year-1);
-        calculateAll();
-    
-        // adjust the delete sign
-        deleteYearIconAdjustment(); 
-        location.href = loc_href;
     }
     
     

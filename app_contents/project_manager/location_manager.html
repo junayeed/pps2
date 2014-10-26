@@ -51,10 +51,10 @@
                         
                         <div id="export_to_container">
                             Export To: 
-                            <select name="report_type" id="report_type" class="span6" onchange="createReport('Services');">
+                            <select name="report_type" id="report_type" class="span6" onchange="createAnnexIReport();">
                                 <option value=""></option>
-                                <option value="pdf">pdf</option>
-                                <option value="excel">excel</option>
+                                <!--<option value="pdf">pdf</option>-->
+                                <option value="word">word</option>
                                 <!--<option value="word">word</option>-->
                             </select>
                         </div>
@@ -87,10 +87,10 @@
                         
                         <div id="export_to_container">
                             Export To: 
-                            <select name="report_type" id="report_type" class="span6" onchange="createReport('Services');">
+                            <select name="report_type" id="report_type" class="span6" onchange="createAnnexIReport();">
                                 <option value=""></option>
-                                <option value="pdf">pdf</option>
-                                <option value="excel">excel</option>
+                                <!--<option value="pdf">pdf</option>-->
+                                <option value="word">word</option>
                                 <!--<option value="word">word</option>-->
                             </select>
                         </div>
@@ -143,45 +143,6 @@
     <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
                 
     <script>
-        //var ministry ="{$basicInfo->ministries}";
-        var ministries = [];
-        var agencies   = []; 
-        var partners   = []; 
-        var divisions  = [];
-        var districts  = []; 
-        var upzilas    = []; 
-                    
-        {foreach from=$basicInfo->ministries item=item key=key}
-            ministries.push({$item->ministry_id})
-        {/foreach}
-                        
-        {foreach from=$basicInfo->agencies item=item key=key}
-            agencies.push({$item->agency_id})
-        {/foreach}   
-                        
-        {foreach from=$basicInfo->partners item=item key=key}
-            partners.push({$item->dev_partner_id})
-        {/foreach}   
-                    
-        {foreach from=$basicInfo->locations item=item key=key}
-            {if $item->location_type eq 'Division'}
-                divisions.push({$item->location_id})
-            {elseif $item->location_type eq 'District'} 
-                districts.push({$item->location_id})
-            {else}
-                upzilas.push({$item->location_id})
-            {/if}
-        {/foreach}   
-                    
-                    
-        $(".ministries").val(ministries);
-        $(".agencies").val(agencies);
-        $(".partners").val(partners);
-
-        $(".divisions").val(divisions);
-        $(".districts").val(districts);
-        $(".upzilas").val(upzilas);
-        
         $(".alert-block").delay(6000).fadeOut(1000);
         
         {if $basicInfo->current_holder eq $smarty.session.uid}
