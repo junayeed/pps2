@@ -283,18 +283,28 @@
             $info['data']  = $data;
             if( !$data['contingency_id'] )
             {    
-               insert($info);
+               $result = insert($info);
+               
+               for($year=1; $year<=$data['total_year']; $year++)
+               {
+                   updateAnnexVContingencyDetails($contingency[$i].'_contigency_', $result['newid'], $year);
+               }
             }
             else
             {
                $info['where'] = "id = ".$data['contingency_id'] .' AND pid='.$data['pid']; 
                update($info); 
+               
+               for($year=1; $year<=$data['total_year']; $year++)
+               {
+                   updateAnnexVContingencyDetails($contingency[$i].'_contigency_', $data['contingency_id'], $year);
+               }
             }    
         } 
-        updateAnnexVContingencyDetails();
+        //updateAnnexVContingencyDetails();
     }
     
-    function updateAnnexVContingencyDetails()
+    function updateAnnexVContingencyDetails($con_type, $contingency_id, $year)
     {
         $total_year    = $_REQUEST['total_year_in_annexv'];
         
@@ -303,25 +313,26 @@
         $info['debug'] = false;
         $data['pid']   = base64_decode(getUserField('PI'));
         
-        for($i=0; $i<2; $i++)
-        {
-            for($year=1; $year<=$total_year; $year++)
-            {
-                $data['gob']                   = $_REQUEST[$contingency[$i].'gob_' . $year]                  ? $_REQUEST[$contingency[$i].'gob_' . $year]                 : 0.0;
-                $data['gob_fe']                = $_REQUEST[$contingency[$i].'gob_fe_' . $year]               ? $_REQUEST[$contingency[$i].'gob_fe_' . $year]              : 0.0;
-                $data['rpa_through_gob']       = $_REQUEST[$contingency[$i].'pa_through_gob_' . $year]      ? $_REQUEST[$contingency[$i].'pa_through_gob_' . $year]     : 0.0;
-                $data['rpa_special_account']   = $_REQUEST[$contingency[$i].'pa_sp_acnt_'. $year]   ? $_REQUEST[$contingency[$i].'pa_sp_acnt_'. $year] : 0.0;
-                $data['dpa']                   = $_REQUEST[$contingency[$i].'pa_dpa_' . $year]                  ? $_REQUEST[$contingency[$i].'pa_dpa_' . $year]                 : 0.0;
-                $data['own_fund']              = $_REQUEST[$contingency[$i].'own_fund_' . $year]             ? $_REQUEST[$contingency[$i].'own_fund_' . $year]            : 0.0;
-                $data['own_fund_fe']           = $_REQUEST[$contingency[$i].'own_fund_fe_' . $year]          ? $_REQUEST[$contingency[$i].'own_fund_fe_' . $year]         : 0.0;
-                $data['other']                 = $_REQUEST[$contingency[$i].'other_' . $year]                ? $_REQUEST[$contingency[$i].'other_' . $year]               : 0.0;
-                $data['other_fe']              = $_REQUEST[$contingency[$i].'other_fe_' . $year]             ? $_REQUEST[$contingency[$i].'other_fe_' . $year]            : 0.0;
-                $data['total']                 = $_REQUEST[$contingency[$i].'total_' . $year]                ? $_REQUEST[$contingency[$i].'total_' . $year]               : 0.0;
-                $data['con_details_id']        = $_REQUEST[$contingency[$i].'details_id_' . $year];
-                $data['financial_year']        = $_REQUEST[$contingency[$i].'financial_year_' . $year];
-                $data['con_details_id']        = $_REQUEST[$contingency[$i].'con_id_' . $year];
+        //for($i=0; $i<2; $i++)
+        //{
+            //for($year=1; $year<=$total_year; $year++)
+            //{
+                $data['gob']                   = $_REQUEST[$con_type.'gob_' . $year]                  ? $_REQUEST[$con_type.'gob_' . $year]                 : 0.0;
+                $data['gob_fe']                = $_REQUEST[$con_type.'gob_fe_' . $year]               ? $_REQUEST[$con_type.'gob_fe_' . $year]              : 0.0;
+                $data['rpa_through_gob']       = $_REQUEST[$con_type.'pa_through_gob_' . $year]       ? $_REQUEST[$con_type.'pa_through_gob_' . $year]     : 0.0;
+                $data['rpa_special_account']   = $_REQUEST[$con_type.'pa_sp_acnt_'. $year]            ? $_REQUEST[$con_type.'pa_sp_acnt_'. $year] : 0.0;
+                $data['dpa']                   = $_REQUEST[$con_type.'pa_dpa_' . $year]               ? $_REQUEST[$con_type.'pa_dpa_' . $year]                 : 0.0;
+                $data['own_fund']              = $_REQUEST[$con_type.'own_fund_' . $year]             ? $_REQUEST[$con_type.'own_fund_' . $year]            : 0.0;
+                $data['own_fund_fe']           = $_REQUEST[$con_type.'own_fund_fe_' . $year]          ? $_REQUEST[$con_type.'own_fund_fe_' . $year]         : 0.0;
+                $data['other']                 = $_REQUEST[$con_type.'other_' . $year]                ? $_REQUEST[$con_type.'other_' . $year]               : 0.0;
+                $data['other_fe']              = $_REQUEST[$con_type.'other_fe_' . $year]             ? $_REQUEST[$con_type.'other_fe_' . $year]            : 0.0;
+                $data['total']                 = $_REQUEST[$con_type.'total_' . $year]                ? $_REQUEST[$con_type.'total_' . $year]               : 0.0;
+                $data['con_details_id']        = $_REQUEST[$con_type.'details_id_' . $year];
+                $data['financial_year']        = $_REQUEST[$con_type.'financial_year_' . $year];
+                $data['con_details_id']        = $_REQUEST[$con_type.'con_id_' . $year];
+                $data['contingency_id']        = $contingency_id;
                 $data['year_serial']           = $year;
-                $data['type']                  = $i==0 ? 'Physical' : 'Price';
+                $data['type']                  = $con_type == 'physical_contigency_' ? 'Physical' : 'Price';
 
                 $info['data']  = $data; 
 
@@ -334,8 +345,8 @@
                     $info['where']  = 'id = ' . $data['con_details_id'] . ' AND pid = ' . $data['pid'];
                     update($info);
                 }
-            }
-        }
+           // }
+        //}
     }
     
     function getProcurementPlanList($pid, $procurement_category)

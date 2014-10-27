@@ -164,7 +164,6 @@ function populateAnnexContingencyDetails(gob, gob_fe, rpa_through_gob, rpa_speci
                                          other_fe, year, con_details_id, financial_year, i, total,type)
 {
     var contingency_type = type.toLowerCase();
-    
     $('#'+contingency_type+'_contigency_gob_'+year).val((gob*1).toMoney(2));
     $('#'+contingency_type+'_contigency_gob_fe_'+year).val((gob_fe*1).toMoney(2));
     $('#'+contingency_type+'_contigency_pa_through_gob_'+year).val((rpa_through_gob*1).toMoney(2));
@@ -803,11 +802,10 @@ function deleteYear()
                 dataType: 'json',
                 success: function(responseText)
                 {
-                    alert(responseText)
-                     $('#total_cost_breakdown_container_'+year).remove();
+                    // remove the div
+                    $('#total_cost_breakdown_container_'+year).remove();
     
                     // decrease the year count value 
-
                     YEAR_COUNT--;
 
                     // decrease col counter value
@@ -824,16 +822,7 @@ function deleteYear()
                 }    
             }
         );
-            
-            
-        // remove the div
-       
-        
-        
     }
-    
-    
-    
 }
 
 function calculateAll()

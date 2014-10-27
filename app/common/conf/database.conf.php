@@ -90,6 +90,8 @@
   define('PROJECT_ANNEX_V_CON_DETAILS_TBL',  DB_NAME . '.annexure_v_contingency_details');
   define('PROJECT_MAJOR_ITEM_TBL',           DB_NAME . '.project_major_items');
   define('PROJECT_MAJOR_ITEM_COM_COST_TBL',  DB_NAME . '.project_major_items_comparative_cost');
+  define('PROJECT_ANNEX_VI_TBL',             DB_NAME . '.annexure_vi');
+  define('PROJECT_ANNEX_VI_DETAILS_TBL',     DB_NAME . '.annexure_vi_details');
  
   //TPP
   define('TPP_COST_FINANCING_TBL',           DB_NAME . '.tpp_cost_financing');

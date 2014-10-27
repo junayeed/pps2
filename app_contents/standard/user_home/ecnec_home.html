@@ -1,0 +1,74 @@
+<html>
+<head>
+		<meta charset="utf-8" />
+		<title>Digital ECNEC</title>
+		<meta name="description" content="overview & stats" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- basic styles -->
+		<link href="/app_contents/standard/template/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="/app_contents/standard/template/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
+
+		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/font-awesome.min.css" />
+		<!--[if IE 7]>
+		  <link rel="stylesheet" href="/app_contents/standard/template/assets/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+
+
+		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/ace.min.css" />
+		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/ace-responsive.min.css" />
+		<link rel="stylesheet" href="/app_contents/standard/template/assets/css/ace-skins.min.css" />
+		<!--[if lt IE 9]>
+		  <link rel="stylesheet" href="/app_contents/standard/template/assets/css/ace-ie.min.css" />
+		<![endif]-->
+                
+                
+
+</head>
+<body>
+       
+        
+        {include file=$USER_HEADER}
+        
+         <div class="container-fluid" id="main-container">
+			<a href="#" id="menu-toggler"><span></span></a><!-- menu toggler -->
+
+			<div id="sidebar">
+				
+				<div id="sidebar-shortcuts">
+					<div id="sidebar-shortcuts-large">
+						<button class="btn btn-small btn-success"><i class="icon-signal"></i></button>
+						<button class="btn btn-small btn-info"><i class="icon-pencil"></i></button>
+						<button class="btn btn-small btn-warning"><i class="icon-group"></i></button>
+						<button class="btn btn-small btn-danger"><i class="icon-cogs"></i></button>
+					</div>
+					<div id="sidebar-shortcuts-mini">
+						<span class="btn btn-success"></span>
+						<span class="btn btn-info"></span>
+						<span class="btn btn-warning"></span>
+						<span class="btn btn-danger"></span>
+					</div>
+				</div><!-- #sidebar-shortcuts -->
+         	
+         	   
+         	                {include file=$USER_NAVIGATION}
+                                <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
+
+
+			</div><!--/#sidebar-->         	   
+         	        
+                        {$contents}
+                        
+                        <div class="footer">
+                                <div class="container">
+                                        <p>Copyright &copy; 2014, IDE Project. All Rights Reserved.</p>
+                                </div>
+                        </div>
+                        
+         	   
+        </div> 
+        
+        <!-- end footert -->
+        <!-- basic scripts -->
+</body>

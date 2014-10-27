@@ -453,11 +453,16 @@
         {
             $filterClause .= " AND P.sector_division =$commission_id";
         }
+        elseif($user_type=='ECNEC')
+        {
+            $filterClause .= " AND P.status = 'Forward to ECNEC'";
+        }    
 
         $info['table']  = PROJECT_TBL.' AS P LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VP ON(P.id=VP.pid)'.
-                         ' LEFT JOIN '.AGENCY_LOOKUP_TBL.' AS ALT ON(P.agency_id=ALT.id)';
+                         ' LEFT JOIN '.AGENCY_LOOKUP_TBL.' AS ALT ON(P.agency_id=ALT.id) LEFT JOIN '.MINISTRY_LOOKUP_TBL. 
+                         ' AS MLT ON(P.ministry_id=MLT.id)';
         $info['debug']  = false;
-        $info['fields'] = array('P.*','VP.*','ALT.name as agency_name');
+        $info['fields'] = array('P.*','VP.*','ALT.name as agency_name','MLT.name as ministy_name');
         $info['where']  = $filterClause .' Order By P.create_date DESC';
 
         $result = select($info);
