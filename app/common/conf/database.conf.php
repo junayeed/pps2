@@ -92,6 +92,7 @@
   define('PROJECT_MAJOR_ITEM_COM_COST_TBL',  DB_NAME . '.project_major_items_comparative_cost');
   define('PROJECT_ANNEX_VI_TBL',             DB_NAME . '.annexure_vi');
   define('PROJECT_ANNEX_VI_DETAILS_TBL',     DB_NAME . '.annexure_vi_details');
+  define('PROJECT_COMMISSION_STATUS_TBL',    DB_NAME . '.project_commission_status');
  
   //TPP
   define('TPP_COST_FINANCING_TBL',           DB_NAME . '.tpp_cost_financing');

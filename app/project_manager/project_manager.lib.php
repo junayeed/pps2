@@ -36,12 +36,121 @@
         }
         
         return $body;
-    }    
+    }  
+    
+    function makeAnnexIDoc($data)
+    {
+        // New Word Document
+        $PHPWord = new PHPWord();
+
+        // New portrait section
+        $section = $PHPWord->createSection(array('orientation'=>'portrait'));
+        $section->getSettings()->setMarginLeft(1000); 
+        $section->getSettings()->setMarginRight(600); 
+        
+        $styleTable    = array('borderSize' => 0, 'borderColor' => 'FFFFFF', 'cellMargin' => 80);
+        $pCenterStyle  = array('align' => center, 'spaceBefore' => 0, 'spaceAfter' => 0, 'spacing' => 0);  // paragraph style with center alignment
+        $contentTableStyle    = array('borderSize' => 1, 'borderColor' => '006699', 'cellMargin' => 80);
+        // Define font style for first row
+        $fontStyle = array('size' => 10);
+        $pStyle    = array('spaceBefore' => 0, 'spaceAfter' => 0, 'spacing' => 0);
+        
+        $PHPWord->addTableStyle('headerTableStyle', $styleTable);
+        
+        $headerTable = $section->addTable('headerTableStyle');  // assign the table style 
+        
+        $headerTable->addRow(0); // 0 = row height
+        $headerTable->addCell(16000, array('valign'=>'center'))->addText("Annexure - I", array('bold'=>true, 'size'=>13), array('align'=>'right'));
+        $headerTable->addRow(0);
+        $headerTable->addCell(16000, array('valign'=>'center'))->addText('Location wise cost breakdown', array('bold'=>true, 'size'=>11, 'underline'=>PHPWord_Style_Font::UNDERLINE_SINGLE), array('align'=>'center'));
+        
+        $section->addTextBreak(1);
+        $PHPWord->addTableStyle('contentTableStyle', $contentTableStyle);
+        $contentTable = $section->addTable('contentTableStyle');
+        
+        $contentTable->addRow();
+        $contentTable->addCell(300)->addText('Sl', $fontStyle, $pCenterStyle); //ajaj
+        $contentTable->addCell(3000)->addText('Division', $fontStyle, $pCenterStyle); //ajaj
+        $contentTable->addCell(3000)->addText('District', $fontStyle, $pCenterStyle);
+        $contentTable->addCell(3000)->addText('Upzila/City Coorporation', $fontStyle, $pCenterStyle);
+        $contentTable->addCell(3000)->addText("Estimated Cost\n(In Lakh Taka)", $fontStyle, $pCenterStyle);
+        $contentTable->addCell(3000)->addText("Comments", $fontStyle, $pCenterStyle);
+        $contentTable->addRow();
+        $contentTable->addCell(300)->addText('1', array('bold' => true), $pCenterStyle);
+        $contentTable->addCell(3000)->addText('2', array('bold' => true), $pCenterStyle);
+        $contentTable->addCell(3000)->addText('3', array('bold' => true), $pCenterStyle);
+        $contentTable->addCell(3000)->addText("4", array('bold' => true), $pCenterStyle);
+        $contentTable->addCell(3000)->addText("5", array('bold' => true), $pCenterStyle);
+        $contentTable->addCell(3000)->addText("6", array('bold' => true), $pCenterStyle);
+        
+        foreach($data->basicInfo->locations as $value)
+        {
+            if($value->location_type =='Division') $division[] = $value;
+            if($value->location_type =='District') $district[] = $value;
+            if($value->location_type =='Upzila')   $upzila[]   = $value;
+        }  
+
+        $count=1;
+        foreach($division as $thisDivision)
+        {
+            
+            $contentTable->addRow();
+            $contentTable->addCell(300)->addText($count, $fontStyle, $pCenterStyle);
+            $contentTable->addCell(3000)->addText($thisDivision->division_name, $fontStyle, $pCenterStyle);
+            $contentTable->addCell(3000)->addText('' , $fontStyle, $pCenterStyle);
+            $contentTable->addCell(3000)->addText('' , $fontStyle, $pCenterStyle);
+            $contentTable->addCell(3000)->addText($thisDivision->location_cost , $fontStyle, $pCenterStyle);
+            $contentTable->addCell(3000)->addText($thisDivision->location_comments , $fontStyle, $pCenterStyle);
+            //$body.="<tr><td>$count</td><td>$thisDivision->division_name</td><td>&nbsp;</td><td>&nbsp;</td><td><input type='text' name='cost_$thisDivision->id' value='$thisDivision->location_cost' class='span12' onkeypress='return isNumberKey(event);'></td><td><textarea name='comment_$thisDivision->id'>$thisDivision->location_comments</textarea></td></tr>";
+            $count++;
+            foreach($district as $thisDistrict)
+            {
+                if($thisDistrict->div_id == $thisDivision->location_id)
+                {   
+                    $contentTable->addRow();
+                    $contentTable->addCell(300)->addText($count, $fontStyle, $pCenterStyle);
+                    $contentTable->addCell(3000)->addText('', $fontStyle, $pCenterStyle);
+                    $contentTable->addCell(3000)->addText($thisDistrict->district_name , $fontStyle, $pCenterStyle);
+                    $contentTable->addCell(3000)->addText('' , $fontStyle, $pCenterStyle);
+                    $contentTable->addCell(3000)->addText($thisDistrict->location_cost , $fontStyle, $pCenterStyle);
+                    $contentTable->addCell(3000)->addText($thisDistrict->location_comments , $fontStyle, $pCenterStyle);
+                    
+                    //$body.="<tr><td>$count</td><td>&nbsp;</td><td>$thisDistrict->district_name</td><td>&nbsp;</td><td><input type='text' name='cost_$thisDistrict->id' value='$thisDivision->location_cost' class='span12' onkeypress='return isNumberKey(event);'></td><td><textarea name='comment_$thisDistrict->id'>$thisDistrict->location_comments</textarea></td></tr>";
+                    $count++;
+                    foreach($upzila as $thisUzila)
+                    {
+                        if($thisUzila->district_id == $thisDistrict->location_id)
+                        {
+                            $contentTable->addRow();
+                            $contentTable->addCell(300)->addText($count, $fontStyle, $pCenterStyle);
+                            $contentTable->addCell(3000)->addText('', $fontStyle, $pCenterStyle);
+                            $contentTable->addCell(3000)->addText('' , $fontStyle, $pCenterStyle);
+                            $contentTable->addCell(3000)->addText($thisUzila->upzila_name , $fontStyle, $pCenterStyle);
+                            $contentTable->addCell(3000)->addText($thisUzila->location_cost , $fontStyle, $pCenterStyle);
+                            $contentTable->addCell(3000)->addText($thisUzila->location_comments , $fontStyle, $pCenterStyle);
+                           //$body.="<tr><td>$count</td><td>&nbsp;</td><td>&nbsp;</td><td>$thisUzila->upzila_name</td><td><input type='text' name='cost_$thisUzila->id' value='$thisUzila->location_cost' class='span12' onkeypress='return isNumberKey(event);'></td><td><textarea name='comment_$thisUzila->id'>$thisUzila->location_comments</textarea></td></tr>";
+                           $count++;
+                        }
+                    }
+                }
+            }    
+        }
+        
+        // Save File
+        $objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
+        
+        $filename  = 'annex_I.doc';
+        
+        header('Content-Disposition: attachment;filename="' . $filename. '"');
+        header('Content-Type: text/plain; charset=utf-8');
+        $objWriter->save($_SERVER['DOCUMENT_ROOT'].'/files/'.$filename);
+        header ('Location: /files/'.$filename);
+    }
     
     function updateProjectManagement()
     {
         $info['table'] = PROJECT_MANAGEMENT_TBL;
-        $info['debug'] = true;
+        $info['debug'] = false;
         
         $data['pid']   = base64_decode(getUserField('PI'));
         
@@ -792,6 +901,122 @@
         header ('Location: /files/'.$filename);
     }
     
+    function makePartBDoc($data)
+    {
+        // New Word Document
+        $PHPWord = new PHPWord();
+        
+        // New portrait section
+        $section = $PHPWord->createSection(array('orientation'=>'portrait'));
+        $section->getSettings()->setMarginLeft(1000); 
+        $section->getSettings()->setMarginRight(600); 
+        
+        $styleTable    = array('borderSize' => 0, 'borderColor' => 'FFFFFF', 'cellMargin' => 80);
+        $styleFirstRow = array('borderBottomSize' => 1, 'borderBottomColor' => 'FFFFFF', 'bgColor' => 'F5F5F5');
+        
+        $PHPWord->addTableStyle('headerTableStyle', $styleTable);
+        
+        $headerTable = $section->addTable('headerTableStyle');  // assign the table style
+        
+        $headerTable->addRow(0); // 0 = row height
+        $headerTable->addCell(16000, array('valign'=>'center'))->addText("Part - B", array('bold'=>true, 'size'=>13, 'spaceAfter' => 0), array('align'=>'center'));
+        $headerTable->addRow(0);
+        $headerTable->addCell(16000, array('valign'=>'center'))->addText('Project Details', array('bold'=>true, 'size'=>11, 'underline'=>PHPWord_Style_Font::UNDERLINE_SINGLE), array('align'=>'center'));
+        
+        $contentTableStyle    = array('borderSize' => 0, 'borderColor' => '006969', 'cellMargin' => 80, array('spaceAfter' => 0));
+        $PHPWord->addTableStyle('contentTableStyle', $contentTableStyle);
+        
+        // Define font style for first row
+        $fontStyle = array('size' => 10);
+        $pStyle    = array('spaceBefore' => 0, 'spaceAfter' => 0, 'spacing' => 0);
+        //14.0
+        $contentTable = $section->addTable('contentTableStyle');  // assign the table style
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('14.0 ', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('Background Information', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText('', $fontStyle, $pStyle);
+        //14.1
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('14.1 Background with problem statement', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText($data->background_with_problem, $fontStyle, $pStyle);
+        //14.2
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('14.2 Linkages (to other projects, institutions)', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText($data->background_linkages, $fontStyle, $pStyle);
+        //14.3
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('14.3 Objectives', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText($data->background_objectaives, $fontStyle, $pStyle);
+        //14.4
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('14.4 Outcomes', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText($data->background_outcomes, $fontStyle, $pStyle);
+        //14.5
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('14.5 Outputs', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText($data->background_outputs, $fontStyle, $pStyle);
+        //14.6
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('14.6 Activities', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText($data->background_activities, $fontStyle, $pStyle);
+        //14.7
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('14.7 Sex disaggreagated data for target population and constraints faced by women ', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText($data->background_sex, $fontStyle, $pStyle);
+        //14.8s
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('14.8 Poverty Situation', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText($data->background_proverty, $fontStyle, $pStyle);
+        //15.0s
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('15.0', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('Whether any pre-apprisal/feasibility study/pre-investment study was done before formulation of the project? If so attach summary of findings ans recommendations. If not mention the causes.', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText($data->study, $fontStyle, $pStyle);
+        
+        
+        
+        $section->addTextBreak(3);
+        
+        $signatureStyle    = array('borderTopSize' => 1, 'borderTopColor' => '006699', 'cellMargin' => 80, array('spaceAfter' => 0));
+        $PHPWord->addTableStyle('signatureStyle', $signatureStyle);
+        
+        $signatureTable = $section->addTable('signatureStyle');
+        $signatureTable->addRow();
+        $signatureTable->addCell(10000)->addText("Signature of the Head\nof the Executing Agency with Seal and Date", array('bold'=>true), $pStyle);
+        $section->addTextBreak(3);
+        
+        $secSignatureTable = $section->addTable('signatureStyle');
+        $secSignatureTable->addRow();
+        $secSignatureTable->addCell(10000)->addText("Recommendation and signature of the Secretary\nof the sponsoring Ministry/Division with Seal and Date", array('bold'=>true), $pStyle);
+        // Save File
+        $objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
+        
+        $filename  = 'part_B.doc';
+        
+        header('Content-Disposition: attachment;filename="' . $filename. '"');
+        header('Content-Type: text/plain; charset=utf-8');
+        $objWriter->save($_SERVER['DOCUMENT_ROOT'].'/files/'.$filename);
+        header ('Location: /files/'.$filename);
+    }
+    
     function makePartADoc($data)
     {
         // New Word Document
@@ -802,7 +1027,7 @@
         $section->getSettings()->setMarginLeft(1000); 
         $section->getSettings()->setMarginRight(600); 
         
-        $styleTable    = array('borderSize' => 0, 'borderColor' => '006699', 'cellMargin' => 80);
+        $styleTable    = array('borderSize' => 0, 'borderColor' => 'FFFFFF', 'cellMargin' => 80);
         $styleFirstRow = array('borderBottomSize' => 1, 'borderBottomColor' => 'FFFFFF', 'bgColor' => 'F5F5F5');
         
         $PHPWord->addTableStyle('headerTableStyle', $styleTable);
@@ -816,7 +1041,7 @@
         
         $section->addTextBreak(1);
         
-        $contentTableStyle    = array('borderSize' => 0, 'borderColor' => '006699', 'cellMargin' => 80, array('spaceAfter' => 0));
+        $contentTableStyle    = array('borderSize' => 0, 'borderColor' => 'FFFFFF', 'cellMargin' => 80, array('spaceAfter' => 0));
         $PHPWord->addTableStyle('contentTableStyle', $contentTableStyle);
         
         // Define font style for first row
@@ -910,8 +1135,11 @@
         $modeOfFinanceTable->addCell(700)->addText('', $fontStyle, $pStyle);
         $modeOfFinanceTable->addCell(10000)->addText('6.1 Mode of financing with source (Amount in Lakh Tk.): ', $fontStyle, $pStyle);
         
+        $modeOfFinanceStyle    = array('borderSize' => 1, 'borderColor' => '006699', 'cellMargin' => 80, array('spaceAfter' => 0));
+        $PHPWord->addTableStyle('modeOfFinanceStyle', $modeOfFinanceStyle);
+        
         $section->addTextBreak();
-        $modeOfFinanceDataTable = $section->addTable('contentTableStyle');
+        $modeOfFinanceDataTable = $section->addTable('modeOfFinanceStyle');
         $modeOfFinanceDataTable->addRow();
         $modeOfFinanceDataTable->addCell(4000)->addText('Mode\Source', $fontStyle, $pCenterStyle);
         $modeOfFinanceDataTable->addCell(4000)->addText("GoB\n(FE)", $fontStyle, $pCenterStyle);
@@ -986,7 +1214,7 @@
         $allocationTable->addCell(12000)->addText('Year wise allocation of GOB, RPA and Own Fund according to DPP (Amount in Lakh Tk.):', $fontStyle, $pStyle);
         
         $section->addTextBreak();
-        $allocationDataTable = $section->addTable('contentTableStyle');
+        $allocationDataTable = $section->addTable('modeOfFinanceStyle');
         $allocationDataTable->addRow();
         $allocationDataTable->addCell(4000)->addText('Financial Year', array('bold' => true), $pCenterStyle);
         $allocationDataTable->addCell(4000)->addText("GoB\n(FE)", array('bold' => true), $pCenterStyle);
@@ -1016,7 +1244,7 @@
         $locationTable->addCell(12000)->addText('Location of the Project', $fontStyle, $pStyle);
         
         $section->addTextBreak();
-        $locationDataTable = $section->addTable('contentTableStyle');
+        $locationDataTable = $section->addTable('modeOfFinanceStyle');
         $locationDataTable->addRow();
         $locationDataTable->addCell(4000)->addText('Division', array('bold' => true), $pCenterStyle);
         $locationDataTable->addCell(4000)->addText('District', array('bold' => true), $pCenterStyle);
@@ -1057,7 +1285,7 @@
                                                'Date of this summary preparation: ' . $data->basicInfo->date_of_logframe_summary_preparation, $fontStyle, $pStyle);
         
         $section->addTextBreak();
-        $logFrameDataTable = $section->addTable('contentTableStyle');
+        $logFrameDataTable = $section->addTable('modeOfFinanceStyle');
         $logFrameDataTable->addRow();
         $logFrameDataTable->addCell(2000)->addText('', array('bold' => true), $pStyle);
         $logFrameDataTable->addCell(4500)->addText('Narrative Summary', array('bold' => true), $pCenterStyle);
@@ -1129,66 +1357,22 @@
         $projectMgmtTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
         $projectMgmtTable->addCell(8000)->addText($data->basicInfo->after_completion, $fontStyle, $pStyle);
         
+        $section->addTextBreak();
+        $section->addTextBreak();
+        $section->addTextBreak();
+        $section->addTextBreak();
         
+        
+        $signatureStyle    = array('borderTopSize' => 1, 'borderTopColor' => '006699', 'cellMargin' => 80, array('spaceAfter' => 0));
+        $PHPWord->addTableStyle('signatureStyle', $signatureStyle);
+        $signatureTable = $section->addTable('signatureStyle');
+        $signatureTable->addRow();
+        $signatureTable->addCell(10000)->addText('Signature of officer(s) responsible for the preparation of DPP with seal and date', array('bold'=>true), $pStyle);
         
         // Save File
         $objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
         
         $filename  = 'part_A.doc';
-        
-        header('Content-Disposition: attachment;filename="' . $filename. '"');
-        header('Content-Type: text/plain; charset=utf-8');
-        $objWriter->save($_SERVER['DOCUMENT_ROOT'].'/files/'.$filename);
-        header ('Location: /files/'.$filename);
-    }
-    
-    function makeAnnexIDoc($data)
-    {
-        // New Word Document
-        $PHPWord = new PHPWord();
-
-        // New portrait section
-        $section = $PHPWord->createSection(array('orientation'=>'portrait'));
-        $section->getSettings()->setMarginLeft(1000); 
-        $section->getSettings()->setMarginRight(600); 
-        
-        $styleTable    = array('borderSize' => 0, 'borderColor' => 'FFFFFF', 'cellMargin' => 80);
-        $pCenterStyle  = array('align' => center, 'spaceBefore' => 0, 'spaceAfter' => 0, 'spacing' => 0);  // paragraph style with center alignment
-        $contentTableStyle    = array('borderSize' => 1, 'borderColor' => '006699', 'cellMargin' => 80);
-        // Define font style for first row
-        $fontStyle = array('size' => 10);
-        $pStyle    = array('spaceBefore' => 0, 'spaceAfter' => 0, 'spacing' => 0);
-        
-        $PHPWord->addTableStyle('headerTableStyle', $styleTable);
-        
-        $headerTable = $section->addTable('headerTableStyle');  // assign the table style 
-        
-        $headerTable->addRow(0); // 0 = row height
-        $headerTable->addCell(16000, array('valign'=>'center'))->addText("Annexure - I", array('bold'=>true, 'size'=>13), array('align'=>'right'));
-        $headerTable->addRow(0);
-        $headerTable->addCell(16000, array('valign'=>'center'))->addText('Location wise cost breakdown', array('bold'=>true, 'size'=>11, 'underline'=>PHPWord_Style_Font::UNDERLINE_SINGLE), array('align'=>'center'));
-        
-        $section->addTextBreak(1);
-        $PHPWord->addTableStyle('contentTableStyle', $contentTableStyle);
-        $contentTable = $section->addTable('contentTableStyle');
-        
-        $contentTable->addRow();
-        $contentTable->addCell(3000)->addText('Division', $fontStyle, $pCenterStyle); //ajaj
-        $contentTable->addCell(3000)->addText('District', $fontStyle, $pCenterStyle);
-        $contentTable->addCell(3000)->addText('Upzila/City Coorporation', $fontStyle, $pCenterStyle);
-        $contentTable->addCell(3000)->addText("Estimated Cost\n(In Lakh Taka)", $fontStyle, $pCenterStyle);
-        $contentTable->addCell(3000)->addText("Comments", $fontStyle, $pCenterStyle);
-        $contentTable->addRow();
-        $contentTable->addCell(3000)->addText('1', array('bold' => true), $pCenterStyle);
-        $contentTable->addCell(3000)->addText('2', array('bold' => true), $pCenterStyle);
-        $contentTable->addCell(3000)->addText('3', array('bold' => true), $pCenterStyle);
-        $contentTable->addCell(3000)->addText("4", array('bold' => true), $pCenterStyle);
-        $contentTable->addCell(3000)->addText("5", array('bold' => true), $pCenterStyle);
-        
-        // Save File
-        $objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
-        
-        $filename  = 'annex_I.doc';
         
         header('Content-Disposition: attachment;filename="' . $filename. '"');
         header('Content-Type: text/plain; charset=utf-8');

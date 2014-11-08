@@ -57,19 +57,7 @@
         </select>
     </div>
     
-    <div class="control-group">
-        <label class="control-label span12" for="project_title_en">1.0 Project Title (English):</label>
-            <div class="controls span6">  
-                <b>{$basicInfo->project_title_en}</b>
-            </div>
-    </div>
-
-    <div class="control-group">
-        <label class="control-label span12" for="project_title_bn">Project Title (Bangla):</label>
-            <div class="controls span6">
-                {$basicInfo->project_title_bn}
-            </div>
-    </div>
+    
 </form>    
     <div class="tabbable">
         <ul class="nav nav-tabs" id="myTab">
@@ -77,7 +65,7 @@
             <li><a data-toggle="tab" href="#location">Locations (7-8)</a></li>
             <li><a data-toggle="tab" href="#costsummary">Component Wise Cost (9)</a></li>
             <li><a data-toggle="tab" href="#logframe">Log frame (10)</a></li>
-            <li><a data-toggle="tab" href="#annexures">Annexures (II - IV)</a></li>
+            <li><a data-toggle="tab" href="#annexures">Project Management (11 - 13)</a></li>
             
         </ul>
         <div class="tab-content">
@@ -86,6 +74,19 @@
                 
             <form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}"> 
                 <input type="hidden" name="PI" value="{$PI}"/>
+                <div class="control-group">
+                    <label class="control-label" for="project_title_en">1.0 Project Title (English):</label>
+                        <div class="controls">  
+                            <textarea name="project_title_en" id="project_title_en" class="span8">{$basicInfo->project_title_en}</textarea>
+                        </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="project_title_bn">Project Title (Bangla):</label>
+                        <div class="controls">
+                            <textarea name="project_title_bn" id="project_title_bn" class="span8">{$basicInfo->project_title_bn}</textarea>
+                        </div>
+                </div>
                 <div class="control-group">
                     <label class="control-label" for="ministries[]">2.1 Ministry/Division</label>
                     <div class="controls">
@@ -159,8 +160,19 @@
                 <div class="control-group">
                     <label class="control-label" for="project_implementation_period">4.0 Project implementation period: </label>
                     <div class="controls"><br><br>
-                        <label for="project_implementation_period">i)  Date of commencement: {$basicInfo->date_of_commencement|date_format:"%d/%m/%Y"}</label>
-                        <label  for="project_implementation_period">ii) Date of completion: {$basicInfo->date_of_completion|date_format:"%d/%m/%Y"}</label>
+                        <span>Date of commencement: </span>
+                        <div class="input-append date">
+                            <input class="span10 date-picker" id="date_of_commencement" name="date_of_commencement"  {if $basicInfo->date_of_commencement eq '0000-00-00'} value=''{else}value="{$basicInfo->date_of_commencement}" {/if} type="text" data-date-format="yyyy-mm-dd" required/>
+                            <span class="add-on"><i class="icon-calendar"></i></span>
+                        </div><br>
+                        <span>Date of completion: </span>
+                        <div class="input-append date">
+                            <input class="span10 date-picker" id="date_of_completion" name="date_of_completion"  {if $basicInfo->date_of_completion eq '0000-00-00'} value=''{else}value="{$basicInfo->date_of_completion}" {/if} type="text" data-date-format="yyyy-mm-dd" required/>
+                            <span class="add-on"><i class="icon-calendar"></i></span>
+                        </div>
+                        
+<!--                        <label for="project_implementation_period">i)  Date of commencement: {$basicInfo->date_of_commencement|date_format:"%d/%m/%Y"}</label>
+                        <label  for="project_implementation_period">ii) Date of completion: {$basicInfo->date_of_completion|date_format:"%d/%m/%Y"}</label>-->
                     </div>
                 </div>
                 <div class="control-group">
@@ -1225,14 +1237,14 @@ function lockProject()
 
 {/literal}
 //ajaj
-var project_total_gob           = {if $basicInfo->gob_cost} {$basicInfo->gob_cost|number_format:2} {else} 0 {/if} ;
-var project_total_gob_fe        = {if $basicInfo->gob_fe_cost} {$basicInfo->gob_fe_cost|number_format:2} {else} 0 {/if} ;
+var project_total_gob           = {if $basicInfo->gob_cost} {$basicInfo->gob_cost|number_format:2:'.':''} {else} 0 {/if} ;
+var project_total_gob_fe        = {if $basicInfo->gob_fe_cost} {$basicInfo->gob_fe_cost|number_format:2:'.':''} {else} 0 {/if} ;
 var project_total_pa            = {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost};
-var project_total_rpa           = {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost|number_format:2};
-var project_total_own_fund      = {if $basicInfo->own_fund_cost} {$basicInfo->own_fund_cost|number_format:2} {else} 0 {/if} ;
-var project_total_own_fund_fe   = {if $basicInfo->own_fund_fe_cost} {$basicInfo->own_fund_fe_cost|number_format:2} {else} 0 {/if} ;
-var project_total_other         = {if $basicInfo->other_cost} {$basicInfo->other_cost|number_format:2} {else} 0 {/if} ;
-var project_total_other_fe      = {if $basicInfo->other_fe_cost} {$basicInfo->other_fe_cost|number_format:2} {else} 0 {/if} ;
+var project_total_rpa           = {$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost|number_format:2:'.':''};
+var project_total_own_fund      = {if $basicInfo->own_fund_cost} {$basicInfo->own_fund_cost|number_format:2:'.':''} {else} 0 {/if} ;
+var project_total_own_fund_fe   = {if $basicInfo->own_fund_fe_cost} {$basicInfo->own_fund_fe_cost|number_format:2:'.':''} {else} 0 {/if} ;
+var project_total_other         = {if $basicInfo->other_cost} {$basicInfo->other_cost|number_format:2:'.':''} {else} 0 {/if} ;
+var project_total_other_fe      = {if $basicInfo->other_fe_cost} {$basicInfo->other_fe_cost|number_format:2:'.':''} {else} 0 {/if} ;
 
 calculateModeOfFinanceGrandTotal();
 // getAgencyList()

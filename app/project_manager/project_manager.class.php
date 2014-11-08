@@ -51,6 +51,7 @@ class projectManagerApp extends DefaultApplication
            case 'annexV_attachment'  : $screen = $this->annaexVattachment();           break;
            case 'saveAttachment'     : $screen = $this->saveAttachments();             break;
            case 'saveComment'        : $screen = $this->saveComment();                 break;
+           case 'deskofficer'        : $screen = $this->deskofficer();                 break;
            default                   : $screen = $this->showEditor($msg);
       }
 
@@ -60,7 +61,7 @@ class projectManagerApp extends DefaultApplication
          return;
       }
       
-      if($cmd== 'commentPage' || $cmd == 'attachment' || $cmd == 'annexV_attachment')
+      if($cmd== 'commentPage' || $cmd == 'attachment' || $cmd == 'annexV_attachment' || $cmd == 'deskofficer')
       {
           echo  $screen;
       }   
@@ -73,10 +74,22 @@ class projectManagerApp extends DefaultApplication
 
    }
    
+   function deskofficer()
+   {
+       $pid        = base64_decode(getUserField('PI')); 
+       $data['PI'] = getUserField('PI');
+       
+       $project = new Project();
+       
+       
+        
+       return  createPage(DESKOFFICER_TEMPLATE, $data);
+   }
+   
     function saveComment()
     {
        $pid            = base64_decode(getUserField('PI')); 
-       //$data['PI']     = getUserField('PI');
+       $data['PI']     = getUserField('PI');
        $message        = new Message();
        $message->save();
        return createPage(SICCESS_MSG_TEMPLATE,$data);
@@ -86,7 +99,7 @@ class projectManagerApp extends DefaultApplication
     function saveAttachments()
     {
        $pid            = base64_decode(getUserField('PI')); 
-       //$data['PI']     = getUserField('PI');
+       $data['PI']     = getUserField('PI');
        $message        = new Message();
        $message->saveAttachment();
        return createPage(SICCESS_MSG_TEMPLATE,$data);
@@ -180,24 +193,23 @@ class projectManagerApp extends DefaultApplication
         $info['table']  = PROJECT_ANNEX_V_DETAILS_TBL;
         $info['debug']  = false;
         $info['where']  = 'pid = ' . $pid . ' AND year_serial = ' . $year_serial;
+        $result = delete($info);
         
         // delete from Annex V contingency details table
         $infoC['table']  = PROJECT_ANNEX_V_CON_DETAILS_TBL;
         $infoC['debug']  = false;
         $infoC['where']  = 'pid = ' . $pid . ' AND year_serial = ' . $year_serial;
-                
-        if ( delete($info) && delete($infoC))
+        
+        $resultC =  delete($infoC);
+         
+        //if ( delete($info) && delete($infoC))
         {
             $this->updateAnexVTotalyear($pid, $year_serial-1);
         
             echo json_encode('1');
             die;
         }
-        else
-        {
-            echo json_encode('');
-            die;
-        }
+        
     }
     
     function updateAnexVTotalyear($pid, $year)
@@ -305,6 +317,10 @@ class projectManagerApp extends DefaultApplication
     {
         $pid          = base64_decode(getUserField('PI'));
         $project      = new Project($pid);
+        
+        //Delete Empty Row of Component
+        $project->removeEmptyRowOfComponent();
+        
         $report_type  = getUserField('report_type');
 
         $data                         = $project;
@@ -386,7 +402,7 @@ class projectManagerApp extends DefaultApplication
         
         if($report_type)
         {
-            $this->partBExportTo($pid, $report_type, $data);
+            $this->partBExportTo($pid, $report_type, $data->partB);
         }
         
         return createPage(PROJECT_PART_B_TEMPLATE, $data);
@@ -420,10 +436,6 @@ class projectManagerApp extends DefaultApplication
         $data->location    = $project->basicInfo->locations;
         $data->PI          = $PI;
         $data->error       = getUserField('error');    
-        //dumpVar($data);
-        
-        $data->location_body = makeLocationView($data->location); 
-        
         if ($report_type == 'pdf')
         {
             $screen = createPage(PART_B_PDF_TEMPLATE, $data);
@@ -433,6 +445,10 @@ class projectManagerApp extends DefaultApplication
         {
             makeAnnexIDoc($data);
         }
+        
+        $data->location_body = makeLocationView($data->location); 
+        
+        
        
         return createPage(PROJECT_ANNEX_I_LOCATION_TEMPLATE, $data);
     }
@@ -568,6 +584,9 @@ class projectManagerApp extends DefaultApplication
         
         $project               = new Project($pid);
         $data['basicInfo']     = $project->basicInfo;
+        
+        //Delete Empty Row of Component
+        $project->removeEmptyRowOfComponent();
                 
         $data['PI']                                    = $PI;
         $data['econimonic_code_list']                  = getEconomicCodeList();
@@ -581,6 +600,7 @@ class projectManagerApp extends DefaultApplication
         $data['error']                                 = getUserField('error');
         
         //dumpvar($data['component_list']);
+        //dumpvar($data['annx_v_component_details']);
         if($report_type)
         $this->annexVExportTo($pid, $report_type);
         
@@ -593,6 +613,9 @@ class projectManagerApp extends DefaultApplication
         $pid                                 = base64_decode($PI);
         $data['PI']                          = $PI;
         $project                             = new Project($pid);
+        
+        //Delete Empty Row of Component
+        $project->removeEmptyRowOfComponent();
         
         $data['project_info']                = $project->basicInfo;
         //dumpVar($data);
@@ -612,16 +635,17 @@ class projectManagerApp extends DefaultApplication
     {
         $pid     = base64_decode(getUserField('PI'));
         $project = new Project($pid);
+        $message = new Message(null,$pid);
 
         $data                 = $project;
         $data->PI             = getUserField('PI');
         $data->project_status = $project->getAllStatus();
         
-        $message                   = new Message(null,$pid);
-        $data->project_msg         = $message->loadMessageByProject();
-        $data->project_attachments = $message->loadAttachmentsByProject();
+        $data->status_of_commission = $message->loadCommissionStatusOfProject();
+        $data->project_msg          = $message->loadMessageByProject();
+        $data->project_attachments  = $message->loadAttachmentsByProject();
         
-        //dumpVar($data);
+        //dumpVar($data->status_of_cossission);
         //dumpVar($_SESSION);
 
         return createPage(PROJECT_BASIC_TEMPLATE, $data);

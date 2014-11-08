@@ -441,7 +441,7 @@
                                         'id':"{$item->id}" 
                                 {rdelim}
                                 );
-           $('#total_year_in_annexv').val({$item->total_year})                     
+                                
            
         {/foreach}
         
@@ -459,20 +459,28 @@
         {/foreach}
         
         var component_count = 0;
-        var total_years; 
+        var total_years = 0; 
+        
+        total_years = "{$component_list[0]->total_year}";  
+        $('#total_year_in_annexv').val(total_years)
+        
+        
         
         {foreach from=$component_list item=item}
+           
             addNewComponent("{$item->component_type}",0);
+            //addNewComponent(com_type,0);
             populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}", "{$item->unit}", 
                                      "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
                                      "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}", "{$item->attachment_path}");
-           total_years = "{$item->total_year}";    
+          
+           
            component_count++;
         {/foreach}
             
         // if data is there load the years 
-        if ( total_years )
+        if ( total_years>0 )
         {ldelim}
             //populate years
             for(var i = 0; i<total_years;i++)
@@ -482,19 +490,20 @@
         {rdelim}
         else
         {ldelim}
-            addNewYear();
+              addNewYear();
         {rdelim}
         
         var count=1;
         var year_count=1;
         var cp_count =1;
         {foreach from=$annx_v_component_details item=item}
-            //alert("Year: "+"{$item->year_serial}"+"\nCount = " + count);
+            
             addYearWiseNewComponentDetailsRow("{$item->component_type}", "{$item->year_serial}", count);
+           
             populateAnnexComponentDetails("{$item->gob}", "{$item->gob_fe}", "{$item->rpa_through_gob}", "{$item->rpa_special_account}", 
                                           "{$item->dpa}", "{$item->own_fund}", "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", 
                                           "{$item->year_serial}", "{$item->id}","{$item->financial_year}", count, "{$item->total}");
-            
+            //alert({$item->year_serial} + ' '+count)
             if( year_count%total_years==0 ) count++;
             
             if(cp_count%total_years==0) cp_count=0;

@@ -174,12 +174,13 @@ function populateAnnexContingencyDetails(gob, gob_fe, rpa_through_gob, rpa_speci
     $('#'+contingency_type+'_contigency_other_'+year).val((other*1).toMoney(2));
     $('#'+contingency_type+'_contigency_other_fe_'+year).val((other_fe*1).toMoney(2));
     $('#'+contingency_type+'_contigency_total_'+year).val((total*1).toMoney(2));
-    $('#'+contingency_type+'_contigency_con_id_'+year).val((con_details_id*1).toMoney(2));
+    $('#'+contingency_type+'_contigency_con_id_'+year).val(con_details_id);
 }
 
 
 function populateAnnexComponentDetails(gob, gob_fe, rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe, year, annex_details_id, financial_year, i, total)
 {
+    //alert(annex_details_id)
     $('#gob_'+year+'_'+i).val((gob*1).toMoney(2));
     $('#gob_fe_'+year+'_'+i).val((gob_fe*1).toMoney(2));
     $('#rpa_through_gob_'+year+'_'+i).val((rpa_through_gob*1).toMoney(2));
@@ -189,7 +190,7 @@ function populateAnnexComponentDetails(gob, gob_fe, rpa_through_gob, rpa_special
     $('#own_fund_fe_'+year+'_'+i).val((own_fund_fe*1).toMoney(2));
     $('#other_'+year+'_'+i).val((other*1).toMoney(2));
     $('#other_fe_'+year+'_'+i).val((other_fe*1).toMoney(2));
-    $('#annex_details_id_'+year+'_'+i).val((annex_details_id*1).toMoney(2));
+    $('#annex_details_id_'+year+'_'+i).val(annex_details_id);
     $('#financial_year_'+year).val(financial_year);
     $('#total_'+year+'_'+i).val((total*1).toMoney(2));
 }
@@ -250,44 +251,70 @@ function addNewComponent(com_type,buttonClick)
     $('#component_list').val(componentRowIDArray);
     COMPONENT_ROW_ID++;
     
+    var tot_year   = $('#total_year_in_annexv').val();
+    
+    
     if(buttonClick)   //buttonClick = 1 mean click from the button
     {
         $('#view_attachment_' + COMPONENT_ROW_ID-1).hide();
         
-        createComponentRow(COMPONENT_ROW_ID-1);
-    
-        for(var year=1; year<YEAR_COUNT; year++ )
+        for(var year=1; year<=tot_year; year++ )
         {
             addYearWiseNewComponentDetailsRow(com_type, year, COMPONENT_ROW_ID-1);
         }
+        createComponentRow(COMPONENT_ROW_ID-1,com_type);
     }
+    
+    
 }
 
-function createComponentRow(row_id)
+function createComponentRow(row_id,com_type)
 {
     var pid        = $('#PI').val();
     var domainname = window.location.hostname;
+    var tot_year   = $('#total_year_in_annexv').val();
+    //alert(com_type);
+    //retrun;
+    
     
     $.ajax
     (
         {                                      
-            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=createAnnexVRow&PI=' + pid,
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=createAnnexVRow',
+            data: "totalyear="+tot_year+"&PI="+pid,
             dataType: 'json',
             success: function(responseText)
             {
-                $('#annex_id_'+row_id).val(responseText);
-                $('#attachment_'+row_id).attr("href", $('#attachment_'+row_id).attr("href") + '&annex_id='+responseText);
-                $(".annexV_attachment").fancybox(
-                    {
-                        'width'          : '75%',
-                        'height'	     : '20%',
-                        'autoScale'	     : true,
-                        'transitionIn'   : 'none',
-                        'transitionOut'  : 'none',
-                        'topRation'      : 0,
-                        'top'       : '20px',
-                        'type'   	     : 'iframe'
-                    });
+                //alert(responseText)
+                if(responseText)
+                {    
+                    //var tmp  = responseText.split('###');
+                    
+                   
+                    
+                    $('#annex_id_'+row_id).val(responseText);
+                    $('#attachment_'+row_id).attr("href", $('#attachment_'+row_id).attr("href") + '&annex_id='+responseText);
+                    
+                     //alert(YEAR_COUNT);
+                    
+//                    for(var year=1; year<YEAR_COUNT; year++ )
+//                    {
+//                        $('#annex_details_id_'+year+'_'+row_id).val(tmp[year]);
+//                        //alert('#annex_details_id_'+year+'_'+row_id)
+//                    }
+                    
+                    $(".annexV_attachment").fancybox(
+                        {
+                            'width'          : '75%',
+                            'height'	 : '20%',
+                            'autoScale'	 : true,
+                            'transitionIn'   : 'none',
+                            'transitionOut'  : 'none',
+                            'topRation'      : 0,
+                            'top'            : '20px',
+                            'type'   	 : 'iframe'
+                        });
+                }        
             }
         } 
     );
@@ -545,10 +572,13 @@ function addNewYear(fromAddButton)
     $('#annex-container').append(component_details_breakdown_div);
     $('#total_year_in_annexv').val(YEAR_COUNT);
     
-    YEAR_COUNT++;
+    
     if(fromAddButton)
     {
-        adjustComponentRowPerYear(YEAR_COUNT-1);
+        adjustComponentRowPerYear(YEAR_COUNT);
+        
+        var domainname = window.location.hostname;
+        var pid        = $('#PI').val();
         
         $.gritter.add
         (
@@ -561,11 +591,29 @@ function addNewYear(fromAddButton)
                 class_name: 'gritter-success'
             }
         );
+
+//        $.ajax
+//            (
+//                {                                      
+//                    url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=updateYearInAnnexVRow',
+//                    data: "totalyear="+YEAR_COUNT+"&PI="+pid,
+//                    dataType: 'json',
+//                    success: function(responseText)
+//                    {
+//                        //alert(responseText)
+//                        if(responseText)
+//                        {    
+//                            //alert(responseText);
+//
+//                        }        
+//                    }
+//                } 
+//            );
             
         $("#gritter-notice-wrapper").css('left',"35%");
         $("#gritter-notice-wrapper").css('top',"35%");
     }
-    
+    YEAR_COUNT++;
     deleteYearIconAdjustment();
 }
 
@@ -695,7 +743,6 @@ function adjustComponentRowPerYear(year)
     
         for(var i=0; i<componentRowIDArray.length; i++)
         {
-           
                 
             var td_total_gob    = '<td><input type="text" name="gob_'+year+'_'+componentRowIDArray[i]+'"                  id="gob_'+year+'_'+componentRowIDArray[i]+'"                 value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /><br>\n\
                                        <input type="text" name="gob_fe_'+year+'_'+componentRowIDArray[i]+'"               id="gob_fe_'+year+'_'+componentRowIDArray[i]+'"              value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateComponentYearTotal('+year+', '+componentRowIDArray[i]+');" /></td>';
@@ -778,6 +825,10 @@ function deleteYearIconAdjustment()
         {
             // show the delete sign
             $('#year_delete_'+y).show();
+            if(y==1)
+            {
+                $('#year_delete_'+y).hide();
+            }    
         }
         else 
         {

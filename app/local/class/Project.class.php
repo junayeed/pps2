@@ -32,6 +32,15 @@ class Project
         }
     }
     
+    public function removeEmptyRowOfComponent()
+    {
+        $info['table']  = PROJECT_ANNEX_V_TBL;
+        $info['debug']  = false;
+        $info['where']  = "pid = $this->id AND economic_code_id=0";
+        
+        $result = delete($info);
+    }        
+    
     public function loadYearWiseGobOwnfundTotal()
     {
         $info['table']  = PROJECT_YEAR_WISE_GOB_OWNFUND;

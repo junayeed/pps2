@@ -1,6 +1,7 @@
 <div id="main-content" class="clearfix">
 <head>
     <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery.gritter.css" />
     <!-- Add fancyBox main JS and CSS files -->
     
     <link rel="stylesheet" type="text/css" href="/ext/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
@@ -26,12 +27,13 @@
         <div id="nav-search">
             <a class="btn btn-small btn-primary" href="/app/standard/user_home/user_home.php">Dashboard</a>
             {if $smarty.session.user_type eq 'Ministry' AND $basicInfo->status eq 'Forwarded to Ministry' AND ($basicInfo->project_type eq 'TPP' AND $basicInfo->total_cost lt $smarty.session.ministry_approval_tpp_limit)}<button id="bootbox-confirm" class="btn btn-small btn-purple" onclick="document.forwardForms.status.value='Rejected'" >Reject</button>{/if}
-            {if $smarty.session.user_type eq 'Ministry' AND $basicInfo->status eq 'Forwarded to Ministry' AND ($basicInfo->project_type eq 'TPP' AND $basicInfo->total_cost lt $smarty.session.ministry_approval_tpp_limit)}<button id="bootbox-confirm" class="btn btn-small btn-yellow" onclick="document.forwardForms.status.value='Approved'" >Approved</button>{/if}
+            {if $smarty.session.user_type eq 'Commission' OR $smarty.session.user_type eq 'Ministry' AND $basicInfo->status eq 'Forwarded to Ministry' AND ($basicInfo->project_type eq 'TPP' AND $basicInfo->total_cost lt $smarty.session.ministry_approval_tpp_limit)}<button id="bootbox-confirm" class="btn btn-small btn-yellow" onclick="document.forwardForms.status.value='Approved'" >Approved</button>{/if}
             {if $smarty.session.user_type eq 'Agency' AND ($basicInfo->status eq 'Draff' OR $basicInfo->status eq 'Returned from Ministry')}<button id="bootbox-confirm" class="btn btn-small btn-primary" onclick="document.forwardForms.status.value='Forwarded to Ministry'" >Forward To Ministry</button>{/if}
             {if $smarty.session.user_type eq 'Ministry' AND ($basicInfo->status eq 'Forwarded to Ministry' OR $basicInfo->status eq 'Returned from Commission')}<button id="bootbox-confirm" class="btn btn-small btn-primary" onclick="document.forwardForms.status.value='Returned from Ministry'">Returned to Agency</button>{/if}
             {if $smarty.session.user_type eq 'Ministry' AND ($basicInfo->status eq 'Forwarded to Ministry' OR $basicInfo->status eq 'Returned from Commission')}<button id="bootbox-confirm" class="btn btn-small btn-success" onclick="document.forwardForms.status.value='Forwarded to Commission'">Forward To Commission</button>{/if}
             {if $smarty.session.user_type eq 'Commission' AND $basicInfo->status eq 'Forwarded to Commission'}<button id="bootbox-confirm" class="btn btn-small btn-primary" onclick="document.forwardForms.status.value='Returned from Commission'">Return to Ministry</button>{/if}
-            <input type="hidden" name="PI" value="{$PI}"/>    
+            {if $smarty.session.user_type eq 'Commission' AND $basicInfo->status eq 'Forwarded to Commission'}<button id="bootbox-confirm" class="btn btn-small btn-primary" onclick="document.forwardForms.status.value='Forwarded to ECNEC'">Forward to ECNEC</button>{/if}
+            <input type="hidden" name="PI" id="PI" value="{$PI}"/>    
             <input type="hidden" name="status" value=""/>    
             <input type="hidden" value="forwardProject" name="cmd"/>
         </div><!--#nav-search-->
@@ -46,7 +48,7 @@
     <strong><i class="icon-info-sign"></i> Project Created Successfully</strong>,
     Now you can fillup Part-A, Part-B and other Annexures <br />
 </div -->
-<div class="span9">
+<div class="span8">
      
             <table class="table table-striped table-bordered table-hover">
               <tbody>  
@@ -64,22 +66,83 @@
                         <span class="label {if $basicInfo->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $basicInfo->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$basicInfo->status}</span>
                     </td>
                 </tr>
+                
+                <tr>
+                    <td class="span3"><label class=" label-default">Planning Commission Status</label></td>
+                    <td>&nbsp;
+                        {if $basicInfo->status eq 'Forwarded to Commission' && $smarty.session.user_type eq 'Commission'}
+                        <select name="commssion_status" id="commission_status" style="margin-top: 10px;">
+                            <option value="" >N/A</option>
+                            <option value="Desk Officer Assigned">Desk Officer Assigned</option>
+                            <option value="Awaiting for PEC Recommendation">Awaiting for PEC Recommendation</option>
+                            <option value="PEC Recommended">PEC Recommended</option>
+                            <option value="Forwarded to ECNEC">Forwarded to ECNEC</option>
+                            <option value="Awaiting for ECNEC Approval">Awaiting for ECNEC Approval</option>
+                            <option value="ECNEC Approved">ECNEC Approved</option>
+                            <option value="ECENC Rejected">ECENC Rejected</option>
+                        </select>
+                        <button class="btn btn-small btn-success" onclick="changeCommissionStatus()">Save</button>
+                        {else}
+                        <span class="label label-info">{$status_of_commission[0]->status}</span>
+                        {/if}
+                        
+                    </td>
+                </tr>
+                
                 <tr>
                     <td><label class="lbl">Project Type</span></td>
                     <td><label class="lbl">{$basicInfo->project_type}</label></td>
                 </tr>
                 <tr>
                     <td><label class="lbl">Date of commencement</label></td>
-                    <td><label class="lbl">{$basicInfo->date_of_commencement}</label></td>
+                    <td><label class="lbl">{$basicInfo->date_of_commencement|date_format: "%d %B, %Y"}</label></td>
                 </tr>
                 <tr>
                     <td><label class="lbl">Date of completion</label></td>
-                    <td><label class="lbl">{$basicInfo->date_of_completion}</label></td>
+                    <td><label class="lbl">{$basicInfo->date_of_completion|date_format: "%d %B, %Y"}</label></td>
+                </tr>
+                <tr>
+                    <td><label class="lbl">Agency Forwarding Letter</label></td>
+                    <td>&nbsp;
+                        {if $smarty.session.user_type eq 'Agency' AND $smarty.session.user_permission eq 'Admin'}
+                        <div id="agency_forwarding-div" class="ace-file-input span4">
+                            <input id="id-input-file-1" name="agency_forward_letter_id" type="file">
+                            <label class="" for="id-input-file-2" data-title="Choose">
+                                <span class="" data-title="No File ...">
+                                <i class="icon-upload-alt"></i>
+                                </span>
+                            </label>
+                            <a class="remove" href="#">
+                                <i class="icon-remove"></i>
+                            </a>
+                        </div>
+                        <button class="btn btn-small btn-success" onclick="saveAgencyFrowardingletter()">Save</button>
+                        {/if} 
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="lbl">Ministry Forwarding Letter</label></td>
+                    <td>&nbsp;
+                        {if $smarty.session.user_type eq 'Ministry' AND $smarty.session.user_permission eq 'Admin'}
+                        <div id="ministry_forwarding-div" class="ace-file-input span4">
+                            <input id="id-input-file-2" name="ministry_forward_letter_id" type="file">
+                            <label class="" for="id-input-file-2" data-title="Choose">
+                                <span class="" data-title="No File ...">
+                                <i class="icon-upload-alt"></i>
+                                </span>
+                            </label>
+                            <a class="remove" href="#">
+                                <i class="icon-remove"></i>
+                            </a>
+                        </div>
+                        <button class="btn btn-small btn-success" onclick="saveMinistryFrowardingletter()">Save</button>
+                        {/if} 
+                    </td>
                 </tr>
                 {if $smarty.session.user_type eq 'Commission' AND $smarty.session.user_permission eq 'Admin'}
                 <tr>
                     <td><label class="lbl">Assign Desk Officer</label></td>
-                    <td><a id="various1" class='btn btn-mini  btn-primary' href="/app/project_manager/project_manager.php?cmd=attachment&PI={$PI}"> <i class="icon-group"></i>Assign Officer </a></td>
+                    <td><a id="various1" class='btn btn-mini  btn-primary' href="/app/project_manager/project_manager.php?cmd=deskofficer&PI={$PI}"> <i class="icon-group"></i>Assign Officer </a></td>
                 </tr>
                 {/if}
               </tbody>  
@@ -87,75 +150,75 @@
        
  </div>
 
-    <div class="span3">
+    <div class="span4">
 	
 	<div class="infobox infobox-green">
-		<div class="infobox-icon"><i class="icon-comments"></i></div>
+		<div class="infobox-icon"><i class="icon-money"></i></div>
 		<div class="infobox-data">
                     <span class="infobox-data-number">{$basicInfo->gob_cost|number_format:2:".":","}</span>
-                    <span class="infobox-content">GOB</span>
+                    <span class="infobox-content">GOB
+                       {if $basicInfo->total_cost}
+                            {assign var="gob_percentage" value=$basicInfo->gob_cost/$basicInfo->total_cost*100}
+                            ({$gob_percentage|number_format:2:".":","}%)
+                        {else}
+                            (0.00%)
+                        {/if}
+                    </span>
 		</div>
-		<div class="badge badge-success">
-                    {if $basicInfo->total_cost}
-                        {assign var="gob_percentage" value=$basicInfo->gob_cost/$basicInfo->total_cost*100}
-                        {$gob_percentage|number_format:2:".":","}%
-                    {else}
-                        0.00%
-                    {/if}
-                </div>
+		
 	</div>
 
 
 	<div class="infobox infobox-blue">
-		<div class="infobox-icon"><i class="icon-twitter"></i></div>
+		<div class="infobox-icon"><i class="icon-money"></i></div>
 		<div class="infobox-data">
                     <span class="infobox-data-number">
                         {assign var="total_project_aid" value=$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost}
                         {$total_project_aid|number_format:2:".":","}
                     </span>
-                    <span class="infobox-content">Project Aid</span>
+                    <span class="infobox-content">Project Aid
+                       {if $basicInfo->total_cost}
+                            {assign var="pa_percentage" value=$total_project_aid/$basicInfo->total_cost*100}
+                            ({$pa_percentage|number_format:2:".":","}%)
+                        {else}
+                            (0.00%)
+                        {/if}
+                    </span>
 		</div>
-		<div class="badge badge-success">
-                    {if $basicInfo->total_cost}
-                        {assign var="pa_percentage" value=$total_project_aid/$basicInfo->total_cost*100}
-                        {$pa_percentage|number_format:2:".":","}%
-                    {else}
-                        0.00%
-                    {/if}
-                </div>
+		
 	</div>
 	<div class="infobox infobox-pink">
-		<div class="infobox-icon"><i class="icon-shopping-cart"></i></div>
+		<div class="infobox-icon"><i class="icon-money"></i></div>
 		<div class="infobox-data">
                     <span class="infobox-data-number">{$basicInfo->own_fund_cost|number_format:2:".":","}</span>
-                    <span class="infobox-content">Own Fund</span>
-		</div>
-		<div class="badge badge-success">
+                    <span class="infobox-content">Own Fund
                     {if $basicInfo->total_cost}
                         {assign var="own_fund_percentage" value=$basicInfo->own_fund_cost/$basicInfo->total_cost*100}
-                        {$own_fund_percentage|number_format:2:".":","}%
+                        ({$own_fund_percentage|number_format:2:".":","}%)
                     {else}
-                        0.00%
+                        (0.00%)
                     {/if}
-                </div>
+                    </span>
+		</div>
+                
 	</div>
 	<div class="infobox infobox-red">
-		<div class="infobox-icon"><i class="icon-beaker"></i></div>
+		<div class="infobox-icon"><i class="icon-money"></i></div>
 		<div class="infobox-data">
                     <span class="infobox-data-number">{$basicInfo->other_cost|number_format:2:".":","}</span>
-                    <span class="infobox-content">Other</span>
-		</div>
-                <div class="badge badge-success">
+                    <span class="infobox-content">Other
                     {if $basicInfo->total_cost}
                         {assign var="other_percentage" value=$basicInfo->other_cost/$basicInfo->total_cost*100}
-                        {$other_percentage|number_format:2:".":","}%
+                        ({$other_percentage|number_format:2:".":","}%)
                     {else}
-                        0.00%
+                        (0.00%)
                     {/if}
-                </div>
+                    </span>
+		</div>
+                
 	</div>
         <div class="infobox infobox-red">
-		<div class="infobox-icon"><i class="icon-beaker"></i></div>
+		<div class="infobox-icon"><i class="icon-money"></i></div>
 		<div class="infobox-data">
                     <span class="infobox-data-number">{$basicInfo->total_cost|number_format:2:".":","}</span>
                     <span class="infobox-content">Total Cost</span>
@@ -165,10 +228,10 @@
 
 </div>
   
-<div class="hr hr-double hr-dotted hr18"></div>
+<div class="hr hr-double hr-dotted hr30"></div>
 
     <div class="">
-        <h4 class="header smaller lighter blue">Project Information</h4>
+        <h4 class="header smaller lighter blue"><i class="icon-th-large"></i>Project Information</h4>
         <div class="dropdown dropdown-preview">
                 <ul class="dropdown-menu">
                     <li><a href="{$SCRIPT_NAME}?cmd=partA&PI={$PI}">Part-A (Project Summary)</a></li>
@@ -204,159 +267,153 @@
 <div class="hr hr-double hr-dotted hr12"></div>
 
 <div class="row-fluid ">
-         <h4 class="header smaller lighter blue">Project related other information</h4>
+    <div class="span6">
+         <h4 class="header smaller lighter blue"><i class="icon-th-large"></i>Project related attachment(s)</h4>
          <div class="right">
          <a id="various1" class="btn btn-small btn-primary " href="/app/project_manager/project_manager.php?cmd=attachment&PI={$PI}">Add Attachment</a>
-         <a id="various3" class="btn btn-small btn-primary" href="/app/project_manager/project_manager.php?cmd=commentPage&PI={$PI}">Add Comments</a>
 	</div>
          <div class="tabbable">
             <ul class="nav nav-tabs" id="myTab">
               <li class="active"><a data-toggle="tab" href="#home"><i class="green icon-home bigger-110"></i>Attachment(s)</a></li>
-              <li><a data-toggle="tab" href="#agency_feedback">Agency Feedback <span class="badge badge-important">1</span></a></li>
-              <li><a data-toggle="tab" href="#ministry_feedback">Ministry Feedback <span class="badge badge-important">1</span></a></li>
-              <li><a data-toggle="tab" href="#commission_feedback">Commission Feedback <span class="badge badge-important">1</span></a></li>
               
             </ul>
             <div class="tab-content">
-			  <div id="home" class="tab-pane in active">
-				<div class="slim-scroll" data-height="100">
-                        
-                                    <div class="widget-main no-padding">
-                                        <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-                                            <thead>                                               
-                                                <tr>
-                                                    <th>Sl</th>
-                                                    <th class="hidden-480">Title</th>
-                                                    <th >Attachment</th>
-                                                    <th class="hidden-480">Date</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {foreach from=$project_attachments key=key item=item}
-                                                   
-                                                    <tr>
-                                                        <td>{$key+1}</td>
-                                                        <td>{$item->title}</td>
-                                                        <td><a href="{$item->file_location}">{$item->file_location|basename}</a></td>
-                                                        <td>
-                                                           {$item->create_date|date_format}
-                                                        </td>
-                                                    </tr>
-                                                   
-                                                {/foreach}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-			  </div>
-			  <div id="agency_feedback" class="tab-pane">
-                                
-				<div class="slim-scroll" data-height="100">
-                        
-                                    <div class="widget-main no-padding">
-                                        <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-                                            <thead>                                               
-                                                <tr>
-                                                    <th>Sl</th>
-                                                    <th>Title</th>
-                                                    <th class="hidden-480">Message</th>
-                                                    <th class="hidden-480">Attachment</th>
-                                                    <th class="hidden-480">Date</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {foreach from=$project_msg key=key item=item}
-                                                    {if $item->msg_from eq 'Agency'}
-                                                    <tr>
-                                                        <td>{$key+1}</td>
-                                                        <td>{$item->title}</td>
-                                                        <td>{$item->msg}</td>
-                                                        <td><a href="{$item->file_location}">{$item->file_location|basename}</a></td>
-                                                        <td>
-                                                           {$item->create_date|date_format}
-                                                        </td>
-                                                    </tr>
-                                                    {/if}
-                                                {/foreach}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                
-			  </div>
-			  <div id="ministry_feedback" class="tab-pane">
-				<div class="slim-scroll" data-height="100">
-                        
-                                    <div class="widget-main no-padding">
-                                        <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-                                            <thead>                                               
-                                                <tr>
-                                                    <th>Sl</th>
-                                                    <th>Title</th>
-                                                    <th class="hidden-480">Message</th>
-                                                    <th class="hidden-480">Attachment</th>
-                                                    <th class="hidden-480">Date</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {foreach from=$project_msg key=key item=item}
-                                                    {if $item->msg_from eq 'Ministry'}
-                                                    <tr>
-                                                        <td>{$key+1}</td>
-                                                        <td>{$item->title}</td>
-                                                        <td>{$item->msg}</td>
-                                                        <td>{$item->doc_id}</td>
-                                                        <td>
-                                                           {$item->create_date|date_format}
-                                                        </td>
-                                                    </tr>
-                                                    {/if}
-                                                {/foreach}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-			  </div>
-			  <div id="commission_feedback" class="tab-pane">
-				<div class="slim-scroll" data-height="100">
-                        
-                                    <div class="widget-main no-padding">
-                                        <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-                                            <thead>                                               
-                                                <tr>
-                                                    <th>Sl</th>
-                                                    <th>Title</th>
-                                                    <th class="hidden-480">Message</th>
-                                                    <th class="hidden-480">Attachment</th>
-                                                    <th class="hidden-480">Date</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {foreach from=$project_msg key=key item=item}
-                                                    {if $item->msg_from eq 'Commission'}
-                                                    <tr>
-                                                        <td>{$key+1}</td>
-                                                        <td>{$item->title}</td>
-                                                        <td>{$item->msg}</td>
-                                                        <td>{$item->doc_id}</td>
-                                                        <td>
-                                                           {$item->create_date|date_format}
-                                                        </td>
-                                                    </tr>
-                                                    {/if}
-                                                {/foreach}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-			  </div>
+                <div id="home" class="tab-pane in active">
+                    <div class="slim-scroll" data-height="100">
+
+                        <div class="widget-main no-padding">
+                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                                <thead>                                               
+                                    <tr>
+                                        <th>Sl</th>
+                                        <th >Title</th>
+
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {foreach from=$project_attachments key=key item=item}
+
+                                        <tr>
+                                            <td>{$key+1}</td>
+
+                                            <td><a href="{$item->file_location}">{$item->title}</a></td>
+                                            
+                                        </tr>
+
+                                    {/foreach}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+			
             </div>
 	</div>
+    </div> 
+    
+    <div class="span6">
+         <h4 class="header smaller lighter blue"><i class="icon-th-large"></i>Feeback and Comments</h4>
+         <div class="right">
+         <a id="various3" class="btn btn-small btn-primary" href="/app/project_manager/project_manager.php?cmd=commentPage&PI={$PI}">Add Feedback</a>
+	</div>
+         <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab">
+             
+              <li {if $smarty.session.user_type eq 'Agency'} class="active" {/if}><a data-toggle="tab" href="#agency_feedback">Agency <span class="badge badge-important"></span></a></li>
+              <li {if $smarty.session.user_type eq 'Ministry'} class="active" {/if}><a data-toggle="tab" href="#ministry_feedback">Ministry <span class="badge badge-important"></span></a></li>
+              <li {if $smarty.session.user_type eq 'Commission'} class="active" {/if}><a data-toggle="tab" href="#commission_feedback">Planning Commission <span class="badge badge-important"></span></a></li>
+              
+            </ul>
+            <div class="tab-content">
+			  
+                <div id="agency_feedback" class="tab-pane in active">
+                    <div class="slim-scroll" data-height="100">
+                        <div class="widget-main no-padding">
 
+                                    {foreach from=$project_msg key=key item=item}
+                                        {if $item->msg_from eq 'Agency'}
+                                          <div class="accordion-group">
+                                            <div class="accordion-heading">
+                                              <a href="#collapse{$key+1}" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                  <b>{$key+1}. </b> {$item->title} 
+                                              </a>
+                                            </div>
+                                            <div class="accordion-body collapse" id="collapse{$key+1}">
+                                              <div class="accordion-inner">
+                                                <span class="right">{$item->create_date|date_format:"%d-%m-%Y  %T %p"}  </span><br><br>
+                                                {$item->msg}
+                                                <br><br><b>Attachment: </b><a href="{$item->file_location}" target="blank">{$item->file_location|basename}</a>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        {/if}
+                                    {/foreach}
+                        </div>
+                    </div>
+                </div>
+                <div id="ministry_feedback" class="tab-pane">
+                    <div class="slim-scroll" data-height="100">
+
+                        <div class="widget-main no-padding">
+
+                                    {foreach from=$project_msg key=key item=item}
+                                        {if $item->msg_from eq 'Ministry'}
+                                        <div class="accordion-group">
+                                            <div class="accordion-heading">
+                                              <a href="#collapse{$key+1}" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                  <b>{$key+1}. </b> {$item->title} <span class="right">{$item->create_date|date_format:"%d-%m-%Y  %T %p"}</span>
+                                              </a>
+                                            </div>
+                                            <div class="accordion-body collapse" id="collapse{$key+1}">
+                                              <div class="accordion-inner">
+                                                {$item->msg}
+                                                <br><b>Attachment: </b><a href="{$item->file_location}">{$item->file_location|basename}</a>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        {/if}
+                                    {/foreach}
+                        </div>
+                    </div>
+                </div>
+                <div id="commission_feedback" class="tab-pane">
+                    <div class="slim-scroll" data-height="100">
+
+                        <div class="widget-main no-padding">
+
+                                    {foreach from=$project_msg key=key item=item}
+                                        {if $item->msg_from eq 'Commission'}
+                                        <div class="accordion-group">
+                                            <div class="accordion-heading">
+                                              <a href="#collapse{$key+1}" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">
+                                                  <b>{$key+1}. </b> {$item->title} <span class="right">{$item->create_date|date_format:"%d-%m-%Y  %T %p"}</span>
+                                              </a>
+                                            </div>
+                                            <div class="accordion-body collapse" id="collapse{$key+1}">
+                                              <div class="accordion-inner">
+                                                {$item->msg}
+                                                <br><b>Attachment: </b><a href="{$item->file_location}">{$item->file_location|basename}</a>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        {/if}
+                                    {/foreach}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+	</div>
+    </div> 
+    
  </div><!--/span-->
 
-        <div class="">
-		   <h4 class="header smaller lighter blue">Project Status</h4>
+<div class="hr hr-double hr-dotted hr32"></div>
+
+ <div  class="row-fluid">
+        <div class="span6">
+		   <h4 class="header smaller lighter blue"><i class="icon-th-large"></i>Project Progressing Status</h4>
 			
                     <div class="slim-scroll" data-height="100">
                         
@@ -388,6 +445,41 @@
                     </div>
 		
 	</div>
+        <div class="span6">
+		   <h4 class="header smaller lighter blue"><i class="icon-th-large"></i>Project Progressing Status (in Planning Commission)</h4>
+			
+                    <div class="slim-scroll" data-height="100">
+                        
+                        <div class="widget-main no-padding">
+                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                                <thead>                                               
+                                    <tr>
+                                        <th>Sl</th>
+                                        <th><i></i>Status</th>
+                                        <th class="hidden-480">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {foreach from=$status_of_commission key=key item=item}
+                                        <tr>
+                                            <td>{$key+1}</td>
+                                            <td>
+                                                Project >> <span class="label label-info arrowed-right arrowed-in">{$item->status}</span>
+                                            </td>
+                                            <td>
+                                               {$item->create_date|date_format}
+                                            </td>
+                                        </tr>
+                                    {/foreach}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+		
+	</div>
+     
+</div>     
 
 <!-- PAGE CONTENT ENDS HERE -->
 	
@@ -422,7 +514,7 @@
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
 
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
-
+                <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.gritter.min.js"></script>
 		
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
 
@@ -510,6 +602,90 @@
                             
                         }
                         
+                        function changeCommissionStatus()
+                        {
+                           var domainname = window.location.hostname; 
+                           var status  = $('#commission_status').val();
+                           var pid     = $('#PI').val();
+
+                          
+                           $.ajax
+                            (
+                                {                                      
+                                    url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=saveStatusOfCommission',
+                                    data: "status="+status+"&PI="+pid,
+                                    dataType: 'json',
+                                    success: function(responseText)
+                                    {
+                                        
+                                    }
+                                } 
+                            );
+                    
+                            $.gritter.add
+                            (
+                                {
+                                    title: '  Status updated successfully.',  // (string | mandatory) the heading of the notification
+                                    //text: 'Please scroll to the right to view the new year.',  // (string | mandatory) the text inside the notification
+                                    time: 3000, // hang on the screen for...
+                                    fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+                                    fade_out_speed: 2000, // how fast the notices fade out
+                                    class_name: 'gritter-success'
+                                }
+                            );
+                        }
+                        
+                        
+                        function saveAgencyFrowardingletter()
+                        {
+                            var pid        = $('#PI').val();
+                           
+                            var domainname = window.location.hostname;
+
+                            var file_data = $('#id-input-file-1').prop('files')[0];   
+                            var form_data = new FormData();                  
+                            form_data.append('file', file_data)
+                            //alert(form_data);   
+
+                            $.ajax({
+                                        url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=saveAgencyFrowardingletter&PI=' + pid,
+                                        dataType: 'text',
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        data: form_data,                         
+                                        type: 'post',
+                                        success: function(data){
+                                            $('#agency_forwarding-div').hide();
+                                        }
+                             });
+                        }
+                        
+                        
+                        function saveMinistryFrowardingletter()
+                        {
+                            var pid        = $('#PI').val();
+                           
+                            var domainname = window.location.hostname;
+
+                            var file_data = $('#id-input-file-2').prop('files')[0];   
+                            var form_data = new FormData();                  
+                            form_data.append('file', file_data)
+                            //alert(form_data);   
+
+                            $.ajax({
+                                        url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=saveMinistryFrowardingletter&PI=' + pid,
+                                        dataType: 'text',
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        data: form_data,                         
+                                        type: 'post',
+                                        success: function(data){
+                                            $('#ministry_forwarding-div').hide();
+                                        }
+                             });
+                        }
                        
                     {/literal}
                         {if $basicInfo->current_holder eq $smarty.session.uid}
@@ -519,6 +695,6 @@
                         {else}
                             lockProject();
                         {/if}   
-                            
+                        $('#commission_status').val("{$status_of_commission[0]->status}");    
                             
                 </script>

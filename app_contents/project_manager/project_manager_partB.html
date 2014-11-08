@@ -27,7 +27,6 @@
     </div><!--#breadcrumbs-->
 
 
-
 <div id="page-content" class="clearfix">
 					
     <div class="page-header position-relative">
@@ -40,8 +39,16 @@
 		
 
 <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}" name="validation-form">
-    
-    <input type="hidden" name="PI" value="{$PI}"/>
+    <div id="export_to_container">
+        Export To: 
+        <select name="report_type" id="report_type" class="span1" onchange="createPartBReport();">
+            <option value=""></option>
+            <option value="pdf">pdf</option>
+            <option value="word">word</option>
+        </select>
+    </div>
+    <br><br><br>
+    <input type="hidden" name="PI" id="PI" value="{$PI}"/>
     <input type="hidden" name="part_b_id" value="{$partB->id}"/>
     <div class="tabbable">
         <ul class="nav nav-tabs" id="myTab">
@@ -183,7 +190,7 @@
                 </div>
                 
                 <div class="control-group">
-                    <label class="" for="lessons_learnt_not_work_well">17.2 Indicate which issues lead to make project successful</label>
+                    <label class="" for="lessons_learnt_not_work_well">17.2 Indicate which issues did not work well</label>
                     <div class="">
                         <textarea class="ckeditor" name="lessons_learnt_not_work_well" id="lessons_learnt_not_work_well">{$partB->lessons_learnt_not_work_well}</textarea>
                     </div> 
@@ -478,7 +485,7 @@
                    
 		 <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                  <input type="hidden" value="savePartB" name="cmd"/>
-                 alsdjfals;dj
+                 
 	       </div>
             </div>
             <!-- #other_important ends here-->

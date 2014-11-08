@@ -35,11 +35,27 @@ class ajaxApp extends DefaultApplication
            case 'getUpzilla'               : $screen = $this->getUpzillaListByDistrict();              break;
            case 'ProjectHome'              : $screen = $this->showProjectHomePage();                   break;
            case 'createAnnexVRow'          : $screen = $this->createAnnexVRow();                       break;
+           case 'updateYearInAnnexVRow'    : $screen = $this->updateYearInAnnexVRow();                 break;
            case 'saveAnnexVAttachment'     : $screen = $this->saveAnnexVAttachment();                  break;
+           case 'saveStatusOfCommission'   : $screen = $this->saveStatusOfCommission();                break;
            default                         : $screen = $this->showEditor($msg);
       }
 
       return true;
+    }
+    
+    
+    function saveStatusOfCommission()
+    {
+        $data['pid']       = base64_decode(getUserField('PI'));
+        $data['status']    = getUserField('status');
+        
+        $info['table']  = PROJECT_COMMISSION_STATUS_TBL;
+        $info['debug']  = false;
+        $info['data']   = $data;
+        
+        $result = insert($info);
+        die;
     }
     
     function saveAnnexVAttachment()
@@ -67,17 +83,124 @@ class ajaxApp extends DefaultApplication
         die;
     }
     
+    
+    function saveAgencyFrowardingletter()
+    {
+        $data['pid']       = base64_decode(getUserField('PI'));
+        
+        $file = $_FILES['file'];
+        
+        if($file['size'] > 0)
+        {
+            $_FILES['document'] = $file;
+            
+            $thisDoc                           = new DocumentEntity();
+            $data['agency_forward_letter_id']  = $thisDoc->addDocument(null,$data['pid']);
+            
+        }
+        
+        $info['table']  = PROJECT_TBL;
+        $info['debug']  = true;
+        $info['data']   = $data;
+        $info['where']  = 'id = ' . $data['pid'];
+        
+        update($info);
+        die;
+    }
+    
+    
+    function saveMinistryFrowardingletter()
+    {
+        $data['pid']       = base64_decode(getUserField('PI'));
+        
+        $file = $_FILES['file'];
+        
+        if($file['size'] > 0)
+        {
+            $_FILES['document'] = $file;
+            
+            $thisDoc                             = new DocumentEntity();
+            $data['ministry_forward_letter_id']  = $thisDoc->addDocument(null,$data['pid']);
+            
+        }
+        
+        $info['table']  = PROJECT_TBL;
+        $info['debug']  = true;
+        $info['data']   = $data;
+        $info['where']  = 'id = ' . $data['pid'];
+        
+        update($info);
+        die;
+    }
+    
+    function updateYearInAnnexVRow()
+    {
+        $pid                = base64_decode(getUserField('PI')); 
+        $data['total_year'] = (int) getUserField('totalyear'); 
+        
+        $info['table']      = PROJECT_ANNEX_V_TBL;
+        $info['debug']      = false;
+        $info['data']       = $data; 
+        $info['where']      = "pid = $pid";
+        
+        $result = update($info);
+        
+        if($result)
+        {
+            echo json_encode("1");
+            die;
+        }   
+        else
+        {
+            echo json_encode("");
+            die;
+        } 
+        
+    }
+    
     function createAnnexVRow()
     {
-        $data['pid']    = base64_decode(getUserField('PI')); 
-        $info['table']  = PROJECT_ANNEX_V_TBL;
-        $info['debug']  = false;
-        $info['data']   = $data;
+        $returnStr = "";
+        $data['pid']        = base64_decode(getUserField('PI')); 
+        $total_year         = (int) getUserField('totalyear'); 
+        $data['total_year'] = $total_year;
+        
+        $info['table']      = PROJECT_ANNEX_V_TBL;
+        $info['debug']      = false;
+        $info['data']       = $data;
         
         $result = insert($info);
         
-        echo json_encode($result['newid']);
+        $returnStr = $result['newid'];
+        
+        echo json_encode($returnStr);
         die;
+        
+//        if($result['newid'])
+//        {
+//            for($i=1;$i<=$total_year;$i++)
+//            {
+//                $dataDetail['pid']         = $data['pid'];
+//                $dataDetail['annex_id']    = $result['newid'];
+//                $dataDetail['year_serial'] = $i;
+//                
+//                $info1['table']    = PROJECT_ANNEX_V_DETAILS_TBL;
+//                $info1['debug']    = false;
+//                $info1['data']     = $dataDetail;
+//                
+//                $resultDetail = insert($info1);
+//                
+//                $returnStr.= "###".$resultDetail['newid'];
+//                
+//            }
+//            echo json_encode($returnStr);
+//            die;
+//        }
+//        else
+//        {
+//            echo json_encode("");
+//            die;
+//        } 
     }
    
     

@@ -449,7 +449,6 @@ function createAnnexIReport()
     
     if (report_type)
     {
-        location.href = 'http://'+document.domain+'/app/project_manager/project_manager.php?cmd=anaexI&PI='+PI+
-                        '&report_type='+report_type;
+        location.href = 'http://'+document.domain+'/app/project_manager/project_manager.php?cmd=anaexI&PI='+PI+'&report_type='+report_type;
     }
 }

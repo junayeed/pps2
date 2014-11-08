@@ -26,7 +26,7 @@ class irrCalculator extends DefaultApplication
       }
       //else
       {
-         echo $this->displayScreen($screen);
+         echo $screen;
       }
       return true;
 

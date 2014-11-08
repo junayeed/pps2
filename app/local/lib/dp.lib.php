@@ -370,10 +370,11 @@
    function countProjectByStatus()
    {
        //$dataArr        = array();
-       $user_type      = $_SESSION['user_type'];
-       $ministry_id    = $_SESSION['ministry_id'];
-       $commission_id  = $_SESSION['commission_id'];
-       $agency_id      = $_SESSION['agency_id'];
+       $user_type       = $_SESSION['user_type'];
+       $ministry_id     = $_SESSION['ministry_id'];
+       $sector_division = $_SESSION['sector_division'];
+       $commission_id   = $_SESSION['commission_id'];
+       $agency_id       = $_SESSION['agency_id'];
        
        $filterClause = '1';
 
@@ -385,9 +386,9 @@
         {
             $filterClause .= " AND ministry_id =$ministry_id";
         }
-        elseif ($user_type=='Planning Commission')
+        elseif ($user_type=='Commission')
         {
-            $filterClause .= " AND commission_id =$commission_id";
+            $filterClause .= " AND sector_division =$sector_division";
         }
         
         $info['table']  = PROJECT_TBL;

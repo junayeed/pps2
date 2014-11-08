@@ -38,6 +38,7 @@
    define('PROJECT_ATTACHMENT_TEMPLATE',                  TEMPLATE_DIR . '/attachment.html');
    define('ANNEX_V_ATTACHMENT_TEMPLATE',                  TEMPLATE_DIR . '/annexV_attachment.html');
    define('SICCESS_MSG_TEMPLATE',                         TEMPLATE_DIR . '/success_msg.html');
+   define('DESKOFFICER_TEMPLATE',                         TEMPLATE_DIR . '/deskofficer.html');
    
 
     define('ERROR',            'Error');

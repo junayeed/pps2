@@ -5,7 +5,16 @@ var YEAR_COUNT             = 1;
 var PROMPT_DELETE_CONFIRM   = "Are you sure you want to delete?";
 var distributionArray      = ['gob_', 'rpa_through_gob_', 'rpa_special_account_', 'dpa_', 'own_fund_', 'other_']; 
 
-
+function createPartBReport()
+{
+    var PI          = $('#PI').val();
+    var report_type = $('#report_type').val();
+    if (report_type)
+    {
+        location.href = 'http://'+document.domain+'/app/project_manager/project_manager.php?cmd=partB&PI='+PI+
+                        '&report_type='+report_type;
+    }
+}
 
 function getEconomicCode(elemName, comp_id, com_type)
 {

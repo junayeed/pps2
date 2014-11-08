@@ -22,7 +22,7 @@ class Message
     {
         $info['table']  = PROJECT_MESSAGE_TBL;
         $info['debug']  = false;
-        $info['where']  = "pid = $this->pid";
+        $info['where']  = "pid = $this->pid ORDER BY create_date DESC";
         
         $result = select($info);
         
@@ -58,11 +58,23 @@ class Message
     }
     
     
+    public function loadCommissionStatusOfProject()
+    {
+        $info['table']  = PROJECT_COMMISSION_STATUS_TBL;
+        $info['debug']  = false;
+        $info['where']  = "pid = $this->pid ORDER BY create_date DESC";
+        
+        $result = select($info);
+        
+        return $result;
+    }        
+    
+    
     public function loadAttachmentsByProject()
     {
         $info['table']  = PROJECT_ATTACHMENT_TBL;
         $info['debug']  = false;
-        $info['where']  = "pid = $this->pid";
+        $info['where']  = "pid = $this->pid ORDER BY create_date DESC";
         
         $result = select($info);
         
