@@ -468,8 +468,55 @@
 
         $result = select($info);
         
-        return $result;;
+        return $result;
    }
+   
+    function getDraftProjectTotal()
+    {
+        $info['table']  = PROJECT_TBL.' AS PR LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VPGT ON(PR.id = VPGT.pid)';
+        $info['debug']  = true;
+        $info['fields'] = array('PR.project_type', 'SUM(VPGT.gob_cost) AS gob_cost', 'SUM(VPGT.pa_through_gob_cost) AS pa_through_gob_cost', 
+                                'SUM(VPGT.pa_spc_acnt_cost) AS pa_spc_acnt_cost',
+                                'SUM(VPGT.pa_dpa_cost) AS pa_dpa_cost', 'SUM(VPGT.own_fund_cost) AS own_fund_cost', 'SUM(VPGT.other_cost) AS other_cost');
+        $info['where']  = 'PR.status != ' . q('Approved') . ' AND PR.status != ' . q('Rejected') . 
+                          ' AND PR.agency_id = ' . $_SESSION['agency_id'] . ' GROUP BY PR.project_type';
+
+        $result = select($info);
+        
+        if ($result)
+        {
+            foreach($result AS $key => $value)
+            {
+                $value->pa = $value->pa_through_gob_cost+$value->pa_spc_acnt_cost+$value->pa_dpa_cost;
+                $retData[$value->project_type] = $value;
+            }
+        }
+        
+        return $retData;
+    }
+    
+    function getApproveProjectTotal()
+    {
+        $info['table']  = PROJECT_TBL.' AS PR LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VPGT ON(PR.id = VPGT.pid)';
+        $info['debug']  = true;
+        $info['fields'] = array('PR.project_type', 'SUM(VPGT.gob_cost) AS gob_cost', 'SUM(VPGT.pa_through_gob_cost) AS pa_through_gob_cost', 
+                                'SUM(VPGT.pa_spc_acnt_cost) AS pa_spc_acnt_cost',
+                                'SUM(VPGT.pa_dpa_cost) AS pa_dpa_cost', 'SUM(VPGT.own_fund_cost) AS own_fund_cost', 'SUM(VPGT.other_cost) AS other_cost');
+        $info['where']  = 'PR.status = ' . q('Approved'). ' AND PR.agency_id = ' . $_SESSION['agency_id'] . ' GROUP BY PR.project_type';
+
+        $result = select($info);
+        
+        if ($result)
+        {
+            foreach($result AS $key => $value)
+            {
+                $value->pa = $value->pa_through_gob_cost+$value->pa_spc_acnt_cost+$value->pa_dpa_cost;
+                $retData[$value->project_type] = $value;
+            }
+        }
+        
+        return $retData;
+    }
    
   /**
    * This function calculate difference between two dates

@@ -1,9 +1,11 @@
 <div id="main-content" class="clearfix">
+					
     <div id="breadcrumbs">
         <ul class="breadcrumb">
             <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
             <li class="active">Dashboard</li>
         </ul><!--.breadcrumb-->
+
         <div id="nav-search">
             <form class="form-search">
                
@@ -14,37 +16,46 @@
         <div class="page-header position-relative">
             <h1>Dashboard <small><i class="icon-double-angle-right"></i> overview & stats</small></h1>
         </div><!--/page-header-->
-        <div class="row-fluid">
-            <div class="infobox infobox-green">
+        
+   <div class="row-fluid">
+	
+	<div class="infobox infobox-green">
 		<div class="infobox-icon"><i class="icon-building"></i></div>
 		<div class="infobox-data">
-                    <span class="infobox-data-number">{$total_project->agency_total|default:0}</span>
-                    <span class="infobox-content">Projects in Agency</span>
+			<span class="infobox-data-number">{$total_project->agency_total|default:0}</span>
+			<span class="infobox-content">Projects in Agency</span>
 		</div>
-            </div>
-            <div class="infobox infobox-blue">
+		
+	</div>
+
+
+	<div class="infobox infobox-blue">
 		<div class="infobox-icon"><i class="icon-paper-clip"></i></div>
 		<div class="infobox-data">
-                    <span class="infobox-data-number">{$total_project->ministry_total|default:0}</span>
-                    <span class="infobox-content">Projects in Ministry</span>
+			<span class="infobox-data-number">{$total_project->ministry_total|default:0}</span>
+			<span class="infobox-content">Projects in Ministry</span>
 		</div>
-            </div>
-            <div class="infobox infobox-pink">
+	</div>
+
+	<div class="infobox infobox-pink">
 		<div class="infobox-icon"><i class="icon-certificate"></i></div>
 		<div class="infobox-data">
-                    <span class="infobox-data-number">{$total_project->commission_total|default:0}</span>
-                    <span class="infobox-content">Project in Commission</span>
+			<span class="infobox-data-number">{$total_project->commission_total|default:0}</span>
+			<span class="infobox-content">Project in Commission</span>
 		</div>
-            </div>
-            <div class="infobox infobox-red">
+	</div>
+
+	<div class="infobox infobox-red">
 		<div class="infobox-icon"><i class="icon-share"></i></div>
 		<div class="infobox-data">
-                    <span class="infobox-data-number">{$total_project->approved_total|default:0}</span>
-                    <span class="infobox-content">Approved Projects</span>
+			<span class="infobox-data-number">{$total_project->approved_total|default:0}</span>
+			<span class="infobox-content">Approved Projects</span>
 		</div>
-            </div>
-        </div>    
-        <div class="hr hr32 hr-dotted"></div>
+	</div>
+    </div>    
+        
+    <div class="hr hr32 hr-dotted"></div>
+    
     <div class="row-fluid">      
         <div class="span6">
             <div class="widget-box transparent">
@@ -192,12 +203,17 @@
 			 <div class="widget-main">
 				<div class="tab-content padding-4">
 				  <div id="home2" class="tab-pane in active">
+					
 					<div id="container" style="height: 400px"></div>
+					
 				  </div>
 				  
 				  <div id="profile2" class="tab-pane">
-					<div id="home2" class="tab-pane in active">
-                                            <div id="draft_project_container" style="height: 400px; width: 536px;"></div>
+					<div class="slim-scroll" data-height="100">
+						<b>TAB # 2</b>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo massa sed ipsum porttitor facilisis. Nullam interdum massa vel nisl fringilla sed viverra erat tincidunt. Phasellus in ipsum velit. Maecenas id erat vel sem convallis blandit. Nunc aliquam enim ut arcu aliquet adipiscing. Fusce dignissim volutpat justo non consectetur.
 					</div>
 				  </div>
 				  
@@ -256,40 +272,6 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
 <script src="/ext/highcharts/js/modules/exporting.js"></script>
 
 <script>
-    var dpp_draft_cost    = [];
-    var tpp_draft_cost    = [];
-    var dpp_approved_cost = [];
-    var tpp_approved_cost = [];
-    
-    {foreach from=$draft_project key=key item=item}
-        {if $item->project_type eq 'DPP'}
-            dpp_draft_cost.push({$item->gob_cost});
-            dpp_draft_cost.push({$item->pa});
-            dpp_draft_cost.push({$item->own_fund_cost});
-            dpp_draft_cost.push({$item->other_cost});
-        {/if}
-        {if $item->project_type eq 'TPP'}
-            tpp_draft_cost.push({$item->gob_cost});
-            tpp_draft_cost.push({$item->pa});
-            tpp_draft_cost.push({$item->own_fund_cost});
-            tpp_draft_cost.push({$item->other_cost});
-        {/if}
-    {/foreach}
-    {foreach from=$approved_project key=key item=item}
-        {if $item->project_type eq 'DPP'}
-            dpp_approved_cost.push({$item->gob_cost});
-            dpp_approved_cost.push({$item->pa});
-            dpp_approved_cost.push({$item->own_fund_cost});
-            dpp_approved_cost.push({$item->other_cost});
-        {/if}
-        {if $item->project_type eq 'TPP'}
-            tpp_approved_cost.push({$item->gob_cost});
-            tpp_approved_cost.push({$item->pa});
-            tpp_approved_cost.push({$item->own_fund_cost});
-            tpp_approved_cost.push({$item->other_cost});
-        {/if}
-    {/foreach}
-    
 {literal}
     $('.slim-scroll').each(function () 
     {
@@ -302,165 +284,39 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
       
       
       
-    $(function () 
-    {
-        var chart = new Highcharts.Chart
-        (
-            {
-            chart: 
-            {
-                renderTo: 'container',
-                type: 'column',
-                margin: 75,
-                options3d: 
-                {
-                    enabled: true,
-                    alpha: 10,
-                    beta: 10,
-                    depth: 50,
-                    viewDistance: 25
-                }
-            },
-            title: {text: 'Total Cost Breakdown (Year 2014)'},
-            subtitle: {text: 'Draft Projects'},
-            xAxis: { categories: ['GoB', 'Project Aid', 'Own Fund', 'Others']},
-            yAxis: 
-            {
-                min: 0,
-                title: { text: 'Cost in Lakh Taka'},
-                stackLabels: 
-                {
-                    enabled: true,
-                    style: 
-                    {
-                        fontWeight: 'bold',
-                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'red'
-                    }
-                }
-            },
-            legend: 
-            {
-                align: 'right',
-                x: -70,
-                verticalAlign: 'bottom',
-                y: 10,
-                floating: true,
-                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-                borderColor: '#CCC',
-                borderWidth: 1,
-                shadow: false
-            },
-            tooltip: {
-            formatter: function () {
-                return '<b>' + this.x + '</b><br/>' +
-                    this.series.name + ': ' + this.y;
+     $(function () {
+    // Set up the chart
+    var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'container',
+            type: 'column',
+            margin: 75,
+            options3d: {
+                enabled: true,
+                alpha: 10,
+                beta: 10,
+                depth: 50,
+                viewDistance: 25
             }
         },
-            plotOptions: 
-            {
-                column: 
-                {
-                    colorByPoint: false,
-                    depth: 25
-                }
-            },
-            //colors: ['#ff0000', '#00ff00', '#0000ff'],
-            series: 
-            [
-                {
-                    //DPP Data
-                    name: 'DPP',
-                    data: dpp_approved_cost
-                },
-                {
-                    //TPP Data
-                    name: 'TPP',
-                    data: tpp_approved_cost
-                }
-            ],
-            credits:{enabled: false},
-            exporting: {enabled: true}
-        }
-    );
-    
-    var chart = new Highcharts.Chart
-    (
-        {
-            chart: 
-            {
-                renderTo: 'draft_project_container',
-                type: 'column',
-                margin: 75,
-                options3d: 
-                {
-                    enabled: true,
-                    alpha: 10,
-                    beta: 10,
-                    depth: 50,
-                    viewDistance: 25
-                }
-            },
-            title: {text: 'Total Cost Breakdown (Year 2014)'},
-            subtitle: {text: 'Draft Projects'},
-            xAxis: { categories: ['GoB', 'Project Aid', 'Own Fund', 'Others']},
-            yAxis: 
-            {
-                min: 0,
-                title: { text: 'Cost in Lakh Taka'},
-                stackLabels: 
-                {
-                    enabled: true,
-                    style: 
-                    {
-                        fontWeight: 'bold',
-                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'red'
-                    }
-                }
-            },
-            legend: 
-            {
-                align: 'right',
-                x: -70,
-                verticalAlign: 'bottom',
-                y: 10,
-                floating: true,
-                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-                borderColor: '#CCC',
-                borderWidth: 1,
-                shadow: false
-            },
-            tooltip: {
-            formatter: function () {
-                return '<b>' + this.x + '</b><br/>' +
-                    this.series.name + ': ' + this.y;
+        title: {
+            text: 'Total Cost Breakdown (Year 2014)'
+        },
+        subtitle: {
+            text: 'Cost Breakdown of total approved project'
+        },
+        plotOptions: {
+            column: {
+                depth: 25
             }
         },
-            plotOptions: 
-            {
-                column: 
-                {
-                    colorByPoint: false,
-                    depth: 25
-                }
-            },
-            //colors: ['#ff0000', '#00ff00', '#0000ff'],
-            series: 
-            [
-                {
-                    //DPP Data
-                    name: 'DPP',
-                    data: dpp_draft_cost
-                },
-                {
-                    //TPP Data
-                    name: 'TPP',
-                    data: tpp_draft_cost
-                }
-            ],
-            credits:{enabled: false},
-            exporting: {enabled: true}
-        }
-    );
+        series: [{
+            data: [229.96, 714.52, 106.4, 229.2, 144.0]
+        }],
+       credits:{
+           enabled: false
+       }
+    });
     
 
     // Activate the sliders

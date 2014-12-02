@@ -85,6 +85,7 @@ class Message
                 if($item->doc_id)
                 {
                     $result[$key]->file_location = getFileLocation($item->doc_id,$this->pid);
+                    $result[$key]->doc_id        = $item->doc_id;
                 }    
             }    
         }    

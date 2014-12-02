@@ -79,6 +79,10 @@ class projectManagerApp extends DefaultApplication
        $pid        = base64_decode(getUserField('PI')); 
        $data['PI'] = getUserField('PI');
        
+       //dumpVar($_SESSION);
+       $sector_division = getFromSession('sector_division');
+       //$data['designationList'] = getDesignationListOfCommissionUser();
+       
        $project = new Project();
        
        
@@ -166,13 +170,16 @@ class projectManagerApp extends DefaultApplication
         $info['debug']  = false;
         $info['where']  = 'annex_id = ' . $annex_id;
         
+        $deleted_detail  = delete($info);
+        
         $infop['table']  = PROJECT_ANNEX_V_TBL;
         $infop['debug']  = false;
         $infop['where']  = 'id = ' . $annex_id;
         
-        delete($info);
+        $deleted_com = delete($infop);
         
-        if (delete($infop) )
+        
+        if ($deleted_detail || $deleted_com )
         {
             echo json_encode('1');
             die;    

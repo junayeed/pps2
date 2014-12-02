@@ -18,6 +18,34 @@ function createReport(procurement_category)
     }
 }
 
+function deleteProjectAttachment(doc_id)
+{
+    var PI = $('#PI').val();
+    
+    if ( doConfirm('The attachment will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
+    {
+        $.ajax
+        (
+            {                                      
+                url: 'http://'+document.domain+'/app/ajax/ajax.php?cmd=deleteattachment',
+                data: "doc_id="+doc_id+"&PI="+PI,
+                dataType: 'json',
+                success: function(responseText)
+                {
+                    if(responseText)
+                    {    
+                        $('#table_attachments').find('#tr_attachments_' + doc_id).fadeOut(50,function() 
+                        {
+                            $('#table_attachments > #tr_attachments_' + doc_id).remove();
+                        });
+
+                    }        
+                }
+            } 
+        );
+    }
+}
+
 function createAnnexVReport()
 {
     var PI          = $('#PI').val();
@@ -123,7 +151,7 @@ function populateContingency(economic_code_id, economic_subcode_id, economic_sub
 }
 
 function populateComponentDetails(economic_code_id, economic_subcode_id, economic_subcode_name, unit, unit_cost, qty, total_cost, gob, gob_fe, 
-                                  rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe,annex_id, attachment_path)
+                                  rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe,annex_id, attachment_path, attachment_id)
 {
     var elemID = COMPONENT_ROW_ID - 1;
     
@@ -152,11 +180,38 @@ function populateComponentDetails(economic_code_id, economic_subcode_id, economi
     if (attachment_path)
     {
         $('#view_attachment_'+elemID).attr('href', attachment_path);
+        $('#delete_attachment_'+elemID).attr('onclick', 'deleteEconomicCodeAttachment('+elemID+', '+annex_id + ')');
     }
     else
     {
         $('#view_attachment_'+elemID).hide();
+        $('#delete_attachment_'+elemID).hide();
     }    
+}
+
+function deleteEconomicCodeAttachment(elemID, annex_id)
+{
+    var pid  = $('#PI').val();
+    
+    if ( doConfirm('The attachment will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
+    {
+        $.ajax
+        (
+            {                                      
+                url: 'http://'+document.domain+'/app/ajax/ajax.php?cmd=delEconCodeattachment',
+                data: "annex_id="+annex_id+"&PI="+pid,
+                dataType: 'json',
+                success: function(responseText)
+                {
+                    if(responseText)
+                    {    
+                        $('#view_attachment_'+elemID).hide();
+                        $('#delete_attachment_'+elemID).hide();
+                    }        
+                }
+            } 
+        );
+    }
 }
 
 
@@ -219,7 +274,16 @@ function addNewComponent(com_type,buttonClick)
     ///alert('ID = ' + COMPONENT_ROW_ID + ' Type = ' + component_type);
     var td_delete_code     = '<td><img src="/app_contents/common/images/cross.png" onClick="deleteComponent('+COMPONENT_ROW_ID+',\''+component_type+'\');" class="delete_year_icon" "></td>';
     var td_economic_code   = '<td>' + getEconomicCode("economic_code_"+COMPONENT_ROW_ID, COMPONENT_ROW_ID, com_type) + 
-                             '<a id="attachment_'+COMPONENT_ROW_ID+'" class="annexV_attachment" href="/app/project_manager/project_manager.php?cmd=annexV_attachment&PI='+$('#PI').val()+'"><img src="/app_contents/common/images/attachment_add-16.png"></a> <a id="view_attachment_'+COMPONENT_ROW_ID+'" href="javascript:void(0);"><img src="/app_contents/common/images/document_text_accept-16.png" /></a></td>'; 
+                             '<a id="attachment_'+COMPONENT_ROW_ID+'" class="annexV_attachment" href="/app/project_manager/project_manager.php?cmd=annexV_attachment&PI='+$('#PI').val()+'">\n\
+                              <img src="/app_contents/common/images/attachment_add-16.png">\n\
+                              </a>\n\
+                              <a id="view_attachment_'+COMPONENT_ROW_ID+'" href="javascript:void(0);">\n\
+                              <img src="/app_contents/common/images/document_text_accept-16.png" />\n\
+                              </a>\n\
+                              <a id="delete_attachment_'+COMPONENT_ROW_ID+'" href="javascript:void(0);">\n\
+                              <img src="/app_contents/common/images/delete.png" onClick="deleteComponentAttachment();">\n\
+                              </a>\n\
+                              </td>'; 
     var td_sub_code        = '<td>' + createEconomicSubCodeDropdown(COMPONENT_ROW_ID, 0) + '</td>';
     var td_code_desc       = '<td><textarea name="code_desc_'+COMPONENT_ROW_ID+'" id="code_desc_'+COMPONENT_ROW_ID+'" class="span12" style="height: 60px;" /></textarea></td>';
     
@@ -257,6 +321,7 @@ function addNewComponent(com_type,buttonClick)
     if(buttonClick)   //buttonClick = 1 mean click from the button
     {
         $('#view_attachment_' + COMPONENT_ROW_ID-1).hide();
+        $('#delete_attachment_' + COMPONENT_ROW_ID-1).hide();
         
         for(var year=1; year<=tot_year; year++ )
         {
@@ -367,6 +432,8 @@ function deleteComponent(elemID,component_type)
                         if (responseText == '1')
                         {    
                             //alert('here')
+                            //COMPONENT_ROW_ID--;
+                            
                             removeComponentRow(component_type, elemID);
                         }
                     }    

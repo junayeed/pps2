@@ -1,0 +1,57 @@
+<ul class="nav nav-list">
+    <li>
+        <a href="/app/standard/user_home/user_home.php">
+            <i class="icon-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li>
+        <a  class="dropdown-toggle active" href="#">
+            <i class="icon-edit"></i>
+            <span>Projects Information</span>
+            <b class="arrow icon-angle-down"></b>
+        </a>      
+        <ul class="submenu">
+            <li><a href="/app/project_manager/project_manager.php"><i class="icon-double-angle-right"></i> Create Project</a></li>
+            <li><a href="/app/project_manager/project_manager.php?cmd=list"><i class="icon-double-angle-right"></i> Project List</a></li>
+        </ul>
+    </li>
+    <li>
+        <a  class="dropdown-toggle active" href="#">
+            <i class="icon-external-link"></i>
+            <span>Reports</span>
+            <b class="arrow icon-angle-down"></b>
+        </a>      
+        <ul class="submenu">
+            <li><a href="/app/report_manager/report_manager.php"><i class="icon-double-angle-right"></i> Report</a></li>
+            <li><a href="/app/report_manager/report_manager.php?cmd=list"><i class="icon-double-angle-right"></i> Report List</a></li>
+        </ul>
+    </li>
+    <li>
+        <a  class="dropdown-toggle active" href="#">
+            <i class="icon-bar-chart"></i>
+            <span>Charts</span>
+            <b class="arrow icon-angle-down"></b>
+        </a>      
+        <ul class="submenu">
+            <li><a href="/app/chart/chart.php"><i class="icon-double-angle-right"></i> Year wise Project</a></li>
+            <li><a href="/app/chart/chart.php?cmd=approvedProject"><i class="icon-double-angle-right"></i> Approved Project Funding</a></li>
+        </ul>
+    </li>
+    
+    {if $smarty.session.user_permission eq 'Admin'}
+    <li>
+        <a  class="dropdown-toggle active" href="#">
+            <i class="icon-credit-card"></i>
+            <span>Administration</span>
+            <b class="arrow icon-angle-down"></b>
+        </a>      
+        <ul class="submenu">
+            <li><a href="/app/user_manager/user_manager.php?cmd=list"><i class="icon-double-angle-right"></i> Designation</a></li>
+            <li><a href="/app/user_manager/user_manager.php?cmd=officerlist"><i class="icon-double-angle-right"></i> Officer</a></li>
+            <li><a href="/app/user_manager/user_manager.php?cmd=officerlist"><i class="icon-double-angle-right"></i> Sub Agency/Company</a></li>
+        </ul>
+    </li>
+    {/if}
+                                        
+</ul><!--/.nav-list-->

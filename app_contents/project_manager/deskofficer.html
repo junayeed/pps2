@@ -41,7 +41,10 @@
     <div class="control-group">
         <label class="control-label" for="title">Designation: </label>
         <div class="controls">
-            <input class="span5" type="text" id="title"  name="title" placeholder="Title" required>
+            <select name="designationList">
+                <option></option>
+                {html_options options=$designationList}
+            </select>
         </div>
     </div>
    

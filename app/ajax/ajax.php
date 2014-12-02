@@ -38,12 +38,40 @@ class ajaxApp extends DefaultApplication
            case 'updateYearInAnnexVRow'    : $screen = $this->updateYearInAnnexVRow();                 break;
            case 'saveAnnexVAttachment'     : $screen = $this->saveAnnexVAttachment();                  break;
            case 'saveStatusOfCommission'   : $screen = $this->saveStatusOfCommission();                break;
+           case 'deleteattachment'         : $screen = $this->deleteAttachment();                      break;
+           case 'delEconCodeattachment'    : $screen = $this->deleteEconomicCodeAttachment();          break;
            default                         : $screen = $this->showEditor($msg);
       }
 
       return true;
     }
     
+    function deleteEconomicCodeAttachment()
+    {
+        $pid      = base64_decode(getUserField('PI'));
+        $annex_id = getUserField('annex_id');
+        
+        $info['table']                 = PROJECT_ANNEX_V_TBL;
+        $info['debug']                 = false;
+        $info['where']                 = 'id = ' . $annex_id . ' AND pid = ' . $pid;
+        $info['data']['attachment_id'] = 0;
+        
+        echo json_encode(update($info));
+        die;
+    }
+    
+    function deleteAttachment()
+    {
+        $pid    = base64_decode(getUserField('PI'));
+        $doc_id = getUserField('doc_id');
+        
+        $info['table']  = PROJECT_ATTACHMENT_TBL;
+        $info['debug']  = false;
+        $info['where']  = 'pid = ' . $pid . ' AND doc_id = ' . $doc_id;
+        
+        echo json_encode(delete($info));
+        die;
+    }
     
     function saveStatusOfCommission()
     {

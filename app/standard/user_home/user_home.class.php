@@ -4,11 +4,6 @@
     * Purpose : Defines a UserHomeApp class which extends DefaultApplication.
     *           The derived class (defined here) is used to display
     *           appropriate user home page.
-    *
-    *
-    * Developed by EVOKNOW, Inc.
-    * Copyright (c) 2005 EVOKNOW, Inc.
-    * Version ID: $Id$
     */ 
    
    class UserHomeApp extends DefaultApplication 
@@ -60,10 +55,12 @@
       function showDashBoard()
       {
       	
-        $data['total_project'] = countProjectByStatus();
-        $data['project_list']  = getProjectList();
+        $data['total_project']    = countProjectByStatus();
+        $data['project_list']     = getProjectList();
+        $data['draft_project']    = getDraftProjectTotal();
+        $data['approved_project'] = getApproveProjectTotal();
         //dumpvar($_SESSION);
-        //dumpvar($data['project_list']);
+        //dumpvar($data['draft_project']);
         return createPage(DASHBOARD_TEMPLATE, $data);
       	
       }

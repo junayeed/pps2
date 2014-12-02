@@ -47,7 +47,7 @@
            
 
             <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
-            <form class="form-horizontal" id="procure_plan_services_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_services_form"> 
+            <form class="form-horizontal" id="procure_plan_services_form"  method="post" action="{$SCRIPT_NAME}" onsubmit="return submitFrm()" name="procure_plan_services_form"> 
                 {if $error eq '1'}
                 <div class="alert alert-block alert-error">
                     <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
@@ -347,7 +347,7 @@
                         
                         <div class="form-actions2">
                             <button class="btn btn-small btn-primary" type="button" id="addyear"onClick="addNewYear(1);">Add Year</button>
-                            <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                            <button class="btn btn-small btn-primary" type="submit"><i class="icon-save"></i> Save</button>
                             <div id="export_to_container">
                                 Export To: 
                                 <select name="report_type" id="report_type" class="span6" onchange="createAnnexVReport();">
@@ -473,7 +473,7 @@
             populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}", "{$item->unit}", 
                                      "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
-                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}", "{$item->attachment_path}");
+                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}", "{$item->attachment_path}", "{$item->attachment_id}");
           
            
            component_count++;
@@ -583,6 +583,18 @@
             'top'       : '20px',
             'type'   	     : 'iframe'
         });
+        
+        
+        function submitFrm()
+        {
+            
+            if(componentRowIDArray.length <=0)
+            {
+                alert("Please provide some Component Details");
+                return false;
+            }    
+            return true;
+        }
         
         
        //$("table").stickyTableHeaders();
