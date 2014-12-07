@@ -2,9 +2,6 @@
 
 /**
  * File: user_manager.class.php
- *
- * @copyright {@link www.evoknow.com EVOKNOW Inc}
- * @author  php@evoknow.com
  */
 
 /**

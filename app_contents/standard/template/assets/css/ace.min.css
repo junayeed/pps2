@@ -330,7 +330,7 @@ tbody tr:hover
 }
 td
 {
-    text-align: right;
+    text-align: left;
 }
 td:first-child, th:first-child
 {

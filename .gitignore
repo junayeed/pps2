@@ -1,2 +1,5 @@
 /ext/Highcharts/exporting-server/java/highcharts-export/highcharts-export-convert/target/
 /ext/Highcharts/exporting-server/java/highcharts-export/highcharts-export-web/target/
+/temp/
+/documents/
+/coordinates/

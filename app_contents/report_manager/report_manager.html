@@ -3,31 +3,21 @@
     <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
 </head>
 <div id="main-content" class="clearfix">
-    
-					
-					<div id="breadcrumbs">
-						<ul class="breadcrumb">
-							<li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-							<li><a href="#">Rrports</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-							<li class="active">Year wise project</li>
-						</ul><!--.breadcrumb-->
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+                <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+                <li><a href="#">Rrports</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+                <li class="active">Year wise project</li>
+        </ul><!--.breadcrumb-->
+    </div><!--#breadcrumbs-->
 
-						
-					</div><!--#breadcrumbs-->
-
-
-
-<div id="page-content" class="clearfix">
-					
-    <div class="page-header position-relative">
-	<h1>Dynamic Reports <small><i class="icon-double-angle-right"></i>criteria based</small></h1>
-    </div><!--/page-header-->
-
-						
-
-<div class="row-fluid">
-<!-- PAGE CONTENT BEGINS HERE -->
-
+    <div id="page-content" class="clearfix">
+        <div class="page-header position-relative">
+            <h1>Dynamic Reports <small><i class="icon-double-angle-right"></i>criteria based</small></h1>
+        </div><!--/page-header-->
+        
+        <div class="row-fluid">
+        <!-- PAGE CONTENT BEGINS HERE -->
 
 <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}">
 	
@@ -36,12 +26,16 @@
         <table style="width: 100%;" cellpadding="5" >
             <tr>
                 <td colspan="2">
-                    <label class="label label-info">Project Name (English/Bangla)</label>
-                    <input type="text" class="span12" placeholder="Project name…">
+                    <label class="label label-info">Project Title (English/Bangla)</label>
+                    <input type="text" class="span12" placeholder="Project Title…" name="project_title">
                 </td>
                 <td>
                     <label class="label label-info">Project Type</label>
-                    <input type="text" class="span12" placeholder="Project Type …">
+                     <select id="project_type" name="project_type" class="span12">
+                        <option value="">Select Type</option>
+                        <option value="DPP">DPP</option>
+                        <option value="TPP">TPP</option>
+                    </select>  
                 </td>
                 <td>
                     <label class="label label-info">Status</label>
@@ -50,38 +44,38 @@
             </tr>    
             <tr>
                 <td>
-                    <label class="label label-info">Project Starting Date (To)</label>
-                    <input type="text" class="date-picker span10" placeholder="Project Status …">
+                    <label class="label label-info">Project Start Date (To)</label>
+                    <input type="text" class="date-picker span10" placeholder="Project Start Date …">
                     <span class="add-on"><i class="icon-calendar"></i></span>
                 </td>
                 <td>
-                    <label class="label label-info">Project Starting Date (From)</label>
-                    <input type="text" class="date-picker span10" placeholder="Project Status …">
+                    <label class="label label-info">Project Start Date (From)</label>
+                    <input type="text" class="date-picker span10" placeholder="Project Start Date …">
                     <span class="add-on"><i class="icon-calendar"></i></span>
                 </td>
                 <td>
-                    <label class="label label-info">Project Ending Date (To)</label>
-                    <input type="text" class="date-picker span10" placeholder="Project Status …">
+                    <label class="label label-info">Project End Date (To)</label>
+                    <input type="text" class="date-picker span10" placeholder="Project End Date …">
                     <span class="add-on"><i class="icon-calendar"></i></span>
                 </td>
                 <td>
-                    <label class="label label-info">Project Ending Date (From)</label>
-                    <input type="text" class="date-picker span10" placeholder="Project Status …">
+                    <label class="label label-info">Project End Date (From)</label>
+                    <input type="text" class="date-picker span10" placeholder="Project End Date …">
                     <span class="add-on"><i class="icon-calendar"></i></span>
                 </td>
             </tr> 
             <tr>
                 <td>
                     <label class="label label-info">Total Cost (To)</label>
-                    <input type="text" class="span12" placeholder="Project Status …">
+                    <input type="text" class="span12" placeholder="Total Cost…">
                 </td>
                 <td>
                     <label class="label label-info">Total Cost (From)</label>
-                    <input type="text" class="span12" placeholder="Project Status …">
+                    <input type="text" class="span12" placeholder="Total Cost …">
                 </td>
                 <td colspan="2">
                     <label class="label label-info">Donor Agencies</label>
-                    <input type="text" class="span12" placeholder="Project Status …">
+                    <input type="text" class="span12" placeholder="Donor Agencies …">
                 </td>
             </tr>    
         </table>    
