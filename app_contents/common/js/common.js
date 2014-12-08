@@ -508,3 +508,32 @@ function hideDiv(divId)
       }
    }
 }
+
+function getSubSector()
+{
+    var adp_sector  = $('#adp_sector').val();
+    var domainname  = window.location.hostname;
+   
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getSubSector',
+            data: "adp_sector="+adp_sector,
+            dataType: 'json',
+            success: function(responseText) 
+            {
+                if(responseText!=null)
+                {
+                    $('#adp_sub_sector').empty(); //remove all child nodes
+                    $('#adp_sub_sector').append(responseText);
+                    $('#adp_sub_sector').trigger("liszt:updated");
+                } 
+                else
+                {
+                    $('#agencies').empty(); 
+                    $('#agencies').trigger("liszt:updated");
+                }
+            }
+        } 
+    );  
+}

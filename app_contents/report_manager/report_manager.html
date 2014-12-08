@@ -1,6 +1,7 @@
 <head>
     <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
     <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
 </head>
 <div id="main-content" class="clearfix">
     <div id="breadcrumbs">
@@ -27,19 +28,21 @@
             <tr>
                 <td colspan="2">
                     <label class="label label-info">Project Title (English/Bangla)</label>
-                    <input type="text" class="span12" placeholder="Project Title…" name="project_title">
+                    <input type="text" class="span12" placeholder="Project Title…" name="project_title" value="{$project_title}">
                 </td>
                 <td>
                     <label class="label label-info">Project Type</label>
-                     <select id="project_type" name="project_type" class="span12">
+                    <select id="project_type" name="project_type" class="span12">
                         <option value="">Select Type</option>
-                        <option value="DPP">DPP</option>
-                        <option value="TPP">TPP</option>
+                        {html_options values=$projectTypeList output=$projectTypeList selected=$project_type}
                     </select>  
                 </td>
                 <td>
-                    <label class="label label-info">Status</label>
-                    <input type="text" class="span12" placeholder="Project Status …">
+                    <label class="label label-info">Project Status</label>
+                    <select id="project_status" name="project_status" class="span12">
+                       <option value="">Select Status</option>
+                        {html_options values=$statusList output=$statusList selected=$project_status}
+                    </select>
                 </td>
             </tr>    
             <tr>
@@ -66,28 +69,46 @@
             </tr> 
             <tr>
                 <td>
-                    <label class="label label-info">Total Cost (To)</label>
-                    <input type="text" class="span12" placeholder="Total Cost…">
+                    <label class="label label-info">Total Cost (To) in Lakh Taka</label>
+                    <input type="text" class="span12" placeholder="Total Cost…" name="total_cost_to" value="{$total_cost_to}">
                 </td>
                 <td>
-                    <label class="label label-info">Total Cost (From)</label>
-                    <input type="text" class="span12" placeholder="Total Cost …">
+                    <label class="label label-info">Total Cost (From) in Lakh Taka</label>
+                    <input type="text" class="span12" placeholder="Total Cost …" name="total_cost_from" value="{$total_cost_from}">
                 </td>
                 <td colspan="2">
-                    <label class="label label-info">Donor Agencies</label>
-                    <input type="text" class="span12" placeholder="Donor Agencies …">
+                    <label class="label label-info">Development Partner(s)</label>
+                    <div>
+                        <select multiple class="chzn-select span5" id="partners[]" name="partners[]" data-placeholder="Choose a Development Partners...">
+                        {html_options options=$donorList}
+                        </select>  
+                    </div>
+                </td>
+            </tr>    
+            <tr>
+                <td>
+                    <label class="label label-info">ADP Sector</label>
+                    <select id="adp_sector" name="adp_sector" onchange="getSubSector()">
+                        <option value="">Select Sector</option>
+                        {html_options options=$adpSectorList selected=$adp_sector}
+                    </select>
+                </td>
+                <td>
+                    <label class="label label-info">ADP Subsector</label>
+                    <select id="adp_sub_sector" name="adp_sub_sector">
+                        <option value="">Select Subsector</option>
+                        {html_options options=$adpSubSectorList selected=$adp_sub_sector}
+                    </select> 
                 </td>
             </tr>    
         </table>    
             
-            <fieldset>
-                <label class="pull-left" style="padding-top: 10px;">
-                   <button onclick="return false;" class="btn btn-small btn-success">Submit <i class="icon-arrow-right icon-on-right"></i></button>
-                </label>
-                
-            </fieldset>
-            
-           
+        <fieldset>
+            <label class="pull-left" style="padding-top: 10px;">
+               <button class="btn btn-small btn-success">Search <i class="icon-arrow-right icon-on-right"></i></button>
+            </label>
+
+        </fieldset>
     </div>
     <div class="row-fluid">
         <div id="container" style="height: 400px"></div>  
@@ -102,44 +123,45 @@
 
 </div><!-- #main-content -->
 
-		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
-			<i class="icon-double-angle-up icon-only"></i>
-		</a>
+<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+    <i class="icon-double-angle-up icon-only"></i>
+</a>
                         
                         
-                <!-- basic scripts -->
-		<script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
-		<script type="text/javascript">
-		window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
-		</script>
-		
-		<script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
+<!-- basic scripts -->
+<script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
+<script type="text/javascript">
+window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
+</script>
+
+<script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
 
 
-                <script src="/ext/highcharts/js/highcharts.js"></script>
-                <script src="/ext/highcharts/js/highcharts-3d.js"></script>
-                <script src="/ext/highcharts/js/modules/exporting.js"></script>
+<script src="/ext/highcharts/js/highcharts.js"></script>
+<script src="/ext/highcharts/js/highcharts-3d.js"></script>
+<script src="/ext/highcharts/js/modules/exporting.js"></script>
 
-		<!-- page specific plugin scripts -->
-		
-		<!--[if lt IE 9]>
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
-		<![endif]-->
+<!-- page specific plugin scripts -->
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
+<![endif]-->
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
 
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
-              
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
-
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
-		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
-
-               <!-- ace scripts -->
-		<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
-		<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
-                <script>
-                    $('.date-picker').datepicker();
-                </script>    
+<!-- ace scripts -->
+<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
+<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+<script>
+    $('.date-picker').datepicker();
+    {literal}
+    $(".chzn-select").chosen(); 
+    $(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+    {/literal}
+</script>    

@@ -747,26 +747,15 @@
 
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
 
-                
-                
-
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/daterangepicker.min.js"></script>
-
-		
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.knob.min.js"></script>
-
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.autosize-min.js"></script>
-
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
-
 		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
                 <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
-
-               <!-- ace scripts -->
+                <!-- ace scripts -->
 		<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
 		<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
-                
-                
                 <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
                 <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/part_a.js"></script>        
                 <script type="text/javascript" src="/ext/ckeditor/ckeditor.js"></script>
@@ -1090,41 +1079,6 @@ function getAgencyList()
                     $('#agencies').empty(); //remove all child nodes
                     $('#agencies').append(responseText);
                     $('#agencies').trigger("liszt:updated");
-                    
-                } 
-                else
-                {
-                     $('#agencies').empty(); 
-                     $('#agencies').trigger("liszt:updated");
-                }
-            }
-        } 
-    );  
-    
-    
-}
-
-function getSubSector()
-{
-    var adp_sector  = $('#adp_sector').val();
-    
-    var domainname = window.location.hostname;
-   
-    $.ajax
-    (
-        {                                      
-            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getSubSector',                    //the script to call to get data          
-            data: "adp_sector="+adp_sector,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
-            dataType: 'json',                                         //data format      
-            success: function(responseText)                           //on recieve of reply
-            {
-                if(responseText!=null)
-                {
-                   
-                    
-                    $('#adp_sub_sector').empty(); //remove all child nodes
-                    $('#adp_sub_sector').append(responseText);
-                    $('#adp_sub_sector').trigger("liszt:updated");
                     
                 } 
                 else
