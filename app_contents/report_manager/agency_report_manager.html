@@ -1,0 +1,263 @@
+<head>
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+    <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/report_manager.js"></script>
+</head>
+<div id="main-content" class="clearfix">
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+                <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+                <li><a href="#">Reports</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+                <li class="active">Year wise project</li>
+        </ul><!--.breadcrumb-->
+    </div><!--#breadcrumbs-->
+
+    <div id="page-content" class="clearfix">
+        <div class="page-header position-relative">
+            <h1>Dynamic Reports <small><i class="icon-double-angle-right"></i> criteria based</small></h1>
+        </div><!--/page-header-->
+        
+        <div class="row-fluid">
+        <!-- PAGE CONTENT BEGINS HERE -->
+
+<form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}">
+	
+    <div class="well span12">
+        
+        <table style="width: 100%;" cellpadding="5" >
+            <tr>
+                <td colspan="2">
+                    <label class="label label-info">Project Title (English/Bangla)</label>
+                    <input type="text" class="span12" placeholder="Project Title…" name="project_title" value="{$project_title}">
+                </td>
+                <td>
+                    <label class="label label-info">Project Type</label>
+                    <select id="project_type" name="project_type" class="span12">
+                        <option value="">Select Type</option>
+                        {html_options values=$projectTypeList output=$projectTypeList selected=$project_type}
+                    </select>  
+                </td>
+                <td>
+                    <label class="label label-info">Project Status</label>
+                    <select id="project_status" name="project_status" class="span12">
+                       <option value="">Select Status</option>
+                        {html_options values=$statusList output=$statusList selected=$project_status}
+                    </select>
+                </td>
+            </tr>    
+            <tr>
+                <td>
+                    <label class="label label-info">Project Start Date (To)</label>
+                    <input type="text" class="date-picker span10" placeholder="Project Start Date …">
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </td>
+                <td>
+                    <label class="label label-info">Project Start Date (From)</label>
+                    <input type="text" class="date-picker span10" placeholder="Project Start Date …">
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </td>
+                <td>
+                    <label class="label label-info">Project End Date (To)</label>
+                    <input type="text" class="date-picker span10" placeholder="Project End Date …">
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </td>
+                <td>
+                    <label class="label label-info">Project End Date (From)</label>
+                    <input type="text" class="date-picker span10" placeholder="Project End Date …">
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </td>
+            </tr> 
+            <tr>
+                <td>
+                    <label class="label label-info">Total Cost (To) in Lakh Taka</label>
+                    <input type="text" class="span12" placeholder="Total Cost…" name="total_cost_to" value="{$total_cost_to}">
+                </td>
+                <td>
+                    <label class="label label-info">Total Cost (From) in Lakh Taka</label>
+                    <input type="text" class="span12" placeholder="Total Cost …" name="total_cost_from" value="{$total_cost_from}">
+                </td>
+                <td colspan="2">
+                    <label class="label label-info">Development Partner(s)</label>
+                    <div>
+                        <select multiple class="chzn-select span5" id="partners[]" name="partners[]" data-placeholder="Choose a Development Partners...">
+                        {html_options options=$donorList}
+                        </select>  
+                    </div>
+                </td>
+            </tr>    
+            <tr>
+                <td>
+                    <label class="label label-info">ADP Sector</label>
+                    <select id="adp_sector" name="adp_sector" onchange="getSubSector()">
+                        <option value="">Select Sector</option>
+                        {html_options options=$adpSectorList selected=$adp_sector}
+                    </select>
+                </td>
+                <td>
+                    <label class="label label-info">ADP Subsector</label>
+                    <select id="adp_sub_sector" name="adp_sub_sector">
+                        <option value="">Select Subsector</option>
+                        {html_options options=$adpSubSectorList selected=$adp_sub_sector}
+                    </select> 
+                </td>
+                <td colspan="2"> </td>
+            </tr>    
+        </table>    
+            
+        <fieldset>
+            <label class="pull-left" style="padding-top: 10px;">
+               <button class="btn btn-small btn-success">Search <i class="icon-arrow-right icon-on-right"></i></button>
+            </label>
+
+        </fieldset>
+    </div>
+    {if $project_list}
+    <div class="span12 no-padding">
+        <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+            <thead>                                               
+                <tr>
+                    <th>Sl</th>
+                    <th>Project Title</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {foreach from=$project_list key=key item=item}
+                    <tr>
+                        <td>{$key+1}</td>
+                        <td>
+                            <strong><a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}">{$item->project_title_en|truncate:100}</a></strong>
+                            <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>
+                            {if $item->project_type eq 'DPP'}<span class="label label-info label-yellow arrowed-in-right arrowed-in" >{$item->project_type}</span>
+                            {else}<span class="label label-info label-light arrowed-in-right arrowed-in" >{$item->project_type}</span>
+                            {/if}
+                            <a href="javascript:void(0);" onClick="showProjectSummary('{$key+1}');"><label class="label label-info">Project Summary</label></a>
+                            <div id="project_summary_{$key+1}" class="project_summary span11 row-fluid" style="display: none;">
+                                
+                                <div class="span6">
+                                    <!--<h5 class="header smaller lighter blue">Project Information</h5>-->
+                                    <lable class="text-info">ADP Sector (Sub Sector): {$item->adp_sector} ({$item->adp_sub_sector})</lable><br>
+                                    <lable class="text-info">Development Partners: {$item->development_partners}</lable><br>
+                                    <lable class="text-info">Date of commencement: {$item->date_of_commencement}</lable><br>
+                                    <lable class="text-info">Date of completion: {$item->date_of_completion}</lable><br>
+                                    
+                                </div>
+                                <div class="span6  infobox-container ">
+                                    <div class="infobox infobox-green H35 ">
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number font18 CENTER">{$item->gob_cost|number_format:2:".":","}</span>
+                                            <span class="infobox-content CENTER">GOB
+                                                {if $item->total_cost}
+                                                    {assign var="gob_percentage" value=$item->gob_cost/$item->total_cost*100}
+                                                    ({$gob_percentage|number_format:2:".":","}%)
+                                                {else}
+                                                    (0.00%)
+                                                {/if}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="infobox infobox-blue H35">
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number font18 CENTER">
+                                                {assign var="total_project_aid" value=$item->pa_through_gob_cost+$item->pa_spc_acnt_cost+$item->pa_dpa_cost}
+                                                {$total_project_aid|number_format:2:".":","}
+                                            </span>
+                                            <span class="infobox-content CENTER">Project Aid
+                                               {if $item->total_cost}
+                                                    {assign var="pa_percentage" value=$total_project_aid/$item->total_cost*100}
+                                                    ({$pa_percentage|number_format:2:".":","}%)
+                                                {else}
+                                                    (0.00%)
+                                                {/if}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="infobox infobox-pink  H35">
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number font18 CENTER">{$item->own_fund_cost|number_format:2:".":","}</span>
+                                            <span class="infobox-content CENTER">Own Fund
+                                            {if $item->total_cost}
+                                                {assign var="own_fund_percentage" value=$item->own_fund_cost/$item->total_cost*100}
+                                                ({$own_fund_percentage|number_format:2:".":","}%)
+                                            {else}
+                                                (0.00%) 
+                                            {/if}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="infobox infobox-red H35 ">
+                                        <div class="infobox-data center">
+                                            <span class="infobox-data-number font18 CENTER">{$item->other_cost|number_format:2:".":","}</span>
+                                            <span class="infobox-content CENTER">Other
+                                            {if $item->total_cost}
+                                                {assign var="other_percentage" value=$item->other_cost/$item->total_cost*100}
+                                                ({$other_percentage|number_format:2:".":","}%)
+                                            {else}
+                                                (0.00%)
+                                            {/if}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="infobox infobox-red">
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number CENTER">{$item->total_cost|number_format:2:".":","}</span>
+                                            <span class="infobox-content CENTER">Total Cost</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  <!-- SUMMARY DIV ENDS HERE-->
+                        </td>
+                    </tr>
+                {/foreach}
+            </tbody>
+        </table>
+    </div>  
+    {/if}
+</form>
+	   
+<!-- PAGE CONTENT ENDS HERE -->
+</div><!--/row-->
+	
+</div><!--/#page-content-->
+
+</div><!-- #main-content -->
+
+<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+    <i class="icon-double-angle-up icon-only"></i>
+</a>
+                        
+                        
+<!-- basic scripts -->
+<script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
+<script type="text/javascript">
+window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
+</script>
+
+<script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
+
+
+<!-- page specific plugin scripts -->
+
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+
+<!-- ace scripts -->
+<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
+<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+<script>
+    $('.date-picker').datepicker();
+    {literal}
+    $(".chzn-select").chosen(); 
+    $(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+    {/literal}
+</script>    

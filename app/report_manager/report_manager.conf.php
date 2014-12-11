@@ -20,9 +20,9 @@
    /**#@+
    * Template Constant
    */
-   define('REPORT_EDITOR_TEMPLATE',             TEMPLATE_DIR . '/report_manager.html');
-   define('REPORT_LIST_TEMPLATE',               TEMPLATE_DIR . '/report_list.html');
-   define('OFFICER_LIST_TEMPLATE',            TEMPLATE_DIR . '/officer_list.html');
+   define('REPORT_EDITOR_TEMPLATE',      '_report_manager.html');
+   define('REPORT_LIST_TEMPLATE',        TEMPLATE_DIR . '/report_list.html');
+   define('OFFICER_LIST_TEMPLATE',       TEMPLATE_DIR . '/officer_list.html');
 
 
    /**#@+

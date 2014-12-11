@@ -73,11 +73,16 @@
         return $fileLocation;
     }
    
-    function getAgencyList()
+    function getAgencyList($ministry_id = null)
     {
+        if ($ministry_id)
+        {
+            $ministryClause = ' AND ministry_id = ' . $ministry_id;
+        }
+        
         $info['table']  = AGENCY_LOOKUP_TBL;
-        $info['fields'] = array('id','name');
-        $info['where']  = " status='Active' ORDER By name ASC";
+        $info['fields'] = array('id', 'name');
+        $info['where']  = 'status= ' . q('Active') . $ministryClause . ' ORDER By name ASC';
         $info['debug']  = false;
 
         if ($result = select($info))
@@ -90,7 +95,7 @@
         
         return $data;
     } 
-   
+    
     function getADPSectorList()
     {
         $info['table']  = ADP_SECTOR_LOOKUP_TBL;

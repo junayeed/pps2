@@ -51,7 +51,10 @@ class reportManagerApp extends DefaultApplication
     * @return user editor template
     */
     function showEditor($msg)
-    {
+    { 
+        $user_type                  = getFromSession('user_type');
+        $agency_id                  = getFromSession('agency_id');
+        $ministry_id                = getFromSession('ministry_id');
         $data['project_title']      = getUserField('project_title');
         $data['project_type']       = getUserField('project_type');
         $data['project_status']     = getUserField('project_status');
@@ -60,18 +63,18 @@ class reportManagerApp extends DefaultApplication
         $data['adp_sector']         = getUserField('adp_sector');
         $data['adp_sub_sector']     = getUserField('adp_sub_sector');
         $data['ministryList']       = getMinistryList();
-        $data['agencyList']         = getAgencyList();
+        $data['agencyList']         = getAgencyList($ministry_id);
         $data['donorList']          = getDevelopmentPartnerList();
         $data['adpSectorList']      = getADPSectorList();
         $data['adpSubSectorList']   = getADPSubSectorList();
         $data['statusList']         = getEnumFieldValues(PROJECT_TBL, 'status');
         $data['projectTypeList']    = getEnumFieldValues(PROJECT_TBL, 'project_type');
-        $user_type                  = getFromSession('user_type');
-        $agency_id                  = getFromSession('agency_id');
-        $ministry_id                = getFromSession('ministry_id');
-        $devPartners                = implode(',', getUserField('partners'));
+        $data['dev_partners']       = getUserField('partners');
+        $devPartners                = implode(',', $data['dev_partners']);
+        $data['agency']             = getUserField('agency');
+        $agencies                   = implode(',', $data['agency']);
         
-        //dumpvar(implode(',', $_REQUEST['partners']));
+        //dumpvar($_SESSION);
         // SET UP THE GLOBAL CLAUSE 
         if ($user_type == 'Agency')
         {    
@@ -95,20 +98,38 @@ class reportManagerApp extends DefaultApplication
         $developemntPartnersClause     = $devPartners             ? ' AND PDPT.dev_partner_id IN (' . $devPartners . ')' : ' AND 1';
         $adpSectorClause               = $data['adp_sector']      ? ' AND PT.adp_sector = ' . $data['adp_sector'] : ' AND 1';
         $adpSubSectorClause            = $data['adp_sub_sector']  ? ' AND PT.adp_sub_sector = ' . $data['adp_sub_sector'] : ' AND 1';
-        
+        $agencyClause                  = $data['agency']          ? ' AND PT.agency_id IN (' . $agencies . ')' : ' AND 1';
         
         $info['table']  = PROJECT_TBL . ' AS PT LEFT JOIN ' . VIEW_PROJECT_GRAND_TOTAL . ' AS VPGT ON ( PT.id = VPGT.pid ) LEFT JOIN ' . 
-                          PROJECT_DEV_PARTNER_TBL . ' AS PDPT ON (PT.id = PDPT.pid)';
+                          PROJECT_DEV_PARTNER_TBL . ' AS PDPT ON (PT.id = PDPT.pid) LEFT JOIN ' . DEV_PARTNER_LOOKUP_TBL . ' AS DPLT ON (DPLT.id=PDPT.dev_partner_id) LEFT JOIN ' . 
+                          MINISTRY_LOOKUP_TBL . ' AS MLT ON (MLT.id = PT.ministry_id) LEFT JOIN ' . AGENCY_LOOKUP_TBL . ' AS ALT ON (ALT.id=PT.agency_id) LEFT JOIN ' . 
+                          ADP_SECTOR_LOOKUP_TBL . ' AS ASLT ON (PT.adp_sector = ASLT.id) LEFT JOIN ' . ADP_SUBSECTOR_LOOKUP_TBL . ' AS ASUBLT ON (PT.adp_sub_sector = ASUBLT.id)';
         $info['debug']  = true;
         $info['where']  = '1 ' . $globalClause . $projectTitleClause . $projectTypeClause . $projectStatusClause . $projectToCostClause . 
-                                 $projectFromCostClause . $developemntPartnersClause . $adpSectorClause . $adpSubSectorClause;
-        $info['fields'] = array('PT.project_title_en');
+                                 $projectFromCostClause . $developemntPartnersClause . $adpSectorClause . $adpSubSectorClause . $agencyClause . 
+                                 ' ORDER BY PT.agency_id';
+        $info['fields'] = array('DISTINCT(PT.id)', 'PT.project_title_en', 'PT.status', 'PT.project_type', 'VPGT.total_cost', 'MLT.name AS ministry', 
+                                'ALT.name as agency', 'VPGT.gob_cost', 'VPGT.gob_fe_cost', 'VPGT.pa_through_gob_cost', 
+                                'VPGT.pa_spc_acnt_cost', 'VPGT.pa_dpa_cost', 'VPGT.own_fund_cost', 'VPGT.own_fund_fe_cost', 'VPGT.other_cost', 
+                                'VPGT.other_fe_cost', 'ASLT.name AS adp_sector', 'ASUBLT.name AS adp_sub_sector', 'PT.date_of_commencement', 
+                                'PT.date_of_completion');
         
-        $result = select($info);
+        $data['project_list'] = select($info);
         
-        dumpVar($result);
+        foreach($data['project_list'] as $value)
+        {
+            $value->development_partners = getProjectWiseDevelopmentPartners($value->id);
+        }
         
-        return createPage(REPORT_EDITOR_TEMPLATE, $data);
+        
+        $pageTemplate    = sprintf("%s/%s%s", TEMPLATE_DIR, strtolower($user_type), REPORT_EDITOR_TEMPLATE);
+        
+        if (!file_exists($pageTemplate))
+        {
+            echo "Template file not exists. Please check it.";
+        }   
+        
+        return createPage($pageTemplate, $data);
     }
 
   
