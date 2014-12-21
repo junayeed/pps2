@@ -1060,8 +1060,8 @@
       // Do not profiling query itself!
       if (PROFILE_MODE && ! preg_match('/' . APP_PROFILE_TBL . '/' , $stmt) )
       {
-      	  $end = timeNow();
-      	  logProfile(CURRENT_APP_PREFIX, $start, $end, $stmt);
+      	  //$end = timeNow();
+      	  //logProfile(CURRENT_APP_PREFIX, $start, $end, $stmt);
       }
 
       return $result;
@@ -1092,10 +1092,10 @@
        $data['code']      = $code;
        $data['notes']     = $notes;
        $data['remote_ip'] = $_SERVER['REMOTE_ADDR'];
-       $data['run_date']      = date('Y-m-d');
+       $data['run_date']  = date('Y-m-d');
 
        $info['data']      = $data;
-       $info['debug']     = false;
+       $info['debug']     = true;
        $ret = insert($info);
 
        return ($ret['newid'] == null) ? true : false;

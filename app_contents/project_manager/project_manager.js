@@ -70,6 +70,7 @@ function submittForm()
 function getEconomicCode(elemName, comp_id, com_type)
 {
     var str_options = '<option value=""></option>';
+    var fieldName   = 'economic_code_id';
     
     for(var i=0; i<economicCodeArr.length; i++)
     {
@@ -79,7 +80,32 @@ function getEconomicCode(elemName, comp_id, com_type)
         }
     }
     
-    return '<select name='+elemName+' id='+elemName+' class="span12" onchange=populateEconomicSubCodeList('+comp_id+',this.value)  required>' + str_options + '</select>';
+    return '<select name='+elemName+' id='+elemName+' class="span12" onchange=\'update_annexure_v('+comp_id+',"'+fieldName+'",this.value); populateEconomicSubCodeList('+comp_id+',this.value)\'  required>' + str_options + '</select>';
+}
+
+function update_annexure_v(comp_id,thisField,thisValue)
+{
+    //alert(comp_id+ '  '+thisField+thisValue)
+    var annexID = $('#annex_id_'+comp_id).val();
+    //alert(annexID);
+    //return;
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+document.domain+'/app/ajax/ajax.php?cmd=updateAnnexV',
+            data: "annex_id="+annexID+"&thisField="+thisField+'&thisValue='+thisValue,
+            dataType: 'json',
+            success: function(responseText)
+            {
+                if(responseText)
+                {    
+                    //$('#view_attachment_'+elemID).hide();
+                    //$('#delete_attachment_'+elemID).hide();
+                }        
+            }
+        } 
+    );
+    
 }
 
 function populateSubCodeDescription(elemID, thisField)
@@ -87,6 +113,9 @@ function populateSubCodeDescription(elemID, thisField)
     var ttt = economicSubCodeArray.filter(function (thisArray) { return thisArray.id == thisField.value });
     
     $('#code_desc_'+elemID).val(ttt[0].economic_subcode_name);
+    
+    update_annexure_v(elemID,"economic_subcode_name",ttt[0].economic_subcode_name);
+    
 }
 
 
@@ -107,8 +136,9 @@ function populateEconomicSubCodeList(elemID, thisField)
 
 function createEconomicSubCodeDropdown(elemID,thisField)
 {
+    var fieldName = 'economic_subcode_id';
     
-    return '<select name="sub_code_'+elemID+'" id="sub_code_'+elemID+'" class="span12" onChange="populateSubCodeDescription('+elemID+', this);" required>' +  + '</select>';
+    return '<select name="sub_code_'+elemID+'" id="sub_code_'+elemID+'" class="span12" onChange=\'update_annexure_v('+elemID+',"'+fieldName+'",this.value);populateSubCodeDescription('+elemID+', this);\' required>' +  + '</select>';
 }
 
 function populateCategoryWiseComponentSubTotal(comp_type, sub_total_total_cost, sub_total_gob, sub_total_gob_fe, sub_total_rpa_through_gob,
@@ -285,13 +315,13 @@ function addNewComponent(com_type,buttonClick)
                               </a>\n\
                               </td>'; 
     var td_sub_code        = '<td>' + createEconomicSubCodeDropdown(COMPONENT_ROW_ID, 0) + '</td>';
-    var td_code_desc       = '<td><textarea name="code_desc_'+COMPONENT_ROW_ID+'" id="code_desc_'+COMPONENT_ROW_ID+'" class="span12" style="height: 60px;" /></textarea></td>';
+    var td_code_desc       = '<td><textarea name="code_desc_'+COMPONENT_ROW_ID+'" onChange=\'update_annexure_v('+COMPONENT_ROW_ID+',"economic_subcode_name",this.value)\' id="code_desc_'+COMPONENT_ROW_ID+'" class="span12" style="height: 60px;" /></textarea></td>';
     
     $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_delete_code+ td_economic_code+td_sub_code+td_code_desc+'</tr>').appendTo("#economic_code_tbl > #" + component_type + "_economic_code_content");
     
-    var td_unit        = '<td><input type="text" name="unit_'+COMPONENT_ROW_ID+'"       id="unit_'+COMPONENT_ROW_ID+'" value="" class="span12" /></td>';
-    var td_unit_cost   = '<td><input type="text" name="unit_cost_'+COMPONENT_ROW_ID+'"  id="unit_cost_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
-    var td_qty         = '<td><input type="text" name="qty_'+COMPONENT_ROW_ID+'"        id="qty_'+COMPONENT_ROW_ID+'" value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateUnitCost('+COMPONENT_ROW_ID+');" /></td>';
+    var td_unit        = '<td><input type="text" name="unit_'+COMPONENT_ROW_ID+'"   onChange=\'update_annexure_v('+COMPONENT_ROW_ID+',"unit",this.value)\'    id="unit_'+COMPONENT_ROW_ID+'" value="" class="span12" /></td>';
+    var td_unit_cost   = '<td><input type="text" name="unit_cost_'+COMPONENT_ROW_ID+'"  onChange=\'update_annexure_v('+COMPONENT_ROW_ID+',"unit_cost",this.value)\'  id="unit_cost_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
+    var td_qty         = '<td><input type="text" name="qty_'+COMPONENT_ROW_ID+'"      onChange=\'update_annexure_v('+COMPONENT_ROW_ID+',"qty",this.value)\'  id="qty_'+COMPONENT_ROW_ID+'" value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateUnitCost('+COMPONENT_ROW_ID+');" /></td>';
     var td_total_cost  = '<td><input type="text" name="total_cost_'+COMPONENT_ROW_ID+'" id="total_cost_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
     
     $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_unit + td_unit_cost + td_qty + td_total_cost + '</tr>').appendTo("#total_cost_tbl > #" + component_type + "_total_cost_content");

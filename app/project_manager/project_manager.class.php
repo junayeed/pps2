@@ -575,6 +575,10 @@ class projectManagerApp extends DefaultApplication
     {
         $pid       = base64_decode(getUserField('PI'));
         
+        
+        $project               = new Project($pid);
+        $project->saveBasicInfo();
+        
         $error = updateAnnexV();
         updateAnnexVContingency();
         //updateProjectTotalCost($pid);

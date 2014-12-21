@@ -282,7 +282,7 @@
             {
                 //$id = $matches[1];
                 $id = $value;
-                
+                /*
                 $data['economic_code_id']          = $_REQUEST['economic_code_' . $id];
                 $data['economic_subcode_id']       = $_REQUEST['sub_code_' . $id];
 	        $data['economic_subcode_name']     = preg_replace( "/\r\n/", "#%", $_REQUEST['code_desc_' . $id]);
@@ -299,7 +299,8 @@
 	        $data['own_fund_fe']               = $_REQUEST['own_fund_fe_' . $id]  ? $_REQUEST['own_fund_fe_' . $id]  : 0.0;
 	        $data['other']                     = $_REQUEST['other_' . $id]        ? $_REQUEST['other_' . $id]        : 0.0;
 	        $data['other_fe']                  = $_REQUEST['other_fe_' . $id]     ? $_REQUEST['other_fe_' . $id]     : 0.0;
-	        $data['annex_id']                  = $_REQUEST['annex_id_' . $id];
+	        */
+                $data['annex_id']                  = $_REQUEST['annex_id_' . $id];
 	        
                 $data['total_year']                = $_REQUEST['total_year_in_annexv'];
                 
@@ -308,13 +309,13 @@
                 // else add a new record in procurement plan table
                 if ( !$data['annex_id'] ) 
                 {
-                    $result = insert($info);
+                    //$result = insert($info);
                     updateAnnexVDetails($result['newid'], $data['total_year'], $id);
                 }
                 else
                 {
-                    $info['where'] = 'id = ' . $data['annex_id'];
-                    update($info);
+                    //$info['where'] = 'id = ' . $data['annex_id'];
+                    //update($info);
                     updateAnnexVDetails($data['annex_id'], $data['total_year'], $id);
                 }
  	    }
