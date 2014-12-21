@@ -343,6 +343,8 @@ td:first-child, th:first-child
 
 .project_summary
 {
+    margin-top: 10px;
+    margin-bottom: 5px;
     border: 0px solid bisque;
-    display: none !important;
+    display: none;
 }

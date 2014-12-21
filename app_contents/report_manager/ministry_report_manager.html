@@ -2,6 +2,7 @@
     <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
     <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
     <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+    <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/report_manager.js"></script>
 </head>
 <div id="main-content" class="clearfix">
     <div id="breadcrumbs">
@@ -28,7 +29,7 @@
             <tr>
                 <td colspan="2">
                     <label class="label label-info">Project Title (English/Bangla)</label>
-                    <input type="text" class="span12" placeholder="Project Title…" name="project_title" value="{$project_title}">
+                    <input type="text" class="span12" placeholder="Project Title" name="project_title" value="{$project_title}">
                 </td>
                 <td>
                     <label class="label label-info">Project Type</label>
@@ -48,33 +49,33 @@
             <tr>
                 <td>
                     <label class="label label-info">Project Start Date (To)</label>
-                    <input type="text" class="date-picker span10" placeholder="Project Start Date …">
+                    <input type="text" class="date-picker span10" placeholder="Project Start Date">
                     <span class="add-on"><i class="icon-calendar"></i></span>
                 </td>
                 <td>
                     <label class="label label-info">Project Start Date (From)</label>
-                    <input type="text" class="date-picker span10" placeholder="Project Start Date …">
+                    <input type="text" class="date-picker span10" placeholder="Project Start Date">
                     <span class="add-on"><i class="icon-calendar"></i></span>
                 </td>
                 <td>
                     <label class="label label-info">Project End Date (To)</label>
-                    <input type="text" class="date-picker span10" placeholder="Project End Date …">
+                    <input type="text" class="date-picker span10" placeholder="Project End Date">
                     <span class="add-on"><i class="icon-calendar"></i></span>
                 </td>
                 <td>
                     <label class="label label-info">Project End Date (From)</label>
-                    <input type="text" class="date-picker span10" placeholder="Project End Date …">
+                    <input type="text" class="date-picker span10" placeholder="Project End Date">
                     <span class="add-on"><i class="icon-calendar"></i></span>
                 </td>
             </tr> 
             <tr>
                 <td>
                     <label class="label label-info">Total Cost (To) in Lakh Taka</label>
-                    <input type="text" class="span12" placeholder="Total Cost…" name="total_cost_to" value="{$total_cost_to}">
+                    <input type="text" class="span12" placeholder="Total Cost" name="total_cost_to" value="{$total_cost_to}">
                 </td>
                 <td>
                     <label class="label label-info">Total Cost (From) in Lakh Taka</label>
-                    <input type="text" class="span12" placeholder="Total Cost …" name="total_cost_from" value="{$total_cost_from}">
+                    <input type="text" class="span12" placeholder="Total Cost" name="total_cost_from" value="{$total_cost_from}">
                 </td>
                 <td colspan="2">
                     <label class="label label-info">Development Partner(s)</label>
@@ -124,21 +125,104 @@
                 <tr>
                     <th>Sl</th>
                     <th><i></i>Project Title</th>
-                    <th class="hidden-480">Create Date</th>
-                    <th class="hidden-480">Agency</th>
                 </tr>
             </thead>
             <tbody>
-                {foreach from=$project_list key=key item=item}
+                {assign var="count" value="1"}
+                {foreach from=$project_list key=oKey item=oItem}
                     <tr>
-                        <td>{$key+1}</td>
-                        <td>
-                            <a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}">{$item->project_title_en}</a>
-                            <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>
-                        </td>
-                        <td class="hidden-480">{$item->ministry}</td>
-                        <td class="hidden-480">{$item->agency}</td>
+                        <td colspan="2">{$oKey}<td>
                     </tr>
+                    {foreach from=$oItem key=key item=item}
+                    <tr>
+                        <td>{$count}</td>
+                        <td>
+                            <a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}">{$item->project_title_en|truncate:100}</a>
+                            <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>
+                            {if $item->project_type eq 'DPP'}<span class="label label-info label-yellow arrowed-in-right arrowed-in" >{$item->project_type}</span>
+                            {else}<span class="label label-info label-light arrowed-in-right arrowed-in" >{$item->project_type}</span>
+                            {/if}
+                            <a href="javascript:void(0);" onClick="showProjectSummary('{$count}');"><label class="label label-info">Project Summary</label></a>
+                            <div id="project_summary_{$count}" name="project_summary_{$count}" class="project_summary span11 row-fluid" style="display: none;">
+                                <h5 class="header smaller lighter blue">Project Information</h5>
+                                <div class="span6">
+                                    <blockquote><lable class="text-info">Agency: {$item->agency}</lable></blockquote>
+                                    <blockquote><lable class="text-info">Ministry: {$item->ministry}</lable></blockquote>
+                                    <blockquote><lable class="text-info">ADP Sector (Sub Sector): {$item->adp_sector} ({$item->adp_sub_sector})</lable></blockquote>
+                                    <blockquote><lable class="text-info">Development Partners: {$item->development_partners}</lable></blockquote>
+                                    <blockquote><lable class="text-info">Date of commencement: {$item->date_of_commencement}</lable></blockquote>
+                                    <blockquote><lable class="text-info">Date of completion: {$item->date_of_completion}</lable></blockquote>
+                                    
+                                </div>
+                                <div class="span3  infobox-container ">
+                                    <div class="infobox infobox-green H35 ">
+                                        <div class="infobox-data span6">
+                                            <span class="infobox-data-number font18 CENTER">{$item->gob_cost|number_format:2:".":","}</span>
+                                            <span class="infobox-content CENTER">GOB
+                                                {if $item->total_cost}
+                                                    {assign var="gob_percentage" value=$item->gob_cost/$item->total_cost*100}
+                                                    ({$gob_percentage|number_format:2:".":","}%)
+                                                {else}
+                                                    (0.00%)
+                                                {/if}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="infobox infobox-blue H35">
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number font18 CENTER">
+                                                {assign var="total_project_aid" value=$item->pa_through_gob_cost+$item->pa_spc_acnt_cost+$item->pa_dpa_cost}
+                                                {$total_project_aid|number_format:2:".":","}
+                                            </span>
+                                            <span class="infobox-content CENTER">Project Aid
+                                               {if $item->total_cost}
+                                                    {assign var="pa_percentage" value=$total_project_aid/$item->total_cost*100}
+                                                    ({$pa_percentage|number_format:2:".":","}%)
+                                                {else}
+                                                    (0.00%)
+                                                {/if}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="infobox infobox-pink  H35">
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number font18 CENTER">{$item->own_fund_cost|number_format:2:".":","}</span>
+                                            <span class="infobox-content CENTER">Own Fund
+                                            {if $item->total_cost}
+                                                {assign var="own_fund_percentage" value=$item->own_fund_cost/$item->total_cost*100}
+                                                ({$own_fund_percentage|number_format:2:".":","}%)
+                                            {else}
+                                                (0.00%) 
+                                            {/if}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="infobox infobox-red H35 ">
+                                        <div class="infobox-data center">
+                                            <span class="infobox-data-number font18 CENTER">{$item->other_cost|number_format:2:".":","}</span>
+                                            <span class="infobox-content CENTER">Other
+                                            {if $item->total_cost}
+                                                {assign var="other_percentage" value=$item->other_cost/$item->total_cost*100}
+                                                ({$other_percentage|number_format:2:".":","}%)
+                                            {else}
+                                                (0.00%)
+                                            {/if}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="infobox infobox-red">
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number CENTER">{$item->total_cost|number_format:2:".":","}</span>
+                                            <span class="infobox-content CENTER">Total Cost</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  <!-- SUMMARY DIV ENDS HERE-->
+                        </td>
+                    </tr>
+                    {assign var="count" value=$count+1}
+                    {/foreach}
+                    
                 {/foreach}
             </tbody>
         </table>

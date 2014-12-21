@@ -1,0 +1,115 @@
+<head>
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/ace.min.css" />
+    <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+    <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/messages.js"></script>
+    <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/location_manager.js"></script>
+</head>
+<div id="main-content" class="clearfix">
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+                <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+                <li><a href="#">Configurations</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+                <li class="active">Upzilla/City Cooperation</li>
+        </ul><!--.breadcrumb-->
+    </div><!--#breadcrumbs-->
+
+    <div id="page-content" class="clearfix">
+        <div class="page-header position-relative">
+            <h1>Upzilla/City Cooperation</h1>
+        </div><!--/page-header-->
+        
+        <div class="row-fluid">
+        <!-- PAGE CONTENT BEGINS HERE -->
+
+<form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}">
+    <div class="well span7">
+        <table style="width: 100%;" cellpadding="5" >
+            <tr>
+                <td>
+                    <label class="label label-info">Division</label>
+                    <select class="chzn-select chzn-single span5" id="div_id" name="div_id">
+                        <option value="">Select Division</option>
+                        {html_options options=$divisionList selected=$division}
+                    </select> 
+                </td>
+            </tr> 
+            <tr>
+                <td>
+                    <label class="label label-info">District</label>
+                    <select class="chzn-select span5" id="district_id" name="district_id">
+                        <option value="">Select District</option>
+                        {html_options options=$districtList selected=$district}
+                    </select> 
+                </td>
+            </tr>    
+            <tr>
+                <td>
+                    <label class="label label-info">Upzilla / City Cooperation (in English)</label>
+                    <input name="upzila_name" id="upzila_name" class="span9">
+                </td>
+            </tr>    
+            <tr>
+                <td>
+                    <label class="label label-info">Upzilla / City Cooperation (in Bangla)</label>
+                    <input name="upzila_name_bg" id="upzila_name_bg" class="span9">
+                </td>
+            </tr>    
+        </table>    
+            
+        <fieldset>
+            <label class="pull-left" style="padding-top: 10px;">
+               <button class="btn btn-small btn-success">Submit <i class="icon-arrow-right icon-on-right"></i></button>
+            </label>
+
+        </fieldset>
+    </div>
+</form>
+	   
+<!-- PAGE CONTENT ENDS HERE -->
+</div><!--/row-->
+	
+</div><!--/#page-content-->
+
+</div><!-- #main-content -->
+
+<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+    <i class="icon-double-angle-up icon-only"></i>
+</a>
+                        
+                        
+<!-- basic scripts -->
+<script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
+<script type="text/javascript">
+window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
+</script>
+
+<script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
+
+
+<!-- page specific plugin scripts -->
+
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
+<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+<script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+
+<!-- ace scripts -->
+<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
+<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+<script>
+    $('.date-picker').datepicker();
+    {literal}
+        $(".chzn-select").chosen(); 
+        $(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+    {/literal}
+</script>    

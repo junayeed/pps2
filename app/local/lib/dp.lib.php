@@ -149,11 +149,18 @@
         return $data;
     } 
    
-    function getDivisionList()
+    function getDivisionList($includeStatus = '')
     {
+        $statusClause = '1 ';
+        
+        if ( !$includeStatus )
+        {
+            $statusClause = 'status = ' . q('Active');
+        }
+        
         $info['table']  = DIVISION_LOOKUP_TBL;
         $info['fields'] = array('divid', 'division_name');
-        $info['where']  = "status='Active' ORDER BY division_name ASC";
+        $info['where']  = "$statusClause ORDER BY division_name ASC";
         $info['debug']  = false;
 
         if ($result = select($info))

@@ -121,6 +121,10 @@ class reportManagerApp extends DefaultApplication
             $value->development_partners = getProjectWiseDevelopmentPartners($value->id);
         }
         
+        if ($user_type == 'Ministry')
+        {
+            $data['project_list'] = getAgencyWiseProjectList($data['project_list']);
+        }
         
         $pageTemplate    = sprintf("%s/%s%s", TEMPLATE_DIR, strtolower($user_type), REPORT_EDITOR_TEMPLATE);
         

@@ -21,5 +21,15 @@
         
         return implode(', ', $retData);
     }
+    
+    function getAgencyWiseProjectList($projectlist)
+    {
+        foreach($projectlist as $value)
+        {
+            $retData[$value->agency . '/' . $value->ministry][] = $value;
+        }
+        
+        return $retData;
+    }
 
 ?>
