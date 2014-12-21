@@ -40,10 +40,28 @@ class ajaxApp extends DefaultApplication
            case 'saveStatusOfCommission'   : $screen = $this->saveStatusOfCommission();                break;
            case 'deleteattachment'         : $screen = $this->deleteAttachment();                      break;
            case 'delEconCodeattachment'    : $screen = $this->deleteEconomicCodeAttachment();          break;
+           case 'updateAnnexV'             : $screen = $this->updateAnnexVRowItem();                   break;
            default                         : $screen = $this->showEditor($msg);
       }
 
       return true;
+    }
+    
+    
+    function updateAnnexVRowItem()
+    {
+        //$pid       = base64_decode(getUserField('PI'));
+        $annex_id  = getUserField('annex_id');
+        $thisField = getUserField('thisField');
+        $thisValue = getUserField('thisValue');
+        
+        $info['table']                 = PROJECT_ANNEX_V_TBL;
+        $info['debug']                 = false;
+        $info['where']                 = 'id = ' . $annex_id;
+        $info['data'][$thisField]      = $thisValue;
+        
+        echo json_encode(update($info));
+        die;
     }
     
     function deleteEconomicCodeAttachment()
