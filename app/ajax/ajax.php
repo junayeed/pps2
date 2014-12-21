@@ -40,46 +40,28 @@ class ajaxApp extends DefaultApplication
            case 'saveStatusOfCommission'   : $screen = $this->saveStatusOfCommission();                break;
            case 'deleteattachment'         : $screen = $this->deleteAttachment();                      break;
            case 'delEconCodeattachment'    : $screen = $this->deleteEconomicCodeAttachment();          break;
-           case 'deletelocation'           : $screen = $this->deleteLocation();                        break;
+           case 'updateAnnexV'             : $screen = $this->updateAnnexVRowItem();                   break;
            default                         : $screen = $this->showEditor($msg);
       }
 
       return true;
     }
     
-    function deleteLocation()
+    
+    function updateAnnexVRowItem()
     {
-        $id   = getUserField('id');
-        $step = getUserField('step');
+        //$pid       = base64_decode(getUserField('PI'));
+        $annex_id  = getUserField('annex_id');
+        $thisField = getUserField('thisField');
+        $thisValue = getUserField('thisValue');
         
-        if ($step == 'division') 
-        {
-            $info['table']  = DIVISION_LOOKUP_TBL;
-            $info['where'] = 'divid = ' . $id;
-        }
-        else if ($step == 'district') 
-        {
-            $info['table']  = DISTRICT_LOOKUP_TBL;
-            $info['where'] = 'district_id = ' . $id;
-        }
-        else if ($step == 'upzilla') 
-        {
-            $info['table'] = UPZILA_LOOKUP_TBL;
-            $info['where'] = 'upzila_id = ' . $id;
-        }
+        $info['table']                 = PROJECT_ANNEX_V_TBL;
+        $info['debug']                 = false;
+        $info['where']                 = 'id = ' . $annex_id;
+        $info['data'][$thisField]      = $thisValue;
         
-        $info['debug'] = false;
-        
-        if (delete($info) )
-        {
-            echo json_encode("1");
-            die;
-        }   
-        else
-        {
-            echo json_encode("");
-            die;
-        }
+        echo json_encode(update($info));
+        die;
     }
     
     function deleteEconomicCodeAttachment()
