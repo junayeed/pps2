@@ -55,6 +55,7 @@ class reportManagerApp extends DefaultApplication
         $user_type                  = getFromSession('user_type');
         $agency_id                  = getFromSession('agency_id');
         $ministry_id                = getFromSession('ministry_id');
+        $sector_division            = getFromSession('sector_division');
         $data['project_title']      = getUserField('project_title');
         $data['project_type']       = getUserField('project_type');
         $data['project_status']     = getUserField('project_status');
@@ -72,7 +73,9 @@ class reportManagerApp extends DefaultApplication
         $data['dev_partners']       = getUserField('partners');
         $devPartners                = implode(',', $data['dev_partners']);
         $data['agency']             = getUserField('agency');
+        $data['ministry']           = getUserField('ministry');
         $agencies                   = implode(',', $data['agency']);
+        $ministries                 = implode(',', $data['ministry']);
         
         //dumpvar($_SESSION);
         // SET UP THE GLOBAL CLAUSE 
@@ -84,7 +87,11 @@ class reportManagerApp extends DefaultApplication
         {
             $globalClause = ' AND PT.ministry_id = ' . $ministry_id;
         }
-        else
+        else if ($user_type == 'Commission')
+        {
+            $globalClause = ' AND PT.sector_division = ' . $sector_division;
+        }
+        else 
         {
             $globalClause = ' AND 1';
         }
@@ -99,20 +106,22 @@ class reportManagerApp extends DefaultApplication
         $adpSectorClause               = $data['adp_sector']      ? ' AND PT.adp_sector = ' . $data['adp_sector'] : ' AND 1';
         $adpSubSectorClause            = $data['adp_sub_sector']  ? ' AND PT.adp_sub_sector = ' . $data['adp_sub_sector'] : ' AND 1';
         $agencyClause                  = $data['agency']          ? ' AND PT.agency_id IN (' . $agencies . ')' : ' AND 1';
+        $ministryClause                = $data['ministry']        ? ' AND PT.ministry_id IN (' . $ministries . ')' : ' AND 1';
         
         $info['table']  = PROJECT_TBL . ' AS PT LEFT JOIN ' . VIEW_PROJECT_GRAND_TOTAL . ' AS VPGT ON ( PT.id = VPGT.pid ) LEFT JOIN ' . 
                           PROJECT_DEV_PARTNER_TBL . ' AS PDPT ON (PT.id = PDPT.pid) LEFT JOIN ' . DEV_PARTNER_LOOKUP_TBL . ' AS DPLT ON (DPLT.id=PDPT.dev_partner_id) LEFT JOIN ' . 
                           MINISTRY_LOOKUP_TBL . ' AS MLT ON (MLT.id = PT.ministry_id) LEFT JOIN ' . AGENCY_LOOKUP_TBL . ' AS ALT ON (ALT.id=PT.agency_id) LEFT JOIN ' . 
-                          ADP_SECTOR_LOOKUP_TBL . ' AS ASLT ON (PT.adp_sector = ASLT.id) LEFT JOIN ' . ADP_SUBSECTOR_LOOKUP_TBL . ' AS ASUBLT ON (PT.adp_sub_sector = ASUBLT.id)';
+                          ADP_SECTOR_LOOKUP_TBL . ' AS ASLT ON (PT.adp_sector = ASLT.id) LEFT JOIN ' . ADP_SUBSECTOR_LOOKUP_TBL . ' AS ASUBLT ON (PT.adp_sub_sector = ASUBLT.id) LEFT JOIN ' . 
+                          SECTOR_DIVISION_LOOKUP_TBL . ' AS SDLT ON (PT.sector_division=SDLT.id)';
         $info['debug']  = true;
         $info['where']  = '1 ' . $globalClause . $projectTitleClause . $projectTypeClause . $projectStatusClause . $projectToCostClause . 
                                  $projectFromCostClause . $developemntPartnersClause . $adpSectorClause . $adpSubSectorClause . $agencyClause . 
-                                 ' ORDER BY PT.agency_id';
+                                 $ministryClause . ' ORDER BY PT.agency_id';
         $info['fields'] = array('DISTINCT(PT.id)', 'PT.project_title_en', 'PT.status', 'PT.project_type', 'VPGT.total_cost', 'MLT.name AS ministry', 
-                                'ALT.name as agency', 'VPGT.gob_cost', 'VPGT.gob_fe_cost', 'VPGT.pa_through_gob_cost', 
+                                'ALT.name as agency', 'VPGT.gob_cost', 'VPGT.gob_fe_cost', 'VPGT.pa_through_gob_cost', 'PT.sector_division',
                                 'VPGT.pa_spc_acnt_cost', 'VPGT.pa_dpa_cost', 'VPGT.own_fund_cost', 'VPGT.own_fund_fe_cost', 'VPGT.other_cost', 
                                 'VPGT.other_fe_cost', 'ASLT.name AS adp_sector', 'ASUBLT.name AS adp_sub_sector', 'PT.date_of_commencement', 
-                                'PT.date_of_completion');
+                                'PT.date_of_completion', 'SDLT.name AS sector_division');
         
         $data['project_list'] = select($info);
         
@@ -124,6 +133,10 @@ class reportManagerApp extends DefaultApplication
         if ($user_type == 'Ministry')
         {
             $data['project_list'] = getAgencyWiseProjectList($data['project_list']);
+        }
+        else if ($user_type == 'Commission')
+        {
+            $data['project_list'] = getMinistryAgencyWiseProjectList($data['project_list']);
         }
         
         $pageTemplate    = sprintf("%s/%s%s", TEMPLATE_DIR, strtolower($user_type), REPORT_EDITOR_TEMPLATE);

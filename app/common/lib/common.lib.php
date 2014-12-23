@@ -800,6 +800,7 @@
       $smarty->assign('SYSTEM_APP_PREFIX',            CURRENT_APP_PREFIX);
       $smarty->assign('SYSTEM_COMMON_TEMPLATE_DIR',   REL_COMMON_TEMPLATE_DIR);
       $smarty->assign('SYSTEM_COMMON_IMAGE_DIR',      REL_COMMON_IMAGE_DIR);
+      $smarty->assign('SYSTEM_COMMON_IMAGES_DIR',     REL_COMMON_IMAGES_DIR);
       $smarty->assign('SYSTEM_COMMON_JAVASCRIPT_DIR', REL_COMMON_JAVASCRIPT_DIR);
       $smarty->assign('SYSTEM_COMMON_CSS_DIR',        REL_COMMON_CSS_DIR);
       $smarty->assign('SYSTEM_LOCAL_TEMPLATE_DIR',    REL_LOCAL_TEMPLATE_DIR);
