@@ -26,10 +26,20 @@
     {
         foreach($projectlist as $value)
         {
+//            $retData[$value->agency. '/' . $value->ministry][] = $value;
+            $retData[$value->agency][] = $value;
+        }
+        
+        return $retData;
+    }
+    
+    function getMinistryAgencyWiseProjectList($projectList)
+    {
+        foreach($projectList as $value)
+        {
             $retData[$value->agency . '/' . $value->ministry][] = $value;
         }
         
         return $retData;
     }
-
 ?>

@@ -107,6 +107,7 @@
    define('REL_COMMON_JAVASCRIPT_DIR', REL_COMMON_CONTENTS_DIR . '/js');
    define('REL_COMMON_TEMPLATE_DIR',   REL_COMMON_CONTENTS_DIR . '/template');
    define('REL_COMMON_IMAGE_DIR',      REL_COMMON_CONTENTS_DIR . '/image');
+   define('REL_COMMON_IMAGES_DIR',     REL_COMMON_CONTENTS_DIR . '/images');
    define('REL_COMMON_CSS_DIR',        REL_COMMON_CONTENTS_DIR . '/css');
    define('REL_LOCAL_CONTENTS_DIR',    REL_APP_CONTENTS_DIR    . '/local');
    define('REL_LOCAL_JAVASCRIPT_DIR',  REL_LOCAL_CONTENTS_DIR  . '/js');

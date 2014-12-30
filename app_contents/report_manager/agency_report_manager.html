@@ -135,12 +135,14 @@
                             <a href="javascript:void(0);" onClick="showProjectSummary('{$key+1}');"><label class="label label-info">Project Summary</label></a>
                             <div id="project_summary_{$key+1}" name="project_summary_{$key+1}" class="project_summary span11 row-fluid" style="display: none;">
                                 <h5 class="header smaller lighter blue">Project Information</h5>
-                                <div class="span6">
+                                <div class="span7">
+                                    <blockquote><lable class="text-info">Agency: {$item->agency}</lable></blockquote>
+                                    <blockquote><lable class="text-info">Ministry: {$item->ministry}</lable></blockquote>
                                     <blockquote><lable class="text-info">ADP Sector (Sub Sector): {$item->adp_sector} ({$item->adp_sub_sector})</lable></blockquote>
+                                    <blockquote><lable class="text-info">Planning Commission Sector: {$item->sector_division}</lable></blockquote>
                                     <blockquote><lable class="text-info">Development Partners: {$item->development_partners}</lable></blockquote>
                                     <blockquote><lable class="text-info">Date of commencement: {$item->date_of_commencement}</lable></blockquote>
                                     <blockquote><lable class="text-info">Date of completion: {$item->date_of_completion}</lable></blockquote>
-                                    
                                 </div>
                                 <div class="span3  infobox-container ">
                                     <div class="infobox infobox-green H35 ">
