@@ -320,8 +320,8 @@ function addNewComponent(com_type,buttonClick)
     $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_delete_code+ td_economic_code+td_sub_code+td_code_desc+'</tr>').appendTo("#economic_code_tbl > #" + component_type + "_economic_code_content");
     
     var td_unit        = '<td><input type="text" name="unit_'+COMPONENT_ROW_ID+'"   onChange=\'update_annexure_v('+COMPONENT_ROW_ID+',"unit",this.value)\'    id="unit_'+COMPONENT_ROW_ID+'" value="" class="span12" /></td>';
-    var td_unit_cost   = '<td><input type="text" name="unit_cost_'+COMPONENT_ROW_ID+'"  onChange=\'update_annexure_v('+COMPONENT_ROW_ID+',"unit_cost",this.value)\'  id="unit_cost_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
-    var td_qty         = '<td><input type="text" name="qty_'+COMPONENT_ROW_ID+'"      onChange=\'update_annexure_v('+COMPONENT_ROW_ID+',"qty",this.value)\'  id="qty_'+COMPONENT_ROW_ID+'" value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateUnitCost('+COMPONENT_ROW_ID+');" /></td>';
+    var td_unit_cost   = '<td><input type="text" name="unit_cost_'+COMPONENT_ROW_ID+'"  onChange=\'update_annexure_v('+COMPONENT_ROW_ID+',"unit_cost",this.value);\'  id="unit_cost_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
+    var td_qty         = '<td><input type="text" name="qty_'+COMPONENT_ROW_ID+'"      onChange=\'update_annexure_v('+COMPONENT_ROW_ID+',"qty",this.value); calculateUnitCost();\'  id="qty_'+COMPONENT_ROW_ID+'" value="" class="span12" onkeypress="return isNumberKey(event);" onChange="calculateUnitCost('+COMPONENT_ROW_ID+');" /></td>';
     var td_total_cost  = '<td><input type="text" name="total_cost_'+COMPONENT_ROW_ID+'" id="total_cost_'+COMPONENT_ROW_ID+'" value="" class="span12" readonly /></td>';
     
     $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_unit + td_unit_cost + td_qty + td_total_cost + '</tr>').appendTo("#total_cost_tbl > #" + component_type + "_total_cost_content");

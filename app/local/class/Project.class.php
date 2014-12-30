@@ -245,6 +245,9 @@ class Project
     {
         $info['table'] = PROJECT_PART_B_TBL;
         $info['data']  = getUserDataSet(PROJECT_PART_B_TBL);
+        
+        //dumpVar($info['data']);
+        //die;
         $info['data']['pid'] = $this->id;
         $info['debug'] = false;
         

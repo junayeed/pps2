@@ -405,7 +405,8 @@ class projectManagerApp extends DefaultApplication
         $data->partB  = $project->loadPartB();
         
         $data->major_items  = $project->loadMajorItems();
-        //dumpVar($data->major_items);
+        
+        //dumpVar($data->partB);
         
         if($report_type)
         {

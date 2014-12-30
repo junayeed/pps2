@@ -36,9 +36,7 @@
         </div>  
     </div><!--/page-header-->
 
-		
 
-<form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}" name="validation-form">
     <div id="export_to_container">
         Export To: 
         <select name="report_type" id="report_type" class="span1" onchange="createPartBReport();">
@@ -48,8 +46,7 @@
         </select>
     </div>
     <br><br><br>
-    <input type="hidden" name="PI" id="PI" value="{$PI}"/>
-    <input type="hidden" name="part_b_id" value="{$partB->id}"/>
+    
     <div class="tabbable">
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a data-toggle="tab" href="#background">Project Details (14)</a></li>
@@ -63,12 +60,13 @@
         </ul>
         <div class="tab-content">
             <!-- #basicinfo strats here-->  
-            <div id="background" class="tab-pane in active">
             
+            <div id="background" class="tab-pane in active">
+                <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}" name="validation-form">
                 <div class="control-group">
                     <label class="" for="background_with_problem">14.1 Background with problem statement</label>
                     <div class="">
-                        <textarea class="ckeditor" name="background_with_problem" id="background_with_problem">{$partB->background_with_problem}</textarea>
+                        <textarea class="ckeditor" name="background_with_problem" onchange="updatePartBItem('background_with_problem',this.value)" id="background_with_problem">{$partB->background_with_problem}</textarea>
                     </div> 
                 </div>
                 
@@ -124,12 +122,17 @@
                 <div class="form-actions2">
 		 <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                  <input type="hidden" value="savePartB" name="cmd"/>
+                 <input type="hidden" name="PI" id="PI" value="{$PI}"/>
+                 <input type="hidden" name="part_b_id" value="{$partB->id}"/>
 	       </div>
+                </form>     
             </div> 
+                
             <!-- #background Ends here -->
             
             <!-- #study starts here-->
             <div id="study" class="tab-pane">
+                <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}" name="validation-form">
                 <div class="control-group">
                     <label class="" for="study">15.0 Whether any pre-appraisal/feasibility study/pre-investment study was done before formulation of this project? If so, attach summary of findings & recommendations. If not mention the causes.</label>
                     <div class="">
@@ -175,13 +178,17 @@
                 <div class="form-actions2">
 		 <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                  <input type="hidden" value="savePartB" name="cmd"/>
+                 <input type="hidden" name="PI" id="PI" value="{$PI}"/>
+                 <input type="hidden" name="part_b_id" value="{$partB->id}"/>
 	       </div>
+                </form>     
             </div>
+               
             <!-- #study ends here-->
             
             <!-- #similar_project starts here-->
             <div id="similar_project" class="tab-pane">
-                
+                <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}" name="validation-form">
                 <div class="control-group">
                     <label class="" for="lessons_learnt_successful_project">17.1 Indicate which issues lead to make project successful</label>
                     <div class="">
@@ -282,9 +289,12 @@
                 <div class="form-actions2">
 		 <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                  <input type="hidden" value="savePartB" name="cmd"/>
+                 <input type="hidden" name="PI" id="PI" value="{$PI}"/>
+                 <input type="hidden" name="part_b_id" value="{$partB->id}"/>
 	       </div>
-                
+               </form>  
             </div>
+            
             <!-- #similar_project ends here-->
             
             <!-- #annextures starts here-->
@@ -296,9 +306,8 @@
              <!-- #annextures ends here-->
              
             <!-- #efect starts here-->
-            
             <div id="efect" class="tab-pane">
-           
+                <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}" name="validation-form">
                 <div class="control-group">
                     <label class="" for="effect_other_project">23.1 Other project/existing installations</label>
                     <div class="">
@@ -379,13 +388,17 @@
                 <div class="form-actions2">
 		 <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                  <input type="hidden" value="savePartB" name="cmd"/>
-	       </div>
-            
+                 <input type="hidden" name="PI" id="PI" value="{$PI}"/>
+                 <input type="hidden" name="part_b_id" value="{$partB->id}"/>
+	        </div>
+                </form>
             </div>
+              
             <!-- #efect ends here-->
             
             <!-- #other_details starts here-->
             <div id="other_details" class="tab-pane">
+                <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}" name="validation-form">
                  <div class="control-group">
                     <label class="" for="linkage_perspective_plan">24.0 Specific Linkage with Perspective Plan/Five Years Plan/MDGs/SDGs/Ministry/Sector Priority</label>
                     <div class="">
@@ -438,13 +451,17 @@
                 <div class="form-actions2">
 		 <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
                  <input type="hidden" value="savePartB" name="cmd"/>
-	       </div>
-                
+                 <input type="hidden" name="PI" id="PI" value="{$PI}"/>
+                 <input type="hidden" name="part_b_id" value="{$partB->id}"/>
+	        </div>
+                </form>
             </div>
+            
             <!-- #other_details ends here-->
             
             <!-- #other_important starts here-->
             <div id="other_important" class="tab-pane">
+                <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}" name="validation-form">
                  <div class="control-group">
                     <label class="" for="sustainability">30.1 Sustainability of the project benefit</label>
                     <div class="">
@@ -480,19 +497,20 @@
                     </div> 
                 </div>
                 
-               <div class="form-actions2">
-                   
-                   
-		 <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
-                 <input type="hidden" value="savePartB" name="cmd"/>
-                 
-	       </div>
+                <div class="form-actions2">
+		    <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                    <input type="hidden" value="savePartB" name="cmd"/>
+                    <input type="hidden" name="PI" id="PI" value="{$PI}"/>
+                    <input type="hidden" name="part_b_id" value="{$partB->id}"/>
+	        </div>
+                </form>     
             </div>
+              
             <!-- #other_important ends here-->
             
         </div>
     </div>
-</form>
+
 
 <!-- PAGE CONTENT ENDS HERE -->
 </div><!--/row-->
@@ -594,5 +612,33 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
             $("#page-content :input").attr("disabled", true);   
             $('.form-actions2').hide();
         }
+        
+        function updatePartBItem(thisField,thisValue)
+        {
+            //alert(comp_id+ '  '+thisField+thisValue)
+            //var PID = $('#PID').val();
+            //alert(PID);
+            //return;
+            alert(thisField)
+            $.ajax
+            (
+                {                                      
+                    url: 'http://'+document.domain+'/app/ajax/ajax1.php?cmd=updatePartBItem',
+                    data: "annex_id="+annexID+"&thisField="+thisField+'&thisValue='+thisValue,
+                    dataType: 'json',
+                    success: function(responseText)
+                    {
+                        if(responseText)
+                        {    
+                            //$('#view_attachment_'+elemID).hide();
+                            //$('#delete_attachment_'+elemID).hide();
+                        }        
+                    }
+                } 
+            );
+        }
+        
+       // editor.on( 'change', function(e) { alert(e) });
+        
     {/literal}
 </script>

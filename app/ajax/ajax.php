@@ -212,7 +212,7 @@ class ajaxApp extends DefaultApplication
         $data['total_year'] = $total_year;
         
         $info['table']      = PROJECT_ANNEX_V_TBL;
-        $info['debug']      = false;
+        $info['debug']      = true;
         $info['data']       = $data;
         
         $result = insert($info);
