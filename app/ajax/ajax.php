@@ -298,9 +298,18 @@ class ajaxApp extends DefaultApplication
     {
         $ministries     = getUserField('ministries');
         
+        if ( $ministries == 'null' )
+        {
+            $ministryClause = ' 1 ';
+        }
+        else
+        {
+            $ministryClause = "ministry_id IN ($ministries)"; 
+        }
+        
         $info['table']  = AGENCY_LOOKUP_TBL;
         $info['fields'] = array('id','name');
-        $info['where']  = " ministry_id IN ($ministries) AND status='Active' ORDER By name ASC";
+        $info['where']  = "$ministryClause  AND status='Active' ORDER By name ASC";
         $info['debug']  = false;
 
         if ($result = select($info))
