@@ -1,0 +1,117 @@
+<table cellspacing="0" width="100%" style='font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12px;'>
+    <tr>
+        <td align="right" colspan="4">
+        {if $procurement_category eq 'GOODS'}Annex - III (a)
+        {else if $procurement_category eq 'WORKS'}Annex - III (b)
+        {else if $procurement_category eq 'SERVICES'}Annex - III (c)
+        {/if}
+        </td>
+    </tr>
+    <tr>
+        <td align="right" colspan="4"><font size="1">Ref: PPR, 2008</font></td>
+    </tr>
+    <tr>
+        <td width="20%">Project Name: </td>
+        <td style="padding-bottom: 5px;" colspan="3">{$basicInfo->project_title_en}</td>
+    </tr>
+    <tr>
+        <td>Ministry/Division: </td>
+        <td style="padding-bottom: 5px;" colspan="3">
+            {foreach from=$basicInfo->ministries key=key item=item}
+                {$item->name}<br />
+            {/foreach}
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-bottom: 5px;">Agency: </td>
+        <td style="padding-bottom: 5px;" width="55%" >
+            {foreach from=$basicInfo->agencies key=key item=item}
+                {$item->name}<br />
+            {/foreach}
+        </td>
+        <td style="padding-bottom: 5px;">Total GoB (FE): </td>
+        <td style="padding-bottom: 5px;">{$basicInfo->gob_cost} ({$basicInfo->gob_fe_cost|number_format:2:".":","})</td>
+    </tr>
+    <tr>
+        <td style="padding-bottom: 5px;">Procuring Entity Name and Code: </td>
+        <td style="padding-bottom: 5px;">Procuring Entity Name and Code: </td>
+        <td style="padding-bottom: 5px;">Total PA (RPA): </td>
+        <td style="padding-bottom: 5px;">
+            {assign var=totalPA value=$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost+$basicInfo->pa_dpa_cost}
+            {assign var=totalRPA value=$basicInfo->pa_through_gob_cost+$basicInfo->pa_spc_acnt_cost}
+            {$totalPA|number_format:2:".":","} ({$totalRPA|number_format:2:".":","})
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-bottom: 5px;">Project/Programme Code: </td>
+        <td style="padding-bottom: 5px;">Project/Programme Code: </td>
+        <td style="padding-bottom: 5px;">Others (FE): </td>
+        <td style="padding-bottom: 5px;">
+            {$basicInfo->other_cost} ({$basicInfo->other_fe_cost})
+        </td>
+    </tr>
+</table>
+<table cellspacing="0" style='font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12px;'>
+    <tr>
+        <td align="center" colspan="12" style="padding-bottom: 10px;">&nbsp;</td>
+    </tr>
+    <tr>
+        <td align="center" colspan="12" style="padding-bottom: 10px; font-size: 14px;">Total procurement plan for development project/programme</td>
+    </tr>
+    <tr>
+        <td align="center" style="border: 1px solid black;">Package No.</td>
+        <td align="center" style="border: 1px solid black;">Description of Procurement Package as per DPP/TPP<br>{$procurement_category}</td>
+        <td align="center" style="border: 1px solid black;">Unit</td>
+        <td align="center" style="border: 1px solid black;">Quantity</td>
+        <td align="center" style="border: 1px solid black;">Procurement Method & Type</td>
+        <td align="center" style="border: 1px solid black;">Contract Approving Authority</td>
+        <td align="center" style="border: 1px solid black;">Source of Fund</td>
+        <td align="center" style="border: 1px solid black;">Estd. Cost (In lakh tk)</td>
+        {if $procurement_category eq 'GOODS'}
+        <td align="center" style="border: 1px solid black;">Not Used in GOODS</td>
+        <td align="center" style="border: 1px solid black;">Invitation for Tender</td>
+        {else if $procurement_category eq 'WORKS'}
+        <td align="center" style="border: 1px solid black;">Invitation for Prequal (if applicable)</td>
+        <td align="center" style="border: 1px solid black;">Invitation for Tender</td>
+        {else if $procurement_category eq 'SERVICES'}
+        <td align="center" style="border: 1px solid black;">EOI Invitation</td>
+        <td align="center" style="border: 1px solid black;">Issue of RFP</td>
+        {/if}
+        
+        <td align="center" style="border: 1px solid black;">Signing of Contract</td>
+        <td align="center" style="border: 1px solid black;">Completion of Contract</td>
+    </tr>
+    {assign var="total_estd_cost" value="0"}
+    {foreach from=$proc_plan_list item=item}
+    <tr>
+        <td style="border: 1px solid black;">{$item->package_no}</td>
+        <td style="border: 1px solid black;">{$item->procurement_desc}</td>
+        <td style="border: 1px solid black;">{$item->procurement_unit}</td>
+        <td style="border: 1px solid black;">{$item->procurement_qty}</td>
+        <td style="border: 1px solid black;">{$item->procurement_method} ({$item->procurement_type})</td>
+        <td style="border: 1px solid black;">{$item->approv_auth}</td>
+        <td style="border: 1px solid black;">{$item->fund_src}</td>
+        <td style="border: 1px solid black;">{$item->estd_cost|number_format:2:".":","}</td>
+        {if $procurement_category eq 'GOODS'}
+        <td style="border: 1px solid black;">Not Req.</td>
+        <td style="border: 1px solid black;">{$item->tender_invitation}</td>
+        
+        {else if $procurement_category eq 'WORKS'}
+        <td align="center" style="border: 1px solid black;">{$item->prequal_invitation}</td>
+        <td style="border: 1px solid black;">{$item->tender_invitation}</td>
+        
+        {else if $procurement_category eq 'SERVICES'}
+        <td align="center" style="border: 1px solid black;">{$item->eoi_invitation}</td>
+        <td style="border: 1px solid black;">{$item->rfp_issue}</td>
+        {/if}
+        
+        <td style="border: 1px solid black;">{$item->contract_sign}</td>
+        <td style="border: 1px solid black;">{$item->contract_completion}</td>
+        {assign var="total_estd_cost" value=$total_estd_cost+$item->estd_cost}
+    </tr>
+    {/foreach}
+    <tr>
+        <td style="border: 1px solid black;" align="right" colspan="7"><b>Grand Total</b></td>
+        <td style="border: 1px solid black;" align="left" colspan="5"><b>{$total_estd_cost|number_format:2:".":","}</b></td>
+    </tr>
+</table>

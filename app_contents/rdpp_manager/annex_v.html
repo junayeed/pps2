@@ -1,0 +1,607 @@
+<div id="main-content" class="clearfix">
+    <head>
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery.gritter.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/ext/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+        
+        <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
+        <script type="text/javascript" src="/app_contents/common/js/messages.js"></script>
+        <style>
+           {literal} 
+                .fixed{
+                top:0;
+                position:fixed;
+                width:auto;
+                display:none;
+                border:none;
+          }
+          {/literal}
+        </style>
+    </head>
+					
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li class="active">Annexure - V: Detailed annual phasing cost</li>
+        </ul><!--.breadcrumb-->
+        <div id="nav-search">    
+        </div><!--#nav-search-->
+    </div><!--#breadcrumbs-->
+
+    <div id="page-content" class="clearfix">
+        <div class="page-header position-relative">
+            <h1>Annexure - V<small><i class="icon-double-angle-right"></i>Detailed annual phasing cost</small></h1>
+            <div id="nav-search">
+                <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
+            </div>  
+        </div><!--/page-header-->
+
+        <div class="row-fluid">
+        <!-- PAGE CONTENT BEGINS HERE -->
+           
+
+            <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
+            <form class="form-horizontal" id="procure_plan_services_form"  method="post" action="{$SCRIPT_NAME}" onsubmit="return submitFrm()" name="procure_plan_services_form"> 
+                {if $error eq '1'}
+                <div class="alert alert-block alert-error">
+                    <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+                    <strong><i class="icon-remove"></i> An error occurred while saving the data.</strong>
+                    
+		</div>
+                {/if}
+                {if $error eq '0'}
+                <div class="alert alert-block alert-success">
+			<button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+			<p>
+                            <strong><i class="icon-ok"></i> Data has been saved successfully.</strong>
+			</p>
+		</div>
+                {/if}
+                <div class="control-group">
+                    
+                    <div class="span12"> 
+                        <div class="form-actions2">
+                            <button class="btn btn-small btn-primary" type="button" id="addyear"onClick="addNewYear(1);">Add Year</button>
+                            <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                            <div id="export_to_container">
+                                Export To: 
+                                <select name="report_type" id="report_type" class="span6" onchange="createAnnexVReport();">
+                                    <option value=""></option>
+                                    <option value="pdf">pdf</option>
+                                    <option value="excel">excel</option>
+                                    <!--<option value="word">word</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div id="annex-container">
+                            <div id="economic_code_container">
+                                <i class="icon-blank"></i>
+                                <table id="economic_code_tbl" class="table table-striped table-bordered table-hover table_bug_report">
+                                    <thead>
+                                        <tr>
+                                            <th class="span1"></th>
+                                            <th class="span1">Economic Code</th>
+                                            <th class="span1">Economic Sub-code</th>
+                                            <th class="span12">Code description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Revenue_Component_economic_code_content">
+                                        <tr>
+                                            <td class="H29 CENTER">&nbsp;</td>
+                                            <td class="H29 CENTER">1</td>
+                                            <td class="H29 CENTER">2</td>
+                                            <td class="H29 CENTER">3</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="height: 29px !important;">(a) Revenue Component</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="Capital_Component_economic_code_content">
+                                        <tr>
+                                            <td colspan="4">
+                                                Revenue Component Sub Total<br><br>
+                                                <a href="javascript:void(0);" onClick="addNewComponent('Revenue Component',1);">Add Revenue Component</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="height: 29px !important;">(b) Capital Component</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr style="background-color: #FFFFFF;"> 
+                                            <td colspan="4">
+                                                Capital Component Sub Total<br><br>
+                                                <a href="javascript:void(0);" onClick="addNewComponent('Capital Component',1);">Add Capital Component</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">(c) Physical Contingency</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">(d) Price Contingency</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div id="total_cost_container">
+                                <i class="icon-blank"></i>
+                                <table id="total_cost_tbl" class="table table-striped table-bordered table-hover table_bug_report">
+                                    <thead>
+                                        <tr>
+                                            <th class="span3">Unit</th>
+                                            <th class="span2">Unit Cost</th>
+                                            <th class="span2">Qty</th>
+                                            <th class="span4">Total Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Revenue_Component_total_cost_content">
+                                        <tr>
+                                            <td class="H29 CENTER">4</td>
+                                            <td class="H29 CENTER">5</td>
+                                            <td class="H29 CENTER">6</td>
+                                            <td class="H29 CENTER">7</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="height: 29px !important;">&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="Capital_Component_total_cost_content">
+                                        <tr>
+                                            <td colspan="3">&nbsp;</td>
+                                            <td><input type="text" id="Revenue_Component_sub_total_total_cost" name="Revenue_Component_sub_total_total_cost" class="span12 bold" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="height: 29px !important;">&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr style="background-color: #FFFFFF;">
+                                            <td colspan="3">&nbsp;</td>
+                                            <td><input type="text" id="Capital_Component_sub_total_total_cost" name="Capital_Component_sub_total_total_cost" class="span12 bold" readonly ></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                            <td><input type="text" class="span12" name="physical_contigency_qty" id="physical_contigency_qty" readonly></td>
+                                            <td><input type="text" class="span12" name="physical_contigency_total" id="physical_contigency_total" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">&nbsp;</td>
+                                            <td><input type="text" class="span12" name="price_contigency_qty" id="price_contigency_qty" readonly></td>
+                                            <td><input type="text" class="span12" name="price_contigency_total" id="price_contigency_total" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">Grand Total (a+b+c+d): </td>
+                                            <td><input type="text" class="span12 bold" name="grand_total" id="grand_total" readonly></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div id="total_cost_breakdown_container">
+                                <i class="icon-exchange" id="toggle_total_cost_breakdown"></i>
+                                <i class="right font10" id="price_unit">(in lakh Taka)</i>
+                                <table id="total_cost_breakdown_tbl" class="table table-striped table-bordered table-hover table_bug_report">
+                                    <thead>
+                                        <tr>
+                                            <th class="span3 center" colspan="6">Project Total</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="span3 center" rowspan="3">GoB<br />(FE)</th>
+                                            <th class="span1 center" colspan="3">Project Aid</th>
+                                            <th class="span3 center" rowspan="3">Own Fund <br />(FE)</th>
+                                            <th class="span3 center" rowspan="3">Other <br />(FE)</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="span1 center" colspan="2">RPA</th>
+                                            <th class="span3 center" rowspan="2">DPA</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="span2 center">Through<br />GoB</th>
+                                            <th class="span2 center">Special<br />Account*</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Revenue_Component_total_cost_breakdown_content">
+                                        <tr>
+                                            <td class="H29 CENTER">8</td>
+                                            <td class="H29 CENTER">9</td>
+                                            <td class="H29 CENTER">10</td>
+                                            <td class="H29 CENTER">11</td>
+                                            <td class="H29 CENTER">12</td>
+                                            <td class="H29 CENTER">13</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="Capital_Component_total_cost_breakdown_content">
+                                        <!-- FOR REVENUE COMPONENT SUB TOTAL STARTS-->
+                                        <tr>
+                                            <td>
+                                                <input type="text" id="Revenue_Component_sub_total_gob" name="Revenue_Component_sub_total_gob" class="span12 bold" readonly >
+                                                <input type="text" id="Revenue_Component_sub_total_gob_fe" name="Revenue_Component_sub_total_gob_fe" class="span12 bold" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Revenue_Component_sub_total_rpa_through_gob" name="Revenue_Component_sub_total_rpa_through_gob" class="span12 bold" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Revenue_Component_sub_total_rpa_special_account" name="Revenue_Component_sub_total_rpa_special_account" class="span12 bold" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Revenue_Component_sub_total_dpa" name="Revenue_Component_sub_total_dpa" class="span12 bold" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Revenue_Component_sub_total_own_fund" name="Revenue_Component_sub_total_own_fund" class="span12 bold" readonly >
+                                                <input type="text" id="Revenue_Component_sub_total_own_fund_fe" name="Revenue_Component_sub_total_own_fund_fe" class="span12 bold" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Revenue_Component_sub_total_other" name="Revenue_Component_sub_total_other" class="span12 bold" readonly >
+                                                <input type="text" id="Revenue_Component_sub_total_other_fe" name="Revenue_Component_sub_total_other_fe" class="span12 bold" readonly >
+                                            </td>
+                                        </tr>
+                                        <tr><td colspan="6">&nbsp;</td></tr>
+                                        <!-- FOR REVENUE COMPONENT SUB TOTAL ENDS-->
+                                    </tbody>
+                                    <tfoot>
+                                        <!-- FOR CAPITAL COMPONENT SUB TOTAL STARTS-->
+                                        <tr  style="background-color: #FFFFFF;">
+                                            <td>
+                                                <input type="text" id="Capital_Component_sub_total_gob" name="Capital_Component_sub_total_gob" class="span12 bold" readonly >
+                                                <input type="text" id="Capital_Component_sub_total_gob_fe" name="Capital_Component_sub_total_gob_fe" class="span12 bold" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Capital_Component_sub_total_rpa_through_gob" name="Capital_Component_sub_total_rpa_through_gob" class="span12 bold" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Capital_Component_sub_total_rpa_special_account" name="Capital_Component_sub_total_rpa_special_account" class="span12 bold" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Capital_Component_sub_total_dpa" name="Capital_Component_sub_total_dpa" class="span12 bold" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Capital_Component_sub_total_own_fund" name="Capital_Component_sub_total_own_fund" class="span12 bold" readonly >
+                                                <input type="text" id="Capital_Component_sub_total_own_fund_fe" name="Capital_Component_sub_total_own_fund_fe" class="span12 bold" readonly >
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Capital_Component_sub_total_other" name="Capital_Component_sub_total_other" class="span12 bold" readonly >
+                                                <input type="text" id="Capital_Component_sub_total_other_fe" name="Capital_Component_sub_total_other_fe" class="span12 bold" readonly >
+                                            </td>
+                                        </tr>
+                                        <!-- FOR CAPITAL COMPONENT SUB TOTAL ENDS-->
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="span12" name="physical_contigency_gob" id="physical_contigency_gob" readonly>
+                                                <input type="text" class="span12" name="physical_contigency_gob_fe" id="physical_contigency_gob_fe" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="span12" name="physical_contigency_pa_through_gob" id="physical_contigency_pa_through_gob" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="span12" name="physical_contigency_pa_sp_acnt" id="physical_contigency_pa_sp_acnt" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="span12" name="physical_contigency_pa_dpa" id="physical_contigency_pa_dpa" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="span12" name="physical_contigency_own_fund" id="physical_contigency_own_fund" readonly>
+                                                <input type="text" class="span12" name="physical_contigency_own_fund_fe" id="physical_contigency_own_fund_fe" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="span12" name="physical_contigency_other" id="physical_contigency_other" readonly>
+                                                <input type="text" class="span12" name="physical_contigency_other_fe" id="physical_contigency_other_fe" readonly>
+                                            </td>
+                                        </tr>
+                                        <input type="hidden" name="physical_con_id" id="physical_con_id" value="">
+                                        <input type="hidden" name="price_con_id"    id="price_con_id"    value="">
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="span12" name="price_contigency_gob" id="price_contigency_gob" readonly>
+                                                <input type="text" class="span12" name="price_contigency_gob_fe" id="price_contigency_gob_fe" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="span12" name="price_contigency_pa_through_gob" id="price_contigency_pa_through_gob" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="span12" name="price_contigency_pa_sp_acnt" id="price_contigency_pa_sp_acnt" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="span12" name="price_contigency_pa_dpa" id="price_contigency_pa_dpa" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="span12" name="price_contigency_own_fund" id="price_contigency_own_fund" readonly>
+                                                <input type="text" class="span12" name="price_contigency_own_fund_fe" id="price_contigency_own_fund_fe" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="span12" name="price_contigency_other" id="price_contigency_other" readonly>
+                                                <input type="text" class="span12" name="price_contigency_other_fe" id="price_contigency_other_fe" readonly>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="span12 bold" name="grand_total_gob" id="grand_total_gob" readonly>
+                                                <input type="text" class="span12 bold" name="grand_total_gob_fe" id="grand_total_gob_fe" readonly>
+                                            </td>
+                                            <td><input type="text" class="span12 bold" name="grand_total_through_gob" id="grand_total_through_gob" readonly></td>
+                                            <td><input type="text" class="span12 bold" name="grand_total_spc_acnt" id="grand_total_spc_acnt" readonly></td>
+                                            <td><input type="text" class="span12 bold" name="grand_total_dpa" id="grand_total_dpa" readonly></td>
+                                            <td>
+                                                <input type="text" class="span12 bold" name="grand_total_own_fund" id="grand_total_own_fund" readonly>
+                                                <input type="text" class="span12 bold" name="grand_total_own_fund_fe" id="grand_total_own_fund_fe" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="span12 bold" name="grand_total_other" id="grand_total_other" readonly>
+                                                <input type="text" class="span12 bold" name="grand_total_other_fe" id="grand_total_other_fe" readonly>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            
+                        </div>  
+                        <!--<a href="javascript:void(0);" onClick="addNewComponent('Capital_Component');">Add Component</a>-->
+                        <span>* DOSA, CONTASA, SAFE, Imprest etc</span><br />
+                        
+                        <div class="form-actions2">
+                            <button class="btn btn-small btn-primary" type="button" id="addyear"onClick="addNewYear(1);">Add Year</button>
+                            <button class="btn btn-small btn-primary" type="submit"><i class="icon-save"></i> Save</button>
+                            <div id="export_to_container">
+                                Export To: 
+                                <select name="report_type" id="report_type" class="span6" onchange="createAnnexVReport();">
+                                    <option value=""></option>
+                                    <option value="pdf">pdf</option>
+                                    <option value="excel">excel</option>
+                                    <!--<option value="word">word</option>-->
+                                </select>
+                            </div>
+                            <input type="hidden" value="saveAnnexV" name="cmd"/>
+                            <input type="hidden" id="PI" name="PI" value="{$PI}"/>
+                            <input type="hidden" id="total_year_in_annexv" name="total_year_in_annexv" value=""/>
+                            <input type="hidden" id="component_list" name="component_list" value=""/>
+                        </div>
+                    </div>      
+                </div>
+            </form>   
+            
+        </div>
+                    
+    </div>
+<!-- PAGE CONTENT ENDS HERE -->
+</div><!--/row-->
+	
+<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+    <i class="icon-double-angle-up icon-only"></i>
+</a>
+
+<!-- basic scripts -->
+    <script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
+    </script>
+    <script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
+
+    <!-- page specific plugin scripts -->
+		
+    <!--[if lt IE 9]>
+        <script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
+    <![endif]-->
+
+    <script src="/app_contents/standard/template/assets/js/jquery-migrate-1.0.0.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.gritter.min.js"></script>
+    <script type="text/javascript" src="/ext/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+    <script type="text/javascript" src="/ext/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    
+    <!--script src="/app_contents/standard/template/assets/js/jquery.stickytableheaders.js"></script>
+    <script src="/app_contents/standard/template/assets/js/jquery.stickytableheaders.min.js"></script -->
+    <!-- ace scripts -->
+    <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
+    <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+    
+    <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+    <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/{$SYSTEM_APP_PREFIX}.js"></script>                 
+    <script>
+        $( document ).ready(function() {
+                $("#sidebar").toggleClass("menu-min");
+        });
+        {literal}
+        
+        
+        $('#toggle_total_cost_breakdown').click(function() 
+        {
+            if( $('#total_cost_breakdown_tbl').is(":visible") )
+            {
+                $('#price_unit').hide();
+                $('#total_cost_breakdown_tbl').hide("slow", function() {$('#total_cost_breakdown_container').css('width', '15px');});
+            }
+            else
+            {
+                $('#price_unit').show();
+                $('#total_cost_breakdown_tbl').show("slow", function() {$('#total_cost_breakdown_container').css('width', '500px');});
+            }
+            
+        });
+       
+        {/literal}
+        var economicCodeArr = [];
+        var i = 1;
+        {foreach from=$econimonic_code_list item=item}
+           
+           economicCodeArr.push({ldelim}'code':"{$item->economic_code}" , 
+                                        'component_type':"{$item->component_type}",
+                                        'code_name':"{$item->economic_code_name}", 
+                                        'id':"{$item->id}" 
+                                {rdelim}
+                                );
+                                
+           
+        {/foreach}
+        
+        var economicSubCodeArray = [];
+        var i = 1;
+        {foreach from=$econimonic_subcode_list item=item}
+           
+           economicSubCodeArray.push({ldelim}'id':"{$item->id}" , 
+                                        'sub_code':"{$item->economic_subcode}",
+                                        'economic_subcode_name':"{$item->economic_subcode_name}", 
+                                        'economic_code_id':"{$item->economic_code_id}" 
+                                {rdelim}
+                                );
+           
+        {/foreach}
+        
+        var component_count = 0;
+        var total_years = 0; 
+        
+        total_years = "{$component_list[0]->total_year}";  
+        $('#total_year_in_annexv').val(total_years)
+        
+        
+        
+        {foreach from=$component_list item=item}
+           
+            addNewComponent("{$item->component_type}",0);
+            //addNewComponent(com_type,0);
+            populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name} ", "{$item->unit}", 
+                                     "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
+                                     "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
+                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}", "{$item->attachment_path}", "{$item->attachment_id}");
+          
+           
+           component_count++;
+        {/foreach}
+            
+        // if data is there load the years 
+        if ( total_years>0 )
+        {ldelim}
+            //populate years
+            for(var i = 0; i<total_years;i++)
+            {ldelim}
+                addNewYear(0);
+            {rdelim}
+        {rdelim}
+        else
+        {ldelim}
+              addNewYear();
+        {rdelim}
+        
+        var count=1;
+        var year_count=1;
+        var cp_count =1;
+        {foreach from=$annx_v_component_details item=item}
+            
+            addYearWiseNewComponentDetailsRow("{$item->component_type}", "{$item->year_serial}", count);
+           
+            populateAnnexComponentDetails("{$item->gob}", "{$item->gob_fe}", "{$item->rpa_through_gob}", "{$item->rpa_special_account}", 
+                                          "{$item->dpa}", "{$item->own_fund}", "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", 
+                                          "{$item->year_serial}", "{$item->id}","{$item->financial_year}", count, "{$item->total}");
+            //alert({$item->year_serial} + ' '+count)
+            if( year_count%total_years==0 ) count++;
+            
+            if(cp_count%total_years==0) cp_count=0;
+            cp_count++;
+            year_count++;
+            
+        {/foreach}
+        
+        var count=1;
+        {foreach from=$annex_v_contingency_list item=item}
+            
+            populateContingency("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}",  
+                                "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
+                                "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
+                                "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}", "{$item->type}");
+           
+        {/foreach}
+        
+        {foreach from=$annex_v_category_sub_total item=item}
+            
+            populateCategoryWiseComponentSubTotal("{$item->component_type}", "{$item->sub_total_total_cost}", "{$item->sub_total_gob}",  
+                                                  "{$item->sub_total_gob_fe}", "{$item->sub_total_rpa_through_gob}", "{$item->sub_total_rpa_special_account}",  
+                                                  "{$item->sub_total_dpa}", "{$item->sub_total_own_fund}", "{$item->sub_total_own_fund_fe}", 
+                                                  "{$item->sub_total_other}", "{$item->sub_total_other_fe}");
+           
+        {/foreach}
+        
+        {foreach from=$annex_v_contingency_details item=item}
+            populateAnnexContingencyDetails("{$item->gob}", "{$item->gob_fe}", "{$item->rpa_through_gob}", "{$item->rpa_special_account}", 
+                                            "{$item->dpa}", "{$item->own_fund}", "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", 
+                                            "{$item->year_serial}", "{$item->id}","{$item->financial_year}", count, "{$item->total}","{$item->type}");
+            
+            
+            if(count%component_count == 0) count=0;
+            
+            count++;
+        {/foreach}
+        
+        
+        {foreach from=$annex_v_category_year_wise_sub_total item=item}
+           populateComponentYearWiseSubtotal("{$item->component_type}", "{$item->sub_total_cost}", "{$item->sub_gob}", "{$item->sub_gob_fe}", 
+                                            "{$item->sub_rpa}", "{$item->sub_rpa_special}", "{$item->sub_dpa}", "{$item->sub_own_fund}", "{$item->sub_own_fund_fe}", 
+                                            "{$item->sub_other}","{$item->sub_other_fe}","{$item->year_serial}");
+        {/foreach}
+        
+        
+       //Revenue_Component_sub_total_gob_
+        
+        calculateYearWiseGrandTotal();
+        calculateAnnexVGrandTotal();
+        
+        {if $basicInfo->current_holder eq $smarty.session.uid}
+        {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
+             lockProject();
+        {/if}
+        {else}
+            lockProject();
+        {/if} 
+
+        {literal}
+            function lockProject()
+            {
+                $("#page-content :input").attr("disabled", true);   
+                $('.form-actions2').hide();
+                $("td > a").hide();
+                $("#addyear").hide();
+            }
+            
+        $(".annexV_attachment").fancybox(
+        {
+            'width'          : '75%',
+            'height'	     : '20%',
+            'autoScale'	     : true,
+            'transitionIn'   : 'none',
+            'transitionOut'  : 'none',
+            'topRatio'       : 0,
+            'top'       : '20px',
+            'type'   	     : 'iframe'
+        });
+        
+        
+        function submitFrm()
+        {
+            
+            if(componentRowIDArray.length <=0)
+            {
+                alert("Please provide some Component Details");
+                return false;
+            }    
+            return true;
+        }
+        
+        
+       //$("table").stickyTableHeaders();
+    
+        {/literal}
+    
+        $(".alert-block").delay(4000).fadeOut(1000);
+        
+        
+    </script>    

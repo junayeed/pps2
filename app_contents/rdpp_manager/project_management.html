@@ -1,0 +1,333 @@
+<div id="main-content" class="clearfix">
+    <head>
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+        <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
+<script type="text/javascript" src="/app_contents/common/js/messages.js"></script>
+<script type="text/javascript" src="/app_contents/common/js/CalendarPopup.js"></script>
+
+<script language="JavaScript">
+   function thisSelect(inputobj, linkname, format) 
+   {ldelim}
+      var thisDate = new CalendarPopup();
+      //alert(inputobj + '\n' + linkname + '\n' + format);
+      thisDate.showNavigationDropdowns();
+      thisDate.select(inputobj,linkname, format);
+   {rdelim}
+   
+   
+  
+</script>
+
+<style>
+   {literal} 
+        .fixed{
+        top:0;
+        position:fixed;
+        width:auto;
+        display:none;
+        border:none;
+  }
+  {/literal}
+</style>
+    </head>
+					
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li class="active">Annexure - II : Project Management</li>
+        </ul><!--.breadcrumb-->
+        <div id="nav-search">    
+        </div><!--#nav-search-->
+    </div><!--#breadcrumbs-->
+
+    <div id="page-content" class="clearfix">
+        <div class="page-header position-relative">
+            <h1>Annexure - II <small><i class="icon-double-angle-right"></i>Total Project Management Stuff</small></h1>
+            <div id="nav-search">
+                <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
+            </div>  
+        </div><!--/page-header-->
+
+        <div class="row-fluid">
+        <!-- PAGE CONTENT BEGINS HERE -->
+           
+            <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
+            <form class="form-horizontal" id="procure_plan_goods_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_goods_form" enctype="multipart/form-data"> 
+                {if $error eq '1'}
+                <div class="alert alert-block alert-error">
+                    <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+                    <strong><i class="icon-remove"></i> An error occurred while saving the data.</strong>
+                    
+		</div>
+                {/if}
+                {if $error eq '0'}
+                <div class="alert alert-block alert-success">
+                    <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+                    <p>
+                        <strong><i class="icon-ok"></i> Data has been saved successfully.</strong>
+                    </p>
+		</div>
+                {/if}
+                <div id="basicinfo" class="tab-pane in active">
+                    <div class="form-actions2">
+                        <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                        <input type="hidden" value="saveAnnexII" name="cmd"/>
+                        <input type="hidden" id="PI" name="PI" value="{$PI}"/>
+                        
+                        <div id="export_to_container">
+                            Export To: 
+                            <select name="report_type" id="report_type" class="span6" onchange="createReport('Services');">
+                                <option value=""></option>
+                                <option value="pdf">pdf</option>
+                                <option value="excel">excel</option>
+                                <!--<option value="word">word</option>-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                         <label>1) Personnels to be deputed to project from existing setup</label>
+                        <div class="span11">
+                            <table id="management_content_tbl_1" class="table table-striped table-bordered table-hover table_bug_report">
+                                <thead>
+                                    <tr>
+                                        <th>S/No.</th>
+                                        <th class="span12">Name of the post</th>
+                                        <th class="span2">Quantity</th>
+                                        <th class="span12">Qualification</th>
+                                        <th class="span3">Scale/Amount</th>
+                                        <th class="span12">Responsibility</th>
+                                        <th class="span1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="management_content_1">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8"><a href="javascript:void(0)" onClick="addNewProjectManagementRow(1);">Add New Row</a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                         <label>2) Personnels to be recruited directly for only execution of the project</label>
+                        <div class="span11">
+                            <table id="management_content_tbl_2" class="table table-striped table-bordered table-hover table_bug_report">
+                                <thead>
+                                    <tr>
+                                        <th>S/No.</th>
+                                        <th class="span12">Name of the post</th>
+                                        <th class="span2">Quantity</th>
+                                        <th class="span12">Qualification</th>
+                                        <th class="span3">Scale/Amount</th>
+                                        <th class="span12">Responsibility</th>
+                                        <th class="span1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="management_content_2">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8"><a href="javascript:void(0)" onClick="addNewProjectManagementRow(2);">Add New Row</a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                         <label>3) Personnels to be recruited by outsourcing. </label>
+                        <div class="span11">
+                            <table id="management_content_tbl_3" class="table table-striped table-bordered table-hover table_bug_report">
+                                <thead>
+                                    <tr>
+                                        <th>S/No.</th>
+                                        <th class="span12">Name of the post</th>
+                                        <th class="span2">Quantity</th>
+                                        <th class="span12">Qualification</th>
+                                        <th class="span3">Scale/Amount</th>
+                                        <th class="span12">Responsibility</th>
+                                        <th class="span1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="management_content_3">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8"><a href="javascript:void(0)" onClick="addNewProjectManagementRow(3);">Add New Row</a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                         <label>4) Personnels to be recruited for execution as well as for operation of the project<br>
+                             &nbsp;&nbsp;&nbsp;&nbsp;(Personnels to be transferred to the revenue budget)
+                         </label>
+                        <div class="span11">
+                            <table id="management_content_tbl_4" class="table table-striped table-bordered table-hover table_bug_report">
+                                <thead>
+                                    <tr>
+                                        <th>S/No.</th>
+                                        <th class="span12">Name of the post</th>
+                                        <th class="span2">Quantity</th>
+                                        <th class="span12">Qualification</th>
+                                        <th class="span3">Scale/Amount</th>
+                                        <th class="span12">Responsibility</th>
+                                        <th class="span1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="management_content_4">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8"><a href="javascript:void(0)" onClick="addNewProjectManagementRow(4);">Add New Row</a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                         <label>5) Personnels to be recruited only for operation of the project<br>
+                             &nbsp;&nbsp;&nbsp;&nbsp;(Personnels to be recruited in revenue budge/if recruited in development budget to be transfered in revenue budget)
+                         </label>
+                        <div class="span11">
+                            <table id="management_content_tbl_5" class="table table-striped table-bordered table-hover table_bug_report">
+                                <thead>
+                                    <tr>
+                                        <th>S/No.</th>
+                                        <th class="span12">Name of the post</th>
+                                        <th class="span2">Quantity</th>
+                                        <th class="span12">Qualification</th>
+                                        <th class="span3">Scale/Amount</th>
+                                        <th class="span12">Responsibility</th>
+                                        <th class="span1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="management_content_5">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8"><a href="javascript:void(0)" onClick="addNewProjectManagementRow(5);">Add New Row</a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        
+                        
+                        <div class="span11">
+                            <div class="control-group">
+                                <label class="control-label" for="project_type">Other Attachments</label>
+                                <div class="controls">
+                                    <input  type="file" class="file_ace" name="document" id="id-input-file-1" />
+                                </div>
+                            </div>
+
+                            
+                        </div>    
+                    </div>
+
+                    <div class="form-actions2">
+                        <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                        <input type="hidden" value="saveAnnexII" name="cmd"/>
+                        <input type="hidden" id="PI" name="PI" value="{$PI}"/>
+                        
+                        <div id="export_to_container">
+                            Export To: 
+                            <select name="report_type" id="report_type" class="span6" onchange="createReport('Services');">
+                                <option value=""></option>
+                                <option value="pdf">pdf</option>
+                                <option value="excel">excel</option>
+                                <!--<option value="word">word</option>-->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>   
+            <!-- #basicinfo Ends here -->
+        </div>
+    </div>
+<!-- PAGE CONTENT ENDS HERE -->
+</div><!--/row-->
+	
+<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+    <i class="icon-double-angle-up icon-only"></i>
+</a>
+
+<!-- basic scripts -->
+    <script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
+    </script>
+    <script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
+
+    <!-- page specific plugin scripts -->
+		
+    <!--[if lt IE 9]>
+        <script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="/app_contents/standard/template/assets/js/jquery-migrate-1.0.0.js"></script> 
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-timepicker.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+    
+    <!-- ace scripts -->
+    <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
+    <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+    
+                
+    <script>
+      {foreach from=$management_list item=item}
+            addNewProjectManagementRow("{$item->type}");
+            populateManagementDetails("{$item->name_of_the_post}", "{$item->qty}", "{$item->qualification}", "{$item->amount}", 
+                                           "{$item->responsibility}","{$item->type}" ,"{$item->id}");
+        {/foreach}
+            
+      {if $basicInfo->current_holder eq $smarty.session.uid}
+        {if $basicInfo->status neq 'Draff' AND $basicInfo->status neq 'Returned from Ministry'}   
+             lockProject();
+        {/if}
+        {else}
+            lockProject();
+        {/if} 
+
+        {literal}
+        
+                 $('.file_ace').ace_file_input({
+				no_file:'No File ...',
+				btn_choose:'Choose',
+				btn_change:'Change',
+				droppable:false,
+				onchange:null,
+				thumbnail:false //| true | large
+				//whitelist:'gif|png|jpg|jpeg'
+				//blacklist:'exe|php'
+				//onchange:''
+				//
+			});
+                        
+            function lockProject()
+            {
+                $("#page-content :input").attr("disabled", true);   
+                $('.form-actions2').hide();
+                $("td > a").hide();
+               
+            }
+        {/literal}  
+
+        $(".alert-block").delay(6000).fadeOut(1000);
+    </script>    

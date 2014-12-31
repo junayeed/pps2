@@ -1,0 +1,310 @@
+<div id="main-content" class="clearfix">
+    <head>
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+        
+        <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
+        <script type="text/javascript" src="/app_contents/common/js/messages.js"></script>
+        <style>
+           {literal} 
+                .fixed{
+                top:0;
+                position:fixed;
+                width:auto;
+                display:none;
+                border:none;
+          }
+          {/literal}
+        </style>
+    </head>
+					
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li class="active">Annexure - IV: Year wise Financial and Physical Target Plan</li>
+        </ul><!--.breadcrumb-->
+        <div id="nav-search">    
+        </div><!--#nav-search-->
+    </div><!--#breadcrumbs-->
+
+    <div id="page-content" class="clearfix">
+        <div class="page-header position-relative">
+            <h1>Annexure - IV<small><i class="icon-double-angle-right"></i>Year wise Financial and Physical Target Plan</small></h1>
+            <div id="nav-search">
+                <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
+            </div>  
+        </div><!--/page-header-->
+
+        <div class="row-fluid">
+        <!-- PAGE CONTENT BEGINS HERE -->
+          
+            <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
+            <form class="form-horizontal" id="annex_iv"  method="post" action="{$SCRIPT_NAME}" name="annex_iv"> 
+                <div class="control-group">
+                   <div class="span12"> 
+                        <div id="annex-iv-container">
+                            <div id="economic_code_container">
+                                <i class="icon-blank"></i>
+                                <table id="economic_code_tbl" class="annex-iv-table table table-striped table-bordered table-hover table_bug_report">
+                                    <thead>
+                                        <tr>
+                                            <th class="span1 center" rowspan="1">Economic Code</th>
+                                            <th class="span1 center" rowspan="1">Economic Sub-code</th>
+                                            <th class="span12 center" rowspan="1">Code description</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="span1">&nbsp;</th>
+                                            <th class="span1">&nbsp;</th>
+                                            <th class="span12">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Revenue_Component_economic_code_content">
+                                        <tr>
+                                            <td class="H29 CENTER">1</td>
+                                            <td class="H29 CENTER">2</td>
+                                            <td class="H29 CENTER">3</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="height: 29px !important;">(a) Revenue Component</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="Capital_Component_economic_code_content">
+                                        <tr>
+                                            <td colspan="4" style="height: 29px !important;">(b) Capital Component</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="4" style="height: 39px !important;">(c) Physical Contingency</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="height: 39px !important;">(d) Price Contingency</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div id="total_cost_container">
+                                <i class="icon-blank"></i>
+                                <table id="total_cost_tbl" class="annex-iv-table table table-striped table-bordered table-hover table_bug_report">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="5">Total Physical & Financial Target</th>
+                                        </tr>    
+                                        <tr>
+                                            <th class="span3 center">Unit</th>
+                                            <th class="span4 center">Unit Cost</th>
+                                            <th class="span4 center">Qty</th>
+                                            <th class="span4 center">Total Cost</th>
+                                            <th class="span4 center">Weight</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Revenue_Component_total_cost_content">
+                                        <tr>
+                                            <td class="span3 center H29">4</td>
+                                            <td class="span4 center H29">5</td>
+                                            <td class="span4 center H29">6</td>
+                                            <td class="span4 center H29">7</td>
+                                            <td class="span4 center H29">8</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" style="height: 29px !important;">&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody id="Capital_Component_total_cost_content">
+                                        <tr>
+                                            <td colspan="5" style="height: 29px !important;">&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2" style="height: 39px !important;">&nbsp;</td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="physical_contigency_qty" id="physical_contigency_qty" readonly></td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="physical_contigency_total" id="physical_contigency_total" readonly></td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="physical_contigency_weight" id="physical_contigency_weight" readonly></td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="height: 39px !important;">&nbsp;</td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="price_contigency_qty" id="price_contigency_qty" readonly></td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="price_contigency_total" id="price_contigency_total" readonly></td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="price_contigency_weight" id="price_contigency_weight" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="height: 39px !important;">Grand Total (a+b+c+d): </td>
+                                            <td colspan="2" style="height: 39px !important;"><input type="text" class="span12" name="grand_total" id="grand_total" readonly></td>
+                                            <td style="height: 39px !important;"><input type="text" class="span12" name="grand_total_weight" id="grand_total_weight" readonly></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <input type="hidden" value="saveAnnexV" name="cmd"/>
+                        <input type="hidden" id="PI" name="PI" value="{$PI}"/>
+                        <input type="hidden" id="total_year_in_annexv" name="total_year_in_annexv" value=""/>
+                    </div>      
+                </div>
+            </form>   
+            
+        </div>
+                    
+    </div>
+<!-- PAGE CONTENT ENDS HERE -->
+</div><!--/row-->
+	
+<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+    <i class="icon-double-angle-up icon-only"></i>
+</a>
+
+<!-- basic scripts -->
+    <script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
+    </script>
+    <script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
+
+    <!-- page specific plugin scripts -->
+		
+    <!--[if lt IE 9]>
+        <script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.spinner.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-timepicker.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.knob.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.autosize-min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
+    
+    <!-- ace scripts -->
+    <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
+    <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+    
+    <script language="JavaScript" src="{$SYSTEM_COMMON_JAVASCRIPT_DIR}/common.js"></script>
+    <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/annex_iv.js"></script>                 
+    <script>
+        $( document ).ready(function() {
+                $("#sidebar").toggleClass("menu-min");
+        });
+        {literal}
+       
+        $('#toggle_total_cost_breakdown').click(function() 
+        {
+            if( $('#total_cost_breakdown_tbl').is(":visible") )
+            {
+                $('#total_cost_breakdown_tbl').hide("slow", function() {$('#total_cost_breakdown_container').css('width', '15px');});
+                
+            }
+            else
+            {
+                $('#total_cost_breakdown_tbl').show("slow", function() {$('#total_cost_breakdown_container').css('width', '500px');});
+                
+            }
+            
+        });
+       
+        {/literal}
+        var economicCodeArr = [];
+        var i = 1;
+        {foreach from=$econimonic_code_list item=item}
+           
+           economicCodeArr.push({ldelim}'code':"{$item->economic_code}" , 
+                                        'component_type':"{$item->component_type}",
+                                        'code_name':"{$item->economic_code_name}", 
+                                        'id':"{$item->id}" 
+                                {rdelim}
+                                );
+           $('#total_year_in_annexv').val({$item->total_year})                     
+           
+        {/foreach}
+        
+        var economicSubCodeArray = [];
+        var i = 1;
+        {foreach from=$econimonic_subcode_list item=item}
+           
+           economicSubCodeArray.push({ldelim}'id':"{$item->id}" , 
+                                        'sub_code':"{$item->economic_subcode}",
+                                        'economic_subcode_name':"{$item->economic_subcode_name}", 
+                                        'economic_code_id':"{$item->economic_code_id}" 
+                                {rdelim}
+                                );
+           
+        {/foreach}
+        
+        var component_count = 0;
+
+        {foreach from=$component_list item=item}
+            addNewComponent("{$item->component_type}");
+            populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}", "{$item->unit}", 
+                                     "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
+                                     "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
+                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}");
+           
+           var total_years = "{$item->total_year}";    
+           
+           calculateComponentWeight("{$project_info->total_cost}","{$item->total_cost}");
+           //calculateComponentPercentage("{$project_info->total_cost}");
+           
+           component_count++;
+        {/foreach}
+            
+        //populate years
+        for(var i = 0; i<total_years;i++)
+        {
+            addNewYear();
+        }
+        
+        var count      = 1;
+        var year_count = 1;
+        var cp_count   = 1;
+        {foreach from=$annex_v_component_details item=item}
+            populateAnnexComponentDetails("{$item->year_serial}", "{$item->id}","{$item->financial_year}", count, "{$item->total}", "{$project_info->total_cost}", "{$item->component_type}");
+            
+            if( year_count%total_years==0 ) count++;
+            
+            if(cp_count%total_years==0) cp_count=0;
+            cp_count++;
+            year_count++;
+        {/foreach}
+        
+        
+        
+        var count      = 1;
+        
+        {foreach from=$annex_v_contingency_list item=item}
+            
+            populateContingency("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}",  
+                                "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
+                                "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
+                                "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}", "{$item->type}");
+            calculateContingencyWeight("{$project_info->total_cost}","{$item->total_cost}","{$item->type}")
+        {/foreach}
+        
+        
+        {foreach from=$annex_v_contingency_details item=item}
+            populateAnnexContingencyDetails("{$item->year_serial}", "{$item->id}","{$item->financial_year}", count, "{$item->total}",
+                                            "{$item->type}", "{$project_info->total_cost}");
+            
+            if(count%component_count == 0) count=0;
+            
+            count++;
+        {/foreach}
+         
+        
+        calculateAnnexVGrandTotal();
+    
+    </script>    
