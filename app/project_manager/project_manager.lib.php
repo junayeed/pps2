@@ -2,6 +2,7 @@
 
     function makeLocationView($data)
     {
+       // dumpVar($data);
         foreach($data as $value)
         {
             if($value->location_type =='Division') $division[] = $value;
@@ -11,28 +12,45 @@
         $count=1;
         foreach($division as $thisDivision)
         {
-            $body.="<tr><td>$count</td><td>$thisDivision->division_name</td><td>&nbsp;</td><td>&nbsp;</td><td><input type='text' name='cost_$thisDivision->id' value='$thisDivision->location_cost' class='span12' onkeypress='return isNumberKey(event);'></td><td><textarea name='comment_$thisDivision->id'>$thisDivision->location_comments</textarea></td></tr>";
+            $body.="<tr><td>$count</td><td>$thisDivision->division_name</td>";
             $count++;
+            $isDistrict = 0;
+            $isUpzilla  = 0;
+            
+            $dcount = 0;
             foreach($district as $thisDistrict)
             {
                 
                 if($thisDistrict->div_id == $thisDivision->location_id)
                 {   
-                    $body.="<tr><td>$count</td><td>&nbsp;</td><td>$thisDistrict->district_name</td><td>&nbsp;</td><td><input type='text' name='cost_$thisDistrict->id' value='$thisDivision->location_cost' class='span12' onkeypress='return isNumberKey(event);'></td><td><textarea name='comment_$thisDistrict->id'>$thisDistrict->location_comments</textarea></td></tr>";
-                    $count++;
+                    $isDistrict = 1;
+                    $dcount++;
+                    
+                     if($dcount==1) $body.="<td>$thisDistrict->district_name</td>";
+                     else           $body.="</tr><tr><td>".$count++."</td><td>&nbsp;</td><td>$thisDistrict->district_name</td>";
+                   
+                    $ucount=0;
+                    $isUpzilla = 0;
                     foreach($upzila as $thisUzila)
                     {
                         
                         if($thisUzila->district_id == $thisDistrict->location_id)
                         {
-                           $body.="<tr><td>$count</td><td>&nbsp;</td><td>&nbsp;</td><td>$thisUzila->upzila_name</td><td><input type='text' name='cost_$thisUzila->id' value='$thisUzila->location_cost' class='span12' onkeypress='return isNumberKey(event);'></td><td><textarea name='comment_$thisUzila->id'>$thisUzila->location_comments</textarea></td></tr>";
-                           $count++;
+                            $ucount++;
+                            $isUpzilla  = 1;
+                             
+                            if($ucount==1) $body.="<td>$thisUzila->upzila_name</td><td><input type='text' name='cost_$thisUzila->id' value='$thisUzila->location_cost' class='span12' onkeypress='return isNumberKey(event);'></td><td><textarea class='span12' style='height:30px' name='comment_$thisUzila->id'>$thisUzila->location_comments</textarea></td></tr>";
+                            else           $body.="<tr><td>".$count++."</td><td>&nbsp;</td> <td>&nbsp;</td><td>$thisUzila->upzila_name</td><td><input type='text' name='cost_$thisUzila->id' value='$thisUzila->location_cost' class='span12' onkeypress='return isNumberKey(event);'></td><td><textarea class='span12' style='height:30px' name='comment_$thisUzila->id'>$thisUzila->location_comments</textarea></td></tr>";
+                             
                         }
-                        
                     }
+                    if(!$isUpzilla)  $body.="<td>&nbsp;</td><td><input type='text' name='cost_$thisDistrict->id' value='$thisDistrict->location_cost' class='span12' onkeypress='return isNumberKey(event);'></td><td><textarea class='span12' style='height:30px' name='comment_$thisDistrict->id'>$thisDistrict->location_comments</textarea></td></tr>";
+                
                 }
                 
-            }    
+            }   
+            if(!$isDistrict)  $body.="<td>&nbsp;</td> <td>&nbsp;</td><td><input type='text' name='cost_$thisDivision->id' value='$thisDivision->location_cost' class='span12' onkeypress='return isNumberKey(event);'></td><td><textarea class='span12' style='height:30px' name='comment_$thisDivision->id'>$thisDivision->location_comments</textarea></td></tr>";
+                           
         }
         
         return $body;
@@ -210,7 +228,7 @@
     function updateProcurementPlan()
     {
         $info['table'] = PROJECT_PROCUREMENT_PLAN_TBL;
-        $info['debug'] = true;
+        $info['debug'] = false;
         $data['pid']   = base64_decode(getUserField('PI'));
         $error         = 0;
         

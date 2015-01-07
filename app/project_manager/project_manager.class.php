@@ -326,7 +326,7 @@ class projectManagerApp extends DefaultApplication
         $project      = new Project($pid);
         
         //Delete Empty Row of Component
-        $project->removeEmptyRowOfComponent();
+        //$project->removeEmptyRowOfComponent();
         
         $report_type  = getUserField('report_type');
 
@@ -580,8 +580,8 @@ class projectManagerApp extends DefaultApplication
         $project               = new Project($pid);
         $project->saveBasicInfo();
         
-        $error = updateAnnexV();
-        updateAnnexVContingency();
+        //$error = updateAnnexV();
+        $error = updateAnnexVContingency();
         //updateProjectTotalCost($pid);
 
         header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid) . '&error='.$error);
@@ -598,7 +598,7 @@ class projectManagerApp extends DefaultApplication
         $data['basicInfo']     = $project->basicInfo;
         
         //Delete Empty Row of Component
-        $project->removeEmptyRowOfComponent();
+        //$project->removeEmptyRowOfComponent();
                 
         $data['PI']                                    = $PI;
         $data['econimonic_code_list']                  = getEconomicCodeList();
@@ -627,7 +627,7 @@ class projectManagerApp extends DefaultApplication
         $project                             = new Project($pid);
         
         //Delete Empty Row of Component
-        $project->removeEmptyRowOfComponent();
+        //$project->removeEmptyRowOfComponent();
         
         $data['project_info']                = $project->basicInfo;
         //dumpVar($data);

@@ -41,12 +41,29 @@ class ajaxApp extends DefaultApplication
            case 'deleteattachment'         : $screen = $this->deleteAttachment();                      break;
            case 'delEconCodeattachment'    : $screen = $this->deleteEconomicCodeAttachment();          break;
            case 'updateAnnexV'             : $screen = $this->updateAnnexVRowItem();                   break;
+           case 'saveFiscalYear'           : $screen = $this->saveFiscalYear();                        break;
+           case 'updateComDetail'          : $screen = $this->updateComDetail();                       break;
            default                         : $screen = $this->showEditor($msg);
       }
 
       return true;
     }
     
+    function saveFiscalYear()
+    {
+        $pid                           = base64_decode(getUserField('PI'));
+        $year                          = getUserField('year');
+        $financial_year                = getUserField('financial_year');
+        
+        $info['table']                 = PROJECT_ANNEX_V_DETAILS_TBL;
+        $info['debug']                 = false;
+        $info['where']                  = 'year_serial = ' . $year.' AND pid='.$pid;
+        $info['data']['financial_year'] = $financial_year;
+        
+        echo json_encode(update($info));
+        die;
+        
+    }
     
     function updateAnnexVRowItem()
     {
@@ -59,6 +76,26 @@ class ajaxApp extends DefaultApplication
         $info['debug']                 = false;
         $info['where']                 = 'id = ' . $annex_id;
         $info['data'][$thisField]      = $thisValue;
+        
+        echo json_encode(update($info));
+        die;
+    }
+    
+    function updateComDetail()
+    {
+        //$pid       = base64_decode(getUserField('PI'));
+        $pid           = base64_decode(getUserField('PI'));
+        $annex_id      = getUserField('annex_id');
+        $year_serial   = getUserField('year_serial');
+        
+        $thisField = getUserField('thisField');
+        $thisValue = getUserField('thisValue');
+        
+        $info['table']                 = PROJECT_ANNEX_V_DETAILS_TBL;
+        $info['debug']                 = true;
+        $info['where']                 = 'annex_id = ' . $annex_id. ' AND pid='.$pid.' AND year_serial='.$year_serial;
+        $info['data'][$thisField]      = $thisValue;
+        
         
         echo json_encode(update($info));
         die;
@@ -121,7 +158,7 @@ class ajaxApp extends DefaultApplication
         }
         
         $info['table']  = PROJECT_ANNEX_V_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['data']   = $data;
         $info['where']  = 'id = ' . $annex_id;
         
@@ -146,7 +183,7 @@ class ajaxApp extends DefaultApplication
         }
         
         $info['table']  = PROJECT_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['data']   = $data;
         $info['where']  = 'id = ' . $data['pid'];
         
@@ -171,7 +208,7 @@ class ajaxApp extends DefaultApplication
         }
         
         $info['table']  = PROJECT_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['data']   = $data;
         $info['where']  = 'id = ' . $data['pid'];
         
@@ -183,6 +220,9 @@ class ajaxApp extends DefaultApplication
     {
         $pid                = base64_decode(getUserField('PI')); 
         $data['total_year'] = (int) getUserField('totalyear'); 
+        $annexIDS           = explode(",",getUserField('annexIDS')); 
+        
+        //dumpVar($annexIDS);
         
         $info['table']      = PROJECT_ANNEX_V_TBL;
         $info['debug']      = false;
@@ -193,6 +233,22 @@ class ajaxApp extends DefaultApplication
         
         if($result)
         {
+            foreach ($annexIDS as $thisID)
+            {
+                $dataDetail['pid']         = $data['pid'];
+                $dataDetail['annex_id']    = $thisID;
+                $dataDetail['pid']         = $pid;
+                $dataDetail['year_serial'] = $data['total_year'];
+                
+                $info1['table']    = PROJECT_ANNEX_V_DETAILS_TBL;
+                $info1['debug']    = true;
+                $info1['data']     = $dataDetail;
+                
+                $resultDetail = insert($info1);
+                
+                //$returnStr.= "###".$resultDetail['newid'];
+                
+            }
             echo json_encode("1");
             die;
         }   
@@ -207,46 +263,47 @@ class ajaxApp extends DefaultApplication
     function createAnnexVRow()
     {
         $returnStr = "";
-        $data['pid']        = base64_decode(getUserField('PI')); 
-        $total_year         = (int) getUserField('totalyear'); 
+        $data['pid']               = base64_decode(getUserField('PI')); 
+        $data['component_type']    = getUserField('component_type'); 
+        $total_year                = (int) getUserField('totalyear'); 
         $data['total_year'] = $total_year;
         
         $info['table']      = PROJECT_ANNEX_V_TBL;
-        $info['debug']      = true;
+        $info['debug']      = false;
         $info['data']       = $data;
         
         $result = insert($info);
         
         $returnStr = $result['newid'];
         
-        echo json_encode($returnStr);
-        die;
+        //echo json_encode($returnStr);
+        //die;
         
-//        if($result['newid'])
-//        {
-//            for($i=1;$i<=$total_year;$i++)
-//            {
-//                $dataDetail['pid']         = $data['pid'];
-//                $dataDetail['annex_id']    = $result['newid'];
-//                $dataDetail['year_serial'] = $i;
-//                
-//                $info1['table']    = PROJECT_ANNEX_V_DETAILS_TBL;
-//                $info1['debug']    = false;
-//                $info1['data']     = $dataDetail;
-//                
-//                $resultDetail = insert($info1);
-//                
-//                $returnStr.= "###".$resultDetail['newid'];
-//                
-//            }
-//            echo json_encode($returnStr);
-//            die;
-//        }
-//        else
-//        {
-//            echo json_encode("");
-//            die;
-//        } 
+        if($result['newid'])
+        {
+            for($i=1;$i<=$total_year;$i++)
+            {
+                $dataDetail['pid']         = $data['pid'];
+                $dataDetail['annex_id']    = $result['newid'];
+                $dataDetail['year_serial'] = $i;
+                
+                $info1['table']    = PROJECT_ANNEX_V_DETAILS_TBL;
+                $info1['debug']    = false;
+                $info1['data']     = $dataDetail;
+                
+                $resultDetail = insert($info1);
+                
+                //$returnStr.= "###".$resultDetail['newid'];
+                
+            }
+            echo json_encode($returnStr);
+            die;
+        }
+        else
+        {
+            echo json_encode("");
+            die;
+        } 
     }
    
     

@@ -244,7 +244,7 @@
                          ' LEFT JOIN ' . ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id = ESLT.id)';
        $info['debug']  = false;
        $info['where']  = 'pid = ' . $pid.' ORDER BY ESLT.economic_subcode, PAVT.id';
-       $info['fields'] = array('PAVT.*', 'ECLT.component_type');
+       $info['fields'] = array('PAVT.*', 'ECLT.component_type AS comp_type');
        
        $result = select($info);
        
@@ -294,7 +294,7 @@
                          ' LEFT JOIN ' . ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id=ESLT.id)';
        $info['debug']  = false;
        $info['where']  = 'PAVDT.pid = ' . $pid.' ORDER BY ESLT.economic_subcode, PAVDT.annex_id, PAVDT.year_serial';
-       $info['fields'] = array('PAVDT.*', 'ECLT.component_type', 'PAVT.id AS annex_id');
+       $info['fields'] = array('PAVDT.*', 'ECLT.component_type AS comp_type', 'PAVT.id AS annex_id','PAVT.component_type');
        
        $result = select($info);
        
