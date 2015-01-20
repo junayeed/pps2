@@ -538,14 +538,20 @@
     function getCommissionWiseProjectSummary($sector_division)
     {
         $current_fiscal_year = getCurrentFiscalYear();
+        $fiscal_year_date    = getFiscalYearDats($current_fiscal_year);
+        
+        dumpVar($fiscal_year_date['end_date']);
         
         $info['table']  = PROJECT_TBL . ' AS PT LEFT JOIN ' . 
                           MINISTRY_LOOKUP_TBL . ' AS MLT ON (PT.ministry_id = MLT.id) LEFT JOIN ' . 
                           AGENCY_LOOKUP_TBL . ' AS ALT ON (ALT.id=PT.agency_id) LEFT JOIN ' . 
                           VIEW_PROJECT_GRAND_TOTAL . ' AS VPGT ON (PT.id = VPGT.pid)';
         $info['debug']  = true;
-        $info['where']  = 'PT.status = ' . q('Approved') . ' AND PT.sector_division = ' . $sector_division . ' GROUP BY PT.ministry_id, PT.agency_id';
-        $info['fields'] = array('COUNT(PT.id) AS project_count', 'MLT.name AS ministry_name', 'ALT.name AS agency_name', 
+        $info['where']  = 'PT.status = ' . q('Approved') . 
+                          ' AND PT.sector_division = ' . $sector_division . 
+                          ' AND ' . q($fiscal_year_date['end_date']) . ' <= PT.date_of_completion' .
+                          ' GROUP BY PT.ministry_id, PT.agency_id';
+        $info['fields'] = array('COUNT(PT.id) AS project_count', 'MLT.name AS ministry_name', 'ALT.name AS agency_name', 'PT.date_of_completion', 
                                 'PT.ministry_id', 'PT.agency_id', 'PT.status', 'SUM(VPGT.total_cost)', 'SUM(VPGT.gob_cost)', 'SUM(VPGT.pa_through_gob_cost)', 
                                 'SUM(VPGT.pa_spc_acnt_cost)', 'SUM(VPGT.pa_dpa_cost)', 'SUM(VPGT.own_fund_cost)', 'SUM(VPGT.other_cost)');
         
@@ -560,6 +566,16 @@
         }
         
         return $retData;
+    }
+    
+    function getFiscalYearDats($current_fiscal_year)
+    {
+        $years = explode("-", $current_fiscal_year);
+        
+        $data['start_date'] = $years[0] . '-07-01';
+        $data['end_date']   = $years[1] . '-06-30';
+        
+        return $data;
     }
     
     function getCurrentFiscalYear()
