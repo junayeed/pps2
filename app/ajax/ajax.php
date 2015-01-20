@@ -313,8 +313,9 @@ class ajaxApp extends DefaultApplication
         
        
         // delete from Annex V contingency details table
-        $info['table']  = DISTRICT_LOOKUP_TBL;
+        $info['table']  = DISTRICT_LOOKUP_TBL.' AS DL';
         $info['debug']  = false;
+        $info['fields']  = array('distinct DL.*');
         $info['where']  = "div_id IN ($divisions) AND status='Active' ORDER By district_name ASC";
         
          if ($result = select($info))
@@ -335,8 +336,9 @@ class ajaxApp extends DefaultApplication
         
        
         // delete from Annex V contingency details table
-        $info['table']  = UPZILA_LOOKUP_TBL;
+        $info['table']  = UPZILA_LOOKUP_TBL. ' AS UP';
         $info['debug']  = false;
+        $info['fields']  = array('distinct UP.*');
         $info['where']  = "district_id IN ($districts) AND status='Active' ORDER By upzila_name ASC";
         
         if ($result = select($info))

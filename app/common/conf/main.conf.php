@@ -56,7 +56,7 @@
 
 
    if (PRODUCTION_MODE)
-      error_reporting(E_ALL ^ E_NOTICE);
+      error_reporting(E_NONE);
    else
      error_reporting(E_NONE);
      //error_reporting(E_ALL ^ E_NOTICE);

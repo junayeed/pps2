@@ -339,7 +339,7 @@ class projectManagerApp extends DefaultApplication
         $data->sectorDivisionList     = getSectorDivisionList();
         $data->divisionList           = getDivisionList();
         $data->districtList           = getDistrictList();
-        $data->upazilaList            = getUpzilaList();
+        $data->upazilaList            = getUpzilaListWithDistrictName();
         $data->modefinancing          = $project->loadModeOfFinancing();
         $data->logframe               = $project->loadLogFrame();
         $data->year_wise_gob_ownfund  = $project->loadYearWiseGobOwnfundTotal();

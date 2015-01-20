@@ -208,6 +208,24 @@
       return $data;
    } 
    
+   
+   function getUpzilaListWithDistrictName()
+   {
+        $info['table']  = UPZILA_LOOKUP_TBL.' AS UPL LEFT JOIN '.DISTRICT_LOOKUP_TBL.' AS DIL  ON(UPL.district_id = DIL.district_id)';
+        $info['fields'] = array('UPL.upzila_id','UPL.upzila_name','DIL.district_name');
+        $info['where']  = " UPL.status='Active' ORDER By UPL.upzila_name ASC";
+        //$info['debug']  = true;
+
+      if ($result = select($info))
+      {
+         foreach($result as $key => $value)
+         {
+            $data[$value->upzila_id] =  "$value->upzila_name ($value->district_name)"; 
+         }
+      }
+      return $data;
+   } 
+   
    function getEconomicCodeList()
    {
        $info['table']  = ECONOMIC_CODE_LOOKUP_TBL;

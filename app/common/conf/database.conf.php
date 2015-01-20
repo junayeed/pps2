@@ -23,18 +23,18 @@
   // may vary.
   if (PRODUCTION_MODE)
   {
-     define('DB_USER', 'root');
-     define('DB_PASS', 'root123');
+     define('DB_USER', 'pps2web1');
+     define('DB_PASS', 'V8Lpx54A87rXveHh');
      define('DB_NAME', 'pps2');
-     define('DB_HOST', 'localhost');
+     define('DB_HOST', '192.168.6.103');
   }
   else
   {
     define('DB_USER', 'root');
     define('DB_PASS', '');
 
-    define('DB_NAME', 'pps2');
-    define('DB_HOST', '127.0.0.1');
+    define('DB_NAME', 'pps2_live');
+    define('DB_HOST', 'localhost');
   }
 
   /**
