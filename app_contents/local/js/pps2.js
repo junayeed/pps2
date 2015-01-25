@@ -260,7 +260,7 @@ function addNewProjectManagementRow(table_id)
     var td_name_of_post      = '<td><input type="text" name="name_of_the_post_'+ROW_ID+'" id="name_of_the_post_'+ROW_ID+'" value="" class="span12" required /></td>';
     var td_qty               = '<td><input type="text" name="qty_'+ROW_ID+'" id="qty_'+ROW_ID+'" class="span12" onkeypress="return isNumberKey(event);"  required /></td>';  
     var td_qualification     = '<td><textarea name="qualification_'+ROW_ID+'" id="qualification_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';
-    var td_amount            = '<td><input type="text" name="amount_'+ROW_ID+'" id="amount_'+ROW_ID+'" value="" class="span12" onkeypress="return isNumberKey(event);" required/></td>';
+    var td_amount            = '<td><input type="text" name="amount_'+ROW_ID+'" id="amount_'+ROW_ID+'" value="" class="span12" required/></td>';
     var td_responsibility    = '<td><textarea name="responsibility_'+ROW_ID+'" id="responsibility_'+ROW_ID+'" class="span12" style="resize: vertical;" required></textarea></td>';
     var td_action            = '<td id="td_action_'+ROW_ID+'">\n\
                                        <a href="javascript: void(0);" \n\

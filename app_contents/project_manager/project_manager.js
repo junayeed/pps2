@@ -931,7 +931,10 @@ function addYearWiseNewComponentDetailsRow(com_type, year, elemID)
 function updateComDetail(thisValue,thisField,year,elemID)
 {
    
-    var annexID = $('#annex_id_'+elemID).val();
+    var annexID        = $('#annex_id_'+elemID).val();
+    var financial_year = $('#financial_year_'+year).val();
+    
+    thisValue   = thisValue ? thisValue : 0;
     var PI      = $('#PI').val();
     //alert(thisValue);
     //return;
@@ -939,7 +942,7 @@ function updateComDetail(thisValue,thisField,year,elemID)
     (
         {                                      
             url: 'http://'+document.domain+'/app/ajax/ajax.php?cmd=updateComDetail',
-            data: "annex_id="+annexID+"&thisField="+thisField+'&thisValue='+thisValue+'&PI='+PI+'&year_serial='+year,
+            data: "annex_id="+annexID+"&thisField="+thisField+'&thisValue='+thisValue+'&PI='+PI+'&year_serial='+year+'&financial_year='+financial_year,
             dataType: 'json',
             success: function(responseText)
             {

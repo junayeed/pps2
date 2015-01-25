@@ -84,9 +84,10 @@ class ajaxApp extends DefaultApplication
     function updateComDetail()
     {
         //$pid       = base64_decode(getUserField('PI'));
-        $pid           = base64_decode(getUserField('PI'));
-        $annex_id      = getUserField('annex_id');
-        $year_serial   = getUserField('year_serial');
+        $pid            = base64_decode(getUserField('PI'));
+        $annex_id       = getUserField('annex_id');
+        $year_serial    = getUserField('year_serial');
+        $financial_year = getUserField('financial_year') ? getUserField('financial_year') : '';
         
         $thisField = getUserField('thisField');
         $thisValue = getUserField('thisValue');
@@ -95,6 +96,7 @@ class ajaxApp extends DefaultApplication
         $info['debug']                 = true;
         $info['where']                 = 'annex_id = ' . $annex_id. ' AND pid='.$pid.' AND year_serial='.$year_serial;
         $info['data'][$thisField]      = $thisValue;
+        $info['data']['financial_year']= $financial_year;
         
         
         echo json_encode(update($info));
