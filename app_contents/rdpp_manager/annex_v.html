@@ -464,13 +464,11 @@
         total_years = "{$component_list[0]->total_year}";  
         $('#total_year_in_annexv').val(total_years)
         
-       
+        
         
         {foreach from=$component_list item=item}
            
-           var com_type = "{$item->component_type}" ? "{$item->component_type}" : "{$item->comp_type}";
-           
-            addNewComponent(com_type,0);
+            addNewComponent("{$item->component_type}",0);
             //addNewComponent(com_type,0);
             populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name} ", "{$item->unit}", 
                                      "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
@@ -499,10 +497,8 @@
         var year_count=1;
         var cp_count =1;
         {foreach from=$annx_v_component_details item=item}
-            var com_type = "{$item->component_type}" ? "{$item->component_type}" : "{$item->comp_type}";
             
-            //alert(com_type)
-            addYearWiseNewComponentDetailsRow(com_type, "{$item->year_serial}", count);
+            addYearWiseNewComponentDetailsRow("{$item->component_type}", "{$item->year_serial}", count);
            
             populateAnnexComponentDetails("{$item->gob}", "{$item->gob_fe}", "{$item->rpa_through_gob}", "{$item->rpa_special_account}", 
                                           "{$item->dpa}", "{$item->own_fund}", "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", 

@@ -56,7 +56,7 @@
 
 
    if (PRODUCTION_MODE)
-      error_reporting(E_ALL ^ E_NOTICE);
+      error_reporting(E_NONE);
    else
      error_reporting(E_NONE);
      //error_reporting(E_ALL ^ E_NOTICE);
@@ -190,6 +190,7 @@
    //Local Class names
    define('PROJECT_CLASS',                LOCAL_CLASS_DIR . '/Project.class.php');
    define('TPP_CLASS',                    LOCAL_CLASS_DIR . '/TPP.class.php');
+   define('RDPP_CLASS',                   LOCAL_CLASS_DIR . '/RDPP.class.php');
    define('MESSAGE_CLASS',                LOCAL_CLASS_DIR . '/Message.class.php');
 
    // Load required classes
@@ -198,6 +199,7 @@
    require_once(APPLICATION_MESSAGE_CLASS);
    require_once(PROJECT_CLASS);
    require_once(TPP_CLASS);
+   require_once(RDPP_CLASS);
    require_once(MESSAGE_CLASS);
    //require_once(DOCUMENT_CLASS);
    //

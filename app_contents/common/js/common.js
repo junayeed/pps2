@@ -585,13 +585,13 @@ function loadDistrict()
                 {
                    
                    
-                    $('#location_districts').empty(); //remove all child nodes
+                    //$('#location_districts').empty(); //remove all child nodes
                     $('#location_districts').append(responseText);
                     $('#location_districts').trigger("liszt:updated");
                 } 
                 else
                 {
-                     $('#location_districts').empty(); 
+                     //$('#location_districts').empty(); 
                      $('#location_districts').trigger("liszt:updated");
                 }
             }
@@ -617,13 +617,13 @@ function loadUpzilla()
                 {
                    
                    
-                    $('#location_upzilas').empty(); //remove all child nodes
+                    //$('#location_upzilas').empty(); //remove all child nodes
                     $('#location_upzilas').append(responseText);
                     $('#location_upzilas').trigger("liszt:updated");
                 } 
                 else
                 {
-                     $('#location_upzilas').empty(); 
+                     //$('#location_upzilas').empty(); 
                      $('#location_upzilas').trigger("liszt:updated");
                 }
             }

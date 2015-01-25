@@ -3,7 +3,7 @@
      * File: Project.class.php
      */
 
-class Project
+class RDPP
 {
     public $id;
     public $basicInfo; 
@@ -12,7 +12,7 @@ class Project
      * Constructor
      * @return
      */
-    function Project($pid = null)
+    function RDPP($pid = null)
     {
         $this->id  = $pid;
        

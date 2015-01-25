@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Project Manager Class
+ * RDPPManager Class
  */
 
-class projectManagerApp extends DefaultApplication
+class RDPPManagerApp extends DefaultApplication
 {
    /**
    * Constructor
@@ -83,7 +83,7 @@ class projectManagerApp extends DefaultApplication
        $sector_division = getFromSession('sector_division');
        //$data['designationList'] = getDesignationListOfCommissionUser();
        
-       $project = new Project();
+       $project = new RDPP();
        
        
         
@@ -271,7 +271,7 @@ class projectManagerApp extends DefaultApplication
    function saveObjectiveCost()
    {
        $pid     = base64_decode(getUserField('PI'));
-       $project = new Project($pid);
+       $project = new RDPP($pid);
        
        $project->saveBasicInfo();
        $project->saveMinistries(getUserField('ministries'));
@@ -284,7 +284,7 @@ class projectManagerApp extends DefaultApplication
    function saveProjectPartB()
    {
        $pid     = base64_decode(getUserField('PI'));
-       $project = new Project($pid);
+       $project = new RDPP($pid);
        
        $project->savePartB();
        $project->savePartBMajorItems();
@@ -299,7 +299,7 @@ class projectManagerApp extends DefaultApplication
        $pid     = base64_decode(getUserField('PI'));
        //dumpVar($_REQUEST);
        //die;
-       $project = new Project($pid);
+       $project = new RDPP($pid);
        $project->saveLocations(getUserField('location_divisions'),'Division');
        $project->saveLocations(getUserField('location_districts'),'District');
        $project->saveLocations(getUserField('location_upzilas'),'Upzila');
@@ -312,7 +312,7 @@ class projectManagerApp extends DefaultApplication
        $pid     = base64_decode(getUserField('PI'));
        //dumpVar($_REQUEST);
        //die;
-       $project = new Project($pid);
+       $project = new RDPP($pid);
        
        $project->saveBasicInfo();
        $project->saveLogFrame();
@@ -323,10 +323,10 @@ class projectManagerApp extends DefaultApplication
     function showProjectPartA()
     {
         $pid          = base64_decode(getUserField('PI'));
-        $project      = new Project($pid);
+        $project      = new RDPP($pid);
         
         //Delete Empty Row of Component
-        //$project->removeEmptyRowOfComponent();
+        $project->removeEmptyRowOfComponent();
         
         $report_type  = getUserField('report_type');
 
@@ -339,7 +339,7 @@ class projectManagerApp extends DefaultApplication
         $data->sectorDivisionList     = getSectorDivisionList();
         $data->divisionList           = getDivisionList();
         $data->districtList           = getDistrictList();
-        $data->upazilaList            = getUpzilaListWithDistrictName();
+        $data->upazilaList            = getUpzilaList();
         $data->modefinancing          = $project->loadModeOfFinancing();
         $data->logframe               = $project->loadLogFrame();
         $data->year_wise_gob_ownfund  = $project->loadYearWiseGobOwnfundTotal();
@@ -399,7 +399,7 @@ class projectManagerApp extends DefaultApplication
     {
         $pid          = base64_decode(getUserField('PI'));
         $report_type  = getUserField('report_type');
-        $project      = new Project($pid);  
+        $project      = new RDPP($pid);  
         $data         = $project;
         $data->PI     = getUserField('PI'); 
         $data->partB  = $project->loadPartB();
@@ -438,7 +438,7 @@ class projectManagerApp extends DefaultApplication
         $PI              = getUserField('PI'); 
         $report_type     = getUserField('report_type');
         $pid             = base64_decode($PI);
-        $project         = new Project($pid);
+        $project         = new RDPP($pid);
         
         $data->basicInfo   = $project->basicInfo;
         $data->location    = $project->basicInfo->locations;
@@ -466,7 +466,7 @@ class projectManagerApp extends DefaultApplication
         $PI                    = getUserField('PI');    
         $pid                   = base64_decode($PI);
         
-        $project               = new Project($pid);
+        $project               = new RDPP($pid);
         $data->basicInfo       = $project->basicInfo;
         $data->PI              =  $PI;
         $data->management_list = getManagementList($pid);
@@ -481,7 +481,7 @@ class projectManagerApp extends DefaultApplication
         $pid                   = base64_decode($PI);
         $report_type           = getUserField('report_type');
         $procurement_category  = getUserField('procurement_category');
-        $project               = new Project($pid);
+        $project               = new RDPP($pid);
         $data->basicInfo       = $project->basicInfo;
         
         $data->PI                       = $PI;
@@ -501,7 +501,7 @@ class projectManagerApp extends DefaultApplication
         $pid                   = base64_decode($PI);
         $report_type           = getUserField('report_type');
         $procurement_category  = getUserField('procurement_category');
-        $project               = new Project($pid);
+        $project               = new RDPP($pid);
         $data->basicInfo       = $project->basicInfo;
         
         $data->PI                       =  $PI;
@@ -521,7 +521,7 @@ class projectManagerApp extends DefaultApplication
         $pid                   = base64_decode($PI);
         $report_type           = getUserField('report_type');
         $procurement_category  = getUserField('procurement_category');
-        $project               = new Project($pid);
+        $project               = new RDPP($pid);
         $data->basicInfo       = $project->basicInfo;
         
         $data->PI                       =  $PI;
@@ -577,11 +577,11 @@ class projectManagerApp extends DefaultApplication
         $pid       = base64_decode(getUserField('PI'));
         
         
-        $project               = new Project($pid);
+        $project               = new RDPP($pid);
         $project->saveBasicInfo();
         
-        //$error = updateAnnexV();
-        $error = updateAnnexVContingency();
+        $error = updateAnnexV();
+        updateAnnexVContingency();
         //updateProjectTotalCost($pid);
 
         header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid) . '&error='.$error);
@@ -594,11 +594,11 @@ class projectManagerApp extends DefaultApplication
         $pid                   = base64_decode($PI);
         $report_type           = getUserField('report_type');
         
-        $project               = new Project($pid);
+        $project               = new RDPP($pid);
         $data['basicInfo']     = $project->basicInfo;
         
         //Delete Empty Row of Component
-        //$project->removeEmptyRowOfComponent();
+        $project->removeEmptyRowOfComponent();
                 
         $data['PI']                                    = $PI;
         $data['econimonic_code_list']                  = getEconomicCodeList();
@@ -624,10 +624,10 @@ class projectManagerApp extends DefaultApplication
         $PI                                  = getUserField('PI');    
         $pid                                 = base64_decode($PI);
         $data['PI']                          = $PI;
-        $project                             = new Project($pid);
+        $project                             = new RDPP($pid);
         
         //Delete Empty Row of Component
-        //$project->removeEmptyRowOfComponent();
+        $project->removeEmptyRowOfComponent();
         
         $data['project_info']                = $project->basicInfo;
         //dumpVar($data);
@@ -646,7 +646,7 @@ class projectManagerApp extends DefaultApplication
     function showProjectHomePage()
     {
         $pid     = base64_decode(getUserField('PI'));
-        $project = new Project($pid);
+        $project = new RDPP($pid);
         $message = new Message(null,$pid);
 
         $data                 = $project;
@@ -669,7 +669,7 @@ class projectManagerApp extends DefaultApplication
    */
    function saveRecord()
    {
-       $project = new Project();
+       $project = new RDPP();
        $newid   = $project->saveBasicInfo();
        
        if($newid)
@@ -678,17 +678,9 @@ class projectManagerApp extends DefaultApplication
            {
                header ('Location: /app/tpp_manager/tpp_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
            }
-           elseif($_REQUEST['project_type'] =='DPP')
+           else
            {
                header ('Location: project_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
-           }   
-           elseif($_REQUEST['project_type'] =='RDPP')
-           {
-               header ('Location: /app/rdpp_manager/rdpp_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
-           }   
-           elseif($_REQUEST['project_type'] =='RTPP')
-           {
-               header ('Location: /app/rdpp_manager/rdpp_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
            }   
        }
        else
@@ -700,7 +692,7 @@ class projectManagerApp extends DefaultApplication
    function saveProjectInfo()
    {
        $pid     = base64_decode(getUserField('PI'));
-       $project = new Project($pid);
+       $project = new RDPP($pid);
        $project->saveBasicInfo();
        
        
@@ -758,7 +750,7 @@ class projectManagerApp extends DefaultApplication
     function exportTo($procurement_category, $report_type)
     {
         $pid     = base64_decode(getUserField('PI'));
-        $project = new Project($pid);
+        $project = new RDPP($pid);
         
         $data['basicInfo']   = $project->basicInfo;
 
