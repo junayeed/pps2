@@ -486,7 +486,7 @@
     function getDraftProjectTotal()
     {
         $info['table']  = PROJECT_TBL.' AS PR LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VPGT ON(PR.id = VPGT.pid)';
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['fields'] = array('PR.project_type', 'SUM(VPGT.gob_cost) AS gob_cost', 'SUM(VPGT.pa_through_gob_cost) AS pa_through_gob_cost', 
                                 'SUM(VPGT.pa_spc_acnt_cost) AS pa_spc_acnt_cost',
                                 'SUM(VPGT.pa_dpa_cost) AS pa_dpa_cost', 'SUM(VPGT.own_fund_cost) AS own_fund_cost', 'SUM(VPGT.other_cost) AS other_cost');
@@ -510,7 +510,7 @@
     function getApproveProjectTotal()
     {
         $info['table']  = PROJECT_TBL.' AS PR LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VPGT ON(PR.id = VPGT.pid)';
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['fields'] = array('PR.project_type', 'SUM(VPGT.gob_cost) AS gob_cost', 'SUM(VPGT.pa_through_gob_cost) AS pa_through_gob_cost', 
                                 'SUM(VPGT.pa_spc_acnt_cost) AS pa_spc_acnt_cost',
                                 'SUM(VPGT.pa_dpa_cost) AS pa_dpa_cost', 'SUM(VPGT.own_fund_cost) AS own_fund_cost', 'SUM(VPGT.other_cost) AS other_cost');
@@ -528,6 +528,49 @@
         }
         
         return $retData;
+    }
+    
+    /**
+     * Commission wise project summary of Approved project in current fiscal year
+     * @param int $sector_division
+     * @return array 
+     */
+    function getCommissionWiseProjectSummary($sector_division)
+    {
+        $current_fiscal_year = getCurrentFiscalYear();
+        
+        $info['table']  = PROJECT_TBL . ' AS PT LEFT JOIN ' . 
+                          MINISTRY_LOOKUP_TBL . ' AS MLT ON (PT.ministry_id = MLT.id) LEFT JOIN ' . 
+                          AGENCY_LOOKUP_TBL . ' AS ALT ON (ALT.id=PT.agency_id) LEFT JOIN ' . 
+                          VIEW_PROJECT_GRAND_TOTAL . ' AS VPGT ON (PT.id = VPGT.pid)';
+        $info['debug']  = true;
+        $info['where']  = 'PT.status = ' . q('Approved') . ' AND PT.sector_division = ' . $sector_division . ' GROUP BY PT.ministry_id, PT.agency_id';
+        $info['fields'] = array('COUNT(PT.id) AS project_count', 'MLT.name AS ministry_name', 'ALT.name AS agency_name', 
+                                'PT.ministry_id', 'PT.agency_id', 'PT.status', 'SUM(VPGT.total_cost)', 'SUM(VPGT.gob_cost)', 'SUM(VPGT.pa_through_gob_cost)', 
+                                'SUM(VPGT.pa_spc_acnt_cost)', 'SUM(VPGT.pa_dpa_cost)', 'SUM(VPGT.own_fund_cost)', 'SUM(VPGT.other_cost)');
+        
+        $result = select($info);
+        //dumpvar($result);
+        if ($result)
+        {
+            foreach($result AS $value)
+            {
+                $retData[$value->ministry_name][$value->agency_name] = $value;
+            }
+        }
+        
+        return $retData;
+    }
+    
+    function getCurrentFiscalYear()
+    {
+        $curr_year  = date('Y');
+        $curr_month = date('m');
+        $curr_day   = date('d');
+        
+        echo_br('Year = ' . $curr_year . ' Month = ' . $curr_month . ' Day = ' . $curr_day);
+        
+        //if ($curr_month.$curr_day >= )
     }
    
   /**

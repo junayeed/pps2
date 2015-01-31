@@ -46,23 +46,23 @@
                 </tr>    
                 <tr>
                     <td>
-                        <label class="label label-info">Project Start Date (To)</label>
-                        <input type="text" class="date-picker span10" placeholder="Project Start Date">
-                        <span class="add-on"><i class="icon-calendar"></i></span>
-                    </td>
-                    <td>
                         <label class="label label-info">Project Start Date (From)</label>
-                        <input type="text" class="date-picker span10" placeholder="Project Start Date">
+                        <input type="text" class="date-picker span10" placeholder="Project Start Date" data-date-format="yyyy-mm-dd" name="start_date_from" id="start_date_from" value="{$start_date_from}">
                         <span class="add-on"><i class="icon-calendar"></i></span>
                     </td>
                     <td>
-                        <label class="label label-info">Project End Date (To)</label>
-                        <input type="text" class="date-picker span10" placeholder="Project End Date">
+                        <label class="label label-info">Project Start Date (To)</label>
+                        <input type="text" class="date-picker span10" placeholder="Project Start Date" data-date-format="yyyy-mm-dd" name="start_date_to" id="start_date_to" value="{$start_date_to}">
                         <span class="add-on"><i class="icon-calendar"></i></span>
                     </td>
                     <td>
                         <label class="label label-info">Project End Date (From)</label>
-                        <input type="text" class="date-picker span10" placeholder="Project End Date">
+                        <input type="text" class="date-picker span10" placeholder="Project End Date" data-date-format="yyyy-mm-dd" name="end_date_from" id="end_date_from" value="{$end_date_from}">
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </td>
+                    <td>
+                        <label class="label label-info">Project End Date (To)</label>
+                        <input type="text" class="date-picker span10" placeholder="Project End Date" data-date-format="yyyy-mm-dd" name="end_date_to" id="end_date_to" value="{$end_date_to}">
                         <span class="add-on"><i class="icon-calendar"></i></span>
                     </td>
                 </tr> 
@@ -78,8 +78,8 @@
                     <td colspan="2">
                         <label class="label label-info">Development Partner(s)</label>
                         <div>
-                            <select multiple class="chzn-select span5" id="partners[]" name="partners[]" data-placeholder="Choose a Development Partners...">
-                            {html_options options=$donorList}
+                            <select multiple class="chzn-select span5" id="partners" name="partners[]" data-placeholder="Choose a Development Partners...">
+                            {html_options options=$donorList selected=$partners}
                             </select>  
                         </div>
                     </td>
@@ -101,7 +101,7 @@
                     </td>
                     <td colspan="2">
                         <label class="label label-info">Ministry</label>
-                        <select multiple class="chzn-select span5" id="ministry[]" name="ministry[]" data-placeholder="Choose Ministry">
+                        <select multiple class="chzn-select span5" id="ministries" name="ministry[]" onchange="getAgencyList();" data-placeholder="Choose Ministry">
                             <option value="">Select Ministry</option>
                             {html_options options=$ministryList selected=$ministry}
                         </select>  
@@ -110,10 +110,40 @@
                 <tr>
                     <td colspan="2">
                         <label class="label label-info">Agency</label><br>
-                        <select multiple class="chzn-select span4" id="agency[]" name="agency[]" data-placeholder="Choose Agency">
+                        <select multiple class="chzn-select span4" id="agencies" name="agency[]" data-placeholder="Choose Agency">
                         <option value="">Select Agency</option>
                         {html_options options=$agencyList selected=$agency}
                     </select> 
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <label class="control-label" for="divisions[]">Divisions</label>
+                        <select multiple class="chzn-select span9" id="divisions[]" name="divisions[]" onchange="loadDistrict()" data-placeholder="Choose a Division" />
+                            <option value=""></option>
+                            {html_options options=$divisionList selected=$divisions}
+                        </select>  
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <label class="control-label" for="districts[]">Districts</label>
+                        <select multiple class="chzn-select districts span9" id="districts[]" name="districts[]" onchange="loadUpzilla()"  data-placeholder="Choose a District" />
+                            <option value=""></option>
+                           {html_options options=$districtList selected=$districts}
+                           </select> 
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <label class="control-label" for="upzilas[]">Upzila/City Corporations</label>
+                        <select multiple class="chzn-select upzilas span9" id="upzilas[]" name="upzilas[]" data-placeholder="Choose a Upzilla/City Corporations">
+                            <option value=""></option>
+                           {html_options options=$upazilaList selected=$upzilas} 
+                        </select> 
                     </td>
                     <td colspan="2"></td>
                 </tr>
@@ -281,9 +311,33 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
 <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
 <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
 <script>
-    $('.date-picker').datepicker();
+           $('.date-picker').datepicker();
     {literal}
         $(".chzn-select").chosen(); 
         $(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
     {/literal}
 </script>    
+
+<script>
+    
+    
+    //var ministry ="{$basicInfo->ministries}";
+    var ministries = [];
+    var agencies   = []; 
+    var partners   = []; 
+    
+    {foreach from=$ministry item=item}
+        ministries.push({$item})
+    {/foreach}
+                        
+    {foreach from=$agency item=item}
+        agencies.push({$item})
+    {/foreach}   
+    {foreach from=$partners item=item}
+        partners.push({$item})
+    {/foreach}   
+    
+    $("#ministries").val(ministries);
+    $("#agencies").val(agencies);
+    $("#partners").val(partners);
+</script>

@@ -52,18 +52,32 @@
       	 return true;
       }
       
-      function showDashBoard()
-      {
-      	
-        $data['total_project']    = countProjectByStatus();
-        $data['project_list']     = getProjectList();
-        $data['draft_project']    = getDraftProjectTotal();
-        $data['approved_project'] = getApproveProjectTotal();
-        //dumpvar($_SESSION);
-        //dumpvar($data['draft_project']);
-        return createPage(DASHBOARD_TEMPLATE, $data);
-      	
-      }
+        function showDashBoard()
+        {
+            $ministry_id                = getFromSession('ministry_id');
+            $sector_division            = getFromSession('sector_division');
+            $user_type                  = getFromSession('user_type');
+            $data['total_project']      = countProjectByStatus();
+            $data['project_list']       = getProjectList();
+            $data['draft_project']      = getDraftProjectTotal();
+            $data['approved_project']   = getApproveProjectTotal();
+            
+            if ($user_type == 'Commission')
+            {
+                $data['commission_summary']  = getCommissionWiseProjectSummary($sector_division);
+                //dumpVar($data['commission_summary']);
+                foreach($data['commission_summary'] AS $value)
+                {
+                    foreach($value as $ministry)
+                    {
+                        $data['project_count'][$ministry->ministry_name] += $ministry->project_count;
+                        $data['total_count']                             += $ministry->project_count;
+                    }
+                }
+            }
+            
+            return createPage(DASHBOARD_TEMPLATE, $data);
+        }
       
 
    }
