@@ -1,7 +1,7 @@
 <?php
 
 /**
- * RDPPManager Class
+ * Project Manager Class
  */
 
 class RDPPManagerApp extends DefaultApplication
@@ -326,7 +326,7 @@ class RDPPManagerApp extends DefaultApplication
         $project      = new RDPP($pid);
         
         //Delete Empty Row of Component
-        $project->removeEmptyRowOfComponent();
+        //$project->removeEmptyRowOfComponent();
         
         $report_type  = getUserField('report_type');
 
@@ -339,7 +339,7 @@ class RDPPManagerApp extends DefaultApplication
         $data->sectorDivisionList     = getSectorDivisionList();
         $data->divisionList           = getDivisionList();
         $data->districtList           = getDistrictList();
-        $data->upazilaList            = getUpzilaList();
+        $data->upazilaList            = getUpzilaListWithDistrictName();
         $data->modefinancing          = $project->loadModeOfFinancing();
         $data->logframe               = $project->loadLogFrame();
         $data->year_wise_gob_ownfund  = $project->loadYearWiseGobOwnfundTotal();
@@ -580,8 +580,8 @@ class RDPPManagerApp extends DefaultApplication
         $project               = new RDPP($pid);
         $project->saveBasicInfo();
         
-        $error = updateAnnexV();
-        updateAnnexVContingency();
+        //$error = updateAnnexV();
+        $error = updateAnnexVContingency();
         //updateProjectTotalCost($pid);
 
         header ('Location: project_manager.php?cmd=annexV&PI='.  base64_encode($pid) . '&error='.$error);
@@ -598,7 +598,7 @@ class RDPPManagerApp extends DefaultApplication
         $data['basicInfo']     = $project->basicInfo;
         
         //Delete Empty Row of Component
-        $project->removeEmptyRowOfComponent();
+        //$project->removeEmptyRowOfComponent();
                 
         $data['PI']                                    = $PI;
         $data['econimonic_code_list']                  = getEconomicCodeList();
@@ -627,7 +627,7 @@ class RDPPManagerApp extends DefaultApplication
         $project                             = new RDPP($pid);
         
         //Delete Empty Row of Component
-        $project->removeEmptyRowOfComponent();
+        //$project->removeEmptyRowOfComponent();
         
         $data['project_info']                = $project->basicInfo;
         //dumpVar($data);
@@ -678,9 +678,17 @@ class RDPPManagerApp extends DefaultApplication
            {
                header ('Location: /app/tpp_manager/tpp_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
            }
-           else
+           elseif($_REQUEST['project_type'] =='DPP')
            {
                header ('Location: project_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
+           }   
+           elseif($_REQUEST['project_type'] =='RDPP')
+           {
+               header ('Location: /app/rdpp_manager/rdpp_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
+           }   
+           elseif($_REQUEST['project_type'] =='RTPP')
+           {
+               header ('Location: /app/rdpp_manager/rdpp_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
            }   
        }
        else

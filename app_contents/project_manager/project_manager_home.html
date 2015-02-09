@@ -34,6 +34,7 @@
             {if $smarty.session.user_type eq 'Commission' AND $basicInfo->status eq 'Forwarded to Commission'}<button id="bootbox-confirm" class="btn btn-small btn-primary" onclick="document.forwardForms.status.value='Returned from Commission'">Return to Ministry</button>{/if}
             {if $smarty.session.user_type eq 'Commission' AND $basicInfo->status eq 'Forwarded to Commission'}<button id="bootbox-confirm" class="btn btn-small btn-primary" onclick="document.forwardForms.status.value='Forwarded to ECNEC'">Forward to ECNEC</button>{/if}
             <input type="hidden" name="PI" id="PI" value="{$PI}"/>    
+            <input type="hidden" name="desk_officer" id="desk_officer" value="{$basicInfo->desk_officer}"/>    
             <input type="hidden" name="status" value=""/>    
             <input type="hidden" value="forwardProject" name="cmd"/>
         </div><!--#nav-search-->
@@ -71,17 +72,10 @@
                     <td class="span3"><label class=" label-default">Planning Commission Status</label></td>
                     <td>&nbsp;
                         {if $basicInfo->status eq 'Forwarded to Commission' && $smarty.session.user_type eq 'Commission'}
-                        <select name="commssion_status" id="commission_status" style="margin-top: 10px;">
-                            <option value="" >N/A</option>
-                            <option value="Desk Officer Assigned">Desk Officer Assigned</option>
-                            <option value="Awaiting for PEC Recommendation">Awaiting for PEC Recommendation</option>
-                            <option value="PEC Recommended">PEC Recommended</option>
-                            <option value="Forwarded to ECNEC">Forwarded to ECNEC</option>
-                            <option value="Awaiting for ECNEC Approval">Awaiting for ECNEC Approval</option>
-                            <option value="ECNEC Approved">ECNEC Approved</option>
-                            <option value="ECENC Rejected">ECENC Rejected</option>
+                        <select name="commssion_status" id="commission_status" style="margin-top: 10px;" onChange="changeCommissionStatus()">
+                            <option value="" >--</option>
+                            {html_options values=$plan_comm_status_list output=$plan_comm_status_list selected=$basicInfo->plancomm_status}
                         </select>
-                        <button class="btn btn-small btn-success" onclick="changeCommissionStatus()">Save</button>
                         {else}
                         <span class="label label-info">{$status_of_commission[0]->status}</span>
                         {/if}
@@ -142,7 +136,12 @@
                 {if $smarty.session.user_type eq 'Commission' AND $smarty.session.user_permission eq 'Admin'}
                 <tr>
                     <td><label class="lbl">Assign Desk Officer</label></td>
-                    <td><a id="various1" class='btn btn-mini  btn-primary' href="/app/project_manager/project_manager.php?cmd=deskofficer&PI={$PI}"> <i class="icon-group"></i>Assign Officer </a></td>
+                    <td>
+                        <label class="lbl">{if $desk_officer_name}{$desk_officer_name}{else}Desk Officer not assigned yet.{/if}</label>
+                        <a id="various1" class='btn btn-mini  btn-primary' href="/app/project_manager/project_manager.php?cmd=deskofficer&PI={$PI}"> 
+                            <i class="icon-group"></i>Assign Desk Officer 
+                        </a>
+                    </td>
                 </tr>
                 {/if}
               </tbody>  
@@ -464,7 +463,7 @@
                                                 Project >> <span class="label label-info arrowed-right arrowed-in">{$item->status}</span>
                                             </td>
                                             <td>
-                                               {$item->create_date|date_format}
+                                               {$item->create_date}
                                             </td>
                                         </tr>
                                     {/foreach}
@@ -518,8 +517,8 @@
 
         var isPartA           = {$basicInfo->adp_sector};
         //var isPartB           = {$basicInfo->locations[0]->location_cost};
-        var isAnnexI          = '{$basicInfo->locations[0]->location_cost}';
-        if(isAnnexI=='') isAnnexI = 0;
+        //var isAnnexI          = '{$basicInfo->locations[0]->location_cost}';
+        //if(isAnnexI=='') isAnnexI = 0;
         var isAnnexV          = {$basicInfo->total_cost};
 
         {literal}
@@ -562,7 +561,7 @@
             {
                   var MSG = '';
                   if(isPartA<=0) MSG +='Part-A is required<br>';
-                  if(isAnnexI<=0) MSG +='Annexure-I is required<br>';
+                  //if(isAnnexI<=0) MSG +='Annexure-I is required<br>';
                   if(isAnnexV<=0) MSG +='Annexure-V is required<br>';
 
                    if(MSG!='')
@@ -593,16 +592,17 @@
 
             function changeCommissionStatus()
             {
-               var domainname = window.location.hostname; 
-               var status  = $('#commission_status').val();
-               var pid     = $('#PI').val();
+               var domainname   = window.location.hostname; 
+               var status       = $('#commission_status').val();
+               var pid          = $('#PI').val();
+               var desk_officer = $('#desk_officer').val();
 
 
                $.ajax
                 (
                     {                                      
                         url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=saveStatusOfCommission',
-                        data: "status="+status+"&PI="+pid,
+                        data: "status="+status+"&PI="+pid+"&desk_officer="+desk_officer,
                         dataType: 'json',
                         success: function(responseText)
                         {

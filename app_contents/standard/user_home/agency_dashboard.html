@@ -87,8 +87,12 @@
                                                            {if $item->project_type eq 'DPP'} 
                                                              <a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:45}</a>
                                                              <span class="label label-info label-yellow arrowed-in-right arrowed-in" >{$item->project_type}</label>
-                                                           {else}  
+                                                           {else if $item->project_type eq 'TPP'}  
                                                            <a href="/app/tpp_manager/tpp_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:45}</a>
+                                                             <span class="label label-info label-light arrowed-in-right arrowed-in" >{$item->project_type}</label>
+                                                           
+                                                           {else if $item->project_type eq 'RDPP'}  
+                                                           <a href="/app/rdpp_manager/rdpp_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:45}</a>
                                                              <span class="label label-info label-light arrowed-in-right arrowed-in" >{$item->project_type}</label>
                                                            {/if} 
                                                         </td>
@@ -122,7 +126,19 @@
                                                 {if $item->current_holder eq $smarty.session.uid}
                                                     <tr>
                                                         <td>{$key+1}</td>
-                                                        <td><a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}">{$item->project_title_en}</a></td>
+                                                        <td>
+                                                            {if $item->project_type eq 'DPP'} 
+                                                             <a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:45}</a>
+                                                             <span class="label label-info label-yellow arrowed-in-right arrowed-in" >{$item->project_type}</label>
+                                                           {else if $item->project_type eq 'TPP'}  
+                                                           <a href="/app/tpp_manager/tpp_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:45}</a>
+                                                             <span class="label label-info label-light arrowed-in-right arrowed-in" >{$item->project_type}</label>
+                                                           
+                                                           {else if $item->project_type eq 'RDPP'}  
+                                                           <a href="/app/rdpp_manager/rdpp_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:45}</a>
+                                                             <span class="label label-info label-light arrowed-in-right arrowed-in" >{$item->project_type}</label>
+                                                           {/if} 
+                                                        </td>
                                                         <td class="hidden-480">{$item->create_date|date_format:"%e %B, %Y"}</td>
                                                         <td class="hidden-480">
                                                              <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>
@@ -154,7 +170,19 @@
                                                             {if $item->status eq 'Draff'}
                                                                 <tr>
                                                                     <td>{$key+1}</td>
-                                                                    <td><a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}">{$item->project_title_en}</a></td>
+                                                                    <td>
+                                                                         {if $item->project_type eq 'DPP'} 
+                                                                            <a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:45}</a>
+                                                                            <span class="label label-info label-yellow arrowed-in-right arrowed-in" >{$item->project_type}</label>
+                                                                          {else if $item->project_type eq 'TPP'}  
+                                                                          <a href="/app/tpp_manager/tpp_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:45}</a>
+                                                                            <span class="label label-info label-light arrowed-in-right arrowed-in" >{$item->project_type}</label>
+
+                                                                          {else if $item->project_type eq 'RDPP'}  
+                                                                          <a href="/app/rdpp_manager/rdpp_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:45}</a>
+                                                                            <span class="label label-info label-light arrowed-in-right arrowed-in" >{$item->project_type}</label>
+                                                                          {/if} 
+                                                                    </td>
                                                                     <td class="hidden-480">{$item->create_date|date_format:"%e %B, %Y"}</td>
                                                                     <td class="hidden-480">
                                                                         <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>

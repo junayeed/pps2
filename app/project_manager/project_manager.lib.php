@@ -1782,4 +1782,26 @@
         $objWriter->save($_SERVER['DOCUMENT_ROOT'].'/files/'.$filename);
         header ('Location: /files/'.$filename);
     }
+    
+    function getPCDeskOfficerDesignationList($sector_division)
+    {
+        $info['table']  = USER_TBL . ' AS UT LEFT JOIN ' . USER_PROFILE_TBL . ' AS UPT ON (UT.uid = UPT.uid)';
+        $info['debug']  = false;
+        $info['where']  = 'UT.sector_division = ' . $sector_division . 
+                          ' AND UT.user_type = ' . q('Commission') . ' AND UT.status = ' . q('Active') . 
+                          ' ORDER BY UPT.designation_weight DESC';
+        $info['fields'] = array('UT.uid', 'UPT.name', 'UT.designation');
+        
+        $list = select($info);
+        
+        if($list)
+        {
+            foreach($list as $value)
+            {
+                $retData[$value->uid] = $value->name . ' ('. $value->designation .')';
+            }
+        }
+        
+        return $retData;
+    }
 ?>  

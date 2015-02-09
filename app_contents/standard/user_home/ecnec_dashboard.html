@@ -96,10 +96,10 @@
                                                         
                                                         <td>
                                                            {if $item->project_type eq 'DPP'} 
-                                                             <a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:45}</a>
+                                                             <a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:150}</a>
                                                              <span class="label label-info label-yellow arrowed-in-right arrowed-in" >{$item->project_type}</span>
                                                            {else}  
-                                                           <a href="/app/tpp_manager/tpp_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:45}</a>
+                                                           <a href="/app/tpp_manager/tpp_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}" title="{$item->project_title_en}">{$item->project_title_en|truncate:150}</a>
                                                              <span class="label label-info label-light arrowed-in-right arrowed-in" >{$item->project_type}</span>
                                                            {/if} <br>
                                                            
@@ -109,23 +109,23 @@
                                                         <td>
                                                             <span for="form-field-mask-2">
                                                                 Total :
-                                                                <small class="text-warning">{$item->total_cost}</small>
+                                                                <small class="text-warning">{$item->total_cost|number_format:2:'.':','}</small>
                                                             </span><br>
                                                             <span for="form-field-mask-2">
                                                                 GOB  :
-                                                                <small class="text-warning">{$item->gob_cost}</small>
+                                                                <small class="text-warning">{$item->gob_cost|number_format:2:'.':','}</small>
                                                             </span><br>
                                                             <span for="form-field-mask-2">
                                                                 PA  :
-                                                                <small class="text-warning">{$item->pa_through_gob_cost}</small>
+                                                                <small class="text-warning">{$item->pa_through_gob_cost|number_format:2:'.':','}</small>
                                                             </span><br>
                                                             <span for="form-field-mask-2">
                                                                 Ownfund :
-                                                                <small class="text-warning">{$item->own_fund_cost}</small>
+                                                                <small class="text-warning">{$item->own_fund_cost|number_format:2:'.':','}</small>
                                                             </span><br>
                                                             <span for="form-field-mask-2">
                                                                 Other :
-                                                                <small class="text-warning">{$item->other_cost}</small>
+                                                                <small class="text-warning">{$item->other_cost|number_format:2:'.':','}</small>
                                                             </span>
                                                             
                                                         </td>
