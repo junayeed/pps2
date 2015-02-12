@@ -33,7 +33,7 @@
     define('DB_USER', 'root');
     define('DB_PASS', '');
 
-    define('DB_NAME', 'pps2_live');
+    define('DB_NAME', 'pps2');
     define('DB_HOST', 'localhost');
   }
 
