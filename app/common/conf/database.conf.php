@@ -66,6 +66,7 @@
   
   define('US_STATE_TBL',                     DB_NAME . '.us_states');
   define('DOCUMENT_TBL',                     DB_NAME . '.document');
+  define('ECENC_MEETING_TBL',                DB_NAME . '.ecnec_meeting');
 
   define('GROUP_TBL',                        DB_NAME . '.group');
   define('USER_TBL',                         DB_NAME . '.user');
