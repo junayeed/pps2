@@ -52,6 +52,7 @@ class projectManagerApp extends DefaultApplication
            case 'saveAttachment'     : $screen = $this->saveAttachments();             break;
            case 'saveComment'        : $screen = $this->saveComment();                 break;
            case 'deskofficer'        : $screen = $this->deskofficer();                 break;
+           case 'saveDeskOfficer'    : $screen = $this->saveDeskOfficer();             break;
            default                   : $screen = $this->showEditor($msg);
       }
 
@@ -61,7 +62,7 @@ class projectManagerApp extends DefaultApplication
          return;
       }
       
-      if($cmd== 'commentPage' || $cmd == 'attachment' || $cmd == 'annexV_attachment' || $cmd == 'deskofficer')
+      if($cmd== 'commentPage' || $cmd == 'attachment' || $cmd == 'annexV_attachment' || $cmd == 'deskofficer' || $cmd == 'saveDeskOfficer')
       {
           echo  $screen;
       }   
@@ -76,19 +77,50 @@ class projectManagerApp extends DefaultApplication
    
    function deskofficer()
    {
-       $pid        = base64_decode(getUserField('PI')); 
-       $data['PI'] = getUserField('PI');
+        $pid        = base64_decode(getUserField('PI')); 
+        $data['PI'] = getUserField('PI');
        
-       //dumpVar($_SESSION);
-       $sector_division = getFromSession('sector_division');
-       //$data['designationList'] = getDesignationListOfCommissionUser();
+        //dumpVar($_SESSION);
+        $sector_division         = getFromSession('sector_division');
+        $data['designationList'] = getPCDeskOfficerDesignationList($sector_division);
        
-       $project = new Project();
-       
-       
+        return  createPage(DESKOFFICER_TEMPLATE, $data);
+    }
+    
+    function saveDeskOfficer()
+    {
+        $pid                      = base64_decode(getUserField('PI'));
+        $data['desk_officer']     = getUserField('desk_officer');
+        $data['plancomm_status']  = 'Desk Officer Assigned';
         
-       return  createPage(DESKOFFICER_TEMPLATE, $data);
-   }
+        $info['table']  = PROJECT_TBL;
+        $info['data']   = $data;
+        $info['debug']  = false;
+        $info['where']  = 'id = ' . $pid;
+        
+        if (update($info) )
+        {
+            $this->updatePlanningCommissionStatus($pid, $data['plancomm_status'], $data['desk_officer']);
+        }
+        
+        $data['PI']     = getUserField('PI');
+        return createPage(SICCESS_MSG_TEMPLATE,$data);
+    }
+    
+    function updatePlanningCommissionStatus($pid, $status, $desk_officer)
+    {
+        $data['pid']           = $pid;
+        $data['status']        = $status;
+        $data['desk_officer']  = $desk_officer;
+        $data['create_date']   = date('Y-m-d h:i:s');
+        
+        $info['table']  = PROJECT_COMMISSION_STATUS_TBL;
+        $info['data']   = $data;
+        $info['debug']  = false;
+        $info['where']  = 'id = ' . $pid;
+        
+        insert($info);
+    }
    
     function saveComment()
     {
@@ -645,20 +677,21 @@ class projectManagerApp extends DefaultApplication
    
     function showProjectHomePage()
     {
-        $pid     = base64_decode(getUserField('PI'));
-        $project = new Project($pid);
-        $message = new Message(null,$pid);
+        $pid      = base64_decode(getUserField('PI'));
+        $project  = new Project($pid);
+        $message  = new Message(null,$pid);
 
-        $data                 = $project;
-        $data->PI             = getUserField('PI');
-        $data->project_status = $project->getAllStatus();
-        
-        $data->status_of_commission = $message->loadCommissionStatusOfProject();
-        $data->project_msg          = $message->loadMessageByProject();
-        $data->project_attachments  = $message->loadAttachmentsByProject();
+        $data                         = $project;
+        $data->PI                     = getUserField('PI');
+        $data->project_status         = $project->getAllStatus();
+        $data->desk_officer_name      = $project->getDeskOfficerName($data->basicInfo->desk_officer);
+        $data->status_of_commission   = $message->loadCommissionStatusOfProject(); // for the progress status table
+        $data->project_msg            = $message->loadMessageByProject();
+        $data->project_attachments    = $message->loadAttachmentsByProject();
+        $data->plan_comm_status_list  = getEnumFieldValues(PROJECT_TBL, 'plancomm_status');
         
         //dumpVar($data->status_of_cossission);
-        //dumpVar($_SESSION);
+//        dumpVar($data);
 
         return createPage(PROJECT_BASIC_TEMPLATE, $data);
     }

@@ -38,8 +38,6 @@
                         <div class="widget-toolbar no-border">
                             <ul class="nav nav-tabs" id="myTab2">
                                 <li class="active"><a data-toggle="tab" href="#agency_project">Projects(All Agencies)</a></li>
-                                <li><a data-toggle="tab" href="#myproject">My Projects</a></li>
-                                <li><a data-toggle="tab" href="#draft_project1">Approved Projects</a></li>
                             </ul>
                         </div>
                     </div>
@@ -55,90 +53,26 @@
                                                         <th>Sl</th>
                                                         <th class="span10">Project Title</th>
                                                         <th class="span10">Name of the Agency</th>
-                                                        <th class="hidden-480">Create Date</th>
+                                                        {if $smarty.session.user_type eq 'Commission' AND $smarty.session.user_permission eq 'Admin'}<th class="hidden-480">Desk Officer</th>{/if}
                                                         <th style="text-align: right;">Total Cost (In Lac)</th>
                                                         <th style="text-align: center;" class="hidden-480">Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    {assign var=count value=1}
                                                     {foreach from=$project_list key=key item=item}
                                                     {if $item->status eq 'Forwarded to Commission'}
                                                         <tr>
-                                                            <td>{$key+1}</td>
+                                                            <td>{$count}{assign var=count value=$count+1}</td>
                                                             <td><a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}">{$item->project_title_en}</a></td>
                                                             <td class="span10">{$item->agency_name}</td>
-                                                            <td  class="span3 hidden-480">{$item->create_date|date_format:"%e %B, %Y"}</td>
+                                                            {if $smarty.session.user_type eq 'Commission' AND $smarty.session.user_permission eq 'Admin'}
+                                                            <td  class="span3 hidden-480">{if $item->desk_officer}<label class="lbl label label-info">{$item->desk_officer}{else}<label class="lbl label label-important">Not Assigned Yet{/if}</label></td>
+                                                            {/if}
                                                             <td class="span3" style="text-align: right ;padding-right: 5px;">
                                                                 <b class="blue" >{$item->total_cost|number_format:2:'.':','}</b>
                                                             </td>
                                                             <td class="hidden-480" style="text-align: center;">
-                                                                <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>
-                                                            </td>
-                                                        </tr>
-                                                    {/if}    
-                                                    {/foreach}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div id="myproject" class="tab-pane">
-                                    <div class="slim-scroll" data-height="100">
-                                        <div class="widget-main no-padding">
-                                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-                                                <thead>                                               
-                                                    <tr>
-                                                        <th>Sl</th>
-                                                        <th class="span10">Project Title</th>
-                                                        <th class="span10">Name of the Agency</th>
-                                                        <th class="hidden-480">Create Date</th>
-                                                        <th style="text-align: right;">Total Cost (In Lac)</th>
-                                                        <th style="text-align: center;" class="hidden-480">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {foreach from=$project_list key=key item=item}
-                                                    {if $item->status eq 'Forwarded to Commission'}
-                                                        <tr>
-                                                            <td>{$key+1}</td>
-                                                            <td><a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}">{$item->project_title_en}</a></td>
-                                                            <td class="span10">{$item->agency_name}</td>
-                                                            <td  class="span3 hidden-480">{$item->create_date|date_format:"%e %B, %Y"}</td>
-                                                            <td class="span3" style="text-align: right ;padding-right: 5px;">
-                                                                <b class="blue" >{$item->total_cost|number_format:2:'.':','}</b>
-                                                            </td>
-                                                            <td class="hidden-480" style="text-align: center;">
-                                                                <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>
-                                                            </td>
-                                                        </tr>
-                                                    {/if}    
-                                                    {/foreach}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="draft_project1" class="tab-pane">
-                                    <div class="slim-scroll" data-height="100">
-                                        <div class="widget-main no-padding">
-                                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
-                                                <thead>                                               
-                                                    <tr>
-                                                        <th>Sl</th>
-                                                        <th><i></i>Project Title</th>
-                                                        <th class="hidden-480">Create Date</th>
-                                                        <th class="hidden-480">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {foreach from=$project_list key=key item=item}
-                                                    {if $item->status eq 'Draff'}
-                                                        <tr>
-                                                            <td>{$key+1}</td>
-                                                            <td><a href="/app/project_manager/project_manager.php?cmd=ProjectHome&PI={$item->id|base64_encode}">{$item->project_title_en}</a></td>
-                                                            <td class="hidden-480">{$item->create_date|date_format:"%e %B, %Y"}</td>
-                                                            <td class="hidden-480">
                                                                 <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>
                                                             </td>
                                                         </tr>

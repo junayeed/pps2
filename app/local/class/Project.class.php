@@ -88,7 +88,23 @@ class Project
         $result =   select($info);    
         
         return $result;
-    }        
+    }
+    
+    function getDeskOfficerName($desk_officer_id)
+    {
+        $info['table']  = USER_TBL . ' AS UT LEFT JOIN ' . USER_PROFILE_TBL . ' AS UPT ON (UT.uid=UPT.uid)';
+        $info['debug']  = false;
+        $info['where']  = 'UT.uid = ' . $desk_officer_id;
+        $info['fields'] = array('CONCAT(UPT.name, " (", UT.designation, ")") AS desk_officer_name');
+         
+        $result = select($info);
+        
+        if ( $result )
+        {
+            return $result[0]->desk_officer_name;
+        }
+    }
+    
     public function loadMinistries()
     {
         $info['table'] = PROJECT_MINISTRY_TBL . ' AS PMT LEFT JOIN ' . MINISTRY_LOOKUP_TBL . ' AS MLT ON (PMT.ministry_id = MLT.id)';

@@ -465,10 +465,12 @@
    
    function getProjectList()
    {
-       $user_type      = $_SESSION['user_type'];
-       $ministry_id    = $_SESSION['ministry_id'];
-       $commission_id  = $_SESSION['sector_division'];
-       $agency_id      = $_SESSION['agency_id'];
+       $user_type        = $_SESSION['user_type'];
+       $user_permission  = $_SESSION['user_permission'];
+       $ministry_id      = $_SESSION['ministry_id'];
+       $commission_id    = $_SESSION['sector_division'];
+       $agency_id        = $_SESSION['agency_id'];
+       $uid              = $_SESSION['uid'];
        
        $filterClause = '1';
 
@@ -483,17 +485,23 @@
         elseif ($user_type=='Commission')
         {
             $filterClause .= " AND P.sector_division =$commission_id";
+            
+            if ($user_permission == 'User')
+            {
+                $filterClause .= " AND P.desk_officer = " . $uid;
+            }
         }
         elseif($user_type=='ECNEC')
         {
-            $filterClause .= " AND P.status = 'Forward to ECNEC'";
+            $filterClause .= " AND P.status = 'Forwarded to ECNEC'";
         }    
 
-        $info['table']  = PROJECT_TBL.' AS P LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VP ON(P.id=VP.pid)'.
-                         ' LEFT JOIN '.AGENCY_LOOKUP_TBL.' AS ALT ON(P.agency_id=ALT.id) LEFT JOIN '.MINISTRY_LOOKUP_TBL. 
-                         ' AS MLT ON(P.ministry_id=MLT.id)';
+        $info['table']  = PROJECT_TBL.' AS P LEFT JOIN ' . VIEW_PROJECT_GRAND_TOTAL . ' AS VP ON(P.id=VP.pid)'.
+                         ' LEFT JOIN ' . AGENCY_LOOKUP_TBL . ' AS ALT ON(P.agency_id=ALT.id) LEFT JOIN ' . MINISTRY_LOOKUP_TBL. 
+                         ' AS MLT ON(P.ministry_id=MLT.id) LEFT JOIN ' . USER_TBL . ' AS UT ON (UT.uid = P.desk_officer) LEFT JOIN ' . USER_PROFILE_TBL . 
+                         ' AS UPT ON (UPT.uid = P.desk_officer)';
         $info['debug']  = false;
-        $info['fields'] = array('P.*','VP.*','ALT.name as agency_name','MLT.name as ministy_name');
+        $info['fields'] = array('P.*','VP.*','ALT.name as agency_name','MLT.name as ministy_name', 'CONCAT(UPT.name, " (", UT.designation, ")") AS desk_officer');
         $info['where']  = $filterClause .' Order By P.create_date DESC';
 
         $result = select($info);

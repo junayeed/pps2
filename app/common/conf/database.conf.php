@@ -66,11 +66,12 @@
   
   define('US_STATE_TBL',                     DB_NAME . '.us_states');
   define('DOCUMENT_TBL',                     DB_NAME . '.document');
+  define('ECENC_MEETING_TBL',                DB_NAME . '.ecnec_meeting');
 
   define('GROUP_TBL',                        DB_NAME . '.group');
   define('USER_TBL',                         DB_NAME . '.user');
   define('ADDRESS_TBL',                      DB_NAME . '.user_address');
-  define('USER_GROUP_TBL',                   DB_NAME . '.user_group');
+  define('USER_PROFILE_TBL',                 DB_NAME . '.user_profile');
   define('PROJECT_TBL',                      DB_NAME . '.projects');
   define('PROJECT_STATUE_TBL',               DB_NAME . '.project_status');
   define('PROJECT_MESSAGE_TBL',              DB_NAME . '.project_messages');

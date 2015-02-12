@@ -132,8 +132,9 @@ class ajaxApp extends DefaultApplication
     
     function saveStatusOfCommission()
     {
-        $data['pid']       = base64_decode(getUserField('PI'));
-        $data['status']    = getUserField('status');
+        $data['pid']             = base64_decode(getUserField('PI'));
+        $data['status']          = getUserField('status');
+        $data['desk_officer']    = getUserField('desk_officer');
         
         $info['table']  = PROJECT_COMMISSION_STATUS_TBL;
         $info['debug']  = false;

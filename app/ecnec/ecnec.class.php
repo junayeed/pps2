@@ -23,10 +23,12 @@ class ecnecApp extends DefaultApplication
 
       switch ($cmd)
       {
-           case 'edit'              : $screen = $this->showEditor($msg);  break;
+           case 'edit'              : $screen = $this->showEditor($msg);     break;
+           case 'create_meeting'    : $screen = $this->createECNECMeeting($msg);  break;
+           case 'saveMeeting'       : $screen = $this->saveMeeting($msg);  break;
            case 'add'               : $screen = $this->saveRecord();      break;
            case 'delete'            : $screen = $this->deleteRecord();    break;
-           case 'list'              : $screen = $this->showList();        break;
+           case 'meeting_list'      : $screen = $this->showList();        break;
            case 'officerlist'       : $screen = $this->officerList();        break;
            default                  : $screen = $this->showEditor($msg);
       }
@@ -84,6 +86,59 @@ class ecnecApp extends DefaultApplication
 
       return createPage(REPORT_EDITOR_TEMPLATE, $data);
    }
+   
+   
+   function saveMeeting()
+   {
+       $info['table'] = ECENC_MEETING_TBL;
+       $info['data']  = getUserDataSet(ECENC_MEETING_TBL);
+       $info['debug'] = false;
+       
+       
+       $result = insert($info);
+       
+       return createPage(MEETING_EDITOR_TEMPLATE, $data);
+       
+   }
+   
+   
+   /**
+   * Shows User Editor
+   * @param message
+   * @return user editor template
+   */
+   function createECNECMeeting($msg)
+   {
+      $uid = getUserField('id');
+
+      if (!empty($uid))
+      {
+         $thisUser = new User(array('uid' => $uid));
+         
+         if( empty($thisUser))
+         {
+            $thisUser = array();
+         }
+         
+         foreach($thisUser as $key => $value)
+         {
+            $userData[$key] = $value;	
+         }
+         
+         $data = array_merge(array(), $userData);
+      }
+
+
+      $data['message']                   = $msg;
+      $data['ministryList']              = getMinistryList();
+      $data['agencyList']                = getAgencyList();
+      
+      
+      
+      //dumpvar($data);
+
+      return createPage(MEETING_EDITOR_TEMPLATE, $data);
+   }
 
   
    /**
@@ -102,17 +157,13 @@ class ecnecApp extends DefaultApplication
       if ($type)
          $filterClause .= " and user_type = '$type' ";
 
-      $info['table'] = USER_TBL;
-      $info['debug'] = false;
-      $info['where'] = $filterClause . ' Order By username ASC';
+      $info['table'] = ECENC_MEETING_TBL;
+      $info['debug'] = true;
+      $info['where'] = $filterClause . ' Order By meeting_date DESC';
 
       $data['list'] = select($info);
 
-      $data['status_list']    = getEnumFieldValues(USER_TBL, 'status');
-      $data['user_type_list'] = getEnumFieldValues(USER_TBL, 'user_type');
-
-      $data['status']    = $status;
-      $data['user_type'] = $type;
+     
 
       return createPage(REPORT_LIST_TEMPLATE, $data);
    }
