@@ -6,6 +6,19 @@ var distributionArray      = ['gob_', 'rpa_through_gob_', 'rpa_special_account_'
 var FE_VALUE_ERROR         = false;
 var COL_NUMBER             = 14;
 
+
+function createAnnexIIReport(el)
+{
+    var PI          = $('#PI').val();
+    var report_type = el.value;
+    
+    if (report_type)
+    {
+        location.href = 'http://'+document.domain+'/app/project_manager/project_manager.php?cmd=annexII&PI='+PI+
+                    '&report_type='+report_type;
+    }
+}
+
 function createReport(procurement_category)
 {
     var PI          = $('#PI').val();

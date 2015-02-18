@@ -45,8 +45,6 @@
         {
             $_FILES['document'] = $file;
             
-            
-            
             $thisDoc = new DocumentEntity();
             $doc_id  = $thisDoc->addDocument(null,$pid);
             
@@ -56,7 +54,7 @@
         return;
     }
     
-    function getFileLocation($file_id = 0,$pid)
+    function getFileLocation($file_id = 0, $pid)
     {
         if ($file_id == 0)
         {

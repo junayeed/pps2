@@ -139,8 +139,7 @@ class projectManagerApp extends DefaultApplication
        $message        = new Message();
        $message->saveAttachment();
        return createPage(SICCESS_MSG_TEMPLATE,$data);
-      //header ('Location: project_manager.php?cmd=success&PI='.  base64_encode($pid));
-       
+       //header ('Location: project_manager.php?cmd=success&PI='.  base64_encode($pid));
     }
     
     function commentPage()
@@ -410,12 +409,8 @@ class projectManagerApp extends DefaultApplication
         return createPage(PROJECT_PART_A_TEMPLATE, $data);
    }
    
-    function partAExportTo($pid, $report_type, $data)  //ajaj
+    function partAExportTo($pid, $report_type, $data)
     {
-        //dumpVar($data);
-        //dumpVar($data->basicInfo->adp_sub_sector);
-        //dumpVar($data->adpSectorList[$data->basicInfo->adp_sub_sector]); 
-        //die;
         if ($report_type == 'pdf')
         {
             $screen = createPage(PART_A_PDF_TEMPLATE, $data);
@@ -497,14 +492,36 @@ class projectManagerApp extends DefaultApplication
     {
         $PI                    = getUserField('PI');    
         $pid                   = base64_decode($PI);
-        
+        $report_type           = getUserField('report_type');
         $project               = new Project($pid);
         $data->basicInfo       = $project->basicInfo;
-        $data->PI              =  $PI;
+        $data->PI              = $PI;
         $data->management_list = getManagementList($pid);
         $data->error           = getUserField('error');
+        $data->organogram_file = getFileLocation( $data->basicInfo->organogram_doc_id, $pid);
         
+        if($report_type)
+        {
+            $this->annexIIExportTo($pid, $report_type, $data->management_list, $data->organogram_file);
+        }
+        
+        //dumpVar($data->organogram_file);
         return createPage(PROJECT_MANAGEMENT_TEMPLATE, $data);
+    }
+    
+    function annexIIExportTo($pid, $report_type, $data, $organogram_file)
+    {
+        foreach($data as $value)
+        {
+            $mgmtData[$value->type][] = $value;
+        }
+        
+        //dumpVar($mgmtData); die;
+        
+        if ($report_type == 'word')
+        {
+            makeAnnexIIDoc($mgmtData, $organogram_file);
+        }
     }
     
     function showProcurementPlanGOODS()
@@ -598,8 +615,7 @@ class projectManagerApp extends DefaultApplication
     function saveProjectManagement()
     {
         $pid       = base64_decode(getUserField('PI'));
-        
-        $error = updateProjectManagement();
+        $error     = updateProjectManagement();
         
         header ('Location: project_manager.php?cmd=annexII&PI='.  base64_encode($pid) . '&error='.$error);
     }
@@ -609,7 +625,7 @@ class projectManagerApp extends DefaultApplication
         $pid       = base64_decode(getUserField('PI'));
         
         
-        $project               = new Project($pid);
+        $project   = new Project($pid);
         $project->saveBasicInfo();
         
         //$error = updateAnnexV();

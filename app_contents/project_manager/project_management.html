@@ -5,9 +5,10 @@
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+        <script type="text/javascript" src="/app_contents/project_manager/project_manager.js"></script>
         <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
-<script type="text/javascript" src="/app_contents/common/js/messages.js"></script>
-<script type="text/javascript" src="/app_contents/common/js/CalendarPopup.js"></script>
+        <script type="text/javascript" src="/app_contents/common/js/messages.js"></script>
+        <script type="text/javascript" src="/app_contents/common/js/CalendarPopup.js"></script>
 
 <script language="JavaScript">
    function thisSelect(inputobj, linkname, format) 
@@ -81,11 +82,9 @@
                         
                         <div id="export_to_container">
                             Export To: 
-                            <select name="report_type" id="report_type" class="span6" onchange="createReport('Services');">
+                            <select name="report_type" id="report_type_top" class="span6" onChange="createAnnexIIReport(this);">
                                 <option value=""></option>
-                                <option value="pdf">pdf</option>
-                                <option value="excel">excel</option>
-                                <!--<option value="word">word</option>-->
+                                <option value="word">doc</option>
                             </select>
                         </div>
                     </div>
@@ -222,17 +221,17 @@
                             </table>
                         </div>
                         
-                        
-                        <div class="span11">
-                            <div class="control-group">
-                                <label class="control-label" for="project_type">Other Attachments</label>
-                                <div class="controls">
-                                    <input  type="file" class="file_ace" name="document" id="id-input-file-1" />
-                                </div>
+                        <div class="control-group">
+                            <label class="control-label" for="project_type">Attach Organogram
+                                <span class="help-inline">(Format: *.jpg, *.jpeg, *.gif, *.png)</span>
+                            </label>
+                            <div class="controls span7">
+                                <input type="file" class="file_ace" name="document" id="id-input-file-1" />
+                                {if $organogram_file}<a target="_new" href="{$organogram_file}">View Organogram Attachment</a>{/if}
                             </div>
+                        </div>
 
                             
-                        </div>    
                     </div>
 
                     <div class="form-actions2">
@@ -242,11 +241,9 @@
                         
                         <div id="export_to_container">
                             Export To: 
-                            <select name="report_type" id="report_type" class="span6" onchange="createReport('Services');">
+                            <select name="report_type" id="report_type_bottom" class="span6" onChange="createAnnexIIReport(this);">
                                 <option value=""></option>
-                                <option value="pdf">pdf</option>
-                                <option value="excel">excel</option>
-                                <!--<option value="word">word</option>-->
+                                <option value="word">doc</option>
                             </select>
                         </div>
                     </div>
@@ -313,9 +310,9 @@
 				btn_change:'Change',
 				droppable:false,
 				onchange:null,
-				thumbnail:false //| true | large
-				//whitelist:'gif|png|jpg|jpeg'
-				//blacklist:'exe|php'
+				thumbnail:false, //| true | large
+				whitelist:'gif|png|jpg|jpeg',
+				blacklist:'exe|php|rar|zip|oc|docx|xls|xlsx|pdf'
 				//onchange:''
 				//
 			});
@@ -323,7 +320,10 @@
             function lockProject()
             {
                 $("#page-content :input").attr("disabled", true);   
-                $('.form-actions2').hide();
+                $("#report_type_top").attr("disabled", false);
+                $("#report_type_bottom").attr("disabled", false);
+                //$('.form-actions2').hide();
+                
                 $("td > a").hide();
                
             }
