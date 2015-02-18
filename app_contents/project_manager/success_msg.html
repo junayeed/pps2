@@ -4,7 +4,16 @@
          <script>
              //parent.jQuery.fancybox.close();
              var PI = '{$PI}';
-             parent.location.href = 'project_manager.php?cmd=ProjectHome&PI='+PI;
+             var forward = '{$forward}';
+             
+             if(forward==1)
+             {
+                 parent.location.href = '/app/standard/user_home/user_home.php';
+             }
+             else
+             {
+                 parent.location.href = 'project_manager.php?cmd=ProjectHome&PI='+PI;
+             }
              
          </script>    
     </div>  
