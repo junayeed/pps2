@@ -140,7 +140,19 @@ class Project
         $result =   select($info);    
         
         return $result;
+    }
+    
+    public function loadProjectCostAnalysis()
+    {
+        $info['table']  = PROJECT_ANALYSIS_TBL;
+        $info['debug']  = false;
+        $info['where']  = "pid = $this->id";
         
+        $result =   select($info);   
+        $result[0]->financial_attachment_file = getFileLocation($result[0]->financial_attachment);
+        $result[0]->economic_attachment_file = getFileLocation($result[0]->economic_attachment);
+        
+        return $result[0];
     }
     
     public function loadAgencies()
@@ -284,6 +296,28 @@ class Project
                 return $result['newid'];;
             }    
             return  0;
+        }
+    }
+    
+    public function saveProjectCostAnalysis()
+    {
+        $data                          = getUserDataSet(PROJECT_ANALYSIS_TBL);
+        $data['pid']                   =  $this->id;
+        $data['financial_attachment']  = saveAttachment($_FILES['financial_attachment'], $data['pid']);
+        $data['economic_attachment']   = saveAttachment($_FILES['economic_attachment'], $data['pid']);
+        
+        $info['table']  = PROJECT_ANALYSIS_TBL;
+        $info['debug']  = true;
+        $info['data']   = $data;
+        $info['where']  = 'pid = ' . $this->id;
+        
+        if ( update($info) )
+        {
+            // do nothing
+        }
+        else
+        {
+            insert($info);
         }
     }
     

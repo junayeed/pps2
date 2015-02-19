@@ -95,7 +95,7 @@ class Message
     public function saveAttachment()
     {
         $info['table']  = PROJECT_ATTACHMENT_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         //$info['where']  = "pid = $this->pid";
         
         $data['pid']         = base64_decode(getUserField('PI')); 

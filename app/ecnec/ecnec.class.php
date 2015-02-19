@@ -158,7 +158,7 @@ class ecnecApp extends DefaultApplication
          $filterClause .= " and user_type = '$type' ";
 
       $info['table'] = ECENC_MEETING_TBL;
-      $info['debug'] = true;
+      $info['debug'] = false;
       $info['where'] = $filterClause . ' Order By meeting_date DESC';
 
       $data['list'] = select($info);

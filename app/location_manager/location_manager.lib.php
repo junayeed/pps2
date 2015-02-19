@@ -3,7 +3,7 @@
     function getDivisionInfo($id)
     {
         $info['table']  = DIVISION_LOOKUP_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['where']  = 'divid = ' . $id;
         
         $result = select($info);
@@ -19,7 +19,7 @@
     function saveDivisionInfo($id)
     {
         $info['table']  = DIVISION_LOOKUP_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['data']   = getUserDataSet(DIVISION_LOOKUP_TBL);
         
         if ($info['data']['status'])
@@ -39,7 +39,7 @@
     function saveDistrictInfo($id)
     {
         $info['table']  = DIVISION_LOOKUP_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['data']   = getUserDataSet(DIVISION_LOOKUP_TBL);
         
         if ($info['data']['status'])
@@ -59,7 +59,7 @@
     function saveUpzillaInfo($id)
     {
         $info['table']  = DIVISION_LOOKUP_TBL;
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['data']   = getUserDataSet(DIVISION_LOOKUP_TBL);
         
         if ($info['data']['status'])

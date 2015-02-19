@@ -1028,6 +1028,30 @@
         header ('Location: /files/'.$filename);
     }
     
+    function makePartBPDF($screen)
+    {
+        ob_start();
+        $dompdf = new DOMPDF();
+        $dompdf->set_paper(DEFAULT_PDF_PAPER_SIZE, 'portrait');
+        $dompdf->load_html($screen);
+        $dompdf->render();
+        //$dompdf->stream("dompdf_out.pdf", array("Attachment" => false));    
+        $filename     = 'part_B.pdf';
+        $output       = $dompdf->output();
+        $file_to_save = $_SERVER['DOCUMENT_ROOT'].'/files/'.$filename;
+        file_put_contents($file_to_save, $output);
+        
+        header("HTTP/1.1 200 OK");
+        header("Pragma: public");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Cache-Control: private", false);
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment;filename="' . $filename. '"');
+        header('Content-Type: text/plain; charset=utf-8');
+        header("Content-Transfer-Encoding: binary");
+        header ('Location: /files/'.$filename);
+    }
+    
     function makePartBDoc($data)
     {
         // New Word Document
@@ -1050,7 +1074,7 @@
         $headerTable->addRow(0);
         $headerTable->addCell(16000, array('valign'=>'center'))->addText('Project Details', array('bold'=>true, 'size'=>11, 'underline'=>PHPWord_Style_Font::UNDERLINE_SINGLE), array('align'=>'center'));
         
-        $contentTableStyle    = array('borderSize' => 0, 'borderColor' => '006969', 'cellMargin' => 80, array('spaceAfter' => 0));
+        $contentTableStyle    = array('borderSize' => 0, 'borderColor' => 'FFFFFF', 'cellMargin' => 80, array('spaceAfter' => 0));
         $PHPWord->addTableStyle('contentTableStyle', $contentTableStyle);
         
         // Define font style for first row
@@ -1136,7 +1160,7 @@
         $background_proverty = str_replace('</p>', '', $background_proverty);
         $background_proverty = str_replace('&nbsp;', ' ', $background_proverty);
         $contentTable->addCell(10000)->addText($background_proverty, $fontStyle, $pStyle);
-        //15.0s
+        //15.0
         $contentTable->addRow(0);
         $contentTable->addCell(700)->addText('15.0', $fontStyle, $pStyle);
         $contentTable->addCell(2000)->addText('Whether any pre-apprisal/feasibility study/pre-investment study was done before formulation of the project? If so attach summary of findings ans recommendations. If not mention the causes.', $fontStyle, $pStyle);
@@ -1146,6 +1170,277 @@
         $study = str_replace('&nbsp;', ' ', $study);
         $contentTable->addCell(10000)->addText($study, $fontStyle, $pStyle);
         
+        //16.0
+//        $contentTable->addRow(0);
+//        $contentTable->addCell(700)->addText('15.0', $fontStyle, $pStyle);
+//        $contentTable->addCell(2000)->addText('Whether any pre-apprisal/feasibility study/pre-investment study was done before formulation of the project? If so attach summary of findings ans recommendations. If not mention the causes.', $fontStyle, $pStyle);
+//        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+//        $study = str_replace('<p>', '', $data->study);
+//        $study = str_replace('</p>', '', $study);
+//        $study = str_replace('&nbsp;', ' ', $study);
+//        $contentTable->addCell(10000)->addText($study, $fontStyle, $pStyle);
+        
+        //17.0
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('17.0', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('Lessons learnt from similar nature of project(s): ', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        
+        //17.1
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('17.1 Indicate which issues lead to make project successfully', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $lessons_learnt_successful_project = str_replace('<p>', '', $data->lessons_learnt_successful_project);
+        $lessons_learnt_successful_project = str_replace('</p>', '', $lessons_learnt_successful_project);
+        $lessons_learnt_successful_project = str_replace('&nbsp;', ' ', $lessons_learnt_successful_project);
+        $contentTable->addCell(10000)->addText($lessons_learnt_successful_project, $fontStyle, $pStyle);
+        //17.2
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('17.2 Indicate which issues did not work well', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $lessons_learnt_not_work_well = str_replace('<p>', '', $data->lessons_learnt_not_work_well);
+        $lessons_learnt_not_work_well = str_replace('</p>', '', $lessons_learnt_not_work_well);
+        $lessons_learnt_not_work_well = str_replace('&nbsp;', ' ', $lessons_learnt_not_work_well);
+        $contentTable->addCell(10000)->addText($lessons_learnt_not_work_well, $fontStyle, $pStyle);
+        
+        //18.0
+        // HAVE TO WORK FOR IT
+        
+        //19.0
+        // HAVE TO WORK FOR IT
+        
+        //20.0
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('20.0', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(' ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText('Attach detailed annual phasing of cost (As per Annex-V)', $fontStyle, $pStyle);
+        //21.0
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('21.0', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(' ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText('Specification/design of major components(Attach)', $fontStyle, $pStyle);
+        //22.0
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('22.0', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(' ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText('Attach Amortization schedule for projects having involvement of loan from Government (As per Annex-VI)', $fontStyle, $pStyle);
+        
+        //23.0
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('23.0', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('Describe the effect/impact and specific mitigation measures thereof if any on', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        
+        //23.1
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('23.1 Other project/existing installations', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $effect_other_project = str_replace('<p>', '', $data->effect_other_project);
+        $effect_other_project = str_replace('</p>', '', $effect_other_project);
+        $effect_other_project = str_replace('&nbsp;', ' ', $effect_other_project);
+        $contentTable->addCell(10000)->addText($effect_other_project, $fontStyle, $pStyle);
+        //23.2
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('23.2 Environmental sustainability like land, water, air, bio-diversity, ecological service (If this project is "Red Category" attache the EIA documents)', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $effect_environmental = str_replace('<p>', '', $data->effect_environmental);
+        $effect_environmental = str_replace('</p>', '', $effect_environmental);
+        $effect_environmental = str_replace('&nbsp;', ' ', $effect_environmental);
+        $contentTable->addCell(10000)->addText($effect_environmental, $fontStyle, $pStyle);
+        //23.3
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('23.3 Climate change adaptation and mitigation', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $effect_climate_change = str_replace('<p>', '', $data->effect_climate_change);
+        $effect_climate_change = str_replace('</p>', '', $effect_climate_change);
+        $effect_climate_change = str_replace('&nbsp;', ' ', $effect_climate_change);
+        $contentTable->addCell(10000)->addText($effect_climate_change, $fontStyle, $pStyle);
+        //23.4
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('23.4 Gender, women, children, person with disability/excluded group\'s needs', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $effect_gender = str_replace('<p>', '', $data->effect_gender);
+        $effect_gender = str_replace('</p>', '', $effect_gender);
+        $effect_gender = str_replace('&nbsp;', ' ', $effect_gender);
+        $contentTable->addCell(10000)->addText($effect_gender, $fontStyle, $pStyle);
+        //23.5
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('23.5 Employment', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $effect_employment = str_replace('<p>', '', $data->effect_employment);
+        $effect_employment = str_replace('</p>', '', $effect_employment);
+        $effect_employment = str_replace('&nbsp;', ' ', $effect_employment);
+        $contentTable->addCell(10000)->addText($effect_employment, $fontStyle, $pStyle);
+        //23.6
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('23.6 Poverty situation', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $effect_poverty = str_replace('<p>', '', $data->effect_poverty);
+        $effect_poverty = str_replace('</p>', '', $effect_poverty);
+        $effect_poverty = str_replace('&nbsp;', ' ', $effect_poverty);
+        $contentTable->addCell(10000)->addText($effect_poverty, $fontStyle, $pStyle);
+        //23.7
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('23.7 Organizational arrangement/setup', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $effect_organizational_setup = str_replace('<p>', '', $data->effect_organizational_setup);
+        $effect_organizational_setup = str_replace('</p>', '', $effect_organizational_setup);
+        $effect_organizational_setup = str_replace('&nbsp;', ' ', $effect_organizational_setup);
+        $contentTable->addCell(10000)->addText($effect_organizational_setup, $fontStyle, $pStyle);
+        //23.8
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('23.8 Institutional productivity', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $effect_institutional_productivity = str_replace('<p>', '', $data->effect_institutional_productivity);
+        $effect_institutional_productivity = str_replace('</p>', '', $effect_institutional_productivity);
+        $effect_institutional_productivity = str_replace('&nbsp;', ' ', $effect_institutional_productivity);
+        $contentTable->addCell(10000)->addText($effect_institutional_productivity, $fontStyle, $pStyle);
+        //23.9
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('23.9 Regional Disparity', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $effect_regional_disparity = str_replace('<p>', '', $data->regional_disparity);
+        $effect_regional_disparity = str_replace('</p>', '', $effect_regional_disparity);
+        $effect_regional_disparity = str_replace('&nbsp;', ' ', $effect_regional_disparity);
+        $contentTable->addCell(10000)->addText($effect_regional_disparity, $fontStyle, $pStyle);
+        //23.10
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('23.10 Whether environment clearance under the ECA 1995(revised 2010) has been obtained? if yes, attach the certificate, if not mention the causes(s)', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $effect_environment_clearance_causes = str_replace('<p>', '', $data->effect_environment_clearance_causes);
+        $effect_environment_clearance_causes = str_replace('</p>', '', $effect_environment_clearance_causes);
+        $effect_environment_clearance_causes = str_replace('&nbsp;', ' ', $effect_environment_clearance_causes);
+        $contentTable->addCell(10000)->addText($effect_environment_clearance_causes, $fontStyle, $pStyle);
+        //24.0
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('24.0', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('Specific Linkage with Perspective Plan/Five Years Plan/MDGs/SDGs/Ministry/Sector Priority', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $linkage_perspective_plan = str_replace('<p>', '', $data->linkage_perspective_plan);
+        $linkage_perspective_plan = str_replace('</p>', '', $linkage_perspective_plan);
+        $linkage_perspective_plan = str_replace('&nbsp;', ' ', $linkage_perspective_plan);
+        $contentTable->addCell(10000)->addText($linkage_perspective_plan, $fontStyle, $pStyle);
+        //25.1
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('25.1', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('Mission/Vision of the Implementing Agency/Sponsoring Ministry', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $mission_vision = str_replace('<p>', '', $data->mission_vision);
+        $mission_vision = str_replace('</p>', '', $mission_vision);
+        $mission_vision = str_replace('&nbsp;', ' ', $mission_vision);
+        $contentTable->addCell(10000)->addText($mission_vision, $fontStyle, $pStyle);
+        //25.2
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('25.2', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('How does the project contribute in achieving the mission/vision of the Implementing Agency/Sponsoring Ministry', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $achievement_of_mission = str_replace('<p>', '', $data->achievement_of_mission);
+        $achievement_of_mission = str_replace('</p>', '', $achievement_of_mission);
+        $achievement_of_mission = str_replace('&nbsp;', ' ', $achievement_of_mission);
+        $contentTable->addCell(10000)->addText($achievement_of_mission, $fontStyle, $pStyle);
+        //26.0
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('26.0', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('Whether private sector/local govt. or NGO\'s participation was considered? if yes, describe how will they be involved?', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $private_sector_participation = str_replace('<p>', '', $data->private_sector_participation);
+        $private_sector_participation = str_replace('</p>', '', $private_sector_participation);
+        $private_sector_participation = str_replace('&nbsp;', ' ', $private_sector_participation);
+        $contentTable->addCell(10000)->addText($private_sector_participation, $fontStyle, $pStyle);
+        //27.0
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('27.0', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('In case of foreign aided project mention the major conditionality', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $foreign_aided_project_conditionality = str_replace('<p>', '', $data->foreign_aided_project_conditionality);
+        $foreign_aided_project_conditionality = str_replace('</p>', '', $foreign_aided_project_conditionality);
+        $foreign_aided_project_conditionality = str_replace('&nbsp;', ' ', $foreign_aided_project_conditionality);
+        $contentTable->addCell(10000)->addText($foreign_aided_project_conditionality, $fontStyle, $pStyle);
+        //28.0
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('28.0', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('Does the project involve compensation, rehabilitation/resettlement? If so, indicate the magnitude and cost', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $project_compensation = str_replace('<p>', '', $data->project_compensation);
+        $project_compensation = str_replace('</p>', '', $project_compensation);
+        $project_compensation = str_replace('&nbsp;', ' ', $project_compensation);
+        $contentTable->addCell(10000)->addText($project_compensation, $fontStyle, $pStyle);
+        //29.0
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('29.0', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('Does the project involve compensation, rehabilitation/resettlement? If so, indicate the magnitude and cost', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $risk_analysis = str_replace('<p>', '', $data->risk_analysis);
+        $risk_analysis = str_replace('</p>', '', $risk_analysis);
+        $risk_analysis = str_replace('&nbsp;', ' ', $risk_analysis);
+        $contentTable->addCell(10000)->addText($risk_analysis, $fontStyle, $pStyle);
+        
+        //30.0
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('30.0', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('Other important details, technical or otherwise such as', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        
+        //30.1
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('30.1 Sustainability of the project benefit', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $sustainability = str_replace('<p>', '', $data->sustainability);
+        $sustainability = str_replace('</p>', '', $sustainability);
+        $sustainability = str_replace('&nbsp;', ' ', $sustainability);
+        $contentTable->addCell(10000)->addText($sustainability, $fontStyle, $pStyle);
+        //30.2
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('30.2 Governance of the operation of project', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $governance = str_replace('<p>', '', $data->governance);
+        $governance = str_replace('</p>', '', $governance);
+        $governance = str_replace('&nbsp;', ' ', $governance);
+        $contentTable->addCell(10000)->addText($governance, $fontStyle, $pStyle);
+        //30.3
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('30.3 Project Steering Committee (PSC) formation and TOR', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $psc_tor = str_replace('<p>', '', $data->psc_tor);
+        $psc_tor = str_replace('</p>', '', $psc_tor);
+        $psc_tor = str_replace('&nbsp;', ' ', $psc_tor);
+        $contentTable->addCell(10000)->addText($psc_tor, $fontStyle, $pStyle);
+        //30.4
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('30.4 Project Implementation Committee (PIC)formation and TOR', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $pic_tor = str_replace('<p>', '', $data->pic_tor);
+        $pic_tor = str_replace('</p>', '', $pic_tor);
+        $pic_tor = str_replace('&nbsp;', ' ', $pic_tor);
+        $contentTable->addCell(10000)->addText($pic_tor, $fontStyle, $pStyle);
+        //30.5
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('30.5 Others (If any)', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        $others_any = str_replace('<p>', '', $data->others_any);
+        $others_any = str_replace('</p>', '', $others_any);
+        $others_any = str_replace('&nbsp;', ' ', $others_any);
+        $contentTable->addCell(10000)->addText($others_any, $fontStyle, $pStyle);
         
         
         $section->addTextBreak(3);

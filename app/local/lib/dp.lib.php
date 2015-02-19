@@ -390,7 +390,7 @@
    function getProjectWiseGrandTotal($pid)
    {
        $info['table']  = PROJECT_ANNEX_V_TBL;
-       $info['debug']  = true;
+       $info['debug']  = false;
        $info['where']  = 'pid = ' . $pid;
    }
    
@@ -570,7 +570,7 @@
                           MINISTRY_LOOKUP_TBL . ' AS MLT ON (PT.ministry_id = MLT.id) LEFT JOIN ' . 
                           AGENCY_LOOKUP_TBL . ' AS ALT ON (ALT.id=PT.agency_id) LEFT JOIN ' . 
                           VIEW_PROJECT_GRAND_TOTAL . ' AS VPGT ON (PT.id = VPGT.pid)';
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['where']  = 'PT.status = ' . q('Approved') . 
                           ' AND PT.sector_division = ' . $sector_division . 
                           ' AND ' . q($fiscal_year_date['end_date']) . ' <= PT.date_of_completion' .

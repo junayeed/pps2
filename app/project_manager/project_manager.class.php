@@ -53,11 +53,12 @@ class projectManagerApp extends DefaultApplication
            case 'saveComment'        : $screen = $this->saveComment();                 break;
            case 'deskofficer'        : $screen = $this->deskofficer();                 break;
            case 'saveDeskOfficer'    : $screen = $this->saveDeskOfficer();             break;
+           case 'deletecostanalysisattachment'    : $screen = $this->deleteCostAnalysisAttachment();             break;
            default                   : $screen = $this->showEditor($msg);
       }
 
      
-     if($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear')
+     if($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear' || $cmd == 'deletecostanalysisattachment')
       {
          return;
       }
@@ -73,6 +74,30 @@ class projectManagerApp extends DefaultApplication
 
       return true;
 
+   }
+   
+   function deleteCostAnalysisAttachment()
+   {
+       $id = getUserField('id');
+       $field_name = getUserField('field_name');
+       
+       $data[$field_name] = 0;
+       
+       $info['table']  = PROJECT_ANALYSIS_TBL;
+       $info['data']   = $data;
+       $info['debug']  = false; 
+       $info['where']  = 'id = ' . $id;
+       
+       if ( update($info) )
+        {
+            echo json_encode('1');
+            die;    
+        }
+        else
+        {
+            echo json_encode('');
+            die;
+        }
    }
    
    function deskofficer()
@@ -319,7 +344,7 @@ class projectManagerApp extends DefaultApplication
        
        $project->savePartB();
        $project->savePartBMajorItems();
-       
+       $project->saveProjectCostAnalysis();
        
        header ('Location: project_manager.php?cmd=partB&PI='.  base64_encode($pid));
    }
@@ -424,16 +449,14 @@ class projectManagerApp extends DefaultApplication
    
     function showProjectPartB()
     {
-        $pid          = base64_decode(getUserField('PI'));
-        $report_type  = getUserField('report_type');
-        $project      = new Project($pid);  
-        $data         = $project;
-        $data->PI     = getUserField('PI'); 
-        $data->partB  = $project->loadPartB();
-        
-        $data->major_items  = $project->loadMajorItems();
-        
-        //dumpVar($data->partB);
+        $pid                  = base64_decode(getUserField('PI'));
+        $report_type          = getUserField('report_type');
+        $project              = new Project($pid);  
+        $data                 = $project;
+        $data->PI             = getUserField('PI'); 
+        $data->partB          = $project->loadPartB();
+        $data->major_items    = $project->loadMajorItems();
+        $data->cost_analysis  = $project->loadProjectCostAnalysis();
         
         if($report_type)
         {
@@ -452,7 +475,8 @@ class projectManagerApp extends DefaultApplication
         if ($report_type == 'pdf')
         {
             $screen = createPage(PART_B_PDF_TEMPLATE, $data);
-            makePartBPDF($screen);
+            //dumpVar($screen);
+            //makePartBPDF($screen);
         }
         if ($report_type == 'word')
         {

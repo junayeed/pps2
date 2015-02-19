@@ -41,7 +41,7 @@
         Export To: 
         <select name="report_type" id="report_type" class="span1" onchange="createPartBReport();">
             <option value=""></option>
-            <option value="pdf">pdf</option>
+            <!--<option value="pdf">pdf</option>-->
             <option value="word">word</option>
         </select>
     </div>
@@ -132,7 +132,7 @@
             
             <!-- #study starts here-->
             <div id="study" class="tab-pane">
-                <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}" name="validation-form">
+                <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}" name="validation-form" enctype="multipart/form-data">
                 <div class="control-group">
                     <label class="" for="study">15.0 Whether any pre-appraisal/feasibility study/pre-investment study was done before formulation of this project? If so, attach summary of findings & recommendations. If not mention the causes.</label>
                     <div class="">
@@ -158,18 +158,28 @@
                                     </thead>
                                     <tbody id="component_total_cost_content">
                                           <tr>
-                                            <td class="span5">Financial Analysis</td>
-                                            <td class="span1"><input type="text" class="span2" name="financial_npv" id="financial_npv"></td>
-                                            <td class="span1"><input type="text" class="span2" name="financial_bcr" id="financial_bcr"></td>
-                                            <td class="span1"><input type="text" class="span2" name="financial_irr" id="financial_irr"></td>
-                                            <td class="span3"><input  type="file" id="id-input-file-1" /></td>
+                                            <td class="span3">Financial Analysis<br>
+                                                {if $cost_analysis->financial_attachment_file}
+                                                <a href="{$cost_analysis->financial_attachment_file}" target="_new">View Attachment</a> | 
+                                                <a onClick="deleteProjectCostAnalysisAttachment('financial_attachment', '{$cost_analysis->id}');">Delete Attachment</a>
+                                                {/if}
+                                            </td>
+                                            <td class="span1"><input type="text" class="span2" name="financial_npv" id="financial_npv" value="{$cost_analysis->financial_npv}"></td>
+                                            <td class="span1"><input type="text" class="span2" name="financial_bcr" id="financial_bcr" value="{$cost_analysis->financial_bcr}"></td>
+                                            <td class="span1"><input type="text" class="span2" name="financial_irr" id="financial_irr" value="{$cost_analysis->financial_irr}"></td>
+                                            <td class="span8"><input type="file" id="id-input-file-1" name="financial_attachment" /></td>
                                         </tr>
                                         <tr>
-                                            <td class="span5">Economic Analysis</td>
-                                            <td class="span1"><input type="text" class="span2" name="economic_npv" id="economic_npv"></td>
-                                            <td class="span1"><input type="text" class="span2" name="economic_bcr" id="economic_bcr"></td>
-                                            <td class="span1"><input type="text" class="span2" name="economic_irr" id="economic_irr"></td>
-                                            <td class="span3"><input  type="file" id="id-input-file-1" /></td>
+                                            <td class="span3">Economic Analysis <br>
+                                                {if $cost_analysis->economic_attachment_file}
+                                                <a href="{$cost_analysis->economic_attachment_file}" target="_new">View Attachment</a> | 
+                                                <a onClick="deleteProjectCostAnalysisAttachment('economic_attachment', '{$cost_analysis->id}');">Delete Attachment</a>
+                                                {/if}
+                                            </td>
+                                            <td class="span1"><input type="text" class="span2" name="economic_npv" id="economic_npv" value="{$cost_analysis->economic_npv}"></td>
+                                            <td class="span1"><input type="text" class="span2" name="economic_bcr" id="economic_bcr" value="{$cost_analysis->economic_bcr}"></td>
+                                            <td class="span1"><input type="text" class="span2" name="economic_irr" id="economic_irr" value="{$cost_analysis->economic_irr}"></td>
+                                            <td class="span8"><input type="file" id="id-input-file-1" name="economic_attachment" /></td>
                                         </tr>
                                     </tbody>
                                 </table>      
