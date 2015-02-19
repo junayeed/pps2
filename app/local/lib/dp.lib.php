@@ -486,7 +486,7 @@
             
             if ($user_permission == 'User')
             {
-                $filterClause .= " AND P.desk_officer = " . $uid;
+                $filterClause .= " AND P.current_holder = " . $uid;
             }
         }
         elseif($user_type=='ECNEC')

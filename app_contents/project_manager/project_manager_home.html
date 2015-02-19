@@ -26,6 +26,12 @@
         <form class="form-horizontal" name="forwardForms" id="validation-form"  onsubmit="return forwardProject()" method="post" action="{$SCRIPT_NAME}"> 
         <div id="nav-search">
             <a class="btn btn-small btn-primary" href="/app/standard/user_home/user_home.php">Dashboard</a>
+            {if $smarty.session.user_type eq 'Commission' AND $basicInfo->status eq 'Forwarded to Commission'}
+                <a id="various1" class='btn btn-small  btn-purple' href="/app/project_manager/project_manager.php?cmd=deskofficer&PI={$PI}&forward=1"> 
+                    <i class="icon-group"></i>Forward 
+                </a>
+            
+            {/if}
             {if $smarty.session.user_type eq 'Ministry' AND $basicInfo->status eq 'Forwarded to Ministry' AND ($basicInfo->project_type eq 'TPP' AND $basicInfo->total_cost lt $smarty.session.ministry_approval_tpp_limit)}<button id="bootbox-confirm" class="btn btn-small btn-purple" onclick="document.forwardForms.status.value='Rejected'" >Reject</button>{/if}
             {if $smarty.session.user_type eq 'Commission' OR $smarty.session.user_type eq 'Ministry' AND $basicInfo->status eq 'Forwarded to Ministry' AND ($basicInfo->project_type eq 'TPP' AND $basicInfo->total_cost lt $smarty.session.ministry_approval_tpp_limit)}<button id="bootbox-confirm" class="btn btn-small btn-yellow" onclick="document.forwardForms.status.value='Approved'" >Approved</button>{/if}
             {if $smarty.session.user_type eq 'Agency' AND ($basicInfo->status eq 'Draff' OR $basicInfo->status eq 'Returned from Ministry')}<button id="bootbox-confirm" class="btn btn-small btn-primary" onclick="document.forwardForms.status.value='Forwarded to Ministry'" >Forward To Ministry</button>{/if}
@@ -519,7 +525,9 @@
         //var isPartB           = {$basicInfo->locations[0]->location_cost};
         //var isAnnexI          = '{$basicInfo->locations[0]->location_cost}';
         //if(isAnnexI=='') isAnnexI = 0;
-        var isAnnexV          = {$basicInfo->total_cost};
+        
+        //var isAnnexV          = parseInt({$basicInfo->total_cost});
+        
 
         {literal}
 

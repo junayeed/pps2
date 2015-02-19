@@ -26,7 +26,7 @@
 <div id="page-content" class="clearfix">
 					
     <div class="page-header position-relative">
-	<h1>Desk Officer Allocation<small><i class="icon-double-angle-right"></i></small></h1>
+	<h1>Officer(s)<small><i class="icon-double-angle-right"></i></small></h1>
     </div><!--/page-header-->
 <div class="row-fluid">
 
@@ -34,8 +34,8 @@
 <form class="form-horizontal" name="commentsForm" id="validation-form" method="post" action="{$SCRIPT_NAME}" enctype="multipart/form-data">
 	
     <div class="control-group">
-        <label class="control-label" for="title">Select Desk Officer: </label>
-        <select class="chzn-select" id="form-field-select-3" name="desk_officer" data-placeholder="Choose a Desk Officer..." required>
+        <label class="control-label" for="title">Select Officer: </label>
+        <select class="chzn-select" id="form-field-select-3" name="desk_officer" data-placeholder="Choose a Officer..." required>
             <option value=""></option>
             {html_options options=$designationList}
         </select>
@@ -46,7 +46,8 @@
         &nbsp; &nbsp; &nbsp;
         <button class="btn" type="reset"><i class="icon-undo"></i> Reset</button>
     </div>
-    <input type="hidden" name="cmd" value="saveDeskOfficer">
+    
+    <input type="hidden" name="cmd" {if $forward eq 1} value="forwardToOfficer" {else} value="saveDeskOfficer" {/if}>
     <input type="hidden" name="PI" value="{$PI}">
 </form>
 

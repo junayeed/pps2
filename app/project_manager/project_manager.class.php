@@ -52,6 +52,7 @@ class projectManagerApp extends DefaultApplication
            case 'saveAttachment'     : $screen = $this->saveAttachments();             break;
            case 'saveComment'        : $screen = $this->saveComment();                 break;
            case 'deskofficer'        : $screen = $this->deskofficer();                 break;
+           case 'forwardToOfficer'   : $screen = $this->forwardToOfficer();            break;
            case 'saveDeskOfficer'    : $screen = $this->saveDeskOfficer();             break;
            case 'deletecostanalysisattachment'    : $screen = $this->deleteCostAnalysisAttachment();             break;
            default                   : $screen = $this->showEditor($msg);
@@ -104,6 +105,8 @@ class projectManagerApp extends DefaultApplication
    {
         $pid        = base64_decode(getUserField('PI')); 
         $data['PI'] = getUserField('PI');
+        
+        $data['forward'] = getUserField('forward');
        
         //dumpVar($_SESSION);
         $sector_division         = getFromSession('sector_division');
@@ -112,10 +115,33 @@ class projectManagerApp extends DefaultApplication
         return  createPage(DESKOFFICER_TEMPLATE, $data);
     }
     
+    function forwardToOfficer()
+    {
+        $pid                      = base64_decode(getUserField('PI'));
+        $data['current_holder']   = getUserField('desk_officer');
+        //$data['plancomm_status']  = 'Forwarded';
+        
+        $info['table']  = PROJECT_TBL;
+        $info['data']   = $data;
+        $info['debug']  = false;
+        $info['where']  = 'id = ' . $pid;
+        
+        if (update($info) )
+        {
+            $this->updatePlanningCommissionStatus($pid, $data['plancomm_status'], $data['desk_officer']);
+        }
+        
+        $data['PI']       = getUserField('PI');
+        $data['forward']  = 1;
+        return createPage(SICCESS_MSG_TEMPLATE,$data);
+        
+    }
+    
     function saveDeskOfficer()
     {
         $pid                      = base64_decode(getUserField('PI'));
         $data['desk_officer']     = getUserField('desk_officer');
+        $data['current_holder']   = getUserField('desk_officer');
         $data['plancomm_status']  = 'Desk Officer Assigned';
         
         $info['table']  = PROJECT_TBL;
@@ -128,7 +154,8 @@ class projectManagerApp extends DefaultApplication
             $this->updatePlanningCommissionStatus($pid, $data['plancomm_status'], $data['desk_officer']);
         }
         
-        $data['PI']     = getUserField('PI');
+        $data['PI']      = getUserField('PI');
+        $data['forward'] = '0';
         return createPage(SICCESS_MSG_TEMPLATE,$data);
     }
     
