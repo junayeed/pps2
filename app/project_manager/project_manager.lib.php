@@ -1052,7 +1052,7 @@
         header ('Location: /files/'.$filename);
     }
     
-    function makePartBDoc($data)
+    function makePartBDoc($data, $cost_analysis)
     {
         // New Word Document
         $PHPWord = new PHPWord();
@@ -1171,14 +1171,35 @@
         $contentTable->addCell(10000)->addText($study, $fontStyle, $pStyle);
         
         //16.0
-//        $contentTable->addRow(0);
-//        $contentTable->addCell(700)->addText('15.0', $fontStyle, $pStyle);
-//        $contentTable->addCell(2000)->addText('Whether any pre-apprisal/feasibility study/pre-investment study was done before formulation of the project? If so attach summary of findings ans recommendations. If not mention the causes.', $fontStyle, $pStyle);
-//        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
-//        $study = str_replace('<p>', '', $data->study);
-//        $study = str_replace('</p>', '', $study);
-//        $study = str_replace('&nbsp;', ' ', $study);
-//        $contentTable->addCell(10000)->addText($study, $fontStyle, $pStyle);
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('16.0', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText('Financial Analysis and Economic Analysis', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(': ', $fontStyle, $pStyle);
+        
+        $finAttach = $cost_analysis->financial_attachment ? "Financial Calculation Sheet Attached" : "Financial Calculation Sheet Not Attached";
+        $ecoAttach = $cost_analysis->economic_attachment ? "Economic Calculation Sheet Attached" : "Economic Calculation Sheet Not Attached";
+        
+        $contentTable->addCell(10000)->addText($finAttach . "\n" . $ecoAttach, $fontStyle, $pStyle);
+        
+        //16.1
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText(' ', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(' ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText("16.1 Net Present Value (NPV) (considering ".$cost_analysis->discount_rate." discount rate.)\n     i) Financial: " . 
+                                              $cost_analysis->financial_npv . "\n    ii) Economic: " . $cost_analysis->economic_npv, $fontStyle, $pStyle);
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText(' ', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(' ', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText("Benefit-Cost Ratio (BCR) (considering ".$cost_analysis->discount_rate." discount rate.)\n     i) Financial: " . 
+                                              $cost_analysis->financial_bcr . "\n    ii) Economic : " . $cost_analysis->economic_bcr, $fontStyle, $pStyle);
+        $contentTable->addRow(0);
+        $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
+        $contentTable->addCell(2000)->addText(' ', $fontStyle, $pStyle);
+        $contentTable->addCell(300)->addText(' ', $fontStyle, $pStyle);
+        $contentTable->addCell(10000)->addText("Internal Rate of return (IRR) \n     i) Financial: " . 
+                                              $cost_analysis->financial_irr . "\n    ii) Economic : " . $cost_analysis->economic_irr, $fontStyle, $pStyle);
         
         //17.0
         $contentTable->addRow(0);

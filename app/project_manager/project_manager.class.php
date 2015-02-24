@@ -59,7 +59,7 @@ class projectManagerApp extends DefaultApplication
       }
 
      
-     if($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear' || $cmd == 'deletecostanalysisattachment')
+      if($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear' || $cmd == 'deletecostanalysisattachment')
       {
          return;
       }
@@ -228,12 +228,19 @@ class projectManagerApp extends DefaultApplication
         $status = getUserField('status');
         //dumpVar($_REQUEST);
         //die;
-               
-        $info['table']  = PROJECT_TBL;
-        $info['debug']  = false;
-        $info['where']  = 'id = ' . $pid;
         
+        $project = new Project($pid);
+        $created_by = $project->basicInfo->created_by;
+               
+        $info['table']          = PROJECT_TBL;
+        $info['debug']          = false;
+        $info['where']          = 'id = ' . $pid;
         $info['data']['status'] = $status;
+        
+        if ($status == 'Returned from Ministry')
+        {
+            $info['data']['current_holder'] = $created_by;
+        }
         
         $result = update($info);
         
@@ -487,13 +494,13 @@ class projectManagerApp extends DefaultApplication
         
         if($report_type)
         {
-            $this->partBExportTo($pid, $report_type, $data->partB);
+            $this->partBExportTo($pid, $report_type, $data->partB, $data->cost_analysis);
         }
         
         return createPage(PROJECT_PART_B_TEMPLATE, $data);
     }
     
-    function partBExportTo($pid, $report_type, $data)  //ajaj
+    function partBExportTo($pid, $report_type, $data, $cost_analysis)  //ajaj
     {
         //dumpVar($data);
         //dumpVar($data->basicInfo->adp_sub_sector);
@@ -501,13 +508,13 @@ class projectManagerApp extends DefaultApplication
         //die;
         if ($report_type == 'pdf')
         {
-            $screen = createPage(PART_B_PDF_TEMPLATE, $data);
+            $screen = createPage(PART_B_PDF_TEMPLATE, $data, $cost_analysis);
             //dumpVar($screen);
             //makePartBPDF($screen);
         }
         if ($report_type == 'word')
         {
-            makePartBDoc($data);
+            makePartBDoc($data, $cost_analysis);
         }
     }
    

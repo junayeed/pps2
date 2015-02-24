@@ -104,7 +104,7 @@ function debug(str)
 
 function calculateIRR()
 {
-   var project_life_time   = parseInt($('#project_life_time').get(0).value);
+   var project_life_time   = $('#project_life_time').val()*1;
    var discount_factor     = $('#discount_factor').get(0).value;    
    var last_npv            = 0.00; 
    var last_discount_rate  = 0.00;
@@ -125,11 +125,12 @@ function calculateIRR()
       var bcr                  = 0.00;
       var irr                  = 0.00;
       
-      for (var i=0; i<=project_life_time; i++)
+      for (var i=0; i<project_life_time; i++)
       {
-         var a = parseFloat($('#total_cost_' + i).get(0).value);
+         var a = $('#total_cost_' + i).val()*1;
+         //alert($('#total_cost_' + i).val()+'\n'+$('#benefit_' + i).val());
          discountTotalCost    += a / doRound(Math.pow((1+discount_factor), i), 3);
-         discountTotalBenefit += parseFloat($('#benefit_' + i).get(0).value) / doRound(Math.pow((1+discount_factor), i), 3);
+         discountTotalBenefit += ($('#benefit_' + i).val()*1) / doRound(Math.pow((1+discount_factor), i), 3);
       }
       
       npv = discountTotalBenefit - discountTotalCost;
@@ -150,13 +151,34 @@ function calculateIRR()
    var type = document.getElementById('analysis_type').value;
    if(type=='financial')
    {  
-     parent.document.getElementById('financial_irr').value = irr;
+     parent.document.getElementById('financial_irr').value = doRound(irr, 2);
    }
    else
    {
-     parent.document.getElementById('economic_irr').value = irr;  
+     parent.document.getElementById('economic_irr').value = doRound(irr, 2);  
    }    
    
+   updateNPVBCRIRR();
+}
+
+function updateProjectLifeTime()
+{
+    var project_life_time = $('#project_life_time').val();
+    var analysis_type     = $('#analysis_type').val();
+    var domainname        = window.location.hostname;
+    var pid               = $('#pid').val();
+    
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=projectlifetime',
+            data: "PI="+pid+"&"+analysis_type+"_project_life_time="+project_life_time,
+            dataType: 'json',
+            success: function(responseText)
+            {
+            }
+        } 
+    );
 }
 
 /**
@@ -167,29 +189,30 @@ function calculateIRR()
                                                                         
 function createRows()
 {
-   var project_life_time = $('#project_life_time').get(0).value;
-   var diff = 0; 
-   var i    = 0; 
-   var k    = idCounter;
-   
-   // make project_life_time readonly after a valid input
-   if(project_life_time > 0)
-   {
-      $('#project_life_time').attr('readonly', true);
-   }
-   
-   for (i=0; i<=project_life_time; i++)
-   {
-      addRow('in_attachments', 0);	
-   }
-   
-   // show the "add new row" 
-   $('#add_new_row').show();   
-   
-   if( !footer_flag )
-   {
-      buildTableFooter('table_footer');
-   }
+    var project_life_time = $('#project_life_time').get(0).value;
+    var diff              = 0; 
+    var i                 = 0; 
+    var k                 = idCounter;
+
+    // make project_life_time readonly after a valid input
+    if(project_life_time > 0)
+    {
+        updateProjectLifeTime();
+        $('#project_life_time').attr('readonly', true);
+    }
+
+    for (i=0; i<=project_life_time; i++)
+    {
+        addRow('in_attachments', 0);	
+    }
+
+    // show the "add new row" 
+    $('#add_new_row').show();   
+
+    if( !footer_flag )
+    {
+        buildTableFooter('table_footer');
+    }
 }
 
 /**
@@ -226,6 +249,7 @@ function removeRow(type, col)
    row_counter--;
    idCounter--;
    $('#project_life_time').get(0).value--;
+   updateProjectLifeTime();
 
    // remove the row
    obj = $('#' + type).get(0);
@@ -260,6 +284,45 @@ function showPrevDeleteImg(prevID)
    document.getElementById('del_'+prevID).style.display = 'inline';
 } 
 
+function updateCost(row_id)
+{
+    var domainname             = window.location.hostname;
+    var pid                    = $('#pid').val();
+    var year                   = $('#year_'+row_id).val();
+    var row_type               = $('#analysis_type').val();
+    var capital_cost           = $('#capital_cost_'+row_id).val();
+    var operating_cost         = $('#operating_cost_'+row_id).val();
+    var total_cost             = $('#total_cost_'+row_id).val();
+    var benefit                = $('#benefit_'+row_id).val();
+    var discounted_total_cost  = $('#discount_val_tot_cost_'+row_id).val();
+    var discounted_benefit     = $('#discount_val_benefit_'+row_id).val();
+    
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=capitalcost',
+            data: "PI="+pid+"&capitalcost="+capital_cost+"&year="+year+"&row_type="+row_type+
+                  "&total_cost="+total_cost+"&discounted_total_cost="+discounted_total_cost+
+                  "&operating_cost="+operating_cost+"&benefit="+benefit+"&discounted_benefit="+discounted_benefit,
+            dataType: 'json',
+            success: function(responseText)
+            {
+            }
+        } 
+    );
+}
+
+function populateRow(id, year, capital_cost, operating_cost, total_cost, discounted_total_cost, benefit, discounted_benefit)
+{
+    $('#year_'+idCounter).val(year);
+    $('#capital_cost_'+idCounter).val(capital_cost);
+    $('#operating_cost_'+idCounter).val(operating_cost);
+    $('#total_cost_'+idCounter).val(total_cost);
+    $('#discount_val_tot_cost_'+idCounter).val(discounted_total_cost);
+    $('#benefit_'+idCounter).val(benefit);
+    $('#discount_val_benefit_'+idCounter).val(discounted_benefit);
+}
+
 /**
  * add a new row
  */
@@ -284,11 +347,11 @@ function addRow(type, newRow)
    last = objs[type].last++;  
    
    tr.appendChild(addCol('<input type="text" id ="year_'+idCounter+'"                              name="year_'+idCounter+'" value="'+idCounter+'" class="disabled vis input R W45" readonly /> '));
-   tr.appendChild(addCol('<input type="text" id ="capital_cost_'+idCounter+'"            value="0" name="capital_cost_'+idCounter+'" onChange="calculateTotalPrice('+idCounter+');" class="vis input R W75"/>'));
-   tr.appendChild(addCol('<input type="text" id ="operating_cost_'+idCounter+'"          value="0" name="operating_cost_'+idCounter+'" onChange="calculateTotalPrice('+idCounter+');" class="vis input R W75"/>'));
+   tr.appendChild(addCol('<input type="text" id ="capital_cost_'+idCounter+'"            value="0" name="capital_cost_'+idCounter+'" onChange="calculateTotalPrice('+idCounter+'); updateCost('+idCounter+');" class="vis input R W75"/>'));
+   tr.appendChild(addCol('<input type="text" id ="operating_cost_'+idCounter+'"          value="0" name="operating_cost_'+idCounter+'" onChange="calculateTotalPrice('+idCounter+'); updateCost('+idCounter+');" class="vis input R W75"/>'));
    tr.appendChild(addCol('<input type="text" id ="total_cost_'+idCounter+'"              value="0" name="total_cost_'+idCounter+'" class="disabled vis input R W75" readonly />'));
    tr.appendChild(addCol('<input type="text" id ="discount_val_tot_cost_'+idCounter+'"   value="0" name="discount_val_tot_cost_'+idCounter+'" class="disabled vis input R W75"  readonly />'));
-   tr.appendChild(addCol('<input type="text" id ="benefit_'+idCounter+'"                 value="0" name="benefit_'+idCounter+'" onChange="calculateBenefitDiscountValue('+idCounter+');" class="vis input R W75" />'));
+   tr.appendChild(addCol('<input type="text" id ="benefit_'+idCounter+'"                 value="0" name="benefit_'+idCounter+'" onChange="calculateBenefitDiscountValue('+idCounter+'); updateCost('+idCounter+');" class="vis input R W75" />'));
    tr.appendChild(addCol('<input type="text" id ="discount_val_benefit_'+idCounter+'"    value="0" name="discount_val_benefit_'+idCounter+'" class="disabled vis input R W75"  readonly />'));
    tr.appendChild(addCol('<img border="0" style="display: none" src="/app_contents/irr_calculator/images/delete.png"  id="del_'+idCounter+'" onclick="removeRow(\''+type+'\', parentNode)" />'));
    
@@ -296,7 +359,9 @@ function addRow(type, newRow)
    // and hide the previous rows delete image
    if(newRow == 1)
    {
-      $('#project_life_time').get(0).value++;
+      var plt = $('#project_life_time').val()*1+1;
+      $('#project_life_time').val(plt);
+      updateProjectLifeTime(pid);
       hidePrevDeleteImg(idCounter-1);
    }
 
@@ -342,7 +407,29 @@ function reCalculateDiscountValue()
    {
       calculateTotalPrice(i);
       calculateBenefitDiscountValue(i);
+      updateCost(i);
    }
+   
+   updateProjectDiscountRate();
+}
+
+function updateProjectDiscountRate()
+{
+    var discount_rate = $('#discount_factor').val();
+    var domainname    = window.location.hostname;
+    var pid           = $('#pid').val();
+    
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=projectdiscountrate',
+            data: "PI="+pid+"&discount_rate="+discount_rate,
+            dataType: 'json',
+            success: function(responseText)
+            {
+            }
+        } 
+    );
 }
 
 function calculateGrandTotal()
@@ -382,8 +469,8 @@ function calculateNPVBCR()
    var npv = 0.00;
    var bcr = 0.00;
    
-   var totDiscountCost     = $('#total_discount_cost').get(0).value;
-   var totDiscountBenefit  = $('#total_discount_benefit').get(0).value;
+   var totDiscountCost     = $('#total_discount_cost').val();
+   var totDiscountBenefit  = $('#total_discount_benefit').val();
    
    npv = doRound( (totDiscountBenefit - totDiscountCost), 2);
    bcr = doRound( (totDiscountBenefit / totDiscountCost), 2);
@@ -408,10 +495,32 @@ function calculateNPVBCR()
    showRecommendation();
 }
 
+function updateNPVBCRIRR()
+{
+    var domainname    = window.location.hostname;
+    var analysis_type = $('#analysis_type').val();
+    var pid           = $('#pid').val();
+    var npv           = $('#npv').val();
+    var bcr           = $('#bcr').val();
+    var irr           = $('#irr').val();
+    
+    $.ajax
+    (
+        {                                      
+            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=npvbcrirr',
+            data: "PI="+pid+"&"+analysis_type+"_npv="+npv+"&"+analysis_type+"_bcr="+bcr+"&"+analysis_type+"_irr="+irr,
+            dataType: 'json',
+            success: function(responseText)
+            {
+            }
+        } 
+    );
+}
+
 function showRecommendation()
 {
-   var npv = parseFloat($('#npv').get(0).value);
-   var bcr = parseFloat($('#bcr').get(0).value);
+   var npv = parseFloat($('#npv').val());
+   var bcr = parseFloat($('#bcr').val());
    
    if (npv >= 0 && bcr >- 1)
       document.getElementById('recommendation').innerHTML	= "Project is Acceptable.";

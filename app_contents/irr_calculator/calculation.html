@@ -207,13 +207,20 @@ hr.pop 	{height: 1px; border: solid #abd5ff; border-width: 1px 0 0; }
          <a href="#" onClick="parseData();">Load Data</a>
          <a href="#" onClick="loadDefaultData();">Load Dummy Data</a> -->
          <input type="hidden" name="analysis_type" id="analysis_type" value="{$analysis_type}">
+         <input type="hidden" name="pid" id="pid" value="{$pid}">
          
          <table width="55%" border="0">
             <tr>
                <td>Project Life Time: </td>	
-               <td><input type="text" name="project_life_time" id="project_life_time" onchange="createRows();" class="vis input R W60">
+               <td>
+                   <input type="text" name="project_life_time" id="project_life_time" 
+                          onchange="createRows();" class="vis input R W60" 
+                          value="{if $analysis_type eq 'financial'}{$info->financial_project_life_time}{else}{$info->economic_project_life_time}{/if}" />
+               </td>
                <td>Discounting Factor: </td>		
-               <td><input type="text" name="discount_factor" id="discount_factor" class="vis input R W60" onChange="reCalculateDiscountValue();">
+               <td><input type="text" name="discount_factor" id="discount_factor" 
+                          class="vis input R W60" onChange="reCalculateDiscountValue();"
+                          value="{if $analysis_type eq 'financial'}{$info->financial_discount_rate}{else}{$info->economic_discount_rate}{/if}" />
             </tr>
          </table>
          
@@ -221,10 +228,15 @@ hr.pop 	{height: 1px; border: solid #abd5ff; border-width: 1px 0 0; }
          
          <table width="75%" border="0" cellspacing="2" cellpadding="0">
             <tbody id="in_attachments"></tbody>
+            
          </table>
          <table width="75%" border="0">
             <tr>
-               <td width="100%"><div id="add_new_row" style="display: none"><a href="javascript:void(0)" onCLick="addRow('in_attachments', 1);">Add New Row</a></div></td>
+               <td width="100%">
+                   <div id="add_new_row" style="display: none">
+                       <a href="javascript:void(0)" onCLick="addRow('in_attachments', 1);">Add New Row</a>
+                   </div>
+               </td>
             </tr>
          </table>
          <br />
@@ -237,11 +249,20 @@ hr.pop 	{height: 1px; border: solid #abd5ff; border-width: 1px 0 0; }
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                <tr>
                   <td width="10%" align="center">NPV</td>
-                  <td width="16%"><input type="text" name="npv" id="npv" class="disabled vis input R W75" readonly />
+                  <td width="16%">
+                      <input type="text" name="npv" id="npv" class="disabled vis input R W75" 
+                             value="{if $analysis_type eq 'financial'}{$info->financial_npv}{else}{$info->economic_npv}{/if}" readonly />
+                  </td>
                   <td width="10%" align="center">BCR</td>
-                  <td width="16%"><input type="text" name="bcr" id="bcr" class="disabled vis input R W75" readonly />	
+                  <td width="16%">
+                      <input type="text" name="bcr" id="bcr" class="disabled vis input R W75" 
+                             value="{if $analysis_type eq 'financial'}{$info->financial_bcr}{else}{$info->economic_bcr}{/if}" readonly />
+                  </td>
                   <td width="10%" align="center">IRR</td>
-                  <td width="18%"><input type="text" name="irr" id="irr" class="disabled vis input R W75" readonly /> 
+                  <td width="18%">
+                      <input type="text" name="irr" id="irr" class="disabled vis input R W75" 
+                             value="{if $analysis_type eq 'financial'}{$info->financial_irr}{else}{$info->economic_irr}{/if}" readonly />
+                  </td> 
                   <td width="26%" align="right"><input class="mainsubmit" name="btnCalculate" value="Calculate" onclick="calculateNPVBCR(); calculateIRR();" type="button"></td>
                </tr>
             </table> 
@@ -249,15 +270,23 @@ hr.pop 	{height: 1px; border: solid #abd5ff; border-width: 1px 0 0; }
          <br />
          <hr class="pop">
          <div id="recommendation"></div>
-         
-        
-
       </form>
    </div>
 </div>
 
 </center>
 <script>
+    {if $list}
+        {foreach from=$list item=item}
+        addRow('in_attachments', 0);
+        populateRow('{$item->id}','{$item->year}','{$item->capital_cost}','{$item->operating_cost}','{$item->total_cost}','{$item->discounted_total_cost}',
+                    '{$item->benefit}','{$item->discounted_benefit}');
+        {/foreach}
+        // show the "add new row" 
+        $('#add_new_row').show();  
+        buildTableFooter('table_footer');
+        calculateGrandTotal();
+    {/if}
     {literal}
 	$(function() {
 		var icons = {

@@ -43,10 +43,85 @@ class ajaxApp extends DefaultApplication
            case 'updateAnnexV'             : $screen = $this->updateAnnexVRowItem();                   break;
            case 'saveFiscalYear'           : $screen = $this->saveFiscalYear();                        break;
            case 'updateComDetail'          : $screen = $this->updateComDetail();                       break;
+           case 'projectlifetime'          : $screen = $this->updateProjectLifeTime();                 break;
+           case 'projectdiscountrate'      : $screen = $this->updateProjectDiscountRate();             break;
+           case 'capitalcost'              : $screen = $this->updateProjectAnalysisCost();             break;
+           case 'npvbcrirr'                : $screen = $this->updateProjectNPVBCRIRR();                break;
            default                         : $screen = $this->showEditor($msg);
       }
 
       return true;
+    }
+    
+    function updateProjectAnalysisCost()
+    {
+        $data['pid']                    = base64_decode(getUserField('PI'));
+        $data['year']                   = getUserField('year');
+        $data['capital_cost']           = getUserField('capitalcost');
+        $data['operating_cost']         = getUserField('operating_cost');
+        $data['total_cost']             = getUserField('total_cost');
+        $data['benefit']                = getUserField('benefit');
+        $data['row_type']               = getUserField('row_type');
+        $data['discounted_benefit']     = getUserField('discounted_benefit');
+        $data['discounted_total_cost']  = getUserField('discounted_total_cost');
+         
+        $info['table']  = PROJECT_ANALYSIS_DETAILS_TBL;
+        $info['debug']  = true;
+        $info['data']   = $data;
+        $info['where']  = 'pid = ' . $data['pid'] . ' AND year = ' . $data['year'] . ' AND row_type = ' . q($data['row_type']);
+        
+        if (update($info))
+        {
+            
+        }
+        else
+        {
+            insert($info);
+        }
+    }
+    
+    function updateProjectNPVBCRIRR()
+    {
+        $data          = getUserDataSet(PROJECT_ANALYSIS_TBL);
+        $data['pid']   = base64_decode(getUserField('PI'));
+        
+        
+        $info['table']  = PROJECT_ANALYSIS_TBL;
+        $info['debug']  = true;
+        $info['where']  = 'pid = ' . $data['pid'];
+        $info['data']   = $data;
+        
+        echo json_encode(update($info));
+        die;
+    }
+    
+    function updateProjectDiscountRate()
+    {
+        $data['pid']            = base64_decode(getUserField('PI'));
+        $data['discount_rate']  = getUserField('discount_rate');
+        
+        $info['table']  = PROJECT_ANALYSIS_TBL;
+        $info['debug']  = false;
+        $info['where']  = 'pid = ' . $data['pid'];
+        $info['data']   = $data;
+        
+        echo json_encode(update($info));
+        die;
+    }
+    
+    function updateProjectLifeTime()
+    {
+        $data           = getUserDataSet(PROJECT_ANALYSIS_TBL);
+        $data['pid']    = base64_decode(getUserField('PI'));
+        
+        
+        $info['table']  = PROJECT_ANALYSIS_TBL;
+        $info['debug']  = false;
+        $info['where']  = 'pid = ' . $data['pid'];
+        $info['data']   = $data;
+        
+        echo json_encode(update($info));
+        die;
     }
     
     function saveFiscalYear()

@@ -73,22 +73,19 @@
                         <span class="label {if $basicInfo->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $basicInfo->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$basicInfo->status}</span>
                     </td>
                 </tr>
-                
+                {if $basicInfo->status eq 'Forwarded to Commission' && $smarty.session.user_type eq 'Commission'}
                 <tr>
                     <td class="span3"><label class=" label-default">Planning Commission Status</label></td>
                     <td>&nbsp;
-                        {if $basicInfo->status eq 'Forwarded to Commission' && $smarty.session.user_type eq 'Commission'}
                         <select name="commssion_status" id="commission_status" style="margin-top: 10px;" onChange="changeCommissionStatus()">
                             <option value="" >--</option>
                             {html_options values=$plan_comm_status_list output=$plan_comm_status_list selected=$basicInfo->plancomm_status}
                         </select>
                         {else}
                         <span class="label label-info">{$status_of_commission[0]->status}</span>
-                        {/if}
-                        
                     </td>
                 </tr>
-                
+                {/if}
                 <tr>
                     <td><label class="lbl">Project Type</span></td>
                     <td><label class="lbl">{$basicInfo->project_type}</label></td>

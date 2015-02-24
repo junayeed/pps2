@@ -142,9 +142,8 @@
                 
                  <div class="control-group">
                     <label class="control-label" for="net_present_value">16.0 Financial and Economic Analysis:</label>
-                        
-                                 <a id="various1" class="fancybox" href="/app/irr_calculator/irr_calculator.php?a=financial">Financial Analysis</a>&nbsp;|&nbsp;
-                                 <a id="various2" class="fancybox" href="/app/irr_calculator/irr_calculator.php?a=economic">Economic Analysis</a>
+                                <a id="various1" class="fancybox" href="/app/irr_calculator/irr_calculator.php?a=financial&pid={$PI}">Financial Analysis</a>&nbsp;|&nbsp;
+                                <a id="various2" class="fancybox" href="/app/irr_calculator/irr_calculator.php?a=economic&pid={$PI}">Economic Analysis</a>
                            
                                 <table  id="major_item_tbl" class="table table-striped table-bordered table-hover table_bug_report">
                                     <thead>
@@ -164,9 +163,9 @@
                                                 <a onClick="deleteProjectCostAnalysisAttachment('financial_attachment', '{$cost_analysis->id}');">Delete Attachment</a>
                                                 {/if}
                                             </td>
-                                            <td class="span1"><input type="text" class="span2" name="financial_npv" id="financial_npv" value="{$cost_analysis->financial_npv}"></td>
-                                            <td class="span1"><input type="text" class="span2" name="financial_bcr" id="financial_bcr" value="{$cost_analysis->financial_bcr}"></td>
-                                            <td class="span1"><input type="text" class="span2" name="financial_irr" id="financial_irr" value="{$cost_analysis->financial_irr}"></td>
+                                            <td class="span1"><input type="text" class="span2" name="financial_npv" id="financial_npv" value="{$cost_analysis->financial_npv|number_format:2:'.':','}" readonly /></td>
+                                            <td class="span1"><input type="text" class="span2" name="financial_bcr" id="financial_bcr" value="{$cost_analysis->financial_bcr|number_format:2:'.':','}" readonly /></td>
+                                            <td class="span1"><input type="text" class="span2" name="financial_irr" id="financial_irr" value="{$cost_analysis->financial_irr|number_format:2:'.':','}" readonly /></td>
                                             <td class="span8"><input type="file" id="id-input-file-1" name="financial_attachment" /></td>
                                         </tr>
                                         <tr>
@@ -176,9 +175,9 @@
                                                 <a onClick="deleteProjectCostAnalysisAttachment('economic_attachment', '{$cost_analysis->id}');">Delete Attachment</a>
                                                 {/if}
                                             </td>
-                                            <td class="span1"><input type="text" class="span2" name="economic_npv" id="economic_npv" value="{$cost_analysis->economic_npv}"></td>
-                                            <td class="span1"><input type="text" class="span2" name="economic_bcr" id="economic_bcr" value="{$cost_analysis->economic_bcr}"></td>
-                                            <td class="span1"><input type="text" class="span2" name="economic_irr" id="economic_irr" value="{$cost_analysis->economic_irr}"></td>
+                                            <td class="span1"><input type="text" class="span2" name="economic_npv" id="economic_npv" value="{$cost_analysis->economic_npv|number_format:2:'.':','}" readonly /></td>
+                                            <td class="span1"><input type="text" class="span2" name="economic_bcr" id="economic_bcr" value="{$cost_analysis->economic_bcr|number_format:2:'.':','}" readonly /></td>
+                                            <td class="span1"><input type="text" class="span2" name="economic_irr" id="economic_irr" value="{$cost_analysis->economic_irr|number_format:2:'.':','}" readonly /></td>
                                             <td class="span8"><input type="file" id="id-input-file-1" name="economic_attachment" /></td>
                                         </tr>
                                     </tbody>

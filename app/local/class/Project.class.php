@@ -149,8 +149,8 @@ class Project
         $info['where']  = "pid = $this->id";
         
         $result =   select($info);   
-        $result[0]->financial_attachment_file = getFileLocation($result[0]->financial_attachment);
-        $result[0]->economic_attachment_file = getFileLocation($result[0]->economic_attachment);
+        $result[0]->financial_attachment_file = getFileLocation($result[0]->financial_attachment, $this->id);
+        $result[0]->economic_attachment_file = getFileLocation($result[0]->economic_attachment, $this->id);
         
         return $result[0];
     }
