@@ -47,16 +47,16 @@
 <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}">
 	
 		<div class="control-group">
-			<label class="control-label" for="project_title">Meeting </label>
+			<label class="control-label" for="meeting_name">Meeting </label>
 			<div class="controls">
-                            <input class="span8" type="text" id="project_title" value="{$project_title}"  name="project_title" placeholder="Meeting">
+                            <input class="span6" type="text" id="meeting_name" value="{$meeting_name}"  name="meeting_name" placeholder="Meeting">
 			</div>
 		</div>
     
                 <div class="control-group">
-			<label class="control-label" for="project_amount_from">Date</label>
+			<label class="control-label" for="meeting_date">Date</label>
 			<div class="controls">
-                            <input class="span2" type="text" id="project_amount_from" value="{$project_amount_form}"  name="project_amount_form" placeholder="0.00">
+                            <input class="span2 date-picker" type="text" id="meeting_date" value="{$meeting_date}"  name="meeting_date" data-date-format="yyyy-mm-dd" placeholder="Date">
                         </div>
 		</div>
     
@@ -83,7 +83,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                    {foreach from=$list key=key item=item}
+                                        <tr>
+                                            <td>{$key+1}</td>
+                                            <td><a href="/app/ecnec/ecnec.php?cmd=meetingDetails&ID={$item->id}">{$item->meeting_name}</a></td>
+                                            <td  class="span3 hidden-480">{$item->meeting_date|date_format:"%e %B, %Y"}</td>
+                                            <td  class="span3 hidden-480">{$item->meeting_time|date_format:"%I:%m %p"}</td>
+                                            <!--td class="hidden-480" style="text-align: center;">
+                                                <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>
+                                            </td-->
+                                        </tr>
+                                    {/foreach}
                                 </tbody>
                             </table>
                         </div>

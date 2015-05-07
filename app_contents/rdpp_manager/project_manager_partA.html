@@ -420,7 +420,7 @@
                 <div class="control-group">
                     <label class="control-label" for="location_districts[]">Districts</label>
                     <div class="controls">
-                        <select multiple class="chzn-select districts" id="location_districts" style="width:500px"   name="location_districts[]" onchange="loadUpzilla()"  data-placeholder="Choose a District..." required>
+                        <select multiple class="chzn-select districts" id="location_districts" style="width:500px"   name="location_districts[]" onchange="loadUpzilla()"  data-placeholder="Choose a District..." >
                             <option value=""></option>
                            {html_options options=$districtList}
                        </select>  
@@ -1056,108 +1056,6 @@
 
 	
 })
-
-
-function getAgencyList()
-{
-    var ministries  = $('#ministries').val();
-    
-    var domainname = window.location.hostname;
-   
-    $.ajax
-    (
-        {                                      
-            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getAgencyList',                    //the script to call to get data          
-            data: "ministries="+ministries,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
-            dataType: 'json',                                         //data format      
-            success: function(responseText)                           //on recieve of reply
-            {
-                if(responseText!=null)
-                {
-                   
-                    
-                    $('#agencies').empty(); //remove all child nodes
-                    $('#agencies').append(responseText);
-                    $('#agencies').trigger("liszt:updated");
-                    
-                } 
-                else
-                {
-                     $('#agencies').empty(); 
-                     $('#agencies').trigger("liszt:updated");
-                }
-            }
-        } 
-    );  
-    
-    
-}
-
-function loadDistrict()
-{
-    
-    var divisions  = $('.divisions').val();
-    var domainname = window.location.hostname;
-   
-    $.ajax
-    (
-        {                                      
-            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getDistrict',                    //the script to call to get data          
-            data: "divisions="+divisions,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
-            dataType: 'json',                                         //data format      
-            success: function(responseText)                           //on recieve of reply
-            {
-                if(responseText!=null)
-                {
-                   
-                   
-                    $('#location_districts').empty(); //remove all child nodes
-                    $('#location_districts').append(responseText);
-                    $('#location_districts').trigger("liszt:updated");
-                } 
-                else
-                {
-                     $('#location_districts').empty(); 
-                     $('#location_districts').trigger("liszt:updated");
-                }
-            }
-        } 
-    );  
-}
-
-function loadUpzilla()
-{
-    
-    var districts  = $('.districts').val();
-    var domainname = window.location.hostname;
-   
-    $.ajax
-    (
-        {                                      
-            url: 'http://'+domainname+'/app/ajax/ajax.php?cmd=getUpzilla',                    //the script to call to get data          
-            data: "districts="+districts,                               //you can insert url argumnets here to pass to api.php   //for example "id=5&parent=6"
-            dataType: 'json',                                         //data format      
-            success: function(responseText)                           //on recieve of reply
-            {
-                if(responseText!=null)
-                {
-                   
-                   
-                    $('#location_upzilas').empty(); //remove all child nodes
-                    $('#location_upzilas').append(responseText);
-                    $('#location_upzilas').trigger("liszt:updated");
-                } 
-                else
-                {
-                     $('#location_upzilas').empty(); 
-                     $('#location_upzilas').trigger("liszt:updated");
-                }
-            }
-        } 
-    );  
-}
-
-
 
 function initialize() {
   var map_canvas = document.getElementById('map_canvas');

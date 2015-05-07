@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Project Manager Class
+ * Project Manager (RDPP) Class
  */
 
-class RDPPManagerApp extends DefaultApplication
+class RDPPApp extends DefaultApplication
 {
    /**
    * Constructor
@@ -39,6 +39,7 @@ class RDPPManagerApp extends DefaultApplication
            case 'annexIIIc'          : $screen = $this->showProcurementPlanSERVICES(); break;
            case 'saveAnnexIIIc'      : $screen = $this->saveProcurementPlan($cmd);     break;
            case 'deleteprocplan'     : $screen = $this->deleteProcurementPlan();       break;
+           case 'comparisonCost'     : $screen = $this->comparisonCost();              break;
            case 'annexV'             : $screen = $this->showAnnexV();                  break;
            case 'annexIV'            : $screen = $this->showAnnexIV();                 break;
            case 'saveAnnexV'         : $screen = $this->saveAnnexV();                  break;
@@ -52,16 +53,19 @@ class RDPPManagerApp extends DefaultApplication
            case 'saveAttachment'     : $screen = $this->saveAttachments();             break;
            case 'saveComment'        : $screen = $this->saveComment();                 break;
            case 'deskofficer'        : $screen = $this->deskofficer();                 break;
+           case 'forwardToOfficer'   : $screen = $this->forwardToOfficer();            break;
+           case 'saveDeskOfficer'    : $screen = $this->saveDeskOfficer();             break;
+           case 'deletecostanalysisattachment'    : $screen = $this->deleteCostAnalysisAttachment();             break;
            default                   : $screen = $this->showEditor($msg);
       }
 
      
-     if($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear')
+      if($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear' || $cmd == 'deletecostanalysisattachment')
       {
          return;
       }
       
-      if($cmd== 'commentPage' || $cmd == 'attachment' || $cmd == 'annexV_attachment' || $cmd == 'deskofficer')
+      if($cmd== 'commentPage' || $cmd == 'attachment' || $cmd == 'annexV_attachment' || $cmd == 'deskofficer' || $cmd == 'saveDeskOfficer')
       {
           echo  $screen;
       }   
@@ -74,21 +78,102 @@ class RDPPManagerApp extends DefaultApplication
 
    }
    
+   function deleteCostAnalysisAttachment()
+   {
+       $id = getUserField('id');
+       $field_name = getUserField('field_name');
+       
+       $data[$field_name] = 0;
+       
+       $info['table']  = PROJECT_ANALYSIS_TBL;
+       $info['data']   = $data;
+       $info['debug']  = false; 
+       $info['where']  = 'id = ' . $id;
+       
+       if ( update($info) )
+        {
+            echo json_encode('1');
+            die;    
+        }
+        else
+        {
+            echo json_encode('');
+            die;
+        }
+   }
+   
    function deskofficer()
    {
-       $pid        = base64_decode(getUserField('PI')); 
-       $data['PI'] = getUserField('PI');
-       
-       //dumpVar($_SESSION);
-       $sector_division = getFromSession('sector_division');
-       //$data['designationList'] = getDesignationListOfCommissionUser();
-       
-       $project = new RDPP();
-       
-       
+        $pid        = base64_decode(getUserField('PI')); 
+        $data['PI'] = getUserField('PI');
         
-       return  createPage(DESKOFFICER_TEMPLATE, $data);
-   }
+        $data['forward'] = getUserField('forward');
+       
+        //dumpVar($_SESSION);
+        $sector_division         = getFromSession('sector_division');
+        $data['designationList'] = getPCDeskOfficerDesignationList($sector_division);
+       
+        return  createPage(DESKOFFICER_TEMPLATE, $data);
+    }
+    
+    function forwardToOfficer()
+    {
+        $pid                      = base64_decode(getUserField('PI'));
+        $data['current_holder']   = getUserField('desk_officer');
+        //$data['plancomm_status']  = 'Forwarded';
+        
+        $info['table']  = PROJECT_TBL;
+        $info['data']   = $data;
+        $info['debug']  = false;
+        $info['where']  = 'id = ' . $pid;
+        
+        if (update($info) )
+        {
+            $this->updatePlanningCommissionStatus($pid, $data['plancomm_status'], $data['desk_officer']);
+        }
+        
+        $data['PI']       = getUserField('PI');
+        $data['forward']  = 1;
+        return createPage(SICCESS_MSG_TEMPLATE,$data);
+        
+    }
+    
+    function saveDeskOfficer()
+    {
+        $pid                      = base64_decode(getUserField('PI'));
+        $data['desk_officer']     = getUserField('desk_officer');
+        $data['current_holder']   = getUserField('desk_officer');
+        $data['plancomm_status']  = 'Desk Officer Assigned';
+        
+        $info['table']  = PROJECT_TBL;
+        $info['data']   = $data;
+        $info['debug']  = false;
+        $info['where']  = 'id = ' . $pid;
+        
+        if (update($info) )
+        {
+            $this->updatePlanningCommissionStatus($pid, $data['plancomm_status'], $data['desk_officer']);
+        }
+        
+        $data['PI']      = getUserField('PI');
+        $data['forward'] = '0';
+        return createPage(SICCESS_MSG_TEMPLATE,$data);
+    }
+    
+    function updatePlanningCommissionStatus($pid, $status, $desk_officer)
+    {
+        $data['pid']           = $pid;
+        $data['status']        = $status;
+        $data['desk_officer']  = $desk_officer;
+        $data['create_date']   = date('Y-m-d h:i:s');
+        
+        $info['table']  = PROJECT_COMMISSION_STATUS_TBL;
+        $info['data']   = $data;
+        $info['debug']  = false;
+        $info['where']  = 'id = ' . $pid;
+        
+        insert($info);
+    }
    
     function saveComment()
     {
@@ -107,8 +192,7 @@ class RDPPManagerApp extends DefaultApplication
        $message        = new Message();
        $message->saveAttachment();
        return createPage(SICCESS_MSG_TEMPLATE,$data);
-      //header ('Location: project_manager.php?cmd=success&PI='.  base64_encode($pid));
-       
+       //header ('Location: project_manager.php?cmd=success&PI='.  base64_encode($pid));
     }
     
     function commentPage()
@@ -145,12 +229,19 @@ class RDPPManagerApp extends DefaultApplication
         $status = getUserField('status');
         //dumpVar($_REQUEST);
         //die;
-               
-        $info['table']  = PROJECT_TBL;
-        $info['debug']  = false;
-        $info['where']  = 'id = ' . $pid;
         
+        $project = new RDPP($pid);
+        $created_by = $project->basicInfo->created_by;
+               
+        $info['table']          = PROJECT_TBL;
+        $info['debug']          = false;
+        $info['where']          = 'id = ' . $pid;
         $info['data']['status'] = $status;
+        
+        if ($status == 'Returned from Ministry')
+        {
+            $info['data']['current_holder'] = $created_by;
+        }
         
         $result = update($info);
         
@@ -288,7 +379,7 @@ class RDPPManagerApp extends DefaultApplication
        
        $project->savePartB();
        $project->savePartBMajorItems();
-       
+       $project->saveProjectCostAnalysis();
        
        header ('Location: project_manager.php?cmd=partB&PI='.  base64_encode($pid));
    }
@@ -378,12 +469,8 @@ class RDPPManagerApp extends DefaultApplication
         return createPage(PROJECT_PART_A_TEMPLATE, $data);
    }
    
-    function partAExportTo($pid, $report_type, $data)  //ajaj
+    function partAExportTo($pid, $report_type, $data)
     {
-        //dumpVar($data);
-        //dumpVar($data->basicInfo->adp_sub_sector);
-        //dumpVar($data->adpSectorList[$data->basicInfo->adp_sub_sector]); 
-        //die;
         if ($report_type == 'pdf')
         {
             $screen = createPage(PART_A_PDF_TEMPLATE, $data);
@@ -397,26 +484,24 @@ class RDPPManagerApp extends DefaultApplication
    
     function showProjectPartB()
     {
-        $pid          = base64_decode(getUserField('PI'));
-        $report_type  = getUserField('report_type');
-        $project      = new RDPP($pid);  
-        $data         = $project;
-        $data->PI     = getUserField('PI'); 
-        $data->partB  = $project->loadPartB();
-        
-        $data->major_items  = $project->loadMajorItems();
-        
-        //dumpVar($data->partB);
+        $pid                  = base64_decode(getUserField('PI'));
+        $report_type          = getUserField('report_type');
+        $project              = new RDPP($pid);  
+        $data                 = $project;
+        $data->PI             = getUserField('PI'); 
+        $data->partB          = $project->loadPartB();
+        $data->major_items    = $project->loadMajorItems();
+        $data->cost_analysis  = $project->loadProjectCostAnalysis();
         
         if($report_type)
         {
-            $this->partBExportTo($pid, $report_type, $data->partB);
+            $this->partBExportTo($pid, $report_type, $data->partB, $data->cost_analysis);
         }
         
         return createPage(PROJECT_PART_B_TEMPLATE, $data);
     }
     
-    function partBExportTo($pid, $report_type, $data)  //ajaj
+    function partBExportTo($pid, $report_type, $data, $cost_analysis)  //ajaj
     {
         //dumpVar($data);
         //dumpVar($data->basicInfo->adp_sub_sector);
@@ -424,12 +509,13 @@ class RDPPManagerApp extends DefaultApplication
         //die;
         if ($report_type == 'pdf')
         {
-            $screen = createPage(PART_B_PDF_TEMPLATE, $data);
-            makePartBPDF($screen);
+            $screen = createPage(PART_B_PDF_TEMPLATE, $data, $cost_analysis);
+            //dumpVar($screen);
+            //makePartBPDF($screen);
         }
         if ($report_type == 'word')
         {
-            makePartBDoc($data);
+            makePartBDoc($data, $cost_analysis);
         }
     }
    
@@ -465,14 +551,36 @@ class RDPPManagerApp extends DefaultApplication
     {
         $PI                    = getUserField('PI');    
         $pid                   = base64_decode($PI);
-        
+        $report_type           = getUserField('report_type');
         $project               = new RDPP($pid);
         $data->basicInfo       = $project->basicInfo;
-        $data->PI              =  $PI;
+        $data->PI              = $PI;
         $data->management_list = getManagementList($pid);
         $data->error           = getUserField('error');
+        $data->organogram_file = getFileLocation( $data->basicInfo->organogram_doc_id, $pid);
         
+        if($report_type)
+        {
+            $this->annexIIExportTo($pid, $report_type, $data->management_list, $data->organogram_file);
+        }
+        
+        //dumpVar($data->organogram_file);
         return createPage(PROJECT_MANAGEMENT_TEMPLATE, $data);
+    }
+    
+    function annexIIExportTo($pid, $report_type, $data, $organogram_file)
+    {
+        foreach($data as $value)
+        {
+            $mgmtData[$value->type][] = $value;
+        }
+        
+        //dumpVar($mgmtData); die;
+        
+        if ($report_type == 'word')
+        {
+            makeAnnexIIDoc($mgmtData, $organogram_file);
+        }
     }
     
     function showProcurementPlanGOODS()
@@ -566,8 +674,7 @@ class RDPPManagerApp extends DefaultApplication
     function saveProjectManagement()
     {
         $pid       = base64_decode(getUserField('PI'));
-        
-        $error = updateProjectManagement();
+        $error     = updateProjectManagement();
         
         header ('Location: project_manager.php?cmd=annexII&PI='.  base64_encode($pid) . '&error='.$error);
     }
@@ -577,7 +684,7 @@ class RDPPManagerApp extends DefaultApplication
         $pid       = base64_decode(getUserField('PI'));
         
         
-        $project               = new RDPP($pid);
+        $project   = new RDPP($pid);
         $project->saveBasicInfo();
         
         //$error = updateAnnexV();
@@ -618,6 +725,36 @@ class RDPPManagerApp extends DefaultApplication
         
         return createPage(PROJECT_ANNEX_V_TEMPLATE, $data);
     }
+    function comparisonCost()
+    {
+        $PI                    = getUserField('PI');    
+        $pid                   = base64_decode($PI);
+        $report_type           = getUserField('report_type');
+        
+        $project               = new RDPP($pid);
+        $data['basicInfo']     = $project->basicInfo;
+        
+        //Delete Empty Row of Component
+        //$project->removeEmptyRowOfComponent();
+                
+        $data['PI']                                    = $PI;
+        $data['econimonic_code_list']                  = getEconomicCodeList();
+        $data['econimonic_subcode_list']               = getEconomicSubCodeList();
+        $data['component_list']                        = getComponentList1($pid);
+        $data['annx_v_component_details']              = getAnnexVComponentDetails($pid); //ajaj
+        $data['annex_v_contingency_list']              = getContingencyList($pid);
+        $data['annex_v_contingency_details']           = getAnnexVContingencyDetails($pid);
+        $data['annex_v_category_sub_total']            = getProjectWiseComponentSubTotal($pid);
+        $data['annex_v_category_year_wise_sub_total']  = getProjectCategoryYearWiseComponentSubTotal($pid);
+        $data['error']                                 = getUserField('error');
+        
+        //dumpvar($data['component_list']);
+        //dumpvar($data['annx_v_component_details']);
+        if($report_type)
+        $this->annexVExportTo($pid, $report_type);
+        
+        return createPage(COMPARISON_COST_TEMPLATE, $data);
+    }
     
     function showAnnexIV()
     {
@@ -645,20 +782,21 @@ class RDPPManagerApp extends DefaultApplication
    
     function showProjectHomePage()
     {
-        $pid     = base64_decode(getUserField('PI'));
-        $project = new RDPP($pid);
-        $message = new Message(null,$pid);
+        $pid      = base64_decode(getUserField('PI'));
+        $project  = new RDPP($pid);
+        $message  = new Message(null,$pid);
 
-        $data                 = $project;
-        $data->PI             = getUserField('PI');
-        $data->project_status = $project->getAllStatus();
-        
-        $data->status_of_commission = $message->loadCommissionStatusOfProject();
-        $data->project_msg          = $message->loadMessageByProject();
-        $data->project_attachments  = $message->loadAttachmentsByProject();
+        $data                         = $project;
+        $data->PI                     = getUserField('PI');
+        $data->project_status         = $project->getAllStatus();
+        $data->desk_officer_name      = $project->getDeskOfficerName($data->basicInfo->desk_officer);
+        $data->status_of_commission   = $message->loadCommissionStatusOfProject(); // for the progress status table
+        $data->project_msg            = $message->loadMessageByProject();
+        $data->project_attachments    = $message->loadAttachmentsByProject();
+        $data->plan_comm_status_list  = getEnumFieldValues(PROJECT_TBL, 'plancomm_status');
         
         //dumpVar($data->status_of_cossission);
-        //dumpVar($_SESSION);
+        //dumpVar($data);
 
         return createPage(PROJECT_BASIC_TEMPLATE, $data);
     }

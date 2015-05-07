@@ -23,13 +23,13 @@ class ecnecApp extends DefaultApplication
 
       switch ($cmd)
       {
-           case 'edit'              : $screen = $this->showEditor($msg);     break;
+           case 'edit'              : $screen = $this->showEditor($msg);          break;
            case 'create_meeting'    : $screen = $this->createECNECMeeting($msg);  break;
-           case 'saveMeeting'       : $screen = $this->saveMeeting($msg);  break;
-           case 'add'               : $screen = $this->saveRecord();      break;
-           case 'delete'            : $screen = $this->deleteRecord();    break;
-           case 'meeting_list'      : $screen = $this->showList();        break;
-           case 'officerlist'       : $screen = $this->officerList();        break;
+           case 'saveMeeting'       : $screen = $this->saveMeeting($msg);         break;
+           case 'add'               : $screen = $this->saveRecord();              break;
+           case 'delete'            : $screen = $this->deleteRecord();            break;
+           case 'meeting_list'      : $screen = $this->showList();                break;
+           case 'meetingDetails'    : $screen = $this->meetingDetails();          break;
            default                  : $screen = $this->showEditor($msg);
       }
 
@@ -165,7 +165,26 @@ class ecnecApp extends DefaultApplication
 
      
 
-      return createPage(REPORT_LIST_TEMPLATE, $data);
+      return createPage(ECNEC_LIST_TEMPLATE, $data);
+   }
+
+   function meetingDetails()
+   {
+      $ID = getUserField('ID');
+
+      $info['table'] = ECENC_MEETING_TBL;
+      $info['debug'] = false;
+      $info['where'] = 'id='.$ID;
+
+      $result = select($info);
+
+      if(!empty($result))
+      {
+         $data['meeting'] = $result[0];
+      }
+      //dumpVar($data);
+
+      return createPage(ECNEC_MEETING_DETAILS_TEMPLATE, $data);
    }
   
 }

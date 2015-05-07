@@ -254,9 +254,31 @@
        }
    }
    
-   function getComponentList($pid)
+   function getComponentList1($pid)
    {
        $info['table']  = PROJECT_ANNEX_V_TBL . ' AS PAVT LEFT JOIN ' . ECONOMIC_CODE_LOOKUP_TBL . ' AS ECLT ON (PAVT.economic_code_id = ECLT.id)' . 
+                         ' LEFT JOIN ' . ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id = ESLT.id)';
+       $info['debug']  = false;
+       $info['where']  = 'pid = ' . $pid.' ORDER BY ESLT.economic_subcode, PAVT.id';
+       $info['fields'] = array('PAVT.*', 'ECLT.component_type AS comp_type');
+       
+       $result = select($info);
+       
+       if ( !empty ($result) )
+       {
+           foreach($result as $key => $value)
+           {
+               $value->attachment_path = getFileLocation($value->attachment_id, $pid);
+           }
+           
+           return $result;
+       }
+   }
+   
+   
+   function getComponentList($pid)
+   {
+       $info['table']  = RDPP_CUMULATIVE_PROGRESS_TBL . ' AS PAVT LEFT JOIN ' . ECONOMIC_CODE_LOOKUP_TBL . ' AS ECLT ON (PAVT.economic_code_id = ECLT.id)' . 
                          ' LEFT JOIN ' . ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id = ESLT.id)';
        $info['debug']  = false;
        $info['where']  = 'pid = ' . $pid.' ORDER BY ESLT.economic_subcode, PAVT.id';

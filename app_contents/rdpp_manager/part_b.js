@@ -117,6 +117,29 @@ function addNewComponent(buttonClick)
     
 }
 
+function deleteProjectCostAnalysisAttachment(fieldName, elemID)
+{
+    if ( confirm('The attachment will be deleted.\n' + PROMPT_DELETE_CONFIRM) )
+    {
+        $.ajax
+        (
+            {
+                url: 'project_manager.php?cmd=deletecostanalysisattachment',
+                data: "field_name="+fieldName+"&id="+elemID,
+                dataType: 'json',
+                success: function(responseText)
+                {
+                    if (responseText == '1')
+                    {    
+                        alert('here')
+                        //removeComponentRow(elemID);
+                    }
+                }    
+            }
+        );
+    }
+}
+
 function deleteComponent(elemID)
 {
     var annexID = $('#annex_id_'+elemID).val();

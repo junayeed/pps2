@@ -42,8 +42,9 @@ class ajaxApp extends DefaultApplication
            case 'delEconCodeattachment'    : $screen = $this->deleteEconomicCodeAttachment();          break;
            case 'updateAnnexV'             : $screen = $this->updateAnnexVRowItem();                   break;
            case 'saveFiscalYear'           : $screen = $this->saveFiscalYear();                        break;
-           case 'updateComDetail'          : $screen = $this->updateComDetail();                       break;
-           case 'projectlifetime'          : $screen = $this->updateProjectLifeTime();                 break;
+           case 'updateComDetail'             : $screen = $this->updateComDetail();                       break;
+           case 'updateCumulativeProgressRow' : $screen = $this->updateCumulativeProgressRow();                       break;
+           case 'projectlifetime'             : $screen = $this->updateProjectLifeTime();                 break;
            case 'projectdiscountrate'      : $screen = $this->updateProjectDiscountRate();             break;
            case 'capitalcost'              : $screen = $this->updateProjectAnalysisCost();             break;
            case 'npvbcrirr'                : $screen = $this->updateProjectNPVBCRIRR();                break;
@@ -152,7 +153,12 @@ class ajaxApp extends DefaultApplication
         $info['where']                 = 'id = ' . $annex_id;
         $info['data'][$thisField]      = $thisValue;
         
-        echo json_encode(update($info));
+        $result = update($info);
+        
+        $info['table']                 = RDPP_CUMULATIVE_PROGRESS_TBL;
+         $info['where']                = 'annex_id = ' . $annex_id;
+        $result = update($info);
+        echo json_encode($result);
         die;
     }
     
@@ -172,6 +178,26 @@ class ajaxApp extends DefaultApplication
         $info['where']                 = 'annex_id = ' . $annex_id. ' AND pid='.$pid.' AND year_serial='.$year_serial;
         $info['data'][$thisField]      = $thisValue;
         $info['data']['financial_year']= $financial_year;
+        
+        
+        echo json_encode(update($info));
+        die;
+    }
+    
+    function updateCumulativeProgressRow()
+    {
+        //$pid       = base64_decode(getUserField('PI'));
+        $pid            = base64_decode(getUserField('PI'));
+        $annex_id       = getUserField('annex_id');
+        
+        $thisField = getUserField('thisField');
+        $thisValue = getUserField('thisValue');
+        
+        $info['table']                 = RDPP_CUMULATIVE_PROGRESS_TBL;
+        $info['debug']                 = true;
+        $info['where']                 = 'annex_id = ' . $annex_id. ' AND pid='.$pid;;
+        $info['data'][$thisField]      = $thisValue;
+        //$info['data']['financial_year']= $financial_year;
         
         
         echo json_encode(update($info));
@@ -353,6 +379,14 @@ class ajaxApp extends DefaultApplication
         $result = insert($info);
         
         $returnStr = $result['newid'];
+        
+        if(getUserField('rdpp')==1)
+        {
+            $info['table']    = RDPP_CUMULATIVE_PROGRESS_TBL;
+            $data['annex_id'] = $result['newid'];
+            $info['data']     = $data;
+            insert($info);
+        }    
         
         //echo json_encode($returnStr);
         //die;

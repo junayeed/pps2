@@ -540,7 +540,7 @@ function addNewYear(fromAddButton)
                                                <table id="total_cost_breakdown_tbl_'+YEAR_COUNT+'" class="table table-striped table-bordered table-hover table_bug_report">\n\
                                                    <thead>\n\
                                                        <tr>\n\
-                                                           <th colspan="9" class="center">Fiscal Year ' + YEAR_COUNT + ': <input type="text" name="financial_year_'+YEAR_COUNT+'" id="financial_year_'+YEAR_COUNT+'" onchange="saveFiscalYear('+YEAR_COUNT+',this.value)" required>\n\
+                                                           <th colspan="9" class="center">Proposed DPP\n\
                                                            <img src="/app_contents/common/images/cross.png" onClick="deleteYear();" class="delete_year_icon" id="year_delete_'+YEAR_COUNT+'" style="display: none;"></th>\n\
                                                        </tr>\n\
                                                        <tr>\n\

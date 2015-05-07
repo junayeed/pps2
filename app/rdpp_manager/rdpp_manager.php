@@ -13,7 +13,7 @@
    //echo AJAX_DIR;
 
    // Instantiate the user manager class
-   $thisApp  = new RDPPManagerApp();
+   $thisApp  = new RDPPApp();
 
    // Instanciate the user class
    $thisUser = new User();

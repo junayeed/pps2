@@ -20,10 +20,11 @@
    /**#@+
    * Template Constant
    */
-   define('REPORT_EDITOR_TEMPLATE',             TEMPLATE_DIR . '/ecnec.html');
-   define('MEETING_EDITOR_TEMPLATE',             TEMPLATE_DIR . '/ecnec_meeting.html');
-   define('REPORT_LIST_TEMPLATE',               TEMPLATE_DIR . '/ecnec_list.html');
- 
+   define('REPORT_EDITOR_TEMPLATE',            TEMPLATE_DIR . '/ecnec.html');
+   define('MEETING_EDITOR_TEMPLATE',           TEMPLATE_DIR . '/ecnec_meeting.html');
+   define('ECNEC_LIST_TEMPLATE',               TEMPLATE_DIR . '/ecnec_list.html');
+   define('ECNEC_MEETING_DETAILS_TEMPLATE',    TEMPLATE_DIR . '/ecnec_meeting_details.html');
+
 
    /**#@+
    * Application Constant
