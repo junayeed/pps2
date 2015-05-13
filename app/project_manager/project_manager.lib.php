@@ -1052,6 +1052,49 @@
         header ('Location: /files/'.$filename);
     }
     
+    function convertTags($text)
+    {
+        $text = str_replace('<strong>', '<w:b val="true"/>', $text);
+        $text = str_replace('</strong>', '<w:b val="false"/>', $text);
+        // and all the tags like that. You may use an array and loop through it.
+        return $text;
+    }
+    
+    function msword_conversion($str)
+{
+$str = str_replace(chr(130), ',', $str);    // baseline single quote
+$str = str_replace(chr(131), 'NLG', $str);  // florin
+$str = str_replace(chr(132), '"', $str);    // baseline double quote
+$str = str_replace(chr(133), '...', $str);  // ellipsis
+$str = str_replace(chr(134), '**', $str);   // dagger (a second footnote)
+$str = str_replace(chr(135), '***', $str);  // double dagger (a third footnote)
+$str = str_replace(chr(136), '^', $str);    // circumflex accent
+$str = str_replace(chr(137), 'o/oo', $str); // permile
+$str = str_replace(chr(138), 'Sh', $str);   // S Hacek
+$str = str_replace(chr(139), '<', $str);    // left single guillemet
+// $str = str_replace(chr(140), 'OE', $str);   // OE ligature
+$str = str_replace(chr(145), "'", $str);    // left single quote
+$str = str_replace(chr(146), "'", $str);    // right single quote
+// $str = str_replace(chr(147), '"', $str);    // left double quote
+// $str = str_replace(chr(148), '"', $str);    // right double quote
+$str = str_replace(chr(149), '-', $str);    // bullet
+$str = str_replace(chr(150), '-–', $str);    // endash
+$str = str_replace(chr(151), '--', $str);   // emdash
+// $str = str_replace(chr(152), '~', $str);    // tilde accent
+// $str = str_replace(chr(153), '(TM)', $str); // trademark ligature
+$str = str_replace(chr(154), 'sh', $str);   // s Hacek
+$str = str_replace(chr(155), '>', $str);    // right single guillemet
+// $str = str_replace(chr(156), 'oe', $str);   // oe ligature
+$str = str_replace(chr(159), 'Y', $str);    // Y Dieresis
+$str = str_replace('°C', '&deg;C', $str);    // Celcius is used quite a lot so it makes sense to add this in
+$str = str_replace('£', '&pound;', $str);
+$str = str_replace("'", "'", $str);
+$str = str_replace('"', '"', $str);
+$str = str_replace('–', '&ndash;', $str);
+
+return $str;
+}
+    
     function makePartBDoc($data, $cost_analysis)
     {
         // New Word Document
@@ -1096,7 +1139,9 @@
         $background_with_problem = str_replace('<p>', '', $data->background_with_problem);
         $background_with_problem = str_replace('</p>', '', $background_with_problem);
         $background_with_problem = str_replace('&nbsp;', ' ', $background_with_problem);
-        $contentTable->addCell(10000)->addText($background_with_problem, $fontStyle, $pStyle);
+        $background_with_problem = str_replace('<strong>', '<w:b>', $background_with_problem);
+        $background_with_problem = str_replace('</strong>', '</w:b>', $background_with_problem);
+        $contentTable->addCell(10000)->addText(msword_conversion($data->background_with_problem), $fontStyle, $pStyle);
         //14.2
         $contentTable->addRow(0);
         $contentTable->addCell(700)->addText('', $fontStyle, $pStyle);
