@@ -559,7 +559,7 @@ class tppManagerApp extends DefaultApplication
         $data['PI']                                    = $PI;
         $data['econimonic_code_list']                  = getEconomicCodeList();
         $data['econimonic_subcode_list']               = getEconomicSubCodeList();
-        $data['component_list']                        = getComponentList($pid);
+        $data['component_list']                        = getComponentListForDPP($pid);
         $data['annx_v_component_details']              = getAnnexVComponentDetails($pid); //ajaj
         $data['annex_v_contingency_list']              = getContingencyList($pid);
         $data['annex_v_contingency_details']           = getAnnexVContingencyDetails($pid);
@@ -584,7 +584,7 @@ class tppManagerApp extends DefaultApplication
         //dumpVar($data);
         $data['econimonic_code_list']        = getEconomicCodeList();
         $data['econimonic_subcode_list']     = getEconomicSubCodeList();
-        $data['component_list']              = getComponentList($pid);
+        $data['component_list']              = getComponentListForDPP($pid);
         $data['annex_v_component_details']   = getAnnexVComponentDetails($pid);
         $data['annex_v_contingency_list']    = getContingencyList($pid);
         $data['annex_v_contingency_details'] = getAnnexVContingencyDetails($pid);
