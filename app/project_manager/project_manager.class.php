@@ -248,7 +248,7 @@ class projectManagerApp extends DefaultApplication
         {
             
         }    
-        header ('Location: project_manager.php?cmd=ProjectHome&PI='.  base64_encode($pid));
+        header ('Location: tpp_manager.php?cmd=ProjectHome&PI='.  base64_encode($pid));
         
        
     }
@@ -354,7 +354,9 @@ class projectManagerApp extends DefaultApplication
    */
    function showEditor($msg)
    {
-      
+       
+       $data['dppList']  = getDPPListofAgency($_SESSION['agency_id']);
+     
       return createPage(PROJECT_CREATE_TEMPLATE, $data);
    }
    
@@ -791,6 +793,10 @@ class projectManagerApp extends DefaultApplication
            }   
            elseif($_REQUEST['project_type'] =='RDPP')
            {
+               $data['pid']      = $newid;
+               $data['dpp_id']   = $_REQUEST['orginal_dpp'];
+               $project->saveRDPPInfo($data);
+               
                header ('Location: /app/rdpp_manager/rdpp_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
            }   
            elseif($_REQUEST['project_type'] =='RTPP')

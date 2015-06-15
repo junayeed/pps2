@@ -235,6 +235,17 @@ class Project
         
         return $result[0];
     }
+    
+    
+    public function saveRDPPInfo($data)
+    {
+        $info['table'] = RDPP_INFO_TBL;
+        $info['data']  = $data;
+        $info['debug'] = false;
+        
+        $result = insert($info);
+         
+    }        
 
     public function saveBasicInfo()
     {

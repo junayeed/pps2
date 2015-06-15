@@ -544,14 +544,16 @@
                     //onchange:''
                     //
             });
+            
+            
 
             $("#various3, #various1").fancybox({
-                    'width'				: '75%',
+                    'width'			: '75%',
                     'height'			: '100%',
                     'autoScale'			: false,
-                    'transitionIn'		        : 'none',
-                    'transitionOut'		        : 'none',
-                    'type'				: 'iframe'
+                    'transitionIn'		: 'none',
+                    'transitionOut'		: 'none',
+                    'type'			: 'iframe'
             });
 
 
@@ -565,9 +567,7 @@
             function forwardProject()
             {
                   var MSG = '';
-                  if(isPartA<=0) MSG +='Part-A is required<br>';
-                  //if(isAnnexI<=0) MSG +='Annexure-I is required<br>';
-                  if(isAnnexV<=0) MSG +='Annexure-V is required<br>';
+                 
 
                    if(MSG!='')
                    {    
@@ -583,7 +583,7 @@
                     }
                     else
                     {    
-                        bootbox.confirm("Are you sure?", function(result) {
+                        bootbox.confirm("Are you sure, want to forwad this project?", function(result) {
                                 if(result) {
                                        document.forwardForms.submit();
                                         return true;
@@ -592,7 +592,7 @@
                         });
                         return false;
                     }  
-
+                return false;
             }
 
             function changeCommissionStatus()

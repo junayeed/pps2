@@ -11,7 +11,7 @@
   
 
    
-class ajaxApp extends DefaultApplication
+class ajax2App extends DefaultApplication
 {
    /**
    * Constructor
@@ -149,7 +149,7 @@ class ajaxApp extends DefaultApplication
         $thisValue = getUserField('thisValue');
         
         $info['table']                 = PROJECT_ANNEX_V_TBL;
-        $info['debug']                 = true;
+        $info['debug']                 = false;
         $info['where']                 = 'id = ' . $annex_id;
         $info['data'][$thisField]      = $thisValue;
         
@@ -583,7 +583,7 @@ class ajaxApp extends DefaultApplication
 }
 
 
-   $thisApp  = new ajaxApp();
+   $thisApp  = new ajax2App();
    $thisApp->run();        
    // Instanciate the user class
   

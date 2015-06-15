@@ -91,7 +91,7 @@
                                         <th class="span3">Contract Approving Authority</th>
                                         <th class="span3">Source of Fund</th>
                                         <th class="span5">Estd. Cost (In lakh Taka)</th>
-                                        <th class="span3">Invitation for Prequal (if applicable)</th>
+                                        <!--<th class="span3">Invitation for Prequal (if applicable)</th>-->
                                         <th class="span3">Invitation for Tender</th>
                                         <th class="span3">Signing of Contract</th>
                                         <th class="span3">Completion of Contract</th>
@@ -187,7 +187,7 @@
         //addNewProcuremtPlanRow('works_tbl', 'works');
         
         {foreach from=$procurement_list item=item}
-            addNewProcuremtPlanRow('goods_tbl', 'Works');
+            addNewProcuremtPlanRow('goods_tbl', 'Goods');
             populateProcurementPlanDetails("{$item->package_no}", "{$item->procurement_desc}", "{$item->procurement_unit}", "{$item->procurement_qty}", 
                                            "{$item->procurement_method}", "{$item->procurement_type}", "{$item->approv_auth}", "{$item->fund_src}", 
                                            "{$item->estd_cost}", "{$item->tender_invitation}", "{$item->contract_sign}", "{$item->contract_completion}",

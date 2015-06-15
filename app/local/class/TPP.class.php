@@ -355,10 +355,10 @@ class TPP
         $info['data']['pid'] = $this->id;
         $info['debug'] = false;
         
-        $partBId   = getUserField('part_b_id');        
-        if($partBId)
+        //$partBId   = getUserField('part_b_id');        
+        if(isTPPPartBExist($this->id))
         {
-            $info['where'] = "id = $partBId";
+            $info['where'] = "pid = $this->id";
             return update($info);
         }
         else 

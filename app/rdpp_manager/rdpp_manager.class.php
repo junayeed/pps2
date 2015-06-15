@@ -269,6 +269,12 @@ class RDPPApp extends DefaultApplication
         
         $deleted_com = delete($infop);
         
+        $infop['table']  = RDPP_CUMULATIVE_PROGRESS_TBL;
+        $infop['debug']  = false;
+        $infop['where']  = 'annex_id = ' . $annex_id;
+        
+        $deleted_com = delete($infop);
+        
         
         if ($deleted_detail || $deleted_com )
         {

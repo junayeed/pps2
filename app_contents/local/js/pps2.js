@@ -91,21 +91,21 @@ function addNewProcuremtPlanRow(targetID, procurementCategory)
     
     // if the procurement category is GOODS
    
-    if ( procurementCategory == 'Goods' )
+    if ( procurementCategory === 'Goods' )
     {
         var $row = $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
                                      td_approv_auth+td_fund_src+td_estd_cost+td_tender_invitation+td_contract_sign+td_contract_completion+
                                      td_action+hidden_field+'</tr>').appendTo("#"+targetID+" > tbody");
          $row.find('.date-picker').datepicker();                     
     }
-    else if ( procurementCategory == 'Works' )
+    else if ( procurementCategory === 'Works' )
     {
        var $row = $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
                                      td_approv_auth+td_fund_src+td_estd_cost+td_eoi_invitation+td_tender_invitation+td_contract_sign+td_contract_completion+
                                      td_action+hidden_field+'</tr>').appendTo("#"+targetID+" > tbody");
          $row.find('.date-picker').datepicker();                     
     } 
-    else if ( procurementCategory == 'Services' )
+    else if ( procurementCategory === 'Services' )
     {
        var $row = $('<tr id="tr_'+ROW_ID+'">'+ td_package_no+td_procurement_desc+td_procurement_unit+td_procurement_qty+td_procurement_method+td_procurement_type+
                                      td_approv_auth+td_fund_src+td_estd_cost+td_eoi_invitation+td_rfp_issue+td_contract_sign+td_contract_completion+
@@ -353,14 +353,14 @@ function deleteProcurementPlanRow(elemID, targetID, procurementCategory)
         $.ajax
         (
             {
-                url: 'project_manager.php?cmd=deleteprocplan',
+                url: 'tpp_manager.php?cmd=deleteprocplan',
                 data: "proc_plan_id="+proc_plan_id+"&proc_category="+procurementCategory,
                 dataType: 'json',
                 success: function(responseText)
                 {
                     var content = responseText.split(OUTER_DELIM);
                     
-                    if ( content[1] == 'Success')
+                    if ( content[1] === 'Success')
                     {
                         $('#'+targetID+' > tbody').find('#tr_' + elemID).fadeOut(50,function() 
                         {

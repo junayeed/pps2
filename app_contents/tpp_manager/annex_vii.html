@@ -71,13 +71,13 @@
                     </div>
                     <div class="control-group">
                         <div class="span12">
-                            <textarea class="ckeditor" name="a" id="a"></textarea>
+                            <textarea class="ckeditor" name="letter_of_agreement" id="letter_of_agreement">{$basicInfo->letter_of_agreement}</textarea>
                         </div>
                     </div>
                    
                     <div class="form-actions2">
                         <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
-                        <input type="hidden" value="saveAnnexV" name="cmd"/>
+                        <input type="hidden" value="saveAnnexVII" name="cmd"/>
                         <input type="hidden" id="PI" name="PI" value="{$PI}"/>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
              lockProject();
         {/if}
         {else}
-            lockProject();
+            //lockProject();
         {/if} 
 
         {literal}

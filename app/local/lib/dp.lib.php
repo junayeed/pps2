@@ -4,6 +4,25 @@
    * Library File
    */
 
+
+    function getDPPListofAgency($agency_id)
+    {
+        $info['table']  = PROJECT_TBL;
+        $info['fields'] = array('id','project_title_en');
+        $info['where']  = "agency_id=$agency_id AND project_type='DPP' ORDER By project_title_en ASC";
+        $info['debug']  = false;
+               
+        if ($result = select($info))
+        {
+            foreach($result as $key => $value)
+            {
+                $data[$value->id] =  $value->project_title_en; 
+             }
+        }
+        return $data;
+       
+    }
+
     function getMinistryList()
     {
         $info['table']  = MINISTRY_LOOKUP_TBL;
@@ -281,7 +300,7 @@
        $info['table']  = RDPP_CUMULATIVE_PROGRESS_TBL . ' AS PAVT LEFT JOIN ' . ECONOMIC_CODE_LOOKUP_TBL . ' AS ECLT ON (PAVT.economic_code_id = ECLT.id)' . 
                          ' LEFT JOIN ' . ECONOMIC_SUBCODE_LOOKUP_TBL . ' AS ESLT ON (PAVT.economic_subcode_id = ESLT.id)';
        $info['debug']  = false;
-       $info['where']  = 'pid = ' . $pid.' ORDER BY ESLT.economic_subcode, PAVT.id';
+       $info['where']  = 'pid = ' . $pid.' ORDER BY ESLT.economic_subcode, PAVT.annex_id';
        $info['fields'] = array('PAVT.*', 'ECLT.component_type AS comp_type');
        
        $result = select($info);
@@ -785,5 +804,16 @@
         return $string;
    }
    
+   function isTPPPartBExist($pid)
+   {
+       $info['table'] = TPP_PART_B_TBL;
+       $info['debug'] = false;
+       $info['where'] = "pid = $pid";
+       
+       $result = select($info);
+       
+       if(!empty($result)) return 1;
+       return 0;
+   }
    
 ?>

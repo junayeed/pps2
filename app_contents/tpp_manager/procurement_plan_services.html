@@ -40,7 +40,7 @@
         <ul class="breadcrumb">
             <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
             <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-            <li class="active">Annexure - III (c): SERVICES</li>
+            <li class="active">Annexure - VIII (b): SERVICES</li>
         </ul><!--.breadcrumb-->
         <div id="nav-search">    
         </div><!--#nav-search-->
@@ -48,7 +48,7 @@
 
     <div id="page-content" class="clearfix">
         <div class="page-header position-relative">
-            <h1>Annexure - III (c)<small><i class="icon-double-angle-right"></i>Total Procurement plan for development project/programme</small></h1>
+            <h1>Annexure - VIII (b)<small><i class="icon-double-angle-right"></i>Total Procurement plan for development project/programme</small></h1>
             <div id="nav-search">
                 <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
             </div>  
@@ -83,8 +83,8 @@
                                         <th class="span3">Contract Approving Authority</th>
                                         <th class="span3">Source of Fund</th>
                                         <th class="span5">Estd. Cost (In lakh Taka)</th>
-                                        <th class="span3">Invitation for Prequal (if applicable)</th>
-                                        <th class="span3">Invitation for Tender</th>
+                                        <th class="span3">Invitation for EOI</th>
+                                        <th class="span3">Issue of RFP</th>
                                         <th class="span3">Signing of Contract</th>
                                         <th class="span3">Completion of Contract</th>
                                         <th class="span1">&nbsp;</th>
@@ -107,7 +107,7 @@
 
                     <div class="form-actions2">
                         <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
-                        <input type="hidden" value="saveAnnexIIIc" name="cmd"/>
+                        <input type="hidden" value="saveAnnexVIIIb" name="cmd"/>
                         <input type="hidden" id="PI" name="PI" value="{$PI}"/>
                     </div>
                 </div>
@@ -196,7 +196,7 @@
             populateProcurementPlanDetails("{$item->package_no}", "{$item->procurement_desc}", "{$item->procurement_unit}", "{$item->procurement_qty}", 
                                            "{$item->procurement_method}", "{$item->procurement_type}", "{$item->approv_auth}", "{$item->fund_src}", 
                                            "{$item->estd_cost}", "{$item->tender_invitation}", "{$item->contract_sign}", "{$item->contract_completion}",
-                                           "{$item->id}", "{$item->procurement_category}");
+                                           "{$item->id}", "{$item->procurement_category}", "{$item->prequal_invitation}", "{$item->eoi_invitation}", "{$item->rfp_issue}");
         {/foreach}
             
         {if $basicInfo->current_holder eq $smarty.session.uid}
