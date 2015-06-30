@@ -566,11 +566,16 @@
     {
         $curr_year  = date('Y');
         $curr_month = date('m');
-        $curr_day   = date('d');
         
-        echo_br('Year = ' . $curr_year . ' Month = ' . $curr_month . ' Day = ' . $curr_day);
+        if ($curr_month >= 7 && $curr_month <= 12)
+        {
+            return $curr_year . '-' . ($curr_year+1);
+        }
         
-        //if ($curr_month.$curr_day >= )
+        if ($curr_month >= 1 && $curr_month <= 6)
+        {
+            return ($curr_year-1) . '-' . $curr_year;
+        }
     }
    
   /**
