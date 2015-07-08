@@ -146,7 +146,7 @@ class ajaxApp extends DefaultApplication
         //$pid       = base64_decode(getUserField('PI'));
         $annex_id  = getUserField('annex_id');
         $thisField = getUserField('thisField');
-        $thisValue = getUserField('thisValue');
+        $thisValue = addslashes(getUserField('thisValue'));
         
         $info['table']                 = PROJECT_ANNEX_V_TBL;
         $info['debug']                 = false;

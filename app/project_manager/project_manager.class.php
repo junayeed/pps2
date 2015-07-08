@@ -889,10 +889,12 @@ class projectManagerApp extends DefaultApplication
         {
             $data['proc_plan_list']        = $result;
             $data['procurement_category']  = strtoupper($procurement_category);
-            
+            //dumpVar($data);
             $screen = createPage(PROC_PLAN_PDF_TEMPLATE, $data);
+            
+            //dumpVar($screen); die;
 
-            MakePDFDoc($screen, $procurement_category);
+            MakePDFDoc($screen, $data['procurement_category']);
         }
     }
     //ajaj

@@ -195,7 +195,7 @@ function populateContingency(economic_code_id, economic_subcode_id, economic_sub
 
 function populateComponentDetails(economic_code_id, economic_subcode_id, economic_subcode_name, unit, unit_cost, qty, total_cost, gob, gob_fe, 
                                   rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe,annex_id, attachment_path, attachment_id)
-{
+{ 
     var elemID = COMPONENT_ROW_ID - 1;
     
     $('#economic_code_'+elemID).val(economic_code_id);

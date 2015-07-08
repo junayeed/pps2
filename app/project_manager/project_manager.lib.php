@@ -347,7 +347,7 @@
                 $id = $matches[1];
                 
                 $data['package_no']             = $_REQUEST['package_no_' . $id];
-                $data['procurement_desc']       = $_REQUEST['procurement_desc_' . $id];
+                $data['procurement_desc']       = addslashes($_REQUEST['procurement_desc_' . $id]);
 	        $data['procurement_unit']       = $_REQUEST['procurement_unit_' . $id];
 	        $data['procurement_qty']        = $_REQUEST['procurement_qty_' . $id];
 	        $data['procurement_method']     = $_REQUEST['procurement_method_' . $id];
