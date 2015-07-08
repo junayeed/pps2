@@ -85,6 +85,7 @@ class reportManagerApp extends DefaultApplication
         $division                   = implode(',', $data['divisions']);
         $district                   = implode(',', $data['districts']);
         $upzila                     = implode(',', $data['upzilas']);
+        $report_type                = getUserField('report_type');
         
         // dumpvar($data);
         // SET UP THE GLOBAL CLAUSE 
@@ -133,7 +134,7 @@ class reportManagerApp extends DefaultApplication
                           ADP_SUBSECTOR_LOOKUP_TBL . ' AS ASUBLT ON (PT.adp_sub_sector = ASUBLT.id) LEFT JOIN ' . 
                           SECTOR_DIVISION_LOOKUP_TBL . ' AS SDLT ON (PT.sector_division=SDLT.id) LEFT JOIN ' . 
                           PROJECT_LOCATIONS_TBL . ' AS PLT ON (PT.id = PLT.pid)';
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['where']  = '1 ' . $globalClause . $projectTitleClause . $projectTypeClause . $projectStatusClause . $projectToCostClause . 
                                  $projectFromCostClause . $developemntPartnersClause . $adpSectorClause . $adpSubSectorClause . $agencyClause . 
                                  $ministryClause . $startDateFromClause . $startDatetoClause . $endDateFromClause . $endDateToClause . 
@@ -161,11 +162,27 @@ class reportManagerApp extends DefaultApplication
         }
         
         $pageTemplate    = sprintf("%s/%s%s", TEMPLATE_DIR, strtolower($user_type), REPORT_EDITOR_TEMPLATE);
+        $pdfTemplate     = sprintf("%s/%s%s", TEMPLATE_DIR, strtolower($user_type), PDF_REPORT_TEMPLATE);
         
         if (!file_exists($pageTemplate))
         {
             echo "Template file not exists. Please check it.";
-        }   
+        } 
+        
+        if ($report_type == 'pdf')
+        {
+            if (!file_exists($pdfTemplate))
+            {
+                echo "PDF Template file not exists. Please check it.";
+                die;
+            } 
+            
+            $screen = createPage($pdfTemplate, $data);
+            
+            makePDF($screen);
+            
+            return;
+        }
         
         return createPage($pageTemplate, $data);
     }

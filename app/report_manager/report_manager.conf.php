@@ -21,6 +21,7 @@
    * Template Constant
    */
    define('REPORT_EDITOR_TEMPLATE',      '_report_manager.html');
+   define('PDF_REPORT_TEMPLATE',         '_report_pdf.html');
    define('REPORT_LIST_TEMPLATE',        TEMPLATE_DIR . '/report_list.html');
    define('OFFICER_LIST_TEMPLATE',       TEMPLATE_DIR . '/officer_list.html');
 

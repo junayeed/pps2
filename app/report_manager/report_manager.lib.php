@@ -42,4 +42,29 @@
         
         return $retData;
     }
+    
+    function makePDF($screen)
+    {
+        ob_start();
+        $dompdf = new DOMPDF();
+        $dompdf->set_paper(DEFAULT_PDF_PAPER_SIZE, 'portrait');
+        $dompdf->load_html($screen);
+        $dompdf->render();
+        
+        //$dompdf->stream("dompdf_out.pdf", array("Attachment" => false));    
+        $filename     = 'dynamic_report.pdf';
+        $output       = $dompdf->output();
+        $file_to_save = $_SERVER['DOCUMENT_ROOT'].'/files/'.$filename;
+        file_put_contents($file_to_save, $output);
+        
+        header("HTTP/1.1 200 OK");
+        header("Pragma: public");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Cache-Control: private", false);
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment;filename="' . $filename. '"');
+        header('Content-Type: text/plain; charset=utf-8');
+        header("Content-Transfer-Encoding: binary");
+        header ('Location: /files/'.$filename);
+    }
 ?>

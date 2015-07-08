@@ -92,9 +92,9 @@ class ecnecApp extends DefaultApplication
    {
        $info['table'] = ECENC_MEETING_TBL;
        $info['data']  = getUserDataSet(ECENC_MEETING_TBL);
-       $info['debug'] = false;
+       $info['debug'] = true;
        
-       
+       $info['data']['meeting_time']  = date("H:i", strtotime($info['data']['meeting_time']));
        $result = insert($info);
        
        return createPage(MEETING_EDITOR_TEMPLATE, $data);

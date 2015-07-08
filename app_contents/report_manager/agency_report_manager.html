@@ -7,9 +7,9 @@
 <div id="main-content" class="clearfix">
     <div id="breadcrumbs">
         <ul class="breadcrumb">
-                <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
-                <li><a href="#">Reports</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-                <li class="active">Year wise project</li>
+            <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li><a href="#">Reports</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li class="active">Year wise project</li>
         </ul><!--.breadcrumb-->
     </div><!--#breadcrumbs-->
 
@@ -19,12 +19,9 @@
         </div><!--/page-header-->
         
         <div class="row-fluid">
-        <!-- PAGE CONTENT BEGINS HERE -->
-
-<form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}">
-	
-    <div class="well span12">
-        
+            <!-- PAGE CONTENT BEGINS HERE -->
+            <form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}">
+    <div class="well">
         <table style="width: 100%;" cellpadding="5" >
             <tr>
                 <td colspan="2">
@@ -113,7 +110,11 @@
         </fieldset>
     </div>
     {if $project_list}
-    <div class="span12 no-padding">
+    <div>
+        <label class="left">export to: 
+            <input type="hidden" name="report_type" id="report_type" value="pdf">
+            <a href="#" onclick="document.forms[0].submit();return false;" target="_top"><img src="{$SYSTEM_COMMON_IMAGES_DIR}/pdf.png"></a>
+        </label>
         <table id="table_bug_report" class="table table-striped table-bordered table-hover">
             <thead>                                               
                 <tr>
