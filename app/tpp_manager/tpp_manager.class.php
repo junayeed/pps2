@@ -36,10 +36,11 @@ class tppManagerApp extends DefaultApplication
            //case 'saveAnnexI'         : $screen = $this->saveProjectLocationWithCost(); break;
            case 'annexIII'           : $screen = $this->showConcultantDetails();       break;
            case 'saveAnnexIII'       : $screen = $this->saveConcultant();              break;
+           case 'annexI_attachment'  : $screen = $this->annexIAttachment();           break;
           
            
            case 'annexVIIIa'         : $screen = $this->showProcurementPlanGOODS();    break;
-           case 'annexVIIIa'         : $screen = $this->showProcurementPlanSERVICES(); break;
+           case 'annexVIIIb'         : $screen = $this->showProcurementPlanSERVICES(); break;
            case 'saveAnnexVIIIa'     : $screen = $this->saveProcurementPlan($cmd);     break;
            case 'saveAnnexVIIIb'     : $screen = $this->saveProcurementPlan($cmd);     break;
            
@@ -49,6 +50,7 @@ class tppManagerApp extends DefaultApplication
            case 'annexV'             : $screen = $this->showAnnexV();                  break;
            case 'annexVI'            : $screen = $this->showAnnexVI();                  break;
            case 'annexVII'           : $screen = $this->showAnnexVII();                  break;
+           case 'saveAnnexVII'       : $screen = $this->saveAnnexVII();                  break;
            case 'saveAnnexV'         : $screen = $this->saveCounterPerson();           break;
            
            case 'saveAnnexI'         : $screen = $this->saveTPPAnnexI();               break;
@@ -64,7 +66,7 @@ class tppManagerApp extends DefaultApplication
       }
 
      
-     if($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear')
+     if($cmd == 'deleteprocplan' || $cmd == 'excel' || $cmd == 'deletecomponent' || $cmd == 'deleteyear' || $cmd == 'annexI_attachment')
       {
          return;
       }
@@ -81,6 +83,16 @@ class tppManagerApp extends DefaultApplication
       return true;
 
    }
+   
+   function annexIAttachment()
+    {
+       $data['PI']       = getUserField('PI');
+       $data['annex_id'] = getUserField('annex_id');
+        
+       //dumpVar($data);
+       return  createPage(ANNEX_I_ATTACHMENT_TEMPLATE, $data); 
+       
+    }
    
     function saveComment()
     {
@@ -185,7 +197,7 @@ class tppManagerApp extends DefaultApplication
         $infoC['debug']  = false;
         $infoC['where']  = 'pid = ' . $pid . ' AND year_serial = ' . $year_serial;
                 
-        if ( delete($info) && delete($infoC))
+        if ( delete($info) || delete($infoC))
         {
             $this->updateAnexVTotalyear($pid, $year_serial-1);
         
@@ -222,16 +234,16 @@ class tppManagerApp extends DefaultApplication
         
         if (delete($info))
         {
-            //$msg  = $this->getMessage(ORDER_DELETE_SUCCESS_MSG);
-            $msg = 'Success';
+            $msg  = $this->getMessage(ORDER_DELETE_SUCCESS_MSG);
+            //$msg = 'Success';
             $type = SUCCESS;
             echo json_encode($msg.'###'.$type);
             die;
         }
         else
         {
-            //$msg  = $this->getMessage(ORDER_DELETE_ERROR_MSG);
-            $msg = 'Error';
+            $msg  = $this->getMessage(ORDER_DELETE_ERROR_MSG);
+            //$msg = 'Error';
             $type = ERROR;
             echo json_encode($msg.'###'.$type);
         }
@@ -250,7 +262,7 @@ class tppManagerApp extends DefaultApplication
         }
         else if ($cmd == 'saveAnnexVIIIb')
         {
-            header ('Location: tpp_manager.php?cmd=annexIIIb&PI='.  base64_encode($pid));
+            header ('Location: tpp_manager.php?cmd=annexVIIIb&PI='.  base64_encode($pid));
         }
         
     }
@@ -309,10 +321,27 @@ class tppManagerApp extends DefaultApplication
        $project = new TPP($pid);
        
        $project->savePartB();
+       
+      
        //$project->savePartBMajorItems();
        
        
        header ('Location: tpp_manager.php?cmd=partB&PI='.  base64_encode($pid));
+   }
+   
+   
+   function saveAnnexVII()
+   {
+       $pid     = base64_decode(getUserField('PI'));
+       $project = new TPP($pid);
+       
+       $project->savePartB();
+       
+      
+       //$project->savePartBMajorItems();
+       
+       
+       header ('Location: tpp_manager.php?cmd=annexVII&PI='.  base64_encode($pid));
    }
    
    
@@ -471,7 +500,7 @@ class tppManagerApp extends DefaultApplication
         $data->basicInfo       = $project->basicInfo;
         
         $data->PI                       =  $PI;
-        $data->procurement_list         = getProcurementPlanList($pid, 'Services');
+        $data->procurement_list         = getProcurementPlanList($pid, 'Goods');
         $data->procurement_method_list  = getProcurementMethodList();
         $data->procurement_type_list    = getProcurementTypeList();
            
@@ -539,8 +568,10 @@ class tppManagerApp extends DefaultApplication
     function saveTPPAnnexI()
     {
         $pid       = base64_decode(getUserField('PI'));
-        updateAnnexV();
-        updateAnnexVContingency();
+        $project   = new TPP($pid);
+        $project->saveBasicInfo();
+        
+        updateAnnexVContingency();  // This will save the Avvex I of TPP in contingency table in DB. Since we are using same table that's why the function name is same as DPP/project_manager
         //updateProjectTotalCost($pid);
 
         header ('Location: tpp_manager.php?cmd=annexI&PI='.  base64_encode($pid));
@@ -628,10 +659,10 @@ class tppManagerApp extends DefaultApplication
         $data['PI']                          = $PI;
         $project                             = new TPP($pid);
         
-        $data['basicInfo']                   = $project->basicInfo;
+        $data['basicInfo']                   = $project->loadPartB();
         $data['counter_person_details']      = $project->getCounterPersonDetails();
         
-        //dumpvar($data['counter_person_details']);
+        //dumpvar($data['basicInfo']);
         
         return createPage(PROJECT_ANNEX_VII_TEMPLATE, $data);
     }

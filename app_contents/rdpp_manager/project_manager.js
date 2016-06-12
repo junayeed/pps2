@@ -194,7 +194,7 @@ function populateContingency(economic_code_id, economic_subcode_id, economic_sub
 }
 
 function populateComponentDetails(economic_code_id, economic_subcode_id, economic_subcode_name, unit, unit_cost, qty, total_cost, gob, gob_fe, 
-                                  rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe,annex_id, attachment_path, attachment_id)
+                                  rpa_through_gob, rpa_special_account, dpa, own_fund, own_fund_fe, other, other_fe,annex_id, attachment_path, attachment_id,id)
 {
     var elemID = COMPONENT_ROW_ID - 1;
     
@@ -218,6 +218,7 @@ function populateComponentDetails(economic_code_id, economic_subcode_id, economi
     $('#other_'+elemID).val((other*1).toMoney(2));
     $('#other_fe_'+elemID).val((other_fe*1).toMoney(2));
     $('#annex_id_'+elemID).val(annex_id);
+    $('#cum_id_'+elemID).val(id);
     $('#attachment_'+elemID).attr('href', $('#attachment_'+elemID).attr('href') + '&annex_id='+annex_id);
     
     if (attachment_path)
@@ -350,7 +351,8 @@ function addNewComponent(com_type,buttonClick)
                                <input type="text" name="other_fe_'+COMPONENT_ROW_ID+'"     id="other_fe_'+COMPONENT_ROW_ID+'"     value="" class="span12" onchange="updateCumulativeProgressRow(this.value,\'other_fe\','+COMPONENT_ROW_ID+')" /></td>';
     
     var td_hidden      = '<input type="hidden" name="annex_id_'+COMPONENT_ROW_ID+'" id="annex_id_'+COMPONENT_ROW_ID+'" value="" >'
-    $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_total_gob + td_pa_gob + td_pa_spc_acnt + td_pa_dpa + td_own_fund + td_other +td_hidden + '</tr>').appendTo("#total_cost_breakdown_tbl > #" + component_type + "_total_cost_breakdown_content");
+    var td_hidden1     = '<input type="hidden" name="cum_id_'+COMPONENT_ROW_ID+'" id="cum_id_'+COMPONENT_ROW_ID+'" value="" >'
+    $('<tr id="tr_'+COMPONENT_ROW_ID+'">'+ td_total_gob + td_pa_gob + td_pa_spc_acnt + td_pa_dpa + td_own_fund + td_other +td_hidden +td_hidden1+ '</tr>').appendTo("#total_cost_breakdown_tbl > #" + component_type + "_total_cost_breakdown_content");
     
     //$(".chzn-select").chosen();
     componentRowIDArray.push(COMPONENT_ROW_ID);
@@ -1010,7 +1012,7 @@ function updateComDetail(thisValue,thisField,year,elemID)
     $.ajax
     (
         {                                      
-            url: 'http://'+document.domain+'/app/ajax/ajax.php?cmd=updateComDetail',
+            url: 'http://'+document.domain+'/app/ajax/ajax2.php?cmd=updateComDetail',
             data: "annex_id="+annexID+"&thisField="+thisField+'&thisValue='+thisValue+'&PI='+PI+'&year_serial='+year+'&financial_year='+financial_year,
             dataType: 'json',
             success: function(responseText)

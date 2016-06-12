@@ -48,7 +48,7 @@ class reportManagerApp extends DefaultApplication
     */
     function showEditor($msg)
     { 
-        $user_type                  = getFromSession('user_type');
+        $user_type                  = getFromSession('user_type'); 
         $agency_id                  = getFromSession('agency_id');
         $ministry_id                = getFromSession('ministry_id');
         $sector_division            = getFromSession('sector_division');
@@ -145,7 +145,7 @@ class reportManagerApp extends DefaultApplication
                                 'VPGT.other_fe_cost', 'ASLT.name AS adp_sector', 'ASUBLT.name AS adp_sub_sector', 'PT.date_of_commencement', 
                                 'PT.date_of_completion', 'SDLT.name AS sector_division');
         
-        $data['project_list'] = select($info);
+        $data['project_list'] = select($info); 
         
         foreach($data['project_list'] as $value)
         {
@@ -156,14 +156,14 @@ class reportManagerApp extends DefaultApplication
         {
             $data['project_list'] = getAgencyWiseProjectList($data['project_list']);
         }
-        else if ($user_type == 'Commission')
+        else if ($user_type == 'Commission' || $user_type == 'ECNEC')
         {
             $data['project_list'] = getMinistryAgencyWiseProjectList($data['project_list']);
         }
         
         $pageTemplate    = sprintf("%s/%s%s", TEMPLATE_DIR, strtolower($user_type), REPORT_EDITOR_TEMPLATE);
         $pdfTemplate     = sprintf("%s/%s%s", TEMPLATE_DIR, strtolower($user_type), PDF_REPORT_TEMPLATE);
-        
+        //die ($pageTemplate);
         if (!file_exists($pageTemplate))
         {
             echo "Template file not exists. Please check it.";

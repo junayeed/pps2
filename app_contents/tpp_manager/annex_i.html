@@ -2,9 +2,12 @@
     <head>
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery.gritter.css" />
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
         <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+        <link rel="stylesheet" href="/app_contents/standard/template/assets/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/ext/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
         
         <script type="text/javascript" src="/app_contents/local/js/pps2.js"></script>
         <script type="text/javascript" src="/app_contents/common/js/messages.js"></script>
@@ -25,7 +28,7 @@
         <ul class="breadcrumb">
             <li><i class="icon-home"></i> <a href="#">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
             <li><a href="#">Project</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-            <li class="active">Annexure- I: Year wise breakdown of component wise estimated cost </li>
+            <li class="active">Annexure - I: Detailed annual phasing cost</li>
         </ul><!--.breadcrumb-->
         <div id="nav-search">    
         </div><!--#nav-search-->
@@ -33,7 +36,7 @@
 
     <div id="page-content" class="clearfix">
         <div class="page-header position-relative">
-            <h1>Annexure - I<small><i class="icon-double-angle-right"></i> Year wise breakdown of component wise estimated cost</small></h1>
+            <h1>Annexure - V<small><i class="icon-double-angle-right"></i>Detailed annual phasing cost</small></h1>
             <div id="nav-search">
                 <a class="btn btn-small btn-primary" href="{$SCRIPT_NAME}?cmd=ProjectHome&PI={$PI}">Project Main Page</a>
             </div>  
@@ -44,7 +47,22 @@
            
 
             <!--<form class="form-horizontal" id="validation-form"  method="post" action="{$SCRIPT_NAME}">--> 
-            <form class="form-horizontal" id="procure_plan_services_form"  method="post" action="{$SCRIPT_NAME}" name="procure_plan_services_form"> 
+            <form class="form-horizontal" id="procure_plan_services_form"  method="post" action="{$SCRIPT_NAME}" onsubmit="return submitFrm()" name="procure_plan_services_form"> 
+                {if $error eq '1'}
+                <div class="alert alert-block alert-error">
+                    <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+                    <strong><i class="icon-remove"></i> An error occurred while saving the data.</strong>
+                    
+		</div>
+                {/if}
+                {if $error eq '0'}
+                <div class="alert alert-block alert-success">
+			<button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+			<p>
+                            <strong><i class="icon-ok"></i> Data has been saved successfully.</strong>
+			</p>
+		</div>
+                {/if}
                 <div class="control-group">
                     
                     <div class="span12"> 
@@ -57,7 +75,7 @@
                                     <option value=""></option>
                                     <option value="pdf">pdf</option>
                                     <option value="excel">excel</option>
-                                    <option value="word">word</option>
+                                    <!--<option value="word">word</option>-->
                                 </select>
                             </div>
                         </div>
@@ -174,17 +192,17 @@
                                         </tr>
                                         <tr>
                                             <th class="span3 center" rowspan="3">GoB<br />(FE)</th>
-                                            <th class="span3 center" colspan="3">Project Aid</th>
+                                            <th class="span1 center" colspan="3">Project Aid</th>
                                             <th class="span3 center" rowspan="3">Own Fund <br />(FE)</th>
                                             <th class="span3 center" rowspan="3">Other <br />(FE)</th>
                                         </tr>
                                         <tr>
-                                            <th class="span3 center" colspan="2">RPA</th>
+                                            <th class="span1 center" colspan="2">RPA</th>
                                             <th class="span3 center" rowspan="2">DPA</th>
                                         </tr>
                                         <tr>
-                                            <th class="span1 center">Through<br />GoB</th>
-                                            <th class="span1 center">Special<br />Account*</th>
+                                            <th class="span2 center">Through<br />GoB</th>
+                                            <th class="span2 center">Special<br />Account*</th>
                                         </tr>
                                     </thead>
                                     <tbody id="Revenue_Component_total_cost_breakdown_content">
@@ -329,14 +347,14 @@
                         
                         <div class="form-actions2">
                             <button class="btn btn-small btn-primary" type="button" id="addyear"onClick="addNewYear(1);">Add Year</button>
-                            <button class="btn btn-small btn-primary"><i class="icon-save"></i> Save</button>
+                            <button class="btn btn-small btn-primary" type="submit"><i class="icon-save"></i> Save</button>
                             <div id="export_to_container">
                                 Export To: 
                                 <select name="report_type" id="report_type" class="span6" onchange="createAnnexVReport();">
                                     <option value=""></option>
                                     <option value="pdf">pdf</option>
                                     <option value="excel">excel</option>
-                                    <option value="word">word</option>
+                                    <!--<option value="word">word</option>-->
                                 </select>
                             </div>
                             <input type="hidden" value="saveAnnexI" name="cmd"/>
@@ -371,24 +389,19 @@
         <script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
     <![endif]-->
 
+    <script src="/app_contents/standard/template/assets/js/jquery-migrate-1.0.0.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/chosen.jquery.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.spinner.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-timepicker.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/fuelux.wizard.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/daterangepicker.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.knob.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.autosize-min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.gritter.min.js"></script>
+    <script type="text/javascript" src="/ext/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+    <script type="text/javascript" src="/ext/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
     
+    <!--script src="/app_contents/standard/template/assets/js/jquery.stickytableheaders.js"></script>
+    <script src="/app_contents/standard/template/assets/js/jquery.stickytableheaders.min.js"></script -->
     <!-- ace scripts -->
     <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
     <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
@@ -400,7 +413,8 @@
                 $("#sidebar").toggleClass("menu-min");
         });
         {literal}
-       
+        
+        
         $('#toggle_total_cost_breakdown').click(function() 
         {
             if( $('#total_cost_breakdown_tbl').is(":visible") )
@@ -427,7 +441,7 @@
                                         'id':"{$item->id}" 
                                 {rdelim}
                                 );
-           $('#total_year_in_annexv').val({$item->total_year})                     
+                                
            
         {/foreach}
         
@@ -445,21 +459,30 @@
         {/foreach}
         
         var component_count = 0;
-        var total_years; 
+        var total_years = 0; 
+        
+        total_years = "{$component_list[0]->total_year}";  
+        $('#total_year_in_annexv').val(total_years)
+        
+       
         
         {foreach from=$component_list item=item}
-            
-            addNewComponent("{$item->component_type}",0);
-            populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name}", "{$item->unit}", 
+           
+           var com_type = "{$item->component_type}" ? "{$item->component_type}" : "{$item->comp_type}";
+           
+            addNewComponent(com_type,0);
+            //addNewComponent(com_type,0);
+            populateComponentDetails("{$item->economic_code_id}", "{$item->economic_subcode_id}", "{$item->economic_subcode_name} ", "{$item->unit}", 
                                      "{$item->unit_cost}", "{$item->qty}", "{$item->total_cost}", "{$item->gob}", "{$item->gob_fe}", 
                                      "{$item->rpa_through_gob}", "{$item->rpa_special_account}", "{$item->dpa}", "{$item->own_fund}",
-                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}");
-           total_years = "{$item->total_year}";    
+                                     "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", "{$item->id}", "{$item->attachment_path}", "{$item->attachment_id}");
+          
+           
            component_count++;
         {/foreach}
             
         // if data is there load the years 
-        if ( total_years )
+        if ( total_years>0 )
         {ldelim}
             //populate years
             for(var i = 0; i<total_years;i++)
@@ -469,19 +492,22 @@
         {rdelim}
         else
         {ldelim}
-            addNewYear();
+              addNewYear();
         {rdelim}
         
         var count=1;
         var year_count=1;
         var cp_count =1;
         {foreach from=$annx_v_component_details item=item}
-            //alert("Year: "+"{$item->year_serial}"+"\nCount = " + count);
-            addYearWiseNewComponentDetailsRow("{$item->component_type}", "{$item->year_serial}", count);
+            var com_type = "{$item->component_type}" ? "{$item->component_type}" : "{$item->comp_type}";
+            
+            //alert(com_type)
+            addYearWiseNewComponentDetailsRow(com_type, "{$item->year_serial}", count);
+           
             populateAnnexComponentDetails("{$item->gob}", "{$item->gob_fe}", "{$item->rpa_through_gob}", "{$item->rpa_special_account}", 
                                           "{$item->dpa}", "{$item->own_fund}", "{$item->own_fund_fe}", "{$item->other}", "{$item->other_fe}", 
                                           "{$item->year_serial}", "{$item->id}","{$item->financial_year}", count, "{$item->total}");
-            
+            //alert({$item->year_serial} + ' '+count)
             if( year_count%total_years==0 ) count++;
             
             if(cp_count%total_years==0) cp_count=0;
@@ -549,6 +575,37 @@
                 $("td > a").hide();
                 $("#addyear").hide();
             }
+            
+        $(".annexV_attachment").fancybox(
+        {
+            'width'          : '75%',
+            'height'	     : '20%',
+            'autoScale'	     : true,
+            'transitionIn'   : 'none',
+            'transitionOut'  : 'none',
+            'topRatio'       : 0,
+            'top'       : '20px',
+            'type'   	     : 'iframe'
+        });
+        
+        
+        function submitFrm()
+        {
+            
+            if(componentRowIDArray.length <=0)
+            {
+                alert("Please provide some Component Details");
+                return false;
+            }    
+            return true;
+        }
+        
+        
+       //$("table").stickyTableHeaders();
+    
         {/literal}
     
+        $(".alert-block").delay(4000).fadeOut(1000);
+        
+        
     </script>    

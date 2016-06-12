@@ -107,7 +107,7 @@
     function updateProcurementPlan()
     {
         $info['table'] = PROJECT_PROCUREMENT_PLAN_TBL;
-        $info['debug'] = false;
+        $info['debug'] = true;
         
         $data['pid']   = base64_decode(getUserField('PI'));
         
@@ -131,12 +131,13 @@
 	        $data['contract_completion']    = $_REQUEST['contract_completion_' . $id];
 	        $data['prequal_invitation']     = $_REQUEST['prequal_invitation_' . $id];
 	        $data['eoi_invitation']         = $_REQUEST['eoi_invitation_' . $id];
+	        $data['rfp_issue']              = $_REQUEST['rfp_issue_' . $id];
 	        $data['create_date']            = date('Y-m-d');
 	        $data['procurement_plan_id']    = $_REQUEST['proc_plan_id_' . $id];
                 $data['procurement_category']   = $_REQUEST['procument_category_' .$id];
                 $data['pid']                    = base64_decode(getUserField('PI'));
                 
-                
+                //dumpVar($data);
                 $info['data'] = $data;                
                 // if procurement_plan_id is there then update the record
                 // else add a new record in procurement plan table
@@ -151,6 +152,7 @@
                 }
  	    }
         }
+        //die;
     }
     
     function updateAnnexV()

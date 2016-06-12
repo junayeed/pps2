@@ -79,7 +79,7 @@
                                         
                                         <th class="hidden-480"> Date</th>
                                         
-                                        <th style="text-align: center;" class="hidden-480">Time</th>
+                                        <th style="text-align: center;" class="hidden-480">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,7 +88,7 @@
                                             <td>{$key+1}</td>
                                             <td><a href="/app/ecnec/ecnec.php?cmd=meetingDetails&ID={$item->id}">{$item->meeting_name}</a></td>
                                             <td  class="span3 hidden-480">{$item->meeting_date|date_format:"%e %B, %Y"}</td>
-                                            <td  class="span3 hidden-480">{$item->meeting_time|date_format:"%I:%M %p"}</td>
+                                            <td  class="span3 hidden-480">{$item->meeting_time|date_format:"%I:%m %p"}</td>
                                             <!--td class="hidden-480" style="text-align: center;">
                                                 <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>
                                             </td-->

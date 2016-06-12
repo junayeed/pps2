@@ -24,6 +24,8 @@
    define('MEETING_EDITOR_TEMPLATE',           TEMPLATE_DIR . '/ecnec_meeting.html');
    define('ECNEC_LIST_TEMPLATE',               TEMPLATE_DIR . '/ecnec_list.html');
    define('ECNEC_MEETING_DETAILS_TEMPLATE',    TEMPLATE_DIR . '/ecnec_meeting_details.html');
+   define('ADD_PROJECTS_MODAL_TEMPLATE',       TEMPLATE_DIR . '/modal_add_project.html');
+   define('PROJECTS_ASSIGN_MODAL_TEMPLATE',    TEMPLATE_DIR . '/modal_assign_project.html');
 
 
    /**#@+

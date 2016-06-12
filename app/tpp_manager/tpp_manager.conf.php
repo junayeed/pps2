@@ -39,6 +39,7 @@
    define('PROJECT_COMMENT_TEMPLATE',                     TEMPLATE_DIR . '/comment.html');
    define('PROJECT_ATTACHMENT_TEMPLATE',                  TEMPLATE_DIR . '/attachment.html');
    define('SICCESS_MSG_TEMPLATE',                         TEMPLATE_DIR . '/success_msg.html');
+   define('ANNEX_I_ATTACHMENT_TEMPLATE',                  TEMPLATE_DIR . '/annexI_attachment.html');
    
 
     define('ERROR',            'Error');

@@ -339,7 +339,7 @@
    * @return array  $ret -- returns the new row ID or null
    */
    function insert($data = null)
-   {
+   { 
      $ret = array();
      $fieldMap = getTableFields($data['table']);
      $valueList = array();
@@ -1002,8 +1002,6 @@
 
        // Create the filename
        $template = sprintf("%s/%s_home.html", USER_HOME_DIR, $filename);
-       
-       
 
        // If the chosen user template does not exists,
        // use default template
