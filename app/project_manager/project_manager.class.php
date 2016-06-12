@@ -119,8 +119,7 @@ class projectManagerApp extends DefaultApplication
     {
         $pid                      = base64_decode(getUserField('PI'));
         $data['current_holder']   = getUserField('desk_officer');
-        //$data['plancomm_status']  = 'Forwarded';
-        
+               
         $info['table']  = PROJECT_TBL;
         $info['data']   = $data;
         $info['debug']  = false;
@@ -128,7 +127,7 @@ class projectManagerApp extends DefaultApplication
         
         if (update($info) )
         {
-            $this->updatePlanningCommissionStatus($pid, $data['plancomm_status'], $data['desk_officer']);
+            $this->updatePlanningCommissionStatus($pid, 'Forwarded', $data['desk_officer']);
         }
         
         $data['PI']       = getUserField('PI');
@@ -248,7 +247,7 @@ class projectManagerApp extends DefaultApplication
         {
             
         }    
-        header ('Location: tpp_manager.php?cmd=ProjectHome&PI='.  base64_encode($pid));
+        header ('Location: project_manager.php?cmd=ProjectHome&PI='.  base64_encode($pid));
         
        
     }
