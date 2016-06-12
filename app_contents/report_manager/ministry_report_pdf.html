@@ -1,0 +1,95 @@
+<head>
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+    <script language="JavaScript" src="{$REL_TEMPLATE_DIR}/report_manager.js"></script>
+</head>
+<div id="main-content" class="clearfix">
+    {if $project_list}
+        <table  cellspacing="0" cellpadding="0">
+            <thead>                                               
+                <tr style="border: 1px #000000 solid;">
+                    <th style="border: 1px #000000 solid;">Sl</th>
+                    <th style="border: 1px #000000 solid;">Project Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                {assign var="count" value="1"}
+                {foreach from=$project_list key=oKey item=oItem}
+                    <tr style="border: 1px #000000 solid;">
+                        <td colspan="2"  style="border: 1px #000000 solid;">&nbsp;&nbsp;&gt;&gt;&nbsp;{$oKey}<td>
+                    </tr>
+                    {foreach from=$oItem key=key item=item}
+                    <tr style="border: 1px #000000 solid;">
+                        <td style="border: 1px #000000 solid;">{$count}</td>
+                        <td style="border: 1px #000000 solid;">
+                            <strong>{$item->project_title_en|truncate:100}</strong> [{$item->status}] ({$item->project_type})
+                            <br><br><u>Project Summary</u><br>
+                            <table cellspacing="0" cellpadding="0" width="100%" style="font-size: 12px;">
+                                <tr>
+                                    <td width="75%">
+                                        <b>Agency: </b>{$item->agency}<br>
+                                        <b>Ministry: </b>{$item->ministry}<br>
+                                        <b>ADP Sector (Sub Sector): </b>{$item->adp_sector} ({$item->adp_sub_sector})<br>
+                                        <b>Planning Commission Sector: </b>{$item->sector_division}<br>
+                                        <b>Development Partners: </b>{$item->development_partners}<br>
+                                        <b>Date of commencement: </b>{$item->date_of_commencement}<br>
+                                        <b>Date of completion: </b>{$item->date_of_completion}
+                                    </td>
+                                    <td valign="top" width="25%" style="padding-left: 5px;">
+                                        <div class="span3 infobox-container ">
+                                            <b>GOB:</b> {$item->gob_cost|number_format:2:".":","}
+                                            {if $item->total_cost}
+                                                {assign var="gob_percentage" value=$item->gob_cost/$item->total_cost*100}
+                                                ({$gob_percentage|number_format:2:".":","}%)
+                                            {else}
+                                                (0.00%)
+                                            {/if}
+                                        </div>
+                                        <div class="span3 infobox-container">
+                                            {assign var="total_project_aid" value=$item->pa_through_gob_cost+$item->pa_spc_acnt_cost+$item->pa_dpa_cost}
+                                            <b>Project Aid:</b> {$total_project_aid|number_format:2:".":","}
+                                            {if $item->total_cost}
+                                                {assign var="pa_percentage" value=$total_project_aid/$item->total_cost*100}
+                                                ({$pa_percentage|number_format:2:".":","}%)
+                                            {else}
+                                                (0.00%)
+                                            {/if}
+                                        </div>
+                                        <div class="span3 infobox-container">
+                                            <b>Own Fund:</b> {$item->own_fund_cost|number_format:2:".":","}
+                                        {if $item->total_cost}
+                                            {assign var="own_fund_percentage" value=$item->own_fund_cost/$item->total_cost*100}
+                                            ({$own_fund_percentage|number_format:2:".":","}%)
+                                        {else}
+                                            (0.00%) 
+                                        {/if}
+                                        </div>
+                                        <div class="span3 infobox-container">
+                                            <b>Other:</b> {$item->other_cost|number_format:2:".":","}
+                                            {if $item->total_cost}
+                                            {assign var="other_percentage" value=$item->other_cost/$item->total_cost*100}
+                                            ({$other_percentage|number_format:2:".":","}%)
+                                        {else}
+                                            (0.00%)
+                                        {/if}
+                                        </div>
+                                        <div class="span3 infobox-container">
+                                            <b>Total Cost:</b> {$item->total_cost|number_format:2:".":","}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    {assign var="count" value=$count+1}
+                    {/foreach}
+                    
+                {/foreach}
+            </tbody>
+        </table>
+    {/if}
+</form>
+	   
+<!-- PAGE CONTENT ENDS HERE -->
+</div><!--/row-->

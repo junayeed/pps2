@@ -18,7 +18,7 @@
     *  Any changes you need MUST be approved by your PM.
     *
     ***********************************************************/
-
+   date_default_timezone_set('Asia/Dhaka');
    // Default language
    define('DEFAULT_LANGUAGE', 'en-us');
 

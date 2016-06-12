@@ -30,17 +30,18 @@ class ecnecApp extends DefaultApplication
            case 'delete'            : $screen = $this->deleteRecord();            break;
            case 'meeting_list'      : $screen = $this->showList();                break;
            case 'meetingDetails'    : $screen = $this->meetingDetails();          break;
+           case 'assign_projects'   : $screen = $this->showProhectAssignModal();    break;
            default                  : $screen = $this->showEditor($msg);
       }
 
       // Set the current navigation item
       $this->setNavigation('user');
 
-      //if ($cmd == 'list')
-      //{
-      //   echo $screen;
-      //}
-      //else
+      if ($cmd == 'add_projects' || $cmd == 'assign_projects')
+      {
+         echo $screen;
+      }
+      else
       {
          echo $this->displayScreen($screen);
       }
@@ -48,6 +49,17 @@ class ecnecApp extends DefaultApplication
       return true;
 
    }
+   
+   function showProhectAssignModal()
+   {
+       $data['projectID']                    = base64_decode(getUserField('projectID')); 
+       $data['meetingList']                  = getFutureECNECMeetingList();
+       $data['ecnec_assigned_project_list']  = getECNECAssignedProjectList();
+       
+       //dumPVar($data);
+       
+       return  createPage(PROJECTS_ASSIGN_MODAL_TEMPLATE, $data); 
+    }
 
    /**
    * Shows User Editor
@@ -90,9 +102,10 @@ class ecnecApp extends DefaultApplication
    
    function saveMeeting()
    {
-       $info['table'] = ECENC_MEETING_TBL;
-       $info['data']  = getUserDataSet(ECENC_MEETING_TBL);
-       $info['debug'] = false;
+       $info['table']                = ECENC_MEETING_TBL;
+       $info['data']                 = getUserDataSet(ECENC_MEETING_TBL);
+       $info['data']['meeting_time'] = date("H:i", strtotime($info['data']['meeting_time']));
+       $info['debug']                = false;
        
        
        $result = insert($info);

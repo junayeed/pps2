@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="/ext/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+
 <div id="main-content" class="clearfix">
 					
     <div id="breadcrumbs">
@@ -131,11 +133,16 @@
                                                             
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-small btn-success">
-                                                               
+                                                            {if $ecnec_assigned_project_list[$item->id]->meeting_name}
+                                                                Assign to {$ecnec_assigned_project_list[$item->id]->meeting_name} on {$ecnec_assigned_project_list[$item->id]->meeting_date|date_format:"%d/%m/%Y"}
+                                                                <a id="various3" class="btn btn-small btn-primary" href="/app/ecnec/ecnec.php?cmd=assign_projects&projectID={$item->id|base64_encode}">
+                                                                Reassign
+                                                            </a>
+                                                            {else}
+                                                            <a id="various3" class="btn btn-small btn-primary" href="/app/ecnec/ecnec.php?cmd=assign_projects&projectID={$item->id|base64_encode}">
                                                                 Assign to ECNEC Meeting
-                                                            </button>
-                                                            
+                                                            </a>
+                                                            {/if}
                                                         </td>
                                                     </tr>
                                                 {/foreach}
@@ -165,7 +172,7 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
 </script>
 
 <script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>   
-
+<script src="/app_contents/standard/template/assets/js/jquery-migrate-1.0.0.js"></script>
 <!-- page specific plugin scripts -->
 
 <!--[if lt IE 9]>
@@ -182,6 +189,7 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
 <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
 <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
 
+<script type="text/javascript" src="/ext/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 
 <script src="/ext/highcharts/js/highcharts.js"></script>
 <script src="/ext/highcharts/js/highcharts-3d.js"></script>
@@ -189,6 +197,17 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
 
 <script>
 {literal}
+    $("#various3, #various1").fancybox(
+    {
+        'width'				: '75%',
+        'height'			: '100%',
+        'autoScale'			: false,
+        'transitionIn'		: 'none',
+        'transitionOut'		: 'none',
+        'type'				: 'iframe',
+        'onClosed'          : function(){ location.href=parent.location.href;}
+    });
+    
     $('.slim-scroll').each(function () 
     {
 		var $this = $(this);

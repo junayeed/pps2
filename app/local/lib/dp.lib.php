@@ -548,6 +548,25 @@
         return $result;
    }
    
+   function getECNECAssignedProjectList()
+   {
+       $info['table']  = ECENC_PROJECT_TBL . ' AS EPT LEFT JOIN ' . ECENC_MEETING_TBL . ' AS EMT ON (EPT.meeting_id = EMT.id)';
+       $info['debug']  = false;
+       
+       $result = select($info);
+       
+       if ( !empty($result) )
+       {
+           foreach($result as $value)
+           {
+               $retData[$value->project_id] = $value;
+           }
+           return $retData;
+       }
+       
+       return '';
+   }
+   
     function getDraftProjectTotal()
     {
         $info['table']  = PROJECT_TBL.' AS PR LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VPGT ON(PR.id = VPGT.pid)';
@@ -814,6 +833,24 @@
        
        if(!empty($result)) return 1;
        return 0;
+   }
+   
+   function isECNECProjectAssign($projectID)
+   {
+       $info['table']  = ECENC_PROJECT_TBL;
+       $info['debug']  = false;
+       $info['where']  = 'project_id = ' . $projectID;
+       
+       $result = select($info);
+       
+       if ( !empty($result) )
+       {
+           return 1;  // means project already assigned to a meeting
+       }
+       else
+       {
+           return 0;  // means project is not assigned
+       }
    }
    
 ?>

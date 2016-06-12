@@ -207,7 +207,7 @@ class User extends Entity
    */
    function getUserType()
    {
-      return $this->user_type;
+       return $this->user_type;
    }
 
    /**

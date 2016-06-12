@@ -61,6 +61,8 @@
             $data['project_list']       = getProjectList();
             $data['draft_project']      = getDraftProjectTotal();
             $data['approved_project']   = getApproveProjectTotal();
+            $data['ecnec_assigned_project_list']  = getECNECAssignedProjectList();
+            //dumpVar($data);
             
             if ($user_type == 'Commission')
             {

@@ -25,33 +25,80 @@ class ajaxApp extends DefaultApplication
       switch ($cmd)
       {
           
-           case 'deleteManagement'         : $screen = $this->deleteManagementItem();                  break;
-           case 'deleteConcultant'         : $screen = $this->deleteConcultantItem();                  break;
-           case 'deleteCounterPerson'      : $screen = $this->deleteCounterPerson();                   break;
-           case 'updateMajorItems'         : $screen = $this->updateMajorItems();                      break;
-           case 'getAgencyList'            : $screen = $this->getAgencyListByMinistry();               break;
-           case 'getSubSector'             : $screen = $this->getSubSectorByAdp();                     break;
-           case 'getDistrict'              : $screen = $this->getDistrictListByDivision();             break;
-           case 'getUpzilla'               : $screen = $this->getUpzillaListByDistrict();              break;
-           case 'ProjectHome'              : $screen = $this->showProjectHomePage();                   break;
-           case 'createAnnexVRow'          : $screen = $this->createAnnexVRow();                       break;
-           case 'updateYearInAnnexVRow'    : $screen = $this->updateYearInAnnexVRow();                 break;
-           case 'saveAnnexVAttachment'     : $screen = $this->saveAnnexVAttachment();                  break;
-           case 'saveStatusOfCommission'   : $screen = $this->saveStatusOfCommission();                break;
-           case 'deleteattachment'         : $screen = $this->deleteAttachment();                      break;
-           case 'delEconCodeattachment'    : $screen = $this->deleteEconomicCodeAttachment();          break;
-           case 'updateAnnexV'             : $screen = $this->updateAnnexVRowItem();                   break;
-           case 'saveFiscalYear'           : $screen = $this->saveFiscalYear();                        break;
-           case 'updateComDetail'             : $screen = $this->updateComDetail();                       break;
-           case 'updateCumulativeProgressRow' : $screen = $this->updateCumulativeProgressRow();                       break;
-           case 'projectlifetime'             : $screen = $this->updateProjectLifeTime();                 break;
-           case 'projectdiscountrate'      : $screen = $this->updateProjectDiscountRate();             break;
-           case 'capitalcost'              : $screen = $this->updateProjectAnalysisCost();             break;
-           case 'npvbcrirr'                : $screen = $this->updateProjectNPVBCRIRR();                break;
-           default                         : $screen = $this->showEditor($msg);
+           case 'deleteManagement'              : $screen = $this->deleteManagementItem();                  break;
+           case 'deleteConcultant'              : $screen = $this->deleteConcultantItem();                  break;
+           case 'deleteCounterPerson'           : $screen = $this->deleteCounterPerson();                   break;
+           case 'updateMajorItems'              : $screen = $this->updateMajorItems();                      break;
+           case 'getAgencyList'                 : $screen = $this->getAgencyListByMinistry();               break;
+           case 'getSubSector'                  : $screen = $this->getSubSectorByAdp();                     break;
+           case 'getDistrict'                   : $screen = $this->getDistrictListByDivision();             break;
+           case 'getUpzilla'                    : $screen = $this->getUpzillaListByDistrict();              break;
+           case 'ProjectHome'                   : $screen = $this->showProjectHomePage();                   break;
+           case 'createAnnexVRow'               : $screen = $this->createAnnexVRow();                       break;
+           case 'updateYearInAnnexVRow'         : $screen = $this->updateYearInAnnexVRow();                 break;
+           case 'saveAnnexVAttachment'          : $screen = $this->saveAnnexVAttachment();                  break;
+           case 'saveStatusOfCommission'        : $screen = $this->saveStatusOfCommission();                break;
+           case 'deleteattachment'              : $screen = $this->deleteAttachment();                      break;
+           case 'delEconCodeattachment'         : $screen = $this->deleteEconomicCodeAttachment();          break;
+           case 'updateAnnexV'                  : $screen = $this->updateAnnexVRowItem();                   break;
+           case 'saveFiscalYear'                : $screen = $this->saveFiscalYear();                        break;
+           case 'updateComDetail'               : $screen = $this->updateComDetail();                       break;
+           case 'updateCumulativeProgressRow'   : $screen = $this->updateCumulativeProgressRow();           break;
+           case 'projectlifetime'               : $screen = $this->updateProjectLifeTime();                 break;
+           case 'projectdiscountrate'           : $screen = $this->updateProjectDiscountRate();             break;
+           case 'capitalcost'                   : $screen = $this->updateProjectAnalysisCost();             break;
+           case 'npvbcrirr'                     : $screen = $this->updateProjectNPVBCRIRR();                break;
+           case 'addECNECProject'               : $screen = $this->addECNECProject();                       break;
+           case 'assignECNECProject'            : $screen = $this->assignECNECProject();                    break;
+           case 'removeECNECProject'            : $screen = $this->removeECNECProject();                    break;
+           default                              : $screen = $this->showEditor($msg);
       }
 
       return true;
+    }
+    
+    function removeECNECProject()
+    {
+        
+    }
+    
+    function assignECNECProject()
+    {
+        $meetingID = base64_decode(getUserField('meetingID'));
+        $projectID = base64_decode( getUserField('projectID') );
+        
+        if ( isECNECProjectAssign($projectID) )
+        {
+            echo 2; // 2 means project already assign to a meeting.
+            die;
+        }
+        else
+        {
+            $data['meeting_id'] = $meetingID;
+            $data['project_id'] = $projectID;
+            
+            $info['table']  = ECENC_PROJECT_TBL;
+            $info['debug']  = false;
+            $info['data']   = $data;
+            
+            insert($info);
+            
+            echo 1;
+        }
+    }
+    
+    function addECNECProject()
+    {
+        $data['meetingID']           = base64_decode(getUserField('meetingID'));
+        $data['projectID']           = base64_decode( getUserField('projectID') );
+        
+        $info['table']  = ECENC_PROJECT_TBL;
+        $info['debug']  = true;
+        $info['data']   = $data;
+        
+        insert($info);
+        
+        return 1;
     }
     
     function updateProjectAnalysisCost()
@@ -146,7 +193,7 @@ class ajaxApp extends DefaultApplication
         //$pid       = base64_decode(getUserField('PI'));
         $annex_id  = getUserField('annex_id');
         $thisField = getUserField('thisField');
-        $thisValue = getUserField('thisValue');
+        $thisValue = addslashes(getUserField('thisValue'));
         
         $info['table']                 = PROJECT_ANNEX_V_TBL;
         $info['debug']                 = true;

@@ -77,4 +77,26 @@
 
       return 1;
    }
+   
+   function getECNECProjectList()
+   {
+       $info['table'] =  PROJECT_TBL;
+       $info['where'] = 'status = ' . q('Forwarded to ECNEC');
+       $info['debug'] = false;
+
+       $result = select($info);
+       
+       return $result;
+   }
+   
+   function getFutureECNECMeetingList()
+   {
+       $info['table']  = ECENC_MEETING_TBL;
+       $info['where']  = 'meeting_date >= ' . q(date('Y-m-d'));
+       $info['debug']  = false;
+       
+       $result = select($info);
+       
+       return $result;
+   }   
 ?>

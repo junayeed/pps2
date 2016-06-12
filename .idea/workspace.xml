@@ -2,59 +2,560 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3cbc50b8-110f-4059-9b0b-67dd469fc7e8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/comparison_cost.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/comparison_cost.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting_details.html" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\app\common\conf\database.conf.php-LOCAL" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\coordinates\bd_district\doc.kml" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\coordinates\bd_division\doc.kml" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\coordinates\bd_division\doc1.kml" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\temp\0842ad379a0fc68b9f55710c09407912618538cc.file.project_manager_partB.html.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\temp\11724fafcaa82bbdd4b7f0b378188a2e61c0fc29.file.project_manager_home.html.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\temp\4fd5602bc7389a943f44f93ca709afdaed82a203.file.login.html.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\temp\53f255dece853e3da4b76f147198e422d930dadf.file.annex_v.html.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\temp\8a8b9ea253aac412170507c719cc76c5eceb0c21.file.project_manager_partA.html.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\temp\a34058a89fb819c72564803c1e85bae21ae39e84.file.agency_header.html.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\temp\cb6364629cf659af3a312aace71159da226744d8.file.calculation.html.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\temp\e2b62249cb87460f4da4221dec88b2405b5bf739.file.report_manager.html.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\temp\e75ce27f5c56a7f42f94c021fe21c7169ec62411.file.agency_dashboard.html.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\temp\eadd5a3144c78ce9fd9e309bed6a26695ff74cb1.file.project_manager_list.html.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\temp\ef83cca3084817f55a28ff98d69a840e6060904a.file.agency_home.html.php" afterPath="" />
-      <change type="DELETED" beforePath="D:\xampp2\htdocs\pps2\temp\f67dd7f848ef14cf7431dfb8376254a3c0a5ebfc.file.agency_navigation.html.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/Annex-V.xlsx" afterPath="$PROJECT_DIR$/files/Annex-V.xlsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/part_A.doc" afterPath="$PROJECT_DIR$/files/part_A.doc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/part_A.pdf" afterPath="$PROJECT_DIR$/files/part_A.pdf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/temp/056ee548f1ad2dc35aae4261ed89924434e3a5cc.file.chart.html.php" afterPath="$PROJECT_DIR$/temp/056ee548f1ad2dc35aae4261ed89924434e3a5cc.file.chart.html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/temp/295b2eda2744d52a2d5975cda75610bb479a6917.file.ministry_home.html.php" afterPath="$PROJECT_DIR$/temp/295b2eda2744d52a2d5975cda75610bb479a6917.file.ministry_home.html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/temp/6eae37bf9372a064d8e3b546cf6e7771b4b0bf52.file.part_a_pdf.html.php" afterPath="$PROJECT_DIR$/temp/6eae37bf9372a064d8e3b546cf6e7771b4b0bf52.file.part_a_pdf.html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/local/class/RDPP.class.php" afterPath="$PROJECT_DIR$/app/local/class/RDPP.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/standard/template/assets/css/ace.min.css" afterPath="$PROJECT_DIR$/app_contents/standard/template/assets/css/ace.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/files/dynamic_report.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/ajax/ajax.php08072015" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_contents/ecnec/ecnec.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_contents/ecnec/modal_add_project.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_contents/ecnec/modal_assign_project.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_contents/report_manager/agency_report_pdf.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_contents/report_manager/commission_report_pdf.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_contents/report_manager/ecnec_report_manager.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_contents/report_manager/ecnec_report_pdf.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_contents/report_manager/ministry_report_pdf.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_contents/report_manager/report_manager.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app_contents/standard/user_home/super_admin_dashboard.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/class/ApplicationMessage.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/class/DefaultApplication.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/class/Document.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/class/Entity.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/class/User.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/common.lib.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/local/class/Group.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/local/class/Message.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/local/class/Project.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/local/class/TPP.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/local/conf/dp.conf.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/local/lib/dp.lib.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/location_manager/location_manager.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/location_manager/location_manager.conf.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/location_manager/location_manager.lib.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/location_manager/location_manager.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/project_manager/project_manager.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/project_manager/project_manager.conf.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/project_manager/project_manager.lib.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/project_manager/project_manager.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/standard/forgotten_passwd/forgotten_passwd.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/standard/forgotten_passwd/forgotten_passwd.conf.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/standard/forgotten_passwd/forgotten_passwd.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/standard/login/login.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/standard/login/login.conf.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/standard/login/login.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/standard/logout/logout.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/standard/logout/logout.conf.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/standard/logout/logout.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/standard/user_home/user_home.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/standard/user_home/user_home.conf.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/standard/user_home/user_home.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/CHANGELOG.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/CONTRIBUTING.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/COPYING" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/COPYING.LESSER" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/VERSION" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/composer.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/conf.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/containers.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/credits.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/elements.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/faq.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/general.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/images/phpword.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/images/phpword.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/index.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/installing.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/intro.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/recipes.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/references.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/src/documentation.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/styles.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/templates-processing.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/docs/writersreaders.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/phpmd.xml.dist" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/phpunit.xml.dist" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/phpword.ini.dist" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_01_SimpleText.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_02_TabStops.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_03_Sections.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_04_Textrun.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_05_Multicolumn.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_06_Footnote.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_07_TemplateCloneRow.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_08_ParagraphPagination.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_09_Tables.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_10_EastAsianFontStyle.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_11_ReadWord2007.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_11_ReadWord97.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_12_HeaderFooter.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_13_Images.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_14_ListItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_15_Link.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_16_Object.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_17_TitleTOC.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_18_Watermark.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_19_TextBreak.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_20_BGColor.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_21_TableRowRules.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_22_CheckBox.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_23_TemplateBlock.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_24_ReadODText.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_25_TextBox.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_26_Html.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_27_Field.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_28_ReadRTF.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_29_Line.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_30_ReadHTML.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_31_Shape.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_32_Chart.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_33_FormField.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_34_SDT.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_35_InternalLink.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_36_RTL.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_Footer.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/Sample_Header.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/bootstrap/css/bootstrap.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/bootstrap/css/font-awesome.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/bootstrap/css/phpword.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/bootstrap/fonts/FontAwesome.otf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/bootstrap/fonts/fontawesome-webfont.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/bootstrap/fonts/fontawesome-webfont.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/bootstrap/fonts/fontawesome-webfont.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/bootstrap/fonts/fontawesome-webfont.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/bootstrap/js/bootstrap.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/bootstrap/js/jquery.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/samples/index.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Autoloader.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Collection/AbstractCollection.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Collection/Bookmarks.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Collection/Charts.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Collection/Endnotes.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Collection/Footnotes.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Collection/Titles.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/AbstractContainer.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/AbstractElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Bookmark.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Cell.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Chart.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/CheckBox.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Endnote.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Field.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Footer.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Footnote.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/FormField.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Header.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Image.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Line.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Link.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/ListItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/ListItemRun.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Object.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/PageBreak.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/PreserveText.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Row.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/SDT.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Section.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Shape.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/TOC.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Text.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/TextBox.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/TextBreak.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/TextRun.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Element/Title.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Exception/CopyFileException.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Exception/CreateTemporaryFileException.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Exception/Exception.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Exception/InvalidImageException.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Exception/InvalidObjectException.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Exception/InvalidStyleException.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Exception/UnsupportedImageTypeException.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/IOFactory.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Media.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Metadata/Compatibility.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Metadata/DocInfo.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Metadata/Protection.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/PhpWord.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/AbstractReader.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/HTML.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/MsDoc.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/ODText.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/ODText/AbstractPart.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/ODText/Content.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/ODText/Meta.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/RTF.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/RTF/Document.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/ReaderInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/Word2007.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/Word2007/AbstractPart.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/Word2007/DocPropsApp.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/Word2007/DocPropsCore.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/Word2007/DocPropsCustom.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/Word2007/Document.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/Word2007/Endnotes.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/Word2007/Footnotes.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/Word2007/Numbering.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Reader/Word2007/Styles.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Settings.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Shared/Converter.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Shared/Drawing.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Shared/Font.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Shared/Html.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Shared/OLERead.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Shared/PCLZip/pclzip.lib.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Shared/String.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Shared/XMLReader.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Shared/XMLWriter.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Shared/ZipArchive.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/AbstractStyle.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Alignment.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Border.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Cell.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Chart.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Extrusion.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Fill.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Font.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Frame.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Image.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Indentation.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Line.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/LineNumbering.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/ListItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Numbering.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/NumberingLevel.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Outline.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Paper.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Paragraph.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Row.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Section.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Shading.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Shadow.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Shape.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Spacing.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/TOC.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Tab.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/Table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Style/TextBox.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Template.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/TemplateProcessor.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/AbstractWriter.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Element/AbstractElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Element/Container.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Element/Endnote.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Element/Footnote.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Element/Image.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Element/Link.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Element/ListItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Element/PageBreak.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Element/Table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Element/Text.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Element/TextBreak.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Element/TextRun.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Element/Title.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Part/AbstractPart.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Part/Body.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Part/Head.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Style/AbstractStyle.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Style/Font.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Style/Generic.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Style/Image.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/HTML/Style/Paragraph.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Element/AbstractElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Element/Container.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Element/Image.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Element/Link.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Element/Table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Element/Text.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Element/TextBreak.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Element/TextRun.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Element/Title.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Part/AbstractPart.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Part/Content.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Part/Manifest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Part/Meta.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Part/Mimetype.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Part/Styles.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Style/AbstractStyle.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Style/Font.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Style/Image.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Style/Paragraph.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Style/Section.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/ODText/Style/Table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/PDF.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/PDF/AbstractRenderer.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/PDF/DomPDF.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/PDF/MPDF.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/PDF/TCPDF.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Element/AbstractElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Element/Container.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Element/Image.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Element/Link.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Element/ListItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Element/PageBreak.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Element/Table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Element/Text.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Element/TextBreak.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Element/TextRun.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Element/Title.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Part/AbstractPart.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Part/Document.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Part/Header.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Style/AbstractStyle.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Style/Border.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Style/Font.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Style/Paragraph.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/RTF/Style/Section.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/AbstractElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Bookmark.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Chart.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/CheckBox.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Container.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Endnote.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Field.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Footnote.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/FormField.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Image.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Line.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Link.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/ListItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/ListItemRun.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Object.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/PageBreak.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/PreserveText.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/SDT.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Shape.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/TOC.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Text.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/TextBox.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/TextBreak.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/TextRun.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Element/Title.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/AbstractPart.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/Chart.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/ContentTypes.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/DocPropsApp.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/DocPropsCore.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/DocPropsCustom.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/Document.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/Endnotes.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/FontTable.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/Footer.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/Footnotes.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/Header.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/Numbering.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/Rels.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/RelsDocument.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/RelsPart.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/Settings.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/Styles.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/Theme.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Part/WebSettings.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/AbstractStyle.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Alignment.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Cell.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Extrusion.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Fill.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Font.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Frame.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Image.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Indentation.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Line.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/LineNumbering.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/MarginBorder.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Outline.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Paragraph.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Row.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Section.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Shading.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Shadow.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Shape.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Spacing.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Tab.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/Table.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/Word2007/Style/TextBox.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/Writer/WriterInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/resources/doc.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/resources/ppt.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/src/PhpWord/resources/xls.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/AutoloaderTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Collection/CollectionTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/AbstractElementTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/CellTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/CheckBoxTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/FieldTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/FooterTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/FootnoteTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/HeaderTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/ImageTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/LineTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/LinkTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/ListItemRunTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/ListItemTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/ObjectTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/PageBreakTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/PreserveTextTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/RowTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/SDTTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/SectionTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/TOCTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/TableTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/TextBoxTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/TextBreakTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/TextRunTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/TextTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Element/TitleTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Exception/CopyFileExceptionTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Exception/CreateTemporaryFileExceptionTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Exception/ExceptionTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Exception/InvalidImageExceptionTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Exception/InvalidStyleExceptionTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Exception/UnsupportedImageTypeExceptionTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/IOFactoryTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/MediaTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Metadata/DocInfoTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/PhpWordTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Reader/HTMLTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Reader/ODTextTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Reader/RTFTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Reader/Word2007Test.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/SettingsTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Shared/ConverterTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Shared/HtmlTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Shared/StringTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Shared/XMLReaderTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Shared/XMLWriterTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Shared/ZipArchiveTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/AbstractStyleTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/CellTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/FontTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/ImageTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/IndentationTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/LineNumberingTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/LineTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/ListItemTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/NumberingLevelTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/NumberingTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/ParagraphTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/RowTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/SectionTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/ShadingTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/SpacingTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/TOCTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/TabTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/TableTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Style/TextBoxTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/StyleTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/TemplateProcessorTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/HTML/ElementTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/HTML/PartTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/HTML/StyleTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/HTMLTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/ODText/ElementTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/ODText/Part/AbstractPartTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/ODText/Part/ContentTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/ODText/StyleTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/ODTextTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/PDF/DomPDFTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/PDF/MPDFTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/PDF/TCPDFTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/PDFTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/RTF/ElementTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/RTF/StyleTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/RTFTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/Word2007/ElementTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/Word2007/Part/AbstractPartTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/Word2007/Part/DocumentTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/Word2007/Part/FooterTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/Word2007/Part/FootnotesTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/Word2007/Part/HeaderTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/Word2007/Part/NumberingTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/Word2007/Part/SettingsTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/Word2007/Part/StylesTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/Word2007/PartTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/Word2007/Style/FontTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/Word2007/StyleTest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/Writer/Word2007Test.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/documents/reader.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/documents/reader.docx.zip" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/documents/reader.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/documents/reader.odt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/documents/reader.rtf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/documents/sheet.xls" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/documents/without_table_macros.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/images/PhpWord.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/images/alexz-johnson.pcx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/images/angela_merkel.tif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/images/duke_nukem.bmp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/images/earth.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/images/firefox.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/images/mario.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/images/mars.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/images/mars_noext_jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/templates/blank.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/templates/clone-delete-block.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/templates/clone-merge.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/templates/corrupted_main_document_part.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/templates/header-footer.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/templates/with_table_macros.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/xsl/passthrough.xsl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_files/xsl/remove_tables_by_needle.xsl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_includes/TestHelperDOCX.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/PhpWord/Tests/_includes/XmlDocument.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/PHPWord-new/tests/bootstrap.php" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/annex_I.doc" afterPath="$PROJECT_DIR$/files/annex_I.doc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/annex_II.doc" afterPath="$PROJECT_DIR$/files/annex_II.doc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/annex_vi.xlsx" afterPath="$PROJECT_DIR$/files/annex_vi.xlsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/part_B.doc" afterPath="$PROJECT_DIR$/files/part_B.doc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/procurement_plan_GOODS.doc" afterPath="$PROJECT_DIR$/files/procurement_plan_GOODS.doc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/procurement_plan_Goods.pdf" afterPath="$PROJECT_DIR$/files/procurement_plan_Goods.pdf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/procurement_plan_SERVICES.xlsx" afterPath="$PROJECT_DIR$/files/procurement_plan_SERVICES.xlsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/procurement_plan_WORKS.xlsx" afterPath="$PROJECT_DIR$/files/procurement_plan_WORKS.xlsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/ajax/ajax.php" afterPath="$PROJECT_DIR$/app/ajax/ajax.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/rdpp_manager/annex_v.html" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/annex_v.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/rdpp_manager/comment.html" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/comment.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/temp/d695f7f6e506e0c0ee9cfc8fdfc5e8871ba9a570.file.chart_approved_project.html.php" afterPath="$PROJECT_DIR$/temp/d695f7f6e506e0c0ee9cfc8fdfc5e8871ba9a570.file.chart_approved_project.html.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/common/class/User.class.php" afterPath="$PROJECT_DIR$/app/common/class/User.class.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/common/conf/database.conf.php" afterPath="$PROJECT_DIR$/app/common/conf/database.conf.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/rdpp_manager/deskofficer.html" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/deskofficer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/local/lib/dp.lib.php" afterPath="$PROJECT_DIR$/app/local/lib/dp.lib.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/common/conf/main.conf.php" afterPath="$PROJECT_DIR$/app/common/conf/main.conf.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/common/lib/common.lib.php" afterPath="$PROJECT_DIR$/app/common/lib/common.lib.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/ecnec/ecnec.class.php" afterPath="$PROJECT_DIR$/app/ecnec/ecnec.class.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/ecnec/ecnec.conf.php" afterPath="$PROJECT_DIR$/app/ecnec/ecnec.conf.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/ecnec/ecnec_list.html" afterPath="$PROJECT_DIR$/app_contents/ecnec/ecnec_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting.html" afterPath="$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/standard/user_home/ecnec_navigation.html" afterPath="$PROJECT_DIR$/app_contents/standard/user_home/ecnec_navigation.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/rdpp_manager/location_manager.html" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/location_manager.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/rdpp_manager/part_a_pdf.html" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/part_a_pdf.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/rdpp_manager/part_b.js" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/part_b.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/rdpp_manager/project_management.html" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/project_management.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/rdpp_manager/project_manager.html" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/project_manager.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/rdpp_manager/project_manager.js" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/project_manager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/rdpp_manager/project_manager_home.html" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/project_manager_home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/rdpp_manager/project_manager_partA.html" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/project_manager_partA.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/rdpp_manager/project_manager_partB.html" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/project_manager_partB.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/rdpp_manager/rdpp_manager.class.php" afterPath="$PROJECT_DIR$/app/rdpp_manager/rdpp_manager.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/rdpp_manager/rdpp_manager.conf.php" afterPath="$PROJECT_DIR$/app/rdpp_manager/rdpp_manager.conf.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/rdpp_manager/rdpp_manager.lib.php" afterPath="$PROJECT_DIR$/app/rdpp_manager/rdpp_manager.lib.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/rdpp_manager/rdpp_manager.php" afterPath="$PROJECT_DIR$/app/rdpp_manager/rdpp_manager.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/rdpp_manager/success_msg.html" afterPath="$PROJECT_DIR$/app_contents/rdpp_manager/success_msg.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/ecnec/ecnec.lib.php" afterPath="$PROJECT_DIR$/app/ecnec/ecnec.lib.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/local/lib/dp.lib.php" afterPath="$PROJECT_DIR$/app/local/lib/dp.lib.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/project_manager/project_manager.class.php" afterPath="$PROJECT_DIR$/app/project_manager/project_manager.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/project_manager/project_manager.lib.php" afterPath="$PROJECT_DIR$/app/project_manager/project_manager.lib.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/report_manager/report_manager.class.php" afterPath="$PROJECT_DIR$/app/report_manager/report_manager.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/report_manager/report_manager.conf.php" afterPath="$PROJECT_DIR$/app/report_manager/report_manager.conf.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/report_manager/report_manager.lib.php" afterPath="$PROJECT_DIR$/app/report_manager/report_manager.lib.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/standard/user_home/user_home.class.php" afterPath="$PROJECT_DIR$/app/standard/user_home/user_home.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/ecnec/ecnec_manager.js" afterPath="$PROJECT_DIR$/app_contents/ecnec/ecnec_manager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting_details.html" afterPath="$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting_details.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/report_manager/agency_report_manager.html" afterPath="$PROJECT_DIR$/app_contents/report_manager/agency_report_manager.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/report_manager/commission_report_manager.html" afterPath="$PROJECT_DIR$/app_contents/report_manager/commission_report_manager.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/report_manager/ministry_report_manager.html" afterPath="$PROJECT_DIR$/app_contents/report_manager/ministry_report_manager.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/standard/user_home/agency_dashboard.html" afterPath="$PROJECT_DIR$/app_contents/standard/user_home/agency_dashboard.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app_contents/standard/user_home/ecnec_dashboard.html" afterPath="$PROJECT_DIR$/app_contents/standard/user_home/ecnec_dashboard.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font/courier.php" afterPath="$PROJECT_DIR$/font/courier.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font/desktop.ini" afterPath="$PROJECT_DIR$/font/desktop.ini" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font/helvetica.php" afterPath="$PROJECT_DIR$/font/helvetica.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font/helveticab.php" afterPath="$PROJECT_DIR$/font/helveticab.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font/helveticabi.php" afterPath="$PROJECT_DIR$/font/helveticabi.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font/helveticai.php" afterPath="$PROJECT_DIR$/font/helveticai.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font/makefont/makefont.php" afterPath="$PROJECT_DIR$/font/makefont/makefont.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font/symbol.php" afterPath="$PROJECT_DIR$/font/symbol.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font/times.php" afterPath="$PROJECT_DIR$/font/times.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font/timesb.php" afterPath="$PROJECT_DIR$/font/timesb.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font/timesbi.php" afterPath="$PROJECT_DIR$/font/timesbi.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font/timesi.php" afterPath="$PROJECT_DIR$/font/timesi.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font/zapfdingbats.php" afterPath="$PROJECT_DIR$/font/zapfdingbats.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
     </list>
     <ignored path="pps2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -70,15 +571,23 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="DaemonCodeAnalyzer">
-    <disable_hints />
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="pps2" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="dp.lib.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/local/lib/dp.lib.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="2.7687862">
+              <caret line="848" column="8" selection-start-line="848" selection-start-column="8" selection-end-line="848" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -91,18 +600,21 @@
         <option value="$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting.html" />
         <option value="$PROJECT_DIR$/app/ecnec/ecnec.class.php" />
         <option value="$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting_details.html" />
+        <option value="$PROJECT_DIR$/app/local/lib/dp.lib.php" />
       </list>
     </option>
   </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsBuildToolPackageJson" detection-done="true" />
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1" />
-    <option name="y" value="1" />
-    <option name="width" value="1364" />
-    <option name="height" value="726" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -125,8 +637,11 @@
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -145,9 +660,63 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pps2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pps2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pps2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pps2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pps2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pps2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -157,34 +726,41 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="FullScreen" value="false" />
+    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner />
-      <method />
-    </configuration>
-    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
     <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
       <BehatRunner />
       <method />
     </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <pass-parent-envs>true</pass-parent-envs>
-      <envs />
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
       <method />
     </configuration>
     <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
-    <list size="0" />
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <envs />
+      <method />
+    </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration">
@@ -200,29 +776,30 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="1" width="1364" height="726" extended-state="0" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19732937" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20075758" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44536424" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -236,11 +813,6 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="myTodoPanelSettings">
-      <TodoPanelSettings />
-    </option>
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
@@ -248,230 +820,190 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/ecnec/ecnec.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2652" max-vertical-offset="3264">
+        <state vertical-scroll-proportion="0.0">
           <caret line="184" column="8" selection-start-line="184" selection-start-column="8" selection-end-line="184" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting_details.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4182">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#3;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="4046">
+        <state vertical-scroll-proportion="0.0">
           <caret line="60" column="14" selection-start-line="56" selection-start-column="8" selection-end-line="60" selection-end-column="14" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#3;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1173" max-vertical-offset="8517">
+        <state vertical-scroll-proportion="0.0">
           <caret line="88" column="96" selection-start-line="88" selection-start-column="82" selection-end-line="88" selection-end-column="96" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/ecnec/ecnec.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2652" max-vertical-offset="3264">
+        <state vertical-scroll-proportion="0.0">
           <caret line="184" column="8" selection-start-line="184" selection-start-column="8" selection-end-line="184" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting_details.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4182">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#3;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="4046">
+        <state vertical-scroll-proportion="0.0">
           <caret line="60" column="14" selection-start-line="56" selection-start-column="8" selection-end-line="60" selection-end-column="14" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#3;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1173" max-vertical-offset="8517">
+        <state vertical-scroll-proportion="0.0">
           <caret line="88" column="96" selection-start-line="88" selection-start-column="82" selection-end-line="88" selection-end-column="96" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/ecnec/ecnec.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2652" max-vertical-offset="3264">
+        <state vertical-scroll-proportion="0.0">
           <caret line="184" column="8" selection-start-line="184" selection-start-column="8" selection-end-line="184" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting_details.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1313" max-vertical-offset="4182">
+        <state vertical-scroll-proportion="0.0">
           <caret line="77" column="7" selection-start-line="77" selection-start-column="7" selection-end-line="77" selection-end-column="7" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#3;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="4046">
+        <state vertical-scroll-proportion="0.0">
           <caret line="60" column="14" selection-start-line="56" selection-start-column="8" selection-end-line="60" selection-end-column="14" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#3;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1173" max-vertical-offset="8517">
+        <state vertical-scroll-proportion="0.0">
           <caret line="88" column="96" selection-start-line="88" selection-start-column="82" selection-end-line="88" selection-end-column="96" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/ecnec/ecnec.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2652" max-vertical-offset="3264">
+        <state vertical-scroll-proportion="0.0">
           <caret line="184" column="8" selection-start-line="184" selection-start-column="8" selection-end-line="184" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting_details.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4182">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#3;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="4046">
+        <state vertical-scroll-proportion="0.0">
           <caret line="60" column="14" selection-start-line="56" selection-start-column="8" selection-end-line="60" selection-end-column="14" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#3;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1173" max-vertical-offset="8517">
+        <state vertical-scroll-proportion="0.0">
           <caret line="88" column="96" selection-start-line="88" selection-start-column="82" selection-end-line="88" selection-end-column="96" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/ecnec/ecnec.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2652" max-vertical-offset="3264">
+        <state vertical-scroll-proportion="0.0">
           <caret line="184" column="8" selection-start-line="184" selection-start-column="8" selection-end-line="184" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting_details.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4182">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#3;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="4046">
+        <state vertical-scroll-proportion="0.0">
           <caret line="60" column="14" selection-start-line="56" selection-start-column="8" selection-end-line="60" selection-end-column="14" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#3;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1173" max-vertical-offset="8517">
+        <state vertical-scroll-proportion="0.0">
           <caret line="88" column="96" selection-start-line="88" selection-start-column="82" selection-end-line="88" selection-end-column="96" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/ecnec/ecnec.conf.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="799">
+        <state vertical-scroll-proportion="-13.730769">
           <caret line="25" column="90" selection-start-line="25" selection-start-column="90" selection-end-line="25" selection-end-column="90" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/standard/template/buttons.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.807693" vertical-offset="6951" max-vertical-offset="17969">
+        <state vertical-scroll-proportion="-13.807693">
           <caret line="430" column="12" selection-start-line="427" selection-start-column="8" selection-end-line="430" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting_details.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0074211503" vertical-offset="1313" max-vertical-offset="4182">
+        <state vertical-scroll-proportion="-0.0074211503">
           <caret line="77" column="7" selection-start-line="77" selection-start-column="7" selection-end-line="77" selection-end-column="7" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#3;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/ecnec/ecnec.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73913044" vertical-offset="2652" max-vertical-offset="3264">
+        <state vertical-scroll-proportion="0.73913044">
           <caret line="184" column="8" selection-start-line="184" selection-start-column="8" selection-end-line="184" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_meeting.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.56771797" vertical-offset="714" max-vertical-offset="4046">
+        <state vertical-scroll-proportion="0.56771797">
           <caret line="60" column="14" selection-start-line="56" selection-start-column="8" selection-end-line="60" selection-end-column="14" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#3;n#form#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_contents/ecnec/ecnec_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5992579" vertical-offset="1173" max-vertical-offset="8517">
+        <state vertical-scroll-proportion="0.5992579">
           <caret line="88" column="96" selection-start-line="88" selection-start-column="82" selection-end-line="88" selection-end-column="96" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/local/lib/dp.lib.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.7687862">
+          <caret line="848" column="8" selection-start-line="848" selection-start-column="8" selection-end-line="848" selection-end-column="8" />
           <folding />
         </state>
       </provider>

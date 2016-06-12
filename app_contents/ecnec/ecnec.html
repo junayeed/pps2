@@ -1,0 +1,209 @@
+<div id="main-content" class="clearfix">
+<head>
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/jquery-ui-1.10.2.custom.min.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/chosen.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/bootstrap-timepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/daterangepicker.css" />
+    <link rel="stylesheet" href="/app_contents/standard/template/assets/css/colorpicker.css" />
+</head>
+
+					
+<div id="breadcrumbs">
+    <ul class="breadcrumb">
+            <li><i class="icon-home"></i> <a href="/">Home</a><span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li><a href="#">ECNEC</a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+            <li class="active">Create Meeting</li>
+    </ul><!--.breadcrumb-->
+
+    <div id="nav-search">
+            <form class="form-search">
+                            <span class="input-icon">
+                                    <input autocomplete="off" id="nav-search-input" type="text" class="input-small search-query" placeholder="Search ..." />
+                                    <i id="nav-search-icon" class="icon-search"></i>
+                            </span>
+            </form>
+    </div><!--#nav-search-->
+</div><!--#breadcrumbs-->
+
+<div id="page-content" class="clearfix">
+					
+    <div class="page-header position-relative">
+	<h1>ECNEC Meeting <small><i class="icon-double-angle-right"></i> (Create)</small></h1>
+    </div><!--/page-header-->
+<div class="row-fluid">
+
+<!-- PAGE CONTENT BEGINS HERE -->
+
+
+<form class="form-horizontal" id="validation-form" method="post" action="{$SCRIPT_NAME}">
+	
+    <div class="control-group">
+        <label class="control-label" for="project_title_en">Name</label>
+        <div class="controls">
+            <input class="span8" type="text" id="project_title_en"  name="project_title_en" placeholder="Meeting Name" required>
+        </div>
+    </div>
+                                                    
+    <div class="control-group">
+        <label class="control-label" for="date_of_commencement">Date:</label>
+        <div class="controls">
+            <div class="input-append date">
+                <input class="span10 date-picker" id="date_of_commencement" name="date_of_commencement" type="text" data-date-format="yyyy-mm-dd" required/>
+                <span class="add-on"><i class="icon-calendar"></i></span>
+            </div>
+        </div>    
+    </div>  
+    
+   
+
+    <div class="form-actions">
+        <button class="btn btn-info" type="submit"><i class="icon-ok"></i> Create Meeting</button>
+        &nbsp; &nbsp; &nbsp;
+        <button class="btn" type="reset"><i class="icon-undo"></i> Reset</button>
+    </div>
+    <input type="hidden" name="cmd" value="save">
+</form>
+	   
+		
+		
+
+
+<!-- PAGE CONTENT ENDS HERE -->
+</div><!--/row-->
+	
+</div><!--/#page-content-->
+
+
+</div><!-- #main-content -->
+
+
+		
+
+
+		<a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+			<i class="icon-double-angle-up icon-only"></i>
+		</a>
+                        
+                        
+                <!-- basic scripts -->
+		<script src="/app_contents/standard/template/assets/js/jquery.min.js"></script>
+		<script type="text/javascript">
+		window.jQuery || document.write("<script src='/app_contents/standard/template/assets/js/jquery-1.9.1.min.js'>\x3C/script>");
+		</script>
+		
+		<script src="/app_contents/standard/template/assets/js/bootstrap.min.js"></script>        
+
+		<!-- page specific plugin scripts -->
+		
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/excanvas.min.js"></script>
+		<![endif]-->
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery-ui-1.10.2.custom.min.js"></script>
+
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+		
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/bootstrap-datepicker.min.js"></script>
+
+		
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/date.js"></script>
+                
+              
+		<script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.validate.min.js"></script>
+
+		
+                
+               <!-- ace scripts -->
+		<script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
+		<script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
+
+                <script>
+                   
+                   
+                    {literal}
+                       
+                        $(function() {
+			$('.date-picker').datepicker();
+		       });
+
+
+		$(function() {
+
+	$('[data-rel=tooltip]').tooltip();
+
+	
+
+	var $validation = false;
+	$('#fuelux-wizard').ace_wizard().on('change' , function(e, info){
+		if(info.step == 1 && $validation) {
+			if(!$('#validation-form').valid()) return false;
+		}
+	}).on('finished', function(e) {
+		bootbox.dialog("Thank you! Your information was successfully saved!", [{
+			"label" : "OK",
+			"class" : "btn-small btn-primary",
+			}]
+		);
+	});
+	
+	$('#validation-form').validate({
+		errorElement: 'span',
+		errorClass: 'help-inline',
+		focusInvalid: true  ,
+		rules: {
+			
+                        
+		},
+
+		messages: {
+			email: {
+				required: "Please provide a valid email.",
+				email: "Please provide a valid email."
+			},
+			password: {
+				required: "Please specify a password.",
+				minlength: "Please specify a secure password."
+			},
+			subscription: "Please choose at least one option",
+			gender: "Please choose gender",
+			agree: "Please accept our policy"
+		},
+
+		invalidHandler: function (event, validator) { //display error alert on form submit   
+			$('.alert-error', $('.login-form')).show();
+		},
+
+		highlight: function (e) {
+			$(e).closest('.control-group').removeClass('info').addClass('error');
+		},
+
+		success: function (e) {
+			$(e).closest('.control-group').removeClass('error').addClass('info');
+			$(e).remove();
+		},
+
+		errorPlacement: function (error, element) {
+			if(element.is(':checkbox') || element.is(':radio')) {
+				var controls = element.closest('.controls');
+				if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+				else error.insertAfter(element.nextAll('.lbl').eq(0));
+			} 
+			else if(element.is('.chzn-select')) {
+				error.insertAfter(element.nextAll('[class*="chzn-container"]').eq(0));
+			}
+			else error.insertAfter(element);
+		},
+
+		submitHandler: function (form) {
+                    form.submit();
+		},
+		invalidHandler: function (form) {
+		}
+	});
+        
+	
+})
+
+                    {/literal}
+                </script>    

@@ -28,22 +28,22 @@
      define('DB_NAME', 'pps2_training');
      define('DB_HOST', '192.168.6.104');
   }
-  else
-  {
-    define('DB_USER', 'pps2_training');
-    define('DB_PASS', 'CK37SBCf8VCB9Y3H');
-
-    define('DB_NAME', 'pps2_training');
-    define('DB_HOST', '192.168.6.104');
-  }
 //  else
 //  {
-//    define('DB_USER', 'root');
-//    define('DB_PASS', '');
+//    define('DB_USER', 'pps2_training');
+//    define('DB_PASS', 'CK37SBCf8VCB9Y3H');
 //
-//    define('DB_NAME', 'pps2');
-//    define('DB_HOST', 'localhost');
+//    define('DB_NAME', 'pps2_training');
+//    define('DB_HOST', '192.168.6.104');
 //  }
+  else
+  {
+    define('DB_USER', 'root');
+    define('DB_PASS', '');
+
+    define('DB_NAME', 'pps2');
+    define('DB_HOST', 'localhost');
+  }
 
   /**
   * Common Table Constant
