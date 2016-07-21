@@ -196,7 +196,7 @@ class ajaxApp extends DefaultApplication
         $thisValue = addslashes(getUserField('thisValue'));
         
         $info['table']                 = PROJECT_ANNEX_V_TBL;
-        $info['debug']                 = false;
+        $info['debug']                 = true;
         $info['where']                 = 'id = ' . $annex_id;
         $info['data'][$thisField]      = $thisValue;
         

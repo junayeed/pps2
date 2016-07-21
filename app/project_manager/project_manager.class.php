@@ -119,8 +119,7 @@ class projectManagerApp extends DefaultApplication
     {
         $pid                      = base64_decode(getUserField('PI'));
         $data['current_holder']   = getUserField('desk_officer');
-        //$data['plancomm_status']  = 'Forwarded';
-        
+               
         $info['table']  = PROJECT_TBL;
         $info['data']   = $data;
         $info['debug']  = false;
@@ -128,7 +127,7 @@ class projectManagerApp extends DefaultApplication
         
         if (update($info) )
         {
-            $this->updatePlanningCommissionStatus($pid, $data['plancomm_status'], $data['desk_officer']);
+            $this->updatePlanningCommissionStatus($pid, 'Forwarded', $data['desk_officer']);
         }
         
         $data['PI']       = getUserField('PI');
@@ -354,7 +353,9 @@ class projectManagerApp extends DefaultApplication
    */
    function showEditor($msg)
    {
-      
+       
+       $data['dppList']  = getDPPListofAgency($_SESSION['agency_id']);
+     
       return createPage(PROJECT_CREATE_TEMPLATE, $data);
    }
    
@@ -791,6 +792,10 @@ class projectManagerApp extends DefaultApplication
            }   
            elseif($_REQUEST['project_type'] =='RDPP')
            {
+               $data['pid']      = $newid;
+               $data['dpp_id']   = $_REQUEST['orginal_dpp'];
+               $project->saveRDPPInfo($data);
+               
                header ('Location: /app/rdpp_manager/rdpp_manager.php?cmd=ProjectHome&PI='.  base64_encode($newid));
            }   
            elseif($_REQUEST['project_type'] =='RTPP')

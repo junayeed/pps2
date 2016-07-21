@@ -60,7 +60,9 @@ class Message
     
     public function loadCommissionStatusOfProject()
     {
-        $info['table']  = PROJECT_COMMISSION_STATUS_TBL;
+        $info['table']  = PROJECT_COMMISSION_STATUS_TBL. ' AS PCST LEFT JOIN '.USER_TBL.' AS UT ON UT.uid=PCST.	desk_officer'.
+                          ' LEFT JOIN '.USER_PROFILE_TBL.' AS UPT ON UT.uid=UPT.uid';
+        $info['fields'] = array("PCST.*","UPT.name","UT.designation");
         $info['debug']  = false;
         $info['where']  = "pid = $this->pid ORDER BY create_date DESC";
         

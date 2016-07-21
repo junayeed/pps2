@@ -205,7 +205,7 @@ function populateComponentDetails(economic_code_id, economic_subcode_id, economi
     $('#sub_code_'+elemID).val(economic_subcode_id);
     $('#code_desc_'+elemID).val(economic_subcode_name.replace(/#%/g,'\n'));
     $('#unit_'+elemID).val(unit);
-    $('#unit_cost_'+elemID).val((unit_cost*1).toMoney(2));
+    $('#unit_cost_'+elemID).val(((total_cost*1)/(qty*1)).toMoney(2));
     $('#qty_'+elemID).val(qty);
     $('#total_cost_'+elemID).val((total_cost*1).toMoney(2));
     $('#total_gob_'+elemID).val((gob*1).toMoney(2));

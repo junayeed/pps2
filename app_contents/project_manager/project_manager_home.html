@@ -284,7 +284,7 @@
                     <div class="slim-scroll" data-height="100">
 
                         <div class="widget-main no-padding">
-                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                            <table id="table_attachment" class="table table-striped table-bordered table-hover">
                                 <thead>                                               
                                     <tr>
                                         <th>Sl</th>
@@ -417,7 +417,7 @@
                     <div class="slim-scroll" data-height="100">
                         
                         <div class="widget-main no-padding">
-                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                            <table id="table_movement" class="table table-striped table-bordered table-hover">
                                 <thead>                                               
                                     <tr>
                                         <th>Sl</th>
@@ -433,7 +433,7 @@
                                                 Project has been <span class="label {if $item->status eq 'Draff'}label-info arrowed-right arrowed-in {elseif $item->status eq 'Approved'} label-success arrowed-in arrowed-in-right {else} label-important arrowed{/if}">{$item->status}</span>
                                             </td>
                                             <td>
-                                               {$item->date|date_format}
+                                               {$item->date|date_format:"%b %d, %Y, %r"}
                                             </td>
                                         </tr>
                                     {/foreach}
@@ -450,11 +450,11 @@
                     <div class="slim-scroll" data-height="100">
                         
                         <div class="widget-main no-padding">
-                            <table id="table_bug_report" class="table table-striped table-bordered table-hover">
+                            <table id="table_movement_commission" class="table table-striped table-bordered table-hover">
                                 <thead>                                               
                                     <tr>
                                         <th>Sl</th>
-                                        <th><i></i>Status</th>
+                                        <th width="60%"><i></i>Status</th>
                                         <th class="hidden-480">Date</th>
                                     </tr>
                                 </thead>
@@ -463,10 +463,11 @@
                                         <tr>
                                             <td>{$key+1}</td>
                                             <td>
-                                                Project >> <span class="label label-info arrowed-right arrowed-in">{$item->status}</span>
+                                                <span class="label label-purple"> {$item->status} </span>&nbsp;
+                                                <span class="label ">{$item->designation} ({$item->name})</span>
                                             </td>
                                             <td>
-                                               {$item->create_date}
+                                               {$item->create_date|date_format:"%b %d, %Y, %r"}
                                             </td>
                                         </tr>
                                     {/foreach}
@@ -509,6 +510,9 @@
     <script type="text/javascript" src="/app_contents/standard/template/assets/js/bootbox.min.js"></script>
     <script type="text/javascript" src="/ext/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
     <script type="text/javascript" src="/ext/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/app_contents/standard/template/assets/js/jquery.dataTables.bootstrap.js"></script>
+
     <!-- ace scripts -->
     <script src="/app_contents/standard/template/assets/js/ace-elements.min.js"></script>
     <script src="/app_contents/standard/template/assets/js/ace.min.js"></script>
@@ -544,14 +548,18 @@
                     //onchange:''
                     //
             });
+            
+            var oTable1 = $('#table_attachment').dataTable();
+            var oTable1 = $('#table_movement').dataTable();
+            var oTable1 = $('#table_movement_commission').dataTable();
 
             $("#various3, #various1").fancybox({
-                    'width'				: '75%',
+                    'width'			: '75%',
                     'height'			: '100%',
                     'autoScale'			: false,
-                    'transitionIn'		        : 'none',
-                    'transitionOut'		        : 'none',
-                    'type'				: 'iframe'
+                    'transitionIn'		: 'none',
+                    'transitionOut'		: 'none',
+                    'type'			: 'iframe'
             });
 
 
@@ -565,9 +573,7 @@
             function forwardProject()
             {
                   var MSG = '';
-                  if(isPartA<=0) MSG +='Part-A is required<br>';
-                  //if(isAnnexI<=0) MSG +='Annexure-I is required<br>';
-                  if(isAnnexV<=0) MSG +='Annexure-V is required<br>';
+                 
 
                    if(MSG!='')
                    {    
@@ -583,7 +589,7 @@
                     }
                     else
                     {    
-                        bootbox.confirm("Are you sure?", function(result) {
+                        bootbox.confirm("Are you sure, want to forwad this project?", function(result) {
                                 if(result) {
                                        document.forwardForms.submit();
                                         return true;
@@ -592,7 +598,7 @@
                         });
                         return false;
                     }  
-
+                return false;
             }
 
             function changeCommissionStatus()
