@@ -624,7 +624,7 @@
         $current_fiscal_year = getCurrentFiscalYear();
         $fiscal_year_date    = getFiscalYearDats($current_fiscal_year);
         
-        dumpVar($fiscal_year_date['end_date']);
+        //dumpVar($fiscal_year_date['end_date']);
         
         $info['table']  = PROJECT_TBL . ' AS PT LEFT JOIN ' . 
                           MINISTRY_LOOKUP_TBL . ' AS MLT ON (PT.ministry_id = MLT.id) LEFT JOIN ' . 

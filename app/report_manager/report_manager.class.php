@@ -22,6 +22,7 @@ class reportManagerApp extends DefaultApplication
            case 'delete'            : $screen = $this->deleteRecord();    break;
            case 'list'              : $screen = $this->showList();        break;
            case 'officerlist'       : $screen = $this->officerList();     break;
+           case 'show_pdf'          : $screen = $this->showEditor();     break;
            default                  : $screen = $this->showEditor($msg);
       }
 
@@ -167,7 +168,9 @@ class reportManagerApp extends DefaultApplication
         if (!file_exists($pageTemplate))
         {
             echo "Template file not exists. Please check it.";
-        } 
+        }
+
+        //dumpVar($data); die('aise!!!');
         
         if ($report_type == 'pdf')
         {
@@ -176,9 +179,10 @@ class reportManagerApp extends DefaultApplication
                 echo "PDF Template file not exists. Please check it.";
                 die;
             } 
-            
+
+            //dumpvar($data); die();
             $screen = createPage($pdfTemplate, $data);
-            
+
             makePDF($screen);
             
             return;

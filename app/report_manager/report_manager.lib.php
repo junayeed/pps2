@@ -39,7 +39,7 @@
         {
             $retData[$value->agency . '  >>  ' . $value->ministry][] = $value;
         }
-        
+
         return $retData;
     }
     
@@ -65,6 +65,9 @@
         header('Content-Disposition: attachment;filename="' . $filename. '"');
         header('Content-Type: text/plain; charset=utf-8');
         header("Content-Transfer-Encoding: binary");
+        header('Content-Length: ' . filesize($filename));
         header ('Location: /files/'.$filename);
+
+        readfile($filename);
     }
 ?>
