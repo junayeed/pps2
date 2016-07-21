@@ -315,7 +315,7 @@ function addNewComponent(com_type,buttonClick)
 {
     var component_type = com_type.replace(' ', '_');
     ///alert('ID = ' + COMPONENT_ROW_ID + ' Type = ' + component_type);
-    var td_delete_code     = '<td><img src="/app_contents/common/images/cross.png" onClick="deleteComponent('+COMPONENT_ROW_ID+',\''+component_type+'\');" class="delete_year_icon" "></td>';
+    var td_delete_code     = '<td><img src="/app_contents/common/images/cross.png" onClick="deleteComponent('+COMPONENT_ROW_ID+',\''+component_type+'\');" class="delete_year_icon"></td>';
     var td_economic_code   = '<td>' + getEconomicCode("economic_code_"+COMPONENT_ROW_ID, COMPONENT_ROW_ID, com_type) + 
                              '<a id="attachment_'+COMPONENT_ROW_ID+'" class="annexV_attachment" href="/app/project_manager/project_manager.php?cmd=annexV_attachment&PI='+$('#PI').val()+'">\n\
                               <img src="/app_contents/common/images/attachment_add-16.png">\n\
