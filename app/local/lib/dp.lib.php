@@ -567,7 +567,7 @@
        return '';
    }
    
-    function getDraftProjectTotal()
+    function getDraftProjectTotal($current_fiscal_year)
     {
         $info['table']  = PROJECT_TBL.' AS PR LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VPGT ON(PR.id = VPGT.pid)';
         $info['debug']  = false;
@@ -591,17 +591,18 @@
         return $retData;
     }
     
-    function getApproveProjectTotal()
+    function getApproveProjectTotal($current_fiscal_year)
     {
-        $current_fiscal_year = getCurrentFiscalYear();
         $fiscal_year_date    = getFiscalYearDats($current_fiscal_year);
 
         $info['table']  = PROJECT_TBL.' AS PR LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VPGT ON(PR.id = VPGT.pid)';
-        $info['debug']  = true;
+        $info['debug']  = false;
         $info['fields'] = array('PR.project_type', 'SUM(VPGT.gob_cost) AS gob_cost', 'SUM(VPGT.pa_through_gob_cost) AS pa_through_gob_cost', 
                                 'SUM(VPGT.pa_spc_acnt_cost) AS pa_spc_acnt_cost',
                                 'SUM(VPGT.pa_dpa_cost) AS pa_dpa_cost', 'SUM(VPGT.own_fund_cost) AS own_fund_cost', 'SUM(VPGT.other_cost) AS other_cost');
-        $info['where']  = 'PR.status = ' . q('Approved'). ' AND PR.agency_id = ' . $_SESSION['agency_id'] . ' GROUP BY PR.project_type';
+        $info['where']  = 'PR.status = ' . q('Approved'). ' AND PR.agency_id = ' . $_SESSION['agency_id'] .
+                          //' AND PR.date_of_commencement >= ' . q($fiscal_year_date['start_date']) . ' AND PR.date_of_commencement <= ' . q($fiscal_year_date['end_date']) .
+                          ' GROUP BY PR.project_type';
 
         $result = select($info);
         

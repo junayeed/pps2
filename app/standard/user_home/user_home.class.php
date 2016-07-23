@@ -54,13 +54,14 @@
       
         function showDashBoard()
         {
-            $ministry_id                = getFromSession('ministry_id');
-            $sector_division            = getFromSession('sector_division');
-            $user_type                  = getFromSession('user_type');
-            $data['total_project']      = countProjectByStatus();
-            $data['project_list']       = getProjectList();
-            $data['draft_project']      = getDraftProjectTotal();
-            $data['approved_project']   = getApproveProjectTotal();
+            $ministry_id                          = getFromSession('ministry_id');
+            $sector_division                      = getFromSession('sector_division');
+            $user_type                            = getFromSession('user_type');
+            $data['current_fiscal_year']          = getCurrentFiscalYear();
+            $data['total_project']                = countProjectByStatus();
+            $data['project_list']                 = getProjectList();
+            $data['draft_project']                = getDraftProjectTotal($data['current_fiscal_year']);
+            $data['approved_project']             = getApproveProjectTotal($data['current_fiscal_year']);
             $data['ecnec_assigned_project_list']  = getECNECAssignedProjectList();
             //dumpVar($data);
             

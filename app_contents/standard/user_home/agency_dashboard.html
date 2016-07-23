@@ -278,10 +278,11 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
 <script type="text/javascript" src="/app_contents/standard/template/assets/js/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 
 <script>
-    var dpp_draft_cost    = [];
-    var tpp_draft_cost    = [];
-    var dpp_approved_cost = [];
-    var tpp_approved_cost = [];
+    var dpp_draft_cost        = [];
+    var tpp_draft_cost        = [];
+    var dpp_approved_cost     = [];
+    var tpp_approved_cost     = [];
+    var current_fiscal_year   = "{$current_fiscal_year}";
     
     {foreach from=$draft_project key=key item=item}
         {if $item->project_type eq 'DPP'}
@@ -311,9 +312,8 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
             tpp_approved_cost.push({$item->other_cost});
         {/if}
     {/foreach}
-    
 {literal}
-    $('.slim-scroll').each(function () 
+    $('.slim-scroll').each(function ()
     {
 		var $this = $(this);
 		$this.slimScroll({
@@ -375,7 +375,7 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
                     viewDistance: 25
                 }
             },
-            title: {text: 'Total Cost Breakdown (Year 2014)'},
+            title: {text: 'Total Cost Breakdown ('+current_fiscal_year+')'},
             subtitle: {text: 'Draft Projects'},
             xAxis: { categories: ['GoB', 'Project Aid', 'Own Fund', 'Others']},
             yAxis: 
@@ -454,7 +454,7 @@ window.jQuery || document.write("<script src='/app_contents/standard/template/as
                     viewDistance: 25
                 }
             },
-            title: {text: 'Total Cost Breakdown (Year 2014)'},
+            title: {text: 'Total Cost Breakdown ('+current_fiscal_year+')'},
             subtitle: {text: 'Draft Projects'},
             xAxis: { categories: ['GoB', 'Project Aid', 'Own Fund', 'Others']},
             yAxis: 
