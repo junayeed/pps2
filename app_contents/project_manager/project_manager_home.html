@@ -605,35 +605,18 @@
                //$("#id-input-file-1").hide();
             }
 
-            function forwardProject()
-            {
-                  var MSG = '';
-                 
+           function forwardProject()
+           {
 
-                   if(MSG!='')
-                   {    
-                        bootbox.dialog("Please Fillup the following:<br>"+MSG, [{
-                         "label" : "OK",
-                         "class" : "btn-small btn-success",
-                         "callback": function() {
-                                 //Example.show("great success");
-                         }
-                         }]
-                         );
-                       return false;
-                    }
-                    else
-                    {    
-                        bootbox.confirm("Are you sure, want to forwad this project?", function(result) {
-                                if(result) {
-                                       document.forwardForms.submit();
-                                        return true;
-                                }
+               bootbox.confirm("Are you sure, want to forward this project?", function(result) {
+                   if(result) {
+                       document.forwardForms.submit();
+                       return true;
+                   }
 
-                        });
-                        return false;
-                    }  
-                return false;
+               });
+               return false;
+
             }
 
             function changeCommissionStatus()
