@@ -57,7 +57,7 @@
         $file_to_save = $_SERVER['DOCUMENT_ROOT'].'/files/'.$filename;
         file_put_contents($file_to_save, $output);
         
-        header("HTTP/1.1 200 OK");
+        /*header("HTTP/1.1 200 OK");
         header("Pragma: public");
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
         header("Cache-Control: private", false);
@@ -68,6 +68,11 @@
         header('Content-Length: ' . filesize($filename));
         header ('Location: /files/'.$filename);
 
-        readfile($filename);
+        readfile($filename);*/
+
+        header('Content-Type: application/pdf');
+        header("Content-Transfer-Encoding: Binary");
+        header("Content-disposition: attachment; filename=" . $filename);
+        readfile($file_to_save);
     }
 ?>
