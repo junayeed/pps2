@@ -593,8 +593,11 @@
     
     function getApproveProjectTotal()
     {
+        $current_fiscal_year = getCurrentFiscalYear();
+        $fiscal_year_date    = getFiscalYearDats($current_fiscal_year);
+
         $info['table']  = PROJECT_TBL.' AS PR LEFT JOIN '.VIEW_PROJECT_GRAND_TOTAL.' AS VPGT ON(PR.id = VPGT.pid)';
-        $info['debug']  = false;
+        $info['debug']  = true;
         $info['fields'] = array('PR.project_type', 'SUM(VPGT.gob_cost) AS gob_cost', 'SUM(VPGT.pa_through_gob_cost) AS pa_through_gob_cost', 
                                 'SUM(VPGT.pa_spc_acnt_cost) AS pa_spc_acnt_cost',
                                 'SUM(VPGT.pa_dpa_cost) AS pa_dpa_cost', 'SUM(VPGT.own_fund_cost) AS own_fund_cost', 'SUM(VPGT.other_cost) AS other_cost');
