@@ -240,6 +240,10 @@ class projectManagerApp extends DefaultApplication
         {
             $info['data']['current_holder'] = $created_by;
         }
+        else
+        {
+            $info['data']['current_holder'] = 0;
+        }
         
         $result = update($info);
         
